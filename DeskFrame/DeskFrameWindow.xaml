@@ -71,7 +71,9 @@
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0,5,0,5"  CaptionHeight="0" ResizeBorderThickness="5" CornerRadius="5" />
     </WindowChrome.WindowChrome>
-    <Border CornerRadius="5" x:Name="windowBorder" Background="#02000000" BorderThickness="{Binding Instance.BorderEnabled, Converter={StaticResource BooleanToBorderThicknessConverter}}" BorderBrush="{Binding Instance.BorderColor}">
+    <Border CornerRadius="5" x:Name="windowBorder" Background="#02000000" BorderThickness="{Binding Instance.BorderEnabled, Converter={StaticResource BooleanToBorderThicknessConverter}}" BorderBrush="{Binding Instance.BorderColor}"
+            RenderOptions.EdgeMode="Aliased"
+            RenderOptions.BitmapScalingMode="HighQuality">
 
         <Grid>
 

@@ -64,27 +64,36 @@ namespace DeskFrame
             {
                 Interop.RECT rect = (Interop.RECT)Marshal.PtrToStructure(lParam, typeof(Interop.RECT));
                 double width = rect.Right - rect.Left;
+                double height = rect.Bottom - rect.Top;
+                
+                if (height < 100) 
+                    height = 100;
+                rect.Bottom = (int)(rect.Top + height);
+                Marshal.StructureToPtr(rect, lParam, true);
+            }
+            else if (msg == 0x0215) // WM_EXITSIZEMOVE - Window sizing complete
+            {
+                Interop.RECT rect;
+                IntPtr hwnd = new WindowInteropHelper(this).Handle;
+                Interop.GetWindowRect(hwnd, out rect);
+                double width = rect.Right - rect.Left;
                 double newWidth = Math.Round(width / 85.0) * 85 + 20;
                 if (width != newWidth)
                 {
                     rect.Right = rect.Left + (int)newWidth;
-                    Marshal.StructureToPtr(rect, lParam, true);
-                    Instance.Width = this.Width;
+                    Interop.SetWindowPos(hwnd, IntPtr.Zero, rect.Left, rect.Top, 
+                        (int)newWidth, rect.Bottom - rect.Top, 
+                        Interop.SWP_NOREDRAW | Interop.SWP_NOACTIVATE | Interop.SWP_NOZORDER);
+                    Instance.Width = newWidth;
                 }
-                double height = rect.Bottom - rect.Top;
-                if (height < 100) height = 100;
-                rect.Bottom = (int)(rect.Top + height);
-                Marshal.StructureToPtr(rect, lParam, true);
-                Instance.Width = this.Width;
             }
-
-            if (msg == 70)
+            else if (msg == 70)
             {
                 Interop.WINDOWPOS structure = Marshal.PtrToStructure<Interop.WINDOWPOS>(lParam);
                 structure.flags |= 4U;
                 Marshal.StructureToPtr<Interop.WINDOWPOS>(structure, lParam, false);
             }
-            if (msg == 0x0003) // WM_MOVE
+            else if (msg == 0x0003) // WM_MOVE
             {
                 HandleWindowMove();
 
@@ -605,6 +614,8 @@ namespace DeskFrame
             }
         }
 
+        private System.Threading.Timer? _resizeDebounceTimer;
+        private const int RESIZE_DEBOUNCE_MS = 50; // 50ms debounce
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -615,6 +626,18 @@ namespace DeskFrame
                     Instance.Height = this.ActualHeight;
                 }
             }
+
+            // Cancel any pending timer
+            _resizeDebounceTimer?.Dispose();
+            
+            // Create new timer to update corner radius after resize stops
+            _resizeDebounceTimer = new System.Threading.Timer(_ =>
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    HandleWindowMove();
+                });
+            }, null, RESIZE_DEBOUNCE_MS, System.Threading.Timeout.Infinite);
         }
         private void AnimateChevron(bool flip, bool onLoad)
         {
