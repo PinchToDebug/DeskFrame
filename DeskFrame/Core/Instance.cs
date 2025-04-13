@@ -22,6 +22,8 @@ public class Instance : INotifyPropertyChanged
     private bool _showHiddenFilesIcon;
     private bool _showDisplayName = true;
     private bool _isLocked;
+    private bool _checkFolderSize = false;
+    private bool _showInGrid = true;
     private string _titleBarColor = "#0C000000";
     private string _titleTextColor = "#FFFFFF";
     private string _borderColor = "#FFFFFF";
@@ -212,6 +214,30 @@ public class Instance : INotifyPropertyChanged
         }
     }
 
+    public bool ShowInGrid
+    {
+        get => _showInGrid;
+        set
+        {
+            if (_showInGrid != value)
+            {
+                _showInGrid = value;
+                OnPropertyChanged(nameof(ShowInGrid), value.ToString());
+            }
+        }
+    }
+    public bool CheckFolderSize
+    {
+        get => _checkFolderSize;
+        set
+        {
+            if (_checkFolderSize != value)
+            {
+                _checkFolderSize = value;
+                OnPropertyChanged(nameof(CheckFolderSize), value.ToString());
+            }
+        }
+    }
     public string TitleBarColor
     {
         get => _titleBarColor;

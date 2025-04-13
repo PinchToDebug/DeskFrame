@@ -37,6 +37,7 @@
         <local:BooleanToBorderThicknessConverter x:Key="BooleanToBorderThicknessConverter"/>
         <local:TitleTextAlignmentToMarginConverter x:Key="TitleTextAlignmentToMarginConverter" />
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:OffsetConverter x:Key="OffsetConverter"/>
 
         <!-- DataTemplate to display each file item -->
         <DataTemplate x:Key="FileItemTemplate">
@@ -123,7 +124,7 @@
             </Border>
             <Border >
                 <Grid>
-                    <Grid x:Name="showFolder">
+                    <Grid x:Name="showFolder" Visibility="Visible">
                         <ui:DynamicScrollViewer  x:Name="scrollViewer"  IsTabStop="False" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0" >
                             <ItemsControl    Padding="0,5,0,0" x:Name="FileWrapPanel" IsTabStop="False" ItemsSource="{Binding FileItems}" ItemTemplate="{StaticResource FileItemTemplate}">
                                 <ItemsControl.ItemsPanel>
@@ -134,6 +135,116 @@
                             </ItemsControl>
                         </ui:DynamicScrollViewer>
                     </Grid>
+
+                    <Grid x:Name="showFolderInGrid" Visibility="Hidden">
+
+                        <ui:ListView x:Name="FileListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ItemsSource="{Binding FileItems}"
+                                     IsTabStop="False"
+                                     Margin="0,30,0,0"
+                                     Background="Transparent"
+                                     FontSize="10"
+                                     PreviewMouseUp ="FileListView_PreviewMouseUp"
+                                     MouseDoubleClick="FileListView_DoubleClick"
+                                     PreviewMouseDown="FileListView_MouseLeftButtonDown"
+                                     MouseRightButtonUp="FileListView_MouseRightButtonUp"
+                                     BorderThickness="0">
+                            <ui:ListView.View >
+                                <ui:GridView >
+                                    <ui:GridViewColumn Width="250" Header="Name" x:Name="NameGridColumn">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="25"/>
+                                                        <ColumnDefinition  MaxWidth="{Binding ActualWidth, ElementName=NameGridColumn}"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Grid.Column="0" 
+                                                           Source="{Binding Thumbnail}" 
+                                                           MaxWidth="20" 
+                                                           Margin="-10,0,0,0"
+                                                           HorizontalAlignment="Center" 
+                                                           MaxHeight="15" 
+                                                           Stretch="Uniform" />
+                                                    <Grid Grid.Column="1">
+                                                        <TextBlock FontSize="12" 
+                                                                   Text="{Binding DisplayName}" 
+                                                                   TextTrimming="CharacterEllipsis" 
+                                                                   TextWrapping="NoWrap" 
+
+                                                                   Foreground="Black">
+                                                            <TextBlock.Effect>
+                                                                <BlurEffect Radius="2.5" KernelType="Box"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
+                                                        <TextBlock FontSize="12" 
+                                                                   Text="{Binding DisplayName}" 
+                                                                   TextTrimming="CharacterEllipsis" 
+                                                                   Foreground="White"/>
+                                                    </Grid>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </ui:GridViewColumn>
+
+                                    <GridViewColumn Header="Date modified" Width="150" x:Name="DateModifiedGridColumn">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid  MaxWidth="{Binding ActualWidth, ElementName=DateModifiedGridColumn}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition  MaxWidth="{Binding ActualWidth, ElementName=DateModifiedGridColumn}"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid Grid.Column="0">
+                                                        <TextBlock FontSize="12"
+                                                                   Text="{Binding DateModified}" 
+                                                                   TextTrimming="CharacterEllipsis" 
+                                                                   Foreground="Black">
+                                                            <TextBlock.Effect>
+                                                                <BlurEffect Radius="2.5" KernelType="Box"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
+                                                        <TextBlock FontSize="12" Text="{Binding DateModified}"
+                                                                   TextTrimming="CharacterEllipsis"
+                                                                   Foreground="White"/>
+                                                    </Grid>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Size" Width="110" x:Name="SizeGridColumn">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate >
+                                                <StackPanel Margin="0,00,00,17" >
+                                                    <Canvas HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="{Binding ActualWidth, ElementName=SizeGridColumn}" >
+                                                        <TextBlock FontSize="12" 
+                                                                   Text="{Binding DisplaySize}"
+                                                                   Foreground="Black"
+
+                                                                   Canvas.Right="{Binding ActualWidth, ElementName=SizeGridColumn, Converter={StaticResource OffsetConverter}}"
+                                                                   VerticalAlignment="Center">
+                                                            <TextBlock.Effect>
+                                                                <BlurEffect Radius="2.5" KernelType="Box"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
+                                                        <TextBlock FontSize="12" Text="{Binding DisplaySize}"
+                                                                   Foreground="White"
+                                                                   Canvas.Right="{Binding ActualWidth, ElementName=SizeGridColumn, Converter={StaticResource OffsetConverter}}"
+                                                                   VerticalAlignment="Center"/>
+                                                    </Canvas>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </ui:GridView>
+                                
+                            </ui:ListView.View>
+                            <ui:ListView.InputBindings>
+                                <MouseBinding Gesture="LeftClick" Command="{Binding YourCommand}" />
+                            </ui:ListView.InputBindings>
+                        </ui:ListView>
+                    </Grid>
+
+
                     <Grid x:Name="addFolder" Visibility="Hidden">
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
                             <TextBlock Text="Drop a folder" HorizontalAlignment="Center" Foreground="White" FontSize="14" Padding="0,0,0,10"/>

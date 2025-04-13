@@ -33,6 +33,7 @@ public class InstanceController
                 key.SetValue("ShowHiddenFilesIcon", instance.ShowHiddenFilesIcon!);
                 key.SetValue("ShowDisplayName", instance.ShowDisplayName!);
                 key.SetValue("IsLocked", instance.IsLocked!);
+                key.SetValue("ShowInGrid", instance.ShowInGrid!);
                 key.SetValue("TitleBarColor", instance.TitleBarColor!);
                 key.SetValue("TitleTextColor", instance.TitleTextColor!);
                 key.SetValue("TitleTextAlignment", instance.TitleTextAlignment.ToString());
@@ -81,6 +82,7 @@ public class InstanceController
                 key.SetValue("ShowHiddenFilesIcon", instance.ShowHiddenFilesIcon!);
                 key.SetValue("ShowDisplayName", instance.ShowDisplayName!);
                 key.SetValue("IsLocked", instance.IsLocked!);
+                key.SetValue("ShowInGrid", instance.ShowInGrid!);
                 key.SetValue("TitleBarColor", instance.TitleBarColor!);
                 key.SetValue("TitleTextColor", instance.TitleTextColor!);
                 key.SetValue("TitleTextAlignment", instance.TitleTextAlignment.ToString());
@@ -254,6 +256,10 @@ public class InstanceController
                                             case "IsLocked":
                                                 temp.IsLocked = bool.Parse(value.ToString()!);
                                                 Debug.WriteLine($"IsLocked added\t{temp.IsLocked}");
+                                                break;
+                                            case "ShowInGrid":
+                                                temp.ShowInGrid = bool.Parse(value.ToString()!);
+                                                Debug.WriteLine($"ShowInGrid added\t{temp.ShowInGrid}");
                                                 break;
                                             case "TitleBarColor":
                                                 temp.TitleBarColor = value.ToString()!;
