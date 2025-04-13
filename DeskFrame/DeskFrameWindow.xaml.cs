@@ -612,12 +612,22 @@ namespace DeskFrame
             _isLocked = instance.IsLocked;
             this.Top = instance.PosY;
             this.Left = instance.PosX;
+
+            title.FontSize = Instance.TitleFontSize;
+            title.TextWrapping = TextWrapping.Wrap;
+
+            double titleBarHeight = Math.Max(30, Instance.TitleFontSize * 1.5);
+            titleBar.Height = titleBarHeight;
+
+            double scrollViewerMargin = titleBarHeight + 5;
+            scrollViewer.Margin = new Thickness(0, scrollViewerMargin, 0, 0);
+
             titleBar.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
             if ((int)instance.Height <= 30) _isMinimized = true;
             if (instance.Minimized)
             {
                 _isMinimized = instance.Minimized;
-                this.Height = 30;
+                this.Height = titleBarHeight;
             }
             else
             {
@@ -738,7 +748,7 @@ namespace DeskFrame
                 _isMinimized = true;
                 Instance.Minimized = true;
                 Debug.WriteLine("minimize: " + Instance.Height);
-                AnimateWindowHeight(30);
+                AnimateWindowHeight(titleBar.Height);
             }
             else
             {

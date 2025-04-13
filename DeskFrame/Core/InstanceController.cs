@@ -46,6 +46,7 @@ public class InstanceController
                 key.SetValue("Opacity", instance.Opacity);
                 key.SetValue("SortBy", instance.SortBy);
                 key.SetValue("FolderOrder", instance.FolderOrder);
+                key.SetValue("TitleFontSize", instance.TitleFontSize);
             }
             Registry.CurrentUser.DeleteSubKey(@$"SOFTWARE\{appName}\Instances\{oldKey}", throwOnMissingSubKey: false);
         }
@@ -95,6 +96,7 @@ public class InstanceController
                 key.SetValue("Opacity", instance.Opacity);
                 key.SetValue("SortBy", instance.SortBy);
                 key.SetValue("FolderOrder", instance.FolderOrder);
+                key.SetValue("TitleFontSize", instance.TitleFontSize);
             }
         }
         catch { }
@@ -320,6 +322,13 @@ public class InstanceController
                                                 if (Int32.TryParse(value.ToString(), out int parsedFolderOrder))
                                                 {
                                                     temp.FolderOrder = parsedFolderOrder;
+                                                }
+                                                break;
+                                            case "TitleFontSize":
+                                                if (double.TryParse(value.ToString(), out double parsedFontSize))
+                                                {
+                                                    temp.TitleFontSize = parsedFontSize;
+                                                    Debug.WriteLine($"TitleFontSize loaded: {temp.TitleFontSize}");
                                                 }
                                                 break;
                                             default:

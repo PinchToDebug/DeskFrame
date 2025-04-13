@@ -36,6 +36,7 @@ public class Instance : INotifyPropertyChanged
     private int _opacity = 26;
     private int _sortBy = 1;
     private int _folderOrder = 0;
+    private double _titleFontSize = 12;
     public double PosX
     {
         get => _posX;
@@ -390,6 +391,18 @@ public class Instance : INotifyPropertyChanged
             }
         }
     }
+    public double TitleFontSize
+    {
+        get => _titleFontSize;
+        set
+        {
+            if (_titleFontSize != value)
+            {
+                _titleFontSize = value;
+                OnPropertyChanged(nameof(TitleFontSize), value.ToString());
+            }
+        }
+    }
     public Instance(Instance instance)
     {
         _posX = instance._posX;
@@ -412,6 +425,7 @@ public class Instance : INotifyPropertyChanged
         _listViewBackgroundColor = instance._listViewBackgroundColor;
         _opacity = instance._opacity;
         _sortBy = instance._sortBy;
+        _titleFontSize = instance._titleFontSize;
     }
 
     public Instance(string name) // default instance

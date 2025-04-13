@@ -41,6 +41,7 @@ namespace DeskFrame
             BorderColorTextBox.Text = _instance.BorderColor;
             BorderEnabledCheckBox.IsChecked = _instance.BorderEnabled;
             TitleTextBox.Text = _instance.TitleText ?? _instance.Name;
+            TitleFontSizeNumberBox.Value = _instance.TitleFontSize;
             _originalInstance.TitleText = TitleTextBox.Text;
             FileFilterRegexTextBox.Text = _instance.FileFilterRegex;
             FileFilterHideRegexTextBox.Text = _instance.FileFilterHideRegex;
@@ -48,6 +49,30 @@ namespace DeskFrame
             ShowFileExtensionIconCheckBox.IsChecked = _instance.ShowFileExtensionIcon;
             ShowHiddenFilesIconCheckBox.IsChecked = _instance.ShowHiddenFilesIcon;
             ShowDisplayNameCheckBox.IsChecked = _instance.ShowDisplayName;
+
+            _frame.title.FontSize = _instance.TitleFontSize;
+            _frame.title.TextWrapping = TextWrapping.Wrap;
+
+            double titleBarHeight = Math.Max(30, _instance.TitleFontSize * 1.5);
+            _frame.titleBar.Height = titleBarHeight;
+            double scrollViewerMargin = titleBarHeight + 5;
+            _frame.scrollViewer.Margin = new Thickness(0, scrollViewerMargin, 0, 0);
+
+            TitleFontSizeNumberBox.ValueChanged += (sender, args) =>
+            {
+                if (args.NewValue.HasValue)
+                {
+                    _instance.TitleFontSize = args.NewValue.Value;
+                    _frame.title.FontSize = args.NewValue.Value;
+                    _frame.title.TextWrapping = TextWrapping.Wrap;
+
+                    double titleBarHeight = Math.Max(30, args.NewValue.Value * 1.5);
+                    _frame.titleBar.Height = titleBarHeight;
+
+                    double scrollViewerMargin = titleBarHeight + 5;
+                    _frame.scrollViewer.Margin = new Thickness(0, scrollViewerMargin, 0, 0);
+                }
+            };
 
             UpdateBorderColorEnabled();
             ValidateSettings();
@@ -114,6 +139,7 @@ namespace DeskFrame
 
                 _instance.ListViewBackgroundColor = string.IsNullOrEmpty(ListViewBackgroundColorTextBox.Text) ? "#0C000000" : ListViewBackgroundColorTextBox.Text;
                 _instance.Opacity = ((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.ListViewBackgroundColor)).A;
+                _instance.TitleFontSize = TitleFontSizeNumberBox.Value ?? 12;
 
                 _frame.titleBar.Background = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.TitleBarColor));
                 _frame.title.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.TitleTextColor));
@@ -177,6 +203,7 @@ namespace DeskFrame
                 _instance.TitleTextAlignment = _originalInstance.TitleTextAlignment;
                 _instance.ListViewBackgroundColor = _originalInstance.ListViewBackgroundColor;
                 _instance.Opacity = _originalInstance.Opacity;
+                _instance.TitleFontSize = _originalInstance.TitleFontSize;
                 if (_originalInstance.Folder != _instance.Folder)
                 {
                     _instance.Folder = _originalInstance.Folder;
@@ -206,6 +233,7 @@ namespace DeskFrame
 
                 TitleTextAlignmentComboBox.SelectedIndex = (int)_instance.TitleTextAlignment;
                 ListViewBackgroundColorTextBox.Text = _instance.ListViewBackgroundColor;
+                TitleFontSizeNumberBox.Value = _instance.TitleFontSize;
 
                 UpdateBorderColorEnabled();
                 _isReverting = false;
