@@ -38,7 +38,7 @@
         <local:TitleTextAlignmentToMarginConverter x:Key="TitleTextAlignmentToMarginConverter" />
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <local:OffsetConverter x:Key="OffsetConverter"/>
-
+        
         <!-- DataTemplate to display each file item -->
         <DataTemplate x:Key="FileItemTemplate">
             <Border Background="{Binding Background}" Margin="4,0,0,5" CornerRadius="5"
@@ -51,7 +51,8 @@
                         <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="0,2,0,0" Margin="3"
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}" 
-                           HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" Foreground="Black">
+                           HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
+                           Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
                             <TextBlock.Effect>
                                 <BlurEffect Radius="2.5" KernelType="Box"/>
                             </TextBlock.Effect>
@@ -60,7 +61,8 @@
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}" 
                            HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}"
-                           Foreground="White"/>
+                           Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"
+                            />
                     </Grid>
                 </StackPanel>
             </Border>
@@ -124,7 +126,7 @@
             </Border>
             <Border >
                 <Grid>
-                    <Grid x:Name="showFolder" Visibility="Visible">
+                    <Grid x:Name="showFolder">
                         <ui:DynamicScrollViewer  x:Name="scrollViewer"  IsTabStop="False" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0" >
                             <ItemsControl    Padding="0,5,0,0" x:Name="FileWrapPanel" IsTabStop="False" ItemsSource="{Binding FileItems}" ItemTemplate="{StaticResource FileItemTemplate}">
                                 <ItemsControl.ItemsPanel>
@@ -135,6 +137,7 @@
                             </ItemsControl>
                         </ui:DynamicScrollViewer>
                     </Grid>
+
 
                     <Grid x:Name="showFolderInGrid" Visibility="Hidden">
 
@@ -171,8 +174,7 @@
                                                                    Text="{Binding DisplayName}" 
                                                                    TextTrimming="CharacterEllipsis" 
                                                                    TextWrapping="NoWrap" 
-
-                                                                   Foreground="Black">
+                                                                   Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
                                                             <TextBlock.Effect>
                                                                 <BlurEffect Radius="2.5" KernelType="Box"/>
                                                             </TextBlock.Effect>
@@ -180,7 +182,7 @@
                                                         <TextBlock FontSize="12" 
                                                                    Text="{Binding DisplayName}" 
                                                                    TextTrimming="CharacterEllipsis" 
-                                                                   Foreground="White"/>
+                                                                   Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                                                     </Grid>
                                                 </Grid>
                                             </DataTemplate>
@@ -198,14 +200,14 @@
                                                         <TextBlock FontSize="12"
                                                                    Text="{Binding DateModified}" 
                                                                    TextTrimming="CharacterEllipsis" 
-                                                                   Foreground="Black">
+                                                                   Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
                                                             <TextBlock.Effect>
                                                                 <BlurEffect Radius="2.5" KernelType="Box"/>
                                                             </TextBlock.Effect>
                                                         </TextBlock>
                                                         <TextBlock FontSize="12" Text="{Binding DateModified}"
                                                                    TextTrimming="CharacterEllipsis"
-                                                                   Foreground="White"/>
+                                                                   Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                                                     </Grid>
                                                 </Grid>
                                             </DataTemplate>
@@ -218,8 +220,7 @@
                                                     <Canvas HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="{Binding ActualWidth, ElementName=SizeGridColumn}" >
                                                         <TextBlock FontSize="12" 
                                                                    Text="{Binding DisplaySize}"
-                                                                   Foreground="Black"
-
+                                                                   Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                    Canvas.Right="{Binding ActualWidth, ElementName=SizeGridColumn, Converter={StaticResource OffsetConverter}}"
                                                                    VerticalAlignment="Center">
                                                             <TextBlock.Effect>
@@ -227,7 +228,7 @@
                                                             </TextBlock.Effect>
                                                         </TextBlock>
                                                         <TextBlock FontSize="12" Text="{Binding DisplaySize}"
-                                                                   Foreground="White"
+                                                                   Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                    Canvas.Right="{Binding ActualWidth, ElementName=SizeGridColumn, Converter={StaticResource OffsetConverter}}"
                                                                    VerticalAlignment="Center"/>
                                                     </Canvas>
@@ -236,13 +237,11 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                 </ui:GridView>
-                                
+
                             </ui:ListView.View>
-                            <ui:ListView.InputBindings>
-                                <MouseBinding Gesture="LeftClick" Command="{Binding YourCommand}" />
-                            </ui:ListView.InputBindings>
                         </ui:ListView>
                     </Grid>
+
 
 
                     <Grid x:Name="addFolder" Visibility="Hidden">

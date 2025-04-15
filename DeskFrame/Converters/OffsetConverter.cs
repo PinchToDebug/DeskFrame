@@ -12,7 +12,7 @@ namespace DeskFrame
             {
                 if (input <= 110)
                 {
-                    return input -100;
+                    return input - 100;
                 }
                 return 10;
             }

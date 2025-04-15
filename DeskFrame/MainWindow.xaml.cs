@@ -27,9 +27,9 @@ namespace DeskFrame
                 Update();
                 Debug.WriteLine("Auto update checking for update");
             }
-            else
+            else if (!_controller.reg.KeyExistsRoot("AutoUpdate"))
             {
-                _controller.reg.WriteToRegistryRoot("AutoUpdate", "True");
+                _controller.reg.WriteToRegistryRoot("AutoUpdate", "False");
             }
         }
         private async void Update()

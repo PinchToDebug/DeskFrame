@@ -24,7 +24,12 @@
             </StackPanel>
             <StackPanel >
                 <ui:Button x:Name="ExportSettingsButton" Content="Export settings" Click="ExportSettingsButton_Click" Margin="10,20,0,0"/>
-                <ui:ToggleSwitch x:Name="AutoUpdateToggleSwitch" Content="Auto update on start" Click="AutoUpdateToggleSwitch_Click" Margin="10,20,0,0"/>
+                <TextBlock Foreground="White" Margin="10,30,0,0">
+                    Check for update on start
+                    <LineBreak/>
+                    and every 6 hours
+                </TextBlock>
+                <ui:ToggleSwitch x:Name="AutoUpdateToggleSwitch" Content="Auto update" Click="AutoUpdateToggleSwitch_Click" Margin="10,10,0,0"/>
             </StackPanel>
         </StackPanel>
         

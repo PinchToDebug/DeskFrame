@@ -14,7 +14,7 @@ public class Instance : INotifyPropertyChanged
     private double _height;
     private string _name;
     private string _folder;
-    private string _titleFontFamily;
+    private string _titleFontFamily = "Segoe UI";
     private bool _minimized;
     private bool _showHiddenFiles;
     private bool _showFileExtension;
@@ -33,10 +33,12 @@ public class Instance : INotifyPropertyChanged
     private string _fileFilterRegex = "";
     private string _fileFilterHideRegex = "";
     private string _listViewBackgroundColor = "#0C000000";
+    private string _listViewFontColor = "#FFFFFF";
+    private string _listViewFontShadowColor = "#000000";
     private int _opacity = 26;
     private int _sortBy = 1;
     private int _folderOrder = 0;
-    private double _titleFontSize = 12;
+    private double _titleFontSize = 13;
     public double PosX
     {
         get => _posX;
@@ -214,7 +216,6 @@ public class Instance : INotifyPropertyChanged
             }
         }
     }
-
     public bool ShowInGrid
     {
         get => _showInGrid;
@@ -354,7 +355,30 @@ public class Instance : INotifyPropertyChanged
             }
         }
     }
-
+    public string ListViewFontColor
+    {
+        get => _listViewFontColor;
+        set
+        {
+            if (_listViewFontColor != value)
+            {
+                _listViewFontColor = value;
+                OnPropertyChanged(nameof(ListViewFontColor), value);
+            }
+        }
+    }
+    public string ListViewFontShadowColor
+    {
+        get => _listViewFontShadowColor;
+        set
+        {
+            if (_listViewFontShadowColor != value)
+            {
+                _listViewFontShadowColor = value;
+                OnPropertyChanged(nameof(ListViewFontShadowColor), value);
+            }
+        }
+    }
     public int Opacity
     {
         get => _opacity;
@@ -423,9 +447,12 @@ public class Instance : INotifyPropertyChanged
         _fileFilterRegex = instance._fileFilterRegex;
         _fileFilterHideRegex = instance._fileFilterHideRegex;
         _listViewBackgroundColor = instance._listViewBackgroundColor;
+        _listViewFontColor = instance._listViewFontColor;
+        _listViewFontShadowColor = instance.ListViewFontShadowColor;
         _opacity = instance._opacity;
         _sortBy = instance._sortBy;
         _titleFontSize = instance._titleFontSize;
+        _titleFontFamily = instance._titleFontFamily;
     }
 
     public Instance(string name) // default instance

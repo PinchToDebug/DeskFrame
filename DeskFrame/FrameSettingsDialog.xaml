@@ -12,7 +12,7 @@
         Background="#66232323" 
         WindowStyle="None" 
         ResizeMode="NoResize"
-        Height="664" 
+        Height="783" 
         Width="490"
         MinWidth="0"
         MinHeight="0">
@@ -97,7 +97,7 @@
                 <Label Content="Title Text Font:" Height="30"/>
                 <ui:AutoSuggestBox x:Name="TitleTextAutoSuggestionBox"
                                    OriginalItemsSource="{Binding FontList}"
-                                   PlaceholderText="Search..." Margin="0,0,0,30"/>
+                                   PlaceholderText="Search..." Margin="0,0,0,20"/>
 
                 <Label Content="Title Text Size:" Height="30"/>
                 <ui:NumberBox x:Name="TitleFontSizeNumberBox"                             
@@ -105,7 +105,21 @@
                             Maximum="72"
                             SpinButtonPlacementMode="Inline"
                             Margin="0,0,0,20"/>
+                
+                <StackPanel Orientation="Horizontal">
+                    <ui:Button x:Name="ListViewFontColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="ListViewFontColorButton_Click"/>
+                    <Label Content="File Text Color (hex):" Height="30"/>
+                </StackPanel>
 
+                <ui:TextBox x:Name="ListViewFontColorTextBox" PlaceholderText="#FFFFFF" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
+
+
+                <StackPanel Orientation="Horizontal">
+                    <ui:Button x:Name="ListViewFontShadowColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="ListViewFontShadowColorButton_Click" />
+                    <Label Content="File Text Shadow Color (hex):" Height="30"/>
+                </StackPanel>
+
+                <ui:TextBox x:Name="ListViewFontShadowColorTextBox" PlaceholderText="#FFFFFF" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
             </StackPanel>
             <Button x:Name="RevertButton" Grid.Column="2" HorizontalAlignment="Right" Content="Revert" Margin="10" Height="30" Click="RevertButton_Click"  VerticalAlignment="Bottom"/>
 

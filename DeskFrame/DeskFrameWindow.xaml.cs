@@ -27,14 +27,14 @@ using DataFormats = System.Windows.DataFormats;
 using DataObject = System.Windows.DataObject;
 using DragDropEffects = System.Windows.DragDropEffects;
 using DragEventArgs = System.Windows.DragEventArgs;
-using ListView = Wpf.Ui.Controls.ListView;
-using ListViewItem = System.Windows.Controls.ListViewItem;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
 using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Point = System.Drawing.Point;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
+using ListView = Wpf.Ui.Controls.ListView;
+using ListViewItem = System.Windows.Controls.ListViewItem;
 
 namespace DeskFrame
 {
@@ -195,6 +195,7 @@ namespace DeskFrame
 
             return size;
         }
+
 
 
         private IntPtr WndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -727,6 +728,7 @@ namespace DeskFrame
                 Duration = new Duration(TimeSpan.FromMilliseconds(duration)),
                 EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
             };
+
             _canAnimate = false;
             rotateAnimation.Completed += (s, e) => _canAnimate = true;
 
@@ -874,7 +876,7 @@ namespace DeskFrame
             Dispatcher.Invoke(() =>
             {
                 Debug.WriteLine($"File renamed: {e.OldFullPath} to {e.FullPath}");
-                var renamedItem = FileItems.First(item => item.Name == Path.GetFileName(e.OldFullPath));
+                var renamedItem = FileItems.FirstOrDefault(item => item.Name == Path.GetFileName(e.OldFullPath));
 
                 if (renamedItem != null)
                 {
@@ -925,8 +927,7 @@ namespace DeskFrame
                     var directories = dirInfo.GetDirectories();
                     _folderCount = directories.Count();
                     _fileCount = dirInfo.GetFiles().Count().ToString();
-                    _folderSize = !Instance.CheckFolderSize ? "" : Task.Run(() => BytesToStringAsync(dirInfo.EnumerateFiles("*", SearchOption.AllDirectories).Sum(file => file.Length))).Result;
-                    var filteredFiles = files.Cast<FileSystemInfo>()
+                    _folderSize = !Instance.CheckFolderSize ? "" : Task.Run(() => BytesToStringAsync(dirInfo.EnumerateFiles("*", SearchOption.AllDirectories).Sum(file => file.Length))).Result; var filteredFiles = files.Cast<FileSystemInfo>()
                                 .Concat(directories)
                                 .OrderBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase)
                                 .ToList();
@@ -946,7 +947,6 @@ namespace DeskFrame
                 }
 
                 fileEntries = await SortFileItemsToList(fileEntries, (int)Instance.SortBy, Instance.FolderOrder);
-
                 if (Instance.FolderOrder == 1)
                 {
                     fileEntries = fileEntries.OrderBy(x => x is FileInfo).ToList();
@@ -1056,7 +1056,6 @@ namespace DeskFrame
                         _fileCount += $" ({hiddenCount} hidden)";
                     }
                     SortItems();
-
                     Debug.WriteLine("LOADEDDDDDDDD");
                 });
             }
@@ -1065,26 +1064,86 @@ namespace DeskFrame
                 Debug.WriteLine("LoadFiles was canceled.");
             }
         }
-
-
-        public async Task SortItems()
+        public void SortItems()
         {
-            var itemsCopy = FileItems.ToList();
-
-            var sortedList = await Task.Run(() =>
-            {
-                var temp = new ObservableCollection<FileItem>(itemsCopy);
-                return SortFileItems(temp, (int)Instance.SortBy, Instance.FolderOrder);
-            });
-
+            var sortedList = SortFileItems(FileItems, (int)Instance.SortBy, Instance.FolderOrder);
             FileItems.Clear();
             foreach (var fileItem in sortedList)
             {
                 FileItems.Add(fileItem);
             }
         }
+        private void FileListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _canAutoClose = false;
+            if (sender is not ListView listView)
+                return;
+            var point = e.GetPosition(listView);
+            var element = listView.InputHitTest(point) as DependencyObject;
+            while (element != null && element is not ListViewItem)
+            {
+                element = VisualTreeHelper.GetParent(element);
+            }
+            if (element is ListViewItem item && item.DataContext is FileItem clickedItem)
+            {
+                if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount != 2)
+                {
+                    DataObject data = new DataObject(DataFormats.FileDrop, new string[] { clickedItem.FullPath! });
+                    Task.Run(() =>
+                    {
+                        Thread.Sleep(5);
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            DragDrop.DoDragDrop(listView, data, DragDropEffects.Copy | DragDropEffects.Move);
+                        });
+                    });
+                }
+            }
+        }
+        private void FileListView_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is not ListView listView)
+                return;
+            var point = e.GetPosition(listView);
+            var element = listView.InputHitTest(point) as DependencyObject;
+            while (element != null && element is not ListViewItem)
+            {
+                element = VisualTreeHelper.GetParent(element);
+            }
+            if (element is ListViewItem item && item.DataContext is FileItem clickedItem)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo(clickedItem.FullPath!) { UseShellExecute = true });
+                }
+                catch
+                {
+                }
+            }
+        }
+        private void FileListView_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _canAutoClose = false;
+            if (sender is not ListView listView)
+                return;
+            var point = e.GetPosition(listView);
+            var element = listView.InputHitTest(point) as DependencyObject;
+            while (element != null && element is not ListViewItem)
+            {
+                element = VisualTreeHelper.GetParent(element);
+            }
+            if (element is ListViewItem item && item.DataContext is FileItem clickedItem)
+            {
+                var windowHelper = new WindowInteropHelper(this);
+                FileInfo[] files = new FileInfo[1];
+                files[0] = new FileInfo(clickedItem.FullPath!);
 
-
+                Point cursorPosition = System.Windows.Forms.Cursor.Position;
+                System.Windows.Point wpfPoint = new System.Windows.Point(cursorPosition.X, cursorPosition.Y);
+                Point drawingPoint = new Point((int)wpfPoint.X, (int)wpfPoint.Y);
+                scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint);
+            }
+        }
         private void Window_Drop(object sender, DragEventArgs e)
         {
             _canAutoClose = false;
@@ -1182,71 +1241,7 @@ namespace DeskFrame
             }
 
         }
-        private void FileListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _canAutoClose = false;
-            if (sender is not ListView listView)
-                return;
-            var point = e.GetPosition(listView);
-            var element = listView.InputHitTest(point) as DependencyObject;
-            while (element != null && element is not ListViewItem)
-            {
-                element = VisualTreeHelper.GetParent(element);
-            }
-            if (element is ListViewItem item && item.DataContext is FileItem clickedItem)
-            {
-                if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount != 2)
-                {
 
-                    DataObject data = new DataObject(DataFormats.FileDrop, new string[] { clickedItem.FullPath! });
-                    DragDrop.DoDragDrop(listView, data, DragDropEffects.Copy | DragDropEffects.Move);
-                }
-            }
-        }
-        private void FileListView_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is not ListView listView)
-                return;
-            var point = e.GetPosition(listView);
-            var element = listView.InputHitTest(point) as DependencyObject;
-            while (element != null && element is not ListViewItem)
-            {
-                element = VisualTreeHelper.GetParent(element);
-            }
-            if (element is ListViewItem item && item.DataContext is FileItem clickedItem)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo(clickedItem.FullPath!) { UseShellExecute = true });
-                }
-                catch
-                {
-                }
-            }
-        }
-        private void FileListView_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            _canAutoClose = false;
-            if (sender is not ListView listView)
-                return;
-            var point = e.GetPosition(listView);
-            var element = listView.InputHitTest(point) as DependencyObject;
-            while (element != null && element is not ListViewItem)
-            {
-                element = VisualTreeHelper.GetParent(element);
-            }
-            if (element is ListViewItem item && item.DataContext is FileItem clickedItem)
-            {
-                var windowHelper = new WindowInteropHelper(this);
-                FileInfo[] files = new FileInfo[1];
-                files[0] = new FileInfo(clickedItem.FullPath!);
-
-                Point cursorPosition = System.Windows.Forms.Cursor.Position;
-                System.Windows.Point wpfPoint = new System.Windows.Point(cursorPosition.X, cursorPosition.Y);
-                Point drawingPoint = new Point((int)wpfPoint.X, (int)wpfPoint.Y);
-                scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint);
-            }
-        }
 
         private void FileItem_RightClick(object sender, MouseButtonEventArgs e)
         {
@@ -1528,8 +1523,8 @@ namespace DeskFrame
                 : new SymbolIcon { Symbol = SymbolRegular.CircleSmall20, Foreground = Brushes.Transparent };
 
             fileSizeMenuItem.Icon = (Instance.SortBy == 9 || Instance.SortBy == 10)
-             ? new SymbolIcon { Symbol = SymbolRegular.CircleSmall20, Filled = true }
-             : new SymbolIcon { Symbol = SymbolRegular.CircleSmall20, Foreground = Brushes.Transparent };
+                ? new SymbolIcon { Symbol = SymbolRegular.CircleSmall20, Filled = true }
+                : new SymbolIcon { Symbol = SymbolRegular.CircleSmall20, Foreground = Brushes.Transparent };
 
             ascendingMenuItem.Icon = (Instance.SortBy % 2 != 0)
                 ? new SymbolIcon { Symbol = SymbolRegular.CircleSmall20, Filled = true }
@@ -1579,10 +1574,19 @@ namespace DeskFrame
             };
             frameSettings.Click += (s, args) =>
             {
+                bool itWasMin = _isMinimized;
+                if (itWasMin)
+                {
+                    Minimize_MouseLeftButtonDown(null, null);
+                }
                 var dialog = new FrameSettingsDialog(this);
                 dialog.ShowDialog();
                 if (dialog.DialogResult == true)
                 {
+                    if (itWasMin)
+                    {
+                        Minimize_MouseLeftButtonDown(null, null);
+                    }
                     LoadFiles(_path);
                 }
             };
@@ -1668,6 +1672,7 @@ namespace DeskFrame
             dateModifiedMenuItem = new MenuItem { Header = "Date modified", Height = 34, StaysOpenOnClick = true };
             dateCreatedMenuItem = new MenuItem { Header = "Date created", Height = 34, StaysOpenOnClick = true };
             fileTypeMenuItem = new MenuItem { Header = "File type", Height = 34, StaysOpenOnClick = true };
+            fileSizeMenuItem = new MenuItem { Header = "File size", Height = 34, StaysOpenOnClick = true };
             ascendingMenuItem = new MenuItem { Header = "Ascending", Height = 34, StaysOpenOnClick = true };
             descendingMenuItem = new MenuItem { Header = "Descending", Height = 34, StaysOpenOnClick = true };
 
@@ -1709,7 +1714,6 @@ namespace DeskFrame
                 UpdateIcons();
                 SortItems();
             };
-
 
             ascendingMenuItem.Click += async (s, args) =>
             {
@@ -1794,6 +1798,9 @@ namespace DeskFrame
                 Header = "Open folder",
                 Icon = new SymbolIcon { Symbol = SymbolRegular.FolderOpen20 }
             };
+            openInExplorerMenuItem.Click += (_, _) => { OpenFolder(); };
+
+
             MenuItem changeItemView = new MenuItem
             {
                 Header = "Change view"
@@ -1808,8 +1815,6 @@ namespace DeskFrame
                 changeItemView.Header = "Details view";
                 changeItemView.Icon = new SymbolIcon { Symbol = SymbolRegular.AppsList20 };
             }
-            openInExplorerMenuItem.Click += (_, _) => { OpenFolder(); };
-
             changeItemView.Click += (_, _) =>
             {
                 if (showFolder.Visibility == Visibility.Visible)
@@ -1880,6 +1885,32 @@ namespace DeskFrame
             });
         }
 
+        private void FileListView_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var point = e.GetPosition(FileListView);
+            var hit = VisualTreeHelper.HitTest(FileListView, point)?.VisualHit;
+
+            while (hit != null && hit is not GridViewColumnHeader)
+                hit = VisualTreeHelper.GetParent(hit);
+
+            if (hit is not GridViewColumnHeader header || header.Column == null)
+                return;
+
+            int newSort = Instance.SortBy;
+
+            if (header.Column == NameGridColumn)
+                newSort = Instance.SortBy != 1 ? 1 : 2;
+            else if (header.Column == DateModifiedGridColumn)
+                newSort = Instance.SortBy != 3 ? 3 : 4;
+            else if (header.Column == SizeGridColumn)
+                newSort = Instance.SortBy != 9 ? 9 : 10;
+
+            if (newSort != Instance.SortBy)
+            {
+                Instance.SortBy = newSort;
+                SortItems();
+            }
+        }
 
         public class FileItem : INotifyPropertyChanged
         {
@@ -2018,33 +2049,5 @@ namespace DeskFrame
                 HiddenFilesIconGrid.Visibility = Instance.ShowHiddenFilesIcon ? Visibility.Visible : Visibility.Collapsed;
             }
         }
-        private void FileListView_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var point = e.GetPosition(FileListView);
-            var hit = VisualTreeHelper.HitTest(FileListView, point)?.VisualHit;
-
-            while (hit != null && hit is not GridViewColumnHeader)
-                hit = VisualTreeHelper.GetParent(hit);
-
-            if (hit is not GridViewColumnHeader header || header.Column == null)
-                return;
-
-            int newSort = Instance.SortBy;
-
-            if (header.Column == NameGridColumn)
-                newSort = Instance.SortBy != 1 ? 1 : 2;
-            else if (header.Column == DateModifiedGridColumn)
-                newSort = Instance.SortBy != 3 ? 3 : 4;
-            else if (header.Column == SizeGridColumn)
-                newSort = Instance.SortBy != 9 ? 9 : 10;
-
-            if (newSort != Instance.SortBy)
-            {
-                Instance.SortBy = newSort;
-                SortItems();
-            }
-        }
-
-
     }
 }
