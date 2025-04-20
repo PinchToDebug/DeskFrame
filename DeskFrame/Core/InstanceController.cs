@@ -50,6 +50,7 @@ public class InstanceController
                 key.SetValue("FolderOrder", instance.FolderOrder);
                 key.SetValue("ShowOnVirtualDesktops", string.Join(",", instance.ShowOnVirtualDesktops));
                 key.SetValue("TitleFontSize", instance.TitleFontSize);
+                key.SetValue("IconSize", instance.IconSize);
             }
             Registry.CurrentUser.DeleteSubKey(@$"SOFTWARE\{appName}\Instances\{oldKey}", throwOnMissingSubKey: false);
         }
@@ -103,6 +104,7 @@ public class InstanceController
                 key.SetValue("FolderOrder", instance.FolderOrder);
                 key.SetValue("ShowOnVirtualDesktops", string.Join(",", instance.ShowOnVirtualDesktops));
                 key.SetValue("TitleFontSize", instance.TitleFontSize);
+                key.SetValue("IconSize", instance.IconSize);
             }
         }
         catch { }
@@ -362,6 +364,13 @@ public class InstanceController
                                                 {
                                                     temp.TitleFontSize = parsedFontSize;
                                                     Debug.WriteLine($"TitleFontSize loaded: {temp.TitleFontSize}");
+                                                }
+                                                break;
+                                            case "IconSize":
+                                                if (int.TryParse(value.ToString(), out int parsedIconSize))
+                                                {
+                                                    temp.IconSize = parsedIconSize;
+                                                    Debug.WriteLine($"IconSize loaded: {temp.IconSize}");
                                                 }
                                                 break;
                                             default:

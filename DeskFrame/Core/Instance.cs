@@ -40,6 +40,35 @@ public class Instance : INotifyPropertyChanged
     private int _folderOrder = 0;
     private int[] _showOnVirtualDesktops;
     private double _titleFontSize = 13;
+    private int _iconSize = 32;
+    private string _id;
+
+    public string Id
+    {
+        get => _id;
+        set
+        {
+            if (_id != value)
+            {
+                _id = value;
+                OnPropertyChanged(nameof(Id), value);
+            }
+        }
+    }
+
+    public int IconSize
+    {
+        get => _iconSize;
+        set
+        {
+            if (_iconSize != value)
+            {
+                _iconSize = value;
+                OnPropertyChanged(nameof(IconSize), value.ToString());
+            }
+        }
+    }
+
     public double PosX
     {
         get => _posX;
@@ -466,6 +495,7 @@ public class Instance : INotifyPropertyChanged
         _sortBy = instance._sortBy;
         _titleFontSize = instance._titleFontSize;
         _titleFontFamily = instance._titleFontFamily;
+        _iconSize = instance._iconSize;
     }
 
     public Instance(string name) // default instance
@@ -479,7 +509,7 @@ public class Instance : INotifyPropertyChanged
         _folder = "empty";
         _showHiddenFiles = false;
         _isLocked = false;
-
+        _id = Guid.NewGuid().ToString();
     }
     protected void OnPropertyChanged(string propertyName, string value)
     {

@@ -26,7 +26,8 @@
          LocationChanged="Window_LocationChanged"
          KeyDown="Window_KeyDown"
          MouseLeave="Window_MouseLeave"
-         MouseEnter="Window_MouseEnter">
+         MouseEnter="Window_MouseEnter"
+         MouseWheel="Window_MouseWheel">
 
     <Window.Resources>
 
@@ -38,15 +39,22 @@
         <local:TitleTextAlignmentToMarginConverter x:Key="TitleTextAlignmentToMarginConverter" />
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <local:OffsetConverter x:Key="OffsetConverter"/>
+        <local:IconSizeToItemWidthConverter x:Key="IconSizeToItemWidthConverter"/>
+        <local:IconSizeToImageWidthConverter x:Key="IconSizeToImageWidthConverter"/>
+        <local:IconSizeToImageHeightConverter x:Key="IconSizeToImageHeightConverter"/>
+        <local:IconSizeToItemHeightConverter x:Key="IconSizeToItemHeightConverter"/>
         
         <!-- DataTemplate to display each file item -->
         <DataTemplate x:Key="FileItemTemplate">
             <Border Background="{Binding Background}" Margin="4,0,0,5" CornerRadius="5"
-            MouseLeftButtonDown="FileItem_Click" MinHeight="50" MaxHeight="77"
+            MouseLeftButtonDown="FileItem_Click" MinHeight="50"
             MouseEnter="FileItem_MouseEnter" MouseLeave="FileItem_MouseLeave"
             BorderThickness="1" MouseRightButtonDown="FileItem_RightClick">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                    <Image Margin="0,5,0,0" MaxHeight="30" Source="{Binding Thumbnail}" Stretch="Uniform" />
+                    <Image Margin="0,5,0,0" Source="{Binding Thumbnail}" 
+                           Width="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToImageWidthConverter}}"
+                           Height="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToImageHeightConverter}}"
+                           Stretch="Uniform" />
                     <Grid Visibility="{Binding DataContext.Instance.ShowDisplayName, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="0,2,0,0" Margin="3"
                            TextWrapping="Wrap" TextAlignment="Center" 
@@ -131,7 +139,9 @@
                             <ItemsControl    Padding="0,5,0,0" x:Name="FileWrapPanel" IsTabStop="False" ItemsSource="{Binding FileItems}" ItemTemplate="{StaticResource FileItemTemplate}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel ItemWidth="85" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True"/>
+                                        <WrapPanel ItemWidth="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToItemWidthConverter}}"
+                                                  ItemHeight="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToItemHeightConverter}}"
+                                                  HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True"/>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
