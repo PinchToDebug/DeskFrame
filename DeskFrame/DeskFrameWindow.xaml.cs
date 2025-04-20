@@ -1,4 +1,6 @@
-﻿using DeskFrame.Util;
+﻿#define smoothresize
+
+using DeskFrame.Util;
 using Microsoft.Win32;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -36,6 +38,7 @@ using TextBlock = Wpf.Ui.Controls.TextBlock;
 using ListView = Wpf.Ui.Controls.ListView;
 using ListViewItem = System.Windows.Controls.ListViewItem;
 using WindowsDesktop;
+using Microsoft.WindowsAPICodePack.Shell;
 namespace DeskFrame
 {
     public partial class DeskFrameWindow : System.Windows.Window
@@ -54,6 +57,9 @@ namespace DeskFrame
         private bool _isLocked = false;
         private bool _isOnEdge = false;
         private double _originalHeight;
+        private int _iconSize = 32; // Default icon size
+        private const int MIN_ICON_SIZE = 16;
+        private const int MAX_ICON_SIZE = 256;
         public int neighborFrameCount = 0;
         public bool isMouseDown = false;
         private ICollectionView _collectionView;
@@ -207,8 +213,14 @@ namespace DeskFrame
             {
                 Interop.RECT rect = (Interop.RECT)Marshal.PtrToStructure(lParam, typeof(Interop.RECT));
                 double width = rect.Right - rect.Left;
-                double newWidth = (Math.Round(width / 85.0) * 85 + 13);
-                if (width != newWidth)
+
+                #if (smoothresize)
+                  double newWidth = width;
+                  if (true)
+                #else
+                  double newWidth = (Math.Round(width / 85.0) * 85 + 13);
+                  if (width != newWidth)
+                #endif
                 {
                     if (wParam.ToInt32() == 2) // WMSZ_RIGHT
                     {
@@ -602,6 +614,7 @@ namespace DeskFrame
             this.MinWidth = 98;
             this.Loaded += MainWindow_Loaded;
             this.SourceInitialized += MainWindow_SourceInitialized!;
+            this.Closing += Window_Closing;
 
             this.StateChanged += (sender, args) =>
             {
@@ -916,6 +929,8 @@ namespace DeskFrame
                 {
                     return;
                 }
+
+                _iconSize = Instance.IconSize;                
 
                 var fileEntries = await Task.Run(() =>
                 {
@@ -1300,112 +1315,49 @@ namespace DeskFrame
         }
         private async Task<BitmapSource?> GetThumbnailAsync(string path)
         {
-            return await Task.Run(async () =>
-            {
-                if (string.IsNullOrWhiteSpace(path) || (!File.Exists(path) && !Directory.Exists(path)))
-                {
-                    Console.WriteLine("Invalid path: " + path);
-                    return null;
-                }
-
-                if (Path.GetExtension(path).ToLower() == ".svg")
-                {
-                    return await LoadSvgThumbnailAsync(path);
-                }
-
-                IntPtr hBitmap = IntPtr.Zero;
-                Interop.IShellItemImageFactory? factory = null;
-                int attempts = 0;
-                while (attempts < 4) // Try 4 times if needed
-                {
-                    try
-                    {
-                        Guid shellItemImageFactoryGuid = new Guid("bcc18b79-ba16-442f-80c4-8a59c30c463b");
-                        int hr = Interop.SHCreateItemFromParsingName(path, IntPtr.Zero, ref shellItemImageFactoryGuid, out factory);
-
-                        if (hr != 0 || factory == null)
-                        {
-                            Console.WriteLine($"Failed to create factory (attempt {attempts + 1}). HRESULT: {hr}");
-                        }
-                        else
-                        {
-                            int thumbnailSize = Directory.Exists(path) ? 128 : 64;
-                            System.Drawing.Size desiredSize = new System.Drawing.Size(thumbnailSize, thumbnailSize);
-                            hr = factory.GetImage(desiredSize, 0, out hBitmap);
-
-                            if (hr == 0 && hBitmap != IntPtr.Zero)
-                            {
-                                return Application.Current.Dispatcher.Invoke(() =>
-                                {
-                                    BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
-                                        hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                                    Interop.DeleteObject(hBitmap);  // Clean up the HBitmap
-                                    return bitmapSource;
-                                });
-                            }
-                            else
-                            {
-                                Debug.WriteLine($"Failed to get image (attempt {attempts + 1}). HRESULT: {hr}");
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"Exception occurred (attempt {attempts + 1}): {ex.Message}");
-                    }
-                    finally
-                    {
-                        if (factory != null) Marshal.ReleaseComObject(factory);
-                        if (hBitmap != IntPtr.Zero) Interop.DeleteObject(hBitmap);
-                    }
-
-                    attempts++;
-                }
-
-                Debug.WriteLine("Failed to retrieve thumbnail after 2 attempts.");
-                return null;
-            });
-        }
-
-
-
-        private async Task<BitmapSource?> LoadSvgThumbnailAsync(string path)
-        {
             try
             {
-                var svgDocument = Svg.SvgDocument.Open(path);
-
-                using (var bitmap = svgDocument.Draw(64, 64))
+                if (File.Exists(path))
                 {
-                    using (var ms = new MemoryStream())
+                    using (var shellFile = ShellObject.FromParsingName(path))
                     {
-                        bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                        ms.Seek(0, SeekOrigin.Begin);
-
-                        BitmapImage bitmapImage = null;
-                        Application.Current.Dispatcher.Invoke(() =>
+                        var bitmap = shellFile.Thumbnail.ExtraLargeBitmapSource;
+                        if (bitmap != null)
                         {
-                            bitmapImage = new BitmapImage();
-                            bitmapImage.BeginInit();
-                            bitmapImage.StreamSource = ms;
-                            bitmapImage.DecodePixelWidth = 64;
-                            bitmapImage.DecodePixelHeight = 64;
-                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                            bitmapImage.EndInit();
-                        });
-                        return bitmapImage;
+                            return ResizeBitmap(bitmap, _iconSize, _iconSize);
+                        }
                     }
                 }
+                return null;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Failed to load SVG thumbnail: {ex.Message}");
+                Debug.WriteLine($"Error getting thumbnail for {path}: {ex.Message}");
                 return null;
             }
+        }
+
+        private BitmapSource ResizeBitmap(BitmapSource source, int width, int height)
+        {
+            var scaleX = (double)width / source.PixelWidth;
+            var scaleY = (double)height / source.PixelHeight;
+            
+            var scaleTransform = new ScaleTransform(scaleX, scaleY);
+            var transformedBitmap = new TransformedBitmap(source, scaleTransform);
+            
+            // Create a new BitmapSource with the exact dimensions we want
+            var finalBitmap = new WriteableBitmap(width, height, 96, 96, PixelFormats.Pbgra32, null);
+            var stride = width * 4; // 4 bytes per pixel for Pbgra32
+            var pixels = new byte[stride * height];
+            transformedBitmap.CopyPixels(pixels, stride, 0);
+            finalBitmap.WritePixels(new Int32Rect(0, 0, width, height), pixels, stride, 0);
+            
+            return finalBitmap;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadIconSizeFromRegistry();
             UpdateFileExtensionIcon();
             UpdateHiddenFilesIcon();
             UpdateIconVisibility();
@@ -1419,6 +1371,35 @@ namespace DeskFrame
             }
 
             BackgroundType(toBlur);
+
+            if (Instance != null)
+            {
+                Instance.IconSize = _iconSize;
+            }
+
+            if (FileItems != null && FileItems.Count > 0)
+            {
+                Dispatcher.InvokeAsync(async () =>
+                {
+                    var batchSize = 5;
+                    var items = FileItems.ToList();
+                    
+                    for (int i = 0; i < items.Count; i += batchSize)
+                    {
+                        var batch = items.Skip(i).Take(batchSize).ToList();
+                        foreach (var item in batch)
+                        {
+                            var newThumbnail = await GetThumbnailAsync(item.FullPath!);
+                            if (newThumbnail != null)
+                            {
+                                item.Thumbnail = newThumbnail;
+                                item.OnPropertyChanged(nameof(item.Thumbnail));
+                            }
+                        }
+                        await Task.Delay(50);
+                    }
+                }, System.Windows.Threading.DispatcherPriority.Background);
+            }
         }
 
         public void ChangeBackgroundOpacity(int num)
@@ -1997,9 +1978,6 @@ namespace DeskFrame
                     {
                         _isSelected = value;
                         Background = _isSelected ? new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)) : Brushes.Transparent;
-
-                        // int.MaxValue for full height, 70 for 4 lines
-                        // MaxHeight = _isSelected ? 70 : 40;
                         MaxHeight = _isSelected ? 40 : 40;
                         TextTrimming = _isSelected ? TextTrimming.CharacterEllipsis : TextTrimming.CharacterEllipsis;
 
@@ -2042,7 +2020,7 @@ namespace DeskFrame
                 }
             }
 
-            protected void OnPropertyChanged(string propertyName)
+            public void OnPropertyChanged(string propertyName)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
@@ -2094,6 +2072,96 @@ namespace DeskFrame
             {
                 HiddenFilesIconGrid.Visibility = Instance.ShowHiddenFilesIcon ? Visibility.Visible : Visibility.Collapsed;
             }
+        }
+
+        private void Window_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control && showFolder.Visibility == Visibility.Visible)
+            {
+                int delta = e.Delta > 0 ? 8 : -8;
+                int newSize = Math.Clamp(Instance.IconSize + delta, MIN_ICON_SIZE, MAX_ICON_SIZE);
+                
+                if (newSize != Instance.IconSize)
+                {
+                    _iconSize = newSize;
+                    Instance.IconSize = newSize; 
+                    SaveIconSizeToRegistry();
+                    
+                    Dispatcher.InvokeAsync(async () =>
+                    {
+                        var batchSize = 5;
+                        var items = FileItems.ToList();
+                        
+                        for (int i = 0; i < items.Count; i += batchSize)
+                        {
+                            var batch = items.Skip(i).Take(batchSize).ToList();
+                            foreach (var item in batch)
+                            {
+                                var newThumbnail = await GetThumbnailAsync(item.FullPath!);
+                                if (newThumbnail != null)
+                                {
+                                    item.Thumbnail = newThumbnail;
+                                    item.OnPropertyChanged(nameof(item.Thumbnail));
+                                }
+                            }
+                            await Task.Delay(50);
+                        }
+                    }, System.Windows.Threading.DispatcherPriority.Background);
+                }
+            }
+        }
+
+        private void SaveIconSizeToRegistry()
+        {
+            try
+            {
+                using (RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\DeskFrame"))
+                {
+                    if (key != null)
+                    {
+                        key.SetValue($"IconSize_{Instance.Id}", _iconSize, RegistryValueKind.DWord);
+                        Debug.WriteLine($"Saved icon size {_iconSize} for instance {Instance.Id}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to save icon size to registry: {ex.Message}");
+            }
+        }
+
+        private void LoadIconSizeFromRegistry()
+        {
+            try
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\DeskFrame"))
+                {
+                    if (key != null)
+                    {
+                        object value = key.GetValue($"IconSize_{Instance.Id}");
+                        if (value != null)
+                        {
+                            int size = Math.Clamp(Convert.ToInt32(value), MIN_ICON_SIZE, MAX_ICON_SIZE);
+                            _iconSize = size;
+                            Instance.IconSize = size;
+                            Debug.WriteLine($"Loaded icon size {size} for instance {Instance.Id}");
+                        }
+                        else
+                        {
+                            Debug.WriteLine($"No saved icon size found for instance {Instance.Id}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to load icon size from registry: {ex.Message}");
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SaveIconSizeToRegistry();
         }
     }
 }
