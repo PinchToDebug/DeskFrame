@@ -12,8 +12,8 @@
         Background="#66232323" 
         WindowStyle="None" 
         ResizeMode="NoResize"
-        Height="783" 
-        Width="490"
+        Height="684" 
+        Width="760"
         MinWidth="0"
         MinHeight="0">
     <Grid>
@@ -28,104 +28,202 @@
         </ui:TitleBar>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="230"/>
                 <ColumnDefinition Width="30"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="230"/>
             </Grid.ColumnDefinitions>
             <ui:Flyout x:Name="uiFlyout"  Padding="13" IsTabStop="True" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <StackPanel  x:Name="ColorCard" />
             </ui:Flyout>
             <StackPanel Orientation="Vertical" Margin="10,45,10,0" Grid.Column="0">
+                <Label Content="Miscellaneous" Foreground="CornflowerBlue" Margin="0,0,0,20" Height="50"  FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" />
+
                 <StackPanel Orientation="Horizontal" >
                     <CheckBox x:Name="BorderEnabledCheckBox" Margin="-11,0,-5,0" Checked="BorderEnabledCheckBox_Checked"  Unchecked="BorderEnabledCheckBox_Checked"/>
-                    <ui:Button x:Name="BorderColorButton"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,7,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="BorderColorButton_Click" />
-                    <Label Content="Border Color (hex):"  VerticalAlignment="Center"/>
+                    <ui:Button x:Name="BorderColorButton"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,7,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="BorderColorButton_Click">
+                        <ui:Button.Foreground>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFF5A5A"/>
+                                <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
+                                <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
+                            </LinearGradientBrush>
+                        </ui:Button.Foreground>
+                    </ui:Button>
+                    <Label Content="Border color (hex):"  VerticalAlignment="Center"/>
                 </StackPanel>
-                <TextBox x:Name="BorderColorTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
-                <Label Content="Show Files (regex):" Height="30" />
-                <TextBox x:Name="FileFilterRegexTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
-                
-                <Label Content="Hide Files (regex):" Height="30"/>
-                <TextBox x:Name="FileFilterHideRegexTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
-
+                <ui:TextBox x:Name="BorderColorTextBox" IconPlacement="Right" Margin="0,0,0,20" TextChanged="TextChangedHandler">
+                    <ui:TextBox.Icon>
+                        <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
+                                       x:Name="BorderColorTextBoxIcon" MouseUp="BorderColorTextBoxIcon_MouseUp" 
+                                       />
+                    </ui:TextBox.Icon>
+                </ui:TextBox>
                 <StackPanel Orientation="Horizontal">
-                    <ui:Button  x:Name="FilesBackgroundColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="FilesBackgroundColorButton_Click"/>
+                    <ui:Button  x:Name="FilesBackgroundColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="FilesBackgroundColorButton_Click">
+                        <ui:Button.Foreground>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFF5A5A"/>
+                                <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
+                                <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
+                            </LinearGradientBrush>
+                        </ui:Button.Foreground>
+                    </ui:Button>
                     <Label Content="Background color (hex):" Height="30"/>
                 </StackPanel>
-                <ui:TextBox x:Name="ListViewBackgroundColorTextBox" PlaceholderText="#0C000000" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
+                <ui:TextBox x:Name="ListViewBackgroundColorTextBox" IconPlacement="Right" PlaceholderText="#0C000000" Margin="0,0,0,20" TextChanged="TextChangedHandler">
+                    <ui:TextBox.Icon>
+                        <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
+                                       x:Name="ListViewBackgroundColorTextBoxIcon" 
+                                       MouseUp="ListViewBackgroundColorTextBoxIcon_MouseUp" />
+                    </ui:TextBox.Icon>
+                </ui:TextBox>
+                <Label Content="Show files (regex):" Height="30" />
+                <ui:TextBox x:Name="FileFilterRegexTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
 
-                <Label Content="Listview:" Height="30"/>
-                <CheckBox x:Name="ShowDisplayNameCheckBox" Content="Show Icon Text" Margin="-11,0,0,0" Checked="ShowDisplayNameCheckBox_Checked" Unchecked="ShowDisplayNameCheckBox_Checked"/>
+                <Label Content="Hide files (regex):" Height="30"/>
+                <ui:TextBox x:Name="FileFilterHideRegexTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
+                
+                <Label Content="Visible on virtual desktop:" Height="30"/>
+                <ui:TextBox x:Name="ShowOnVirtualDesktopTextBox" PlaceholderText="All (or e.g. 1,2,3)" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
 
-                <Label Content="Titlebar Icons:" Height="30"/>
+
+                <Label Content="Title bar icons:" Height="30"/>
                 <StackPanel Orientation="Vertical">
-                    <CheckBox x:Name="ShowFileExtensionIconCheckBox" Content="File Extensions" Margin="-11,0,10,0" Checked="ShowFileExtensionIconCheckBox_Checked" Unchecked="ShowFileExtensionIconCheckBox_Checked"/>
-                    <CheckBox x:Name="ShowHiddenFilesIconCheckBox" Content="Hidden Files" Margin="-11,0,0,0" Checked="ShowHiddenFilesIconCheckBox_Checked" Unchecked="ShowHiddenFilesIconCheckBox_Checked"/>
+                    <CheckBox x:Name="ShowFileExtensionIconCheckBox" Content="File extensions" Margin="-11,0,10,0" Checked="ShowFileExtensionIconCheckBox_Checked" Unchecked="ShowFileExtensionIconCheckBox_Checked"/>
+                    <CheckBox x:Name="ShowHiddenFilesIconCheckBox" Content="Hidden files" Margin="-11,0,0,0" Checked="ShowHiddenFilesIconCheckBox_Checked" Unchecked="ShowHiddenFilesIconCheckBox_Checked"/>
                 </StackPanel>
 
             </StackPanel>
             <Separator HorizontalAlignment="Center"  Grid.Column="1" Margin="0,20,0,20"/>
 
-            <StackPanel  Orientation="Vertical" Margin="10,48,10,0" Grid.Column="2">
+            <StackPanel  Orientation="Vertical" Margin="10,45,10,0" Grid.Column="2">
+                <Label Content="Title bar" Foreground="CornflowerBlue" Margin="0,0,0,20" Height="50"  FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" />
 
                 <StackPanel Orientation="Horizontal">
-                    <ui:Button x:Name="TitleBarColorButton"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="TitleBarColorButton_Click"/>
-                    <Label Content="Title Bar Color (hex):" Height="30"/>
+                    <ui:Button x:Name="TitleBarColorButton"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="TitleBarColorButton_Click">
+                        <ui:Button.Foreground>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFF5A5A"/>
+                                <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
+                                <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
+                            </LinearGradientBrush>
+                        </ui:Button.Foreground>
+                    </ui:Button>
+                    <Label Content="Background color (hex):" Height="30"/>
                 </StackPanel>
-                
-                <ui:TextBox x:Name="TitleBarColorTextBox" Margin="0,0,0,20" PlaceholderText="#0C000000" TextChanged="TextChangedHandler"/>
+
+                <ui:TextBox x:Name="TitleBarColorTextBox" Margin="0,0,0,20" PlaceholderText="#0C000000" IconPlacement="Right" TextChanged="TextChangedHandler">
+                    <ui:TextBox.Icon>
+                        <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
+                                       x:Name="TitleBarColorTextBoxIcon"
+                                       MouseUp="TitleBarColorTextBoxIcon_MouseUp" />
+                    </ui:TextBox.Icon>
+                </ui:TextBox>
 
                 <StackPanel Orientation="Horizontal">
-                    <ui:Button x:Name="TitleTextColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="TitleTextColorButton_Click"/>
-                    <Label Content="Title Text Color (hex):" Height="30"/>
+                    <ui:Button x:Name="TitleTextColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="TitleTextColorButton_Click">
+                        <ui:Button.Foreground>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFF5A5A"/>
+                                <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
+                                <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
+                            </LinearGradientBrush>
+                        </ui:Button.Foreground>
+                    </ui:Button>
+                    <Label Content="Text color (hex):" Height="30"/>
                 </StackPanel>
 
-                <ui:TextBox x:Name="TitleTextColorTextBox" PlaceholderText="#FFFFFF" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
+                <ui:TextBox x:Name="TitleTextColorTextBox" PlaceholderText="#FFFFFF" Margin="0,0,0,20" IconPlacement="Right" TextChanged="TextChangedHandler">
+                    <ui:TextBox.Icon>
+                        <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
+                                       x:Name="TitleTextColorTextBoxIcon"
+                                       MouseUp="TitleTextColorTextBoxIcon_MouseUp" />
+                    </ui:TextBox.Icon>
+                </ui:TextBox>
 
 
-                <Label Content="Title Text:" Height="30"/>
-                <TextBox x:Name="TitleTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
+                <Label Content="Text:" Height="30"/>
+                <ui:TextBox x:Name="TitleTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
 
 
-                <Label Content="Title Text Alignment:" Height="30"/>
+
+
+                <Label Content="Font:" Height="30"/>
+                <ui:AutoSuggestBox x:Name="TitleTextAutoSuggestionBox"
+                                   OriginalItemsSource="{Binding FontList}"
+                                   PlaceholderText="Search..." Margin="0,0,0,20"/>
+
+                <Label Content="Text size:" Height="30"/>
+                <ui:NumberBox x:Name="TitleFontSizeNumberBox"                             
+                            Minimum="8"
+                            Maximum="72"
+                            SpinButtonPlacementMode="Inline"
+                            Margin="0,0,0,20"/>
+
+                <Label Content="Text alignment:" Height="30"/>
                 <ComboBox x:Name="TitleTextAlignmentComboBox" Margin="0,0,0,20" SelectionChanged="TitleTextAlignmentComboBox_SelectionChanged">
                     <ComboBoxItem Content="Left"/>
                     <ComboBoxItem Content="Center"/>
                     <ComboBoxItem Content="Right"/>
                 </ComboBox>
 
-                <Label Content="Title Text Font:" Height="30"/>
-                <ui:AutoSuggestBox x:Name="TitleTextAutoSuggestionBox"
-                                   OriginalItemsSource="{Binding FontList}"
-                                   PlaceholderText="Search..." Margin="0,0,0,20"/>
 
-                <Label Content="Title Text Size:" Height="30"/>
-                <ui:NumberBox x:Name="TitleFontSizeNumberBox"                             
-                            Minimum="8"
-                            Maximum="72"
-                            SpinButtonPlacementMode="Inline"
-                            Margin="0,0,0,20"/>
-                
-                <StackPanel Orientation="Horizontal">
-                    <ui:Button x:Name="ListViewFontColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="ListViewFontColorButton_Click"/>
-                    <Label Content="File Text Color (hex):" Height="30"/>
-                </StackPanel>
-
-                <ui:TextBox x:Name="ListViewFontColorTextBox" PlaceholderText="#FFFFFF" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
-
-
-                <StackPanel Orientation="Horizontal">
-                    <ui:Button x:Name="ListViewFontShadowColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="ListViewFontShadowColorButton_Click" />
-                    <Label Content="File Text Shadow Color (hex):" Height="30"/>
-                </StackPanel>
-
-                <ui:TextBox x:Name="ListViewFontShadowColorTextBox" PlaceholderText="#FFFFFF" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
             </StackPanel>
-            <Button x:Name="RevertButton" Grid.Column="2" HorizontalAlignment="Right" Content="Revert" Margin="10" Height="30" Click="RevertButton_Click"  VerticalAlignment="Bottom"/>
+            <Separator HorizontalAlignment="Center"  Grid.Column="3" Margin="0,20,0,20"/>
+
+            <StackPanel Orientation="Vertical" Margin="10,45,10,0" Grid.Column="4">
+                <Label Content="File items" Foreground="CornflowerBlue" Margin="0,0,0,20" Height="50"  FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" />
+                <StackPanel Orientation="Horizontal">
+                    <ui:Button x:Name="ListViewFontColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="ListViewFontColorButton_Click">
+                        <ui:Button.Foreground>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFF5A5A"/>
+                                <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
+                                <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
+                            </LinearGradientBrush>
+                        </ui:Button.Foreground>
+                    </ui:Button>
+                    <Label Content="Text color (hex):" Height="30"/>
+                </StackPanel>
+
+                <ui:TextBox x:Name="ListViewFontColorTextBox" PlaceholderText="#FFFFFF" Margin="0,0,0,20" IconPlacement="Right" TextChanged="TextChangedHandler">
+                    <ui:TextBox.Icon>
+                        <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
+            x:Name="ListViewFontColorTextBoxIcon" 
+            MouseUp="ListViewFontColorTextBoxIcon_MouseUp" />
+                    </ui:TextBox.Icon>
+                </ui:TextBox>
+
+
+                <StackPanel Orientation="Horizontal">
+                    <ui:Button x:Name="ListViewFontShadowColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="ListViewFontShadowColorButton_Click">
+                        <ui:Button.Foreground>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFF5A5A"/>
+                                <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
+                                <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
+                            </LinearGradientBrush>
+                        </ui:Button.Foreground>
+                    </ui:Button>
+                    <Label Content="Text shadow color (hex):" Height="30"/>
+                </StackPanel>
+
+                <ui:TextBox x:Name="ListViewFontShadowColorTextBox" PlaceholderText="#000000" Margin="0,0,0,20"  IconPlacement="Right" TextChanged="TextChangedHandler">
+                    <ui:TextBox.Icon>
+                        <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
+                                       x:Name="ListViewFontShadowColorTextBoxIcon" 
+                                       MouseUp="ListViewFontShadowColorTextBoxIcon_MouseUp" />
+                    </ui:TextBox.Icon>
+                </ui:TextBox>
+                <CheckBox x:Name="ShowDisplayNameCheckBox" Content="Show icon text" Margin="-11,0,0,0" Checked="ShowDisplayNameCheckBox_Checked" Unchecked="ShowDisplayNameCheckBox_Checked"/>
+            </StackPanel>
+            <Button x:Name="RevertButton" Grid.Column="4" HorizontalAlignment="Right" Content="Revert" Margin="10" Height="30" Click="RevertButton_Click"  VerticalAlignment="Bottom"/>
 
         </Grid>
-                 
-       
+
+
 
     </Grid>
 </ui:FluentWindow>

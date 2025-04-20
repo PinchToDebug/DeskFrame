@@ -139,7 +139,7 @@
                     </Grid>
 
 
-                    <Grid x:Name="showFolderInGrid" Visibility="Hidden">
+                    <Grid x:Name="showFolderInGrid">
 
                         <ui:ListView x:Name="FileListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      ItemsSource="{Binding FileItems}"
@@ -257,18 +257,25 @@
                     BorderThickness="{Binding Instance.BorderEnabled, Converter={StaticResource BooleanToBorderThicknessConverter}}" 
                     BorderBrush="{Binding Instance.BorderColor}"
              />
-            <StackPanel  Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="{Binding Instance.TitleTextAlignment}" VerticalAlignment="Top">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <StackPanel.Margin>
-                        <MultiBinding Converter="{StaticResource TitleTextAlignmentToMarginConverter}">
-                            <Binding Path="Instance.TitleTextAlignment"/>
-                            <Binding ElementName="HiddenFilesIconGrid" Path="Visibility"/>
-                            <Binding ElementName="FileExtensionIconGrid" Path="Visibility"/>
-                        </MultiBinding>
-                    </StackPanel.Margin>
-                    <TextBlock x:Name="title" VerticalAlignment="Top" IsHitTestVisible="False" HorizontalAlignment="Center" Margin="0,5,0,0" Foreground="White" FontSize="13"/>
+            <Grid HorizontalAlignment="{Binding Instance.TitleTextAlignment}" VerticalAlignment="Top" >
+                <Grid.Margin>
+                    <MultiBinding Converter="{StaticResource TitleTextAlignmentToMarginConverter}">
+                        <Binding Path="Instance.TitleTextAlignment"/>
+                        <Binding ElementName="HiddenFilesIconGrid" Path="Visibility"/>
+                        <Binding ElementName="FileExtensionIconGrid" Path="Visibility"/>
+                    </MultiBinding>
+                </Grid.Margin>
+                <Grid.Height>
+                    <Binding ElementName="titleBar" Path="Height"/>
+                </Grid.Height>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="title" 
+                           IsHitTestVisible="False"
+                           Foreground="White" 
+                           FontSize="13">
+                    </TextBlock>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
         </Grid>
     </Border>
 </Window>

@@ -71,3 +71,4 @@ This project is licensed under the MIT License.
 - [WPF UI](https://github.com/lepoco/wpfui) - [MIT License](https://github.com/lepoco/wpfui/blob/main/LICENSE)
 - [WindowsCommunityToolkit](https://github.com/CommunityToolkit/WindowsCommunityToolkit) - [MIT License](https://github.com/CommunityToolkit/WindowsCommunityToolkit?tab=License-1-ov-file#License-1-ov-file)
 - [SVG.NET](https://github.com/svg-net/SVG) - [MS-PL license](https://github.com/svg-net/SVG?tab=MS-PL-1-ov-file#readme)
+- [VirtualDesktop](https://github.com/t1m0thyj/VirtualDesktop/blob/single-file-app) - [MIT License](https://github.com/t1m0thyj/VirtualDesktop/blob/single-file-app/LICENSE)

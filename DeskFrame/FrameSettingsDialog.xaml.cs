@@ -8,6 +8,9 @@ using DeskFrame.ColorPicker;
 using System.IO;
 using System.Drawing.Text;
 using System.Collections.ObjectModel;
+using TextBox = Wpf.Ui.Controls.TextBox;
+using Brush = System.Windows.Media.Brush;
+using WindowsDesktop;
 namespace DeskFrame
 {
     public partial class FrameSettingsDialog : FluentWindow
@@ -24,19 +27,28 @@ namespace DeskFrame
         private bool _isValidListViewBackgroundColor = true;
         private bool _isValidListViewFontColor = true;
         private bool _isValidListViewFontShadowColor = true;
+        private bool _isValidShowOnVirtualDesktops = true;
         private bool _isReverting = false;
         private bool _initDone = false;
         string _lastInstanceName;
+        private Brush _borderBrush;
+        private Brush _backgroundBrush;
         public ObservableCollection<string> FontList;
 
         public FrameSettingsDialog(DeskFrameWindow frame)
         {
             InitializeComponent();
+            _backgroundBrush = TitleBarColorTextBox.Background;
+            _borderBrush = TitleBarColorTextBox.BorderBrush;
             DataContext = this;
             _originalInstance = new Instance(frame.Instance);
             _lastInstanceName = _originalInstance.Name;
             _instance = frame.Instance;
             _frame = frame;
+            ShowOnVirtualDesktopTextBox.Text = _instance.ShowOnVirtualDesktops != null
+                  ? string.Join(",", _instance.ShowOnVirtualDesktops)
+                  : string.Empty;
+            _originalInstance.ShowOnVirtualDesktops = _instance.ShowOnVirtualDesktops;
             TitleBarColorTextBox.Text = _instance.TitleBarColor;
             TitleTextColorTextBox.Text = _instance.TitleTextColor;
             ListViewBackgroundColorTextBox.Text = _instance.ListViewBackgroundColor;
@@ -102,7 +114,12 @@ namespace DeskFrame
 
                 }
             };
-
+            TitleBarColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
+            TitleTextColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
+            ListViewBackgroundColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
+            ListViewFontColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
+            ListViewFontShadowColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
+            BorderColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
 
             _initDone = true;
         }
@@ -123,25 +140,33 @@ namespace DeskFrame
         }
 
         private void UpdateBorderColorEnabled() => BorderColorTextBox.IsEnabled = BorderEnabledCheckBox.IsChecked == true;
-
+        private bool ValidateVirtualDesktop(string strValue)
+        {
+            return strValue
+                .Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .All(s => int.TryParse(s, out _));
+        }
         private void ValidateSettings()
         {
             if (_isReverting) return;
 
-            _isValidTitleBarColor = TryParseColor(string.IsNullOrEmpty(TitleBarColorTextBox.Text) ? "#0C000000" : TitleBarColorTextBox.Text);
-            _isValidTitleTextColor = TryParseColor(string.IsNullOrEmpty(TitleTextColorTextBox.Text) ? "#FFFFFF" : TitleTextColorTextBox.Text);
-            _isValidBorderColor = BorderEnabledCheckBox.IsChecked == true ? TryParseColor(BorderColorTextBox.Text) : true;
-            _isValidFileFilterRegex = TryParseRegex(FileFilterRegexTextBox.Text);
-            _isValidFileFilterHideRegex = TryParseRegex(FileFilterHideRegexTextBox.Text);
+            _isValidTitleBarColor = TryParseColor(string.IsNullOrEmpty(TitleBarColorTextBox.Text) ? "#0C000000" : TitleBarColorTextBox.Text, TitleBarColorTextBox);
+            _isValidTitleTextColor = TryParseColor(string.IsNullOrEmpty(TitleTextColorTextBox.Text) ? "#FFFFFF" : TitleTextColorTextBox.Text, TitleTextColorTextBox);
+            _isValidBorderColor = BorderEnabledCheckBox.IsChecked == true ? TryParseColor(string.IsNullOrEmpty(BorderColorTextBox.Text) ? "#FFFFFF" : BorderColorTextBox.Text, BorderColorTextBox) : true;
+            _isValidFileFilterRegex = TryParseRegex(FileFilterRegexTextBox.Text, FileFilterRegexTextBox);
+            _isValidFileFilterHideRegex = TryParseRegex(FileFilterHideRegexTextBox.Text, FileFilterHideRegexTextBox);
 
             _isValidTitleTextAlignment = TitleTextAlignmentComboBox.SelectedIndex >= 0;
-            _isValidListViewBackgroundColor = TryParseColor(string.IsNullOrEmpty(ListViewBackgroundColorTextBox.Text) ? "#0C000000" : ListViewBackgroundColorTextBox.Text);
-            _isValidListViewFontColor = TryParseColor(string.IsNullOrEmpty(ListViewFontColorTextBox.Text) ? "#FFFFFF" : ListViewFontColorTextBox.Text);
-            _isValidListViewFontShadowColor = TryParseColor(string.IsNullOrEmpty(ListViewFontShadowColorTextBox.Text) ? "#000000" : ListViewFontShadowColorTextBox.Text);
+            _isValidListViewBackgroundColor = TryParseColor(string.IsNullOrEmpty(ListViewBackgroundColorTextBox.Text) ? "#0C000000" : ListViewBackgroundColorTextBox.Text, ListViewBackgroundColorTextBox);
+            _isValidListViewFontColor = TryParseColor(string.IsNullOrEmpty(ListViewFontColorTextBox.Text) ? "#FFFFFF" : ListViewFontColorTextBox.Text, ListViewFontColorTextBox);
+            _isValidListViewFontShadowColor = TryParseColor(string.IsNullOrEmpty(ListViewFontShadowColorTextBox.Text) ? "#000000" : ListViewFontShadowColorTextBox.Text, ListViewFontShadowColorTextBox);
 
-            if (_isValidTitleBarColor && _isValidTitleTextColor && _isValidTitleTextAlignment && 
+            _isValidShowOnVirtualDesktops = ValidateVirtualDesktop(ShowOnVirtualDesktopTextBox.Text);
+
+            if (_isValidTitleBarColor && _isValidTitleTextColor && _isValidTitleTextAlignment &&
                 _isValidBorderColor && _isValidFileFilterRegex && _isValidFileFilterHideRegex &&
-                _isValidListViewBackgroundColor && _isValidListViewFontColor && _isValidListViewFontShadowColor)
+                _isValidListViewBackgroundColor && _isValidListViewFontColor && _isValidListViewFontShadowColor &&
+                _isValidShowOnVirtualDesktops)
             {
                 _instance.TitleBarColor = string.IsNullOrEmpty(TitleBarColorTextBox.Text) ? "#0C000000" : TitleBarColorTextBox.Text;
                 _instance.TitleTextColor = string.IsNullOrEmpty(TitleTextColorTextBox.Text) ? "#FFFFFF" : TitleTextColorTextBox.Text;
@@ -159,27 +184,55 @@ namespace DeskFrame
                 _instance.Opacity = ((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.ListViewBackgroundColor)).A;
                 _instance.TitleFontSize = TitleFontSizeNumberBox.Value ?? 12;
 
+                var parts = ShowOnVirtualDesktopTextBox.Text
+                    .Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                _instance.ShowOnVirtualDesktops = parts.Length > 0
+                    ? parts.Select(s => int.Parse(s)).ToArray()
+                    : null;
+
+                if (_instance.ShowOnVirtualDesktops != null && !_instance.ShowOnVirtualDesktops.Contains(Array.IndexOf(VirtualDesktop.GetDesktops(), VirtualDesktop.Current) + 1))
+                {
+                    _frame.Hide();
+                }
+                else
+                {
+                    _frame.Show();
+                    this.Activate();
+                }
                 _frame.titleBar.Background = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.TitleBarColor));
                 _frame.title.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.TitleTextColor));
                 _frame.title.Text = TitleTextBox.Text ?? _frame.Instance.Name;
                 _frame.WindowBackground.Background = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.ListViewBackgroundColor)); ;
+
+
+                TitleBarColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.TitleBarColor));
+                TitleTextColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.TitleTextColor));
+                ListViewBackgroundColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.ListViewBackgroundColor));
+                ListViewFontColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.ListViewFontColor));
+                ListViewFontShadowColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.ListViewFontShadowColor));
+                BorderColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(TryParseColor(BorderColorTextBox.Text, BorderColorTextBox) ? _instance.BorderColor : "#FFFFFF"));
             }
         }
 
-        private bool TryParseColor(string colorText)
+        private bool TryParseColor(string colorText, TextBox tb)
         {
             try
             {
                 new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(colorText));
+                tb.BorderBrush = _borderBrush;
+                tb.Background = _backgroundBrush;
                 return true;
             }
             catch
             {
+                tb.BorderBrush = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString("#FFF96A6A"));
+                tb.Background = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString("#0FD82B2B"));
                 return false;
             }
         }
 
-        private bool TryParseRegex(string regexText)
+        private bool TryParseRegex(string regexText, TextBox tb)
         {
             try
             {
@@ -187,10 +240,14 @@ namespace DeskFrame
                 {
                     new System.Text.RegularExpressions.Regex(regexText);
                 }
+                tb.BorderBrush = _borderBrush;
+                tb.Background = _backgroundBrush;
                 return true;
             }
             catch
             {
+                tb.BorderBrush = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString("#FFF96A6A"));
+                tb.Background = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString("#0FD82B2B"));
                 return false;
             }
         }
@@ -225,6 +282,7 @@ namespace DeskFrame
                 _instance.Opacity = _originalInstance.Opacity;
                 _instance.TitleFontSize = _originalInstance.TitleFontSize;
                 _instance.TitleFontFamily = _originalInstance.TitleFontFamily;
+                _instance.ShowOnVirtualDesktops = _originalInstance.ShowOnVirtualDesktops;
                 if (_originalInstance.Folder != _instance.Folder)
                 {
                     _instance.Folder = _originalInstance.Folder;
@@ -258,6 +316,18 @@ namespace DeskFrame
                 ListViewFontShadowColorTextBox.Text = _instance.ListViewFontShadowColor;
                 TitleFontSizeNumberBox.Value = _instance.TitleFontSize;
                 TitleTextAutoSuggestionBox.Text = _instance.TitleFontFamily;
+                ShowOnVirtualDesktopTextBox.Text = _instance.ShowOnVirtualDesktops != null
+                      ? string.Join(",", _instance.ShowOnVirtualDesktops)
+                      : string.Empty;
+                if (_instance.ShowOnVirtualDesktops != null && !_instance.ShowOnVirtualDesktops.Contains(Array.IndexOf(VirtualDesktop.GetDesktops(), VirtualDesktop.Current) + 1))
+                {
+                    _frame.Hide();
+                }
+                else
+                {
+                    _frame.Show();
+                    this.Activate();
+                }
                 UpdateBorderColorEnabled();
                 _isReverting = false;
                 ValidateSettings();
@@ -340,14 +410,47 @@ namespace DeskFrame
 
         private void ListViewFontColorButton_Click(object sender, RoutedEventArgs e)
         {
-            ColorCard.Children.Clear();
             OpenColorPicker(ListViewFontColorTextBox);
         }
 
         private void ListViewFontShadowColorButton_Click(object sender, RoutedEventArgs e)
         {
-            ColorCard.Children.Clear();
             OpenColorPicker(ListViewFontShadowColorTextBox);
+        }
+
+        private void ListViewFontShadowColorTextBoxIcon_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenColorPicker(ListViewFontShadowColorTextBox);
+        }
+
+        private void ListViewFontColorTextBoxIcon_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenColorPicker(ListViewFontColorTextBox);
+        }
+
+        private void TitleTextColorTextBox_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenColorPicker(TitleTextColorTextBox);
+        }
+
+        private void TitleTextColorTextBoxIcon_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenColorPicker(TitleTextColorTextBox);
+        }
+
+        private void TitleBarColorTextBoxIcon_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenColorPicker(TitleBarColorTextBox);
+        }
+
+        private void ListViewBackgroundColorTextBoxIcon_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenColorPicker(ListViewBackgroundColorTextBox);
+        }
+
+        private void BorderColorTextBoxIcon_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenColorPicker(BorderColorTextBox);
         }
     }
 }

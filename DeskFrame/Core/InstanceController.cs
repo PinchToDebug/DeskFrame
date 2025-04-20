@@ -48,6 +48,7 @@ public class InstanceController
                 key.SetValue("Opacity", instance.Opacity);
                 key.SetValue("SortBy", instance.SortBy);
                 key.SetValue("FolderOrder", instance.FolderOrder);
+                key.SetValue("ShowOnVirtualDesktops", string.Join(",", instance.ShowOnVirtualDesktops));
                 key.SetValue("TitleFontSize", instance.TitleFontSize);
             }
             Registry.CurrentUser.DeleteSubKey(@$"SOFTWARE\{appName}\Instances\{oldKey}", throwOnMissingSubKey: false);
@@ -100,6 +101,7 @@ public class InstanceController
                 key.SetValue("Opacity", instance.Opacity);
                 key.SetValue("SortBy", instance.SortBy);
                 key.SetValue("FolderOrder", instance.FolderOrder);
+                key.SetValue("ShowOnVirtualDesktops", string.Join(",", instance.ShowOnVirtualDesktops));
                 key.SetValue("TitleFontSize", instance.TitleFontSize);
             }
         }
@@ -336,6 +338,25 @@ public class InstanceController
                                                     temp.FolderOrder = parsedFolderOrder;
                                                 }
                                                 break;
+                                            case "ShowOnVirtualDesktops":
+                                                if (value is string stringShowOnVirtualDesktops)
+                                                {
+                                                    try
+                                                    {
+                                                        int[] parsedArray = stringShowOnVirtualDesktops
+                                                            .Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                                                            .Select(s => int.Parse(s))
+                                                            .ToArray();
+
+                                                        temp.ShowOnVirtualDesktops = parsedArray;
+                                                        Debug.WriteLine($"ShowOnVirtualDesktops added\t{temp.ShowOnVirtualDesktops}");
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        Debug.WriteLine($"ShowOnVirtualDesktops failed to parse:\t{ex.Message}");
+                                                    }
+                                                }
+                                                break; ;
                                             case "TitleFontSize":
                                                 if (double.TryParse(value.ToString(), out double parsedFontSize))
                                                 {

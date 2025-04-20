@@ -21,10 +21,33 @@ public class RegistryHelper
             {
                 key.SetValue(keyName, value);
             }
-          //  Debug.WriteLine($"wrote key: {keyName}\t value: {value}\nto: {instance.GetKeyLocation()}");
+            //  Debug.WriteLine($"wrote key: {keyName}\t value: {value}\nto: {instance.GetKeyLocation()}");
         }
         catch { }
-
+    }
+    public void WriteIntArrayToRegistry(string keyName, int[] values, Instance instance)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(instance?.Name))
+            {
+                Debug.WriteLine("Instance is null reg not writen");
+                return;
+            }
+            if (values == null)
+            {
+                using (RegistryKey key = Registry.CurrentUser.CreateSubKey(instance.GetKeyLocation()))
+                {
+                    key.SetValue(keyName, "");
+                }
+                return;
+            }
+            using (RegistryKey key = Registry.CurrentUser.CreateSubKey(instance.GetKeyLocation()))
+            {
+                key.SetValue(keyName, string.Join(",", values));
+            }
+        }
+        catch { }
     }
     public void WriteToRegistryRoot(string keyName, object value)
     {

@@ -38,6 +38,7 @@ public class Instance : INotifyPropertyChanged
     private int _opacity = 26;
     private int _sortBy = 1;
     private int _folderOrder = 0;
+    private int[] _showOnVirtualDesktops;
     private double _titleFontSize = 13;
     public double PosX
     {
@@ -415,6 +416,18 @@ public class Instance : INotifyPropertyChanged
             }
         }
     }
+    public int[] ShowOnVirtualDesktops
+    {
+        get => _showOnVirtualDesktops;
+        set
+        {
+            if (_showOnVirtualDesktops != value)
+            {
+                _showOnVirtualDesktops = value;
+                OnPropertyChanged(nameof(ShowOnVirtualDesktops), value?.ToString() ?? "");
+            }
+        }
+    }
     public double TitleFontSize
     {
         get => _titleFontSize;
@@ -483,13 +496,14 @@ public class Instance : INotifyPropertyChanged
         else
         {
             //  Debug.WriteLine($"Property {propertyName} has changed.");
-
-            if (Name != "empty")
+            if (Name != "empty" && propertyName != "ShowOnVirtualDesktops")
             {
                 MainWindow._controller.reg.WriteToRegistry(propertyName, value, this);
-
             }
-
+            else if (Name != "empty" && propertyName == "ShowOnVirtualDesktops")
+            {
+                MainWindow._controller.reg.WriteIntArrayToRegistry(propertyName, ShowOnVirtualDesktops, this);
+            }
         }
 
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
