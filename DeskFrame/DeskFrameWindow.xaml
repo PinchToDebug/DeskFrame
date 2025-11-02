@@ -306,7 +306,7 @@
                 </Grid.Height>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" x:Name="titleStackPanel">
 
-                    <ui:SymbolIcon x:Name="frameTypeSymbol"
+                    <ui:SymbolIcon x:Name="frameTypeSymbol" MouseRightButtonDown="titleBar_MouseRightButtonDown"
                        Symbol="{Binding Instance.IsShortcutsOnly, Converter={StaticResource BooleanFrameTypeToSymbolConverter}}" 
                        Foreground="{Binding ElementName=title, Path=Foreground}" 
                        FontSize="{Binding Instance.TitleFontSize}"
@@ -314,7 +314,7 @@
                        Width="0"
                        Opacity="0"
                     />
-                    <TextBlock x:Name="title" 
+                    <TextBlock x:Name="title" MouseRightButtonDown="titleBar_MouseRightButtonDown"
                            Foreground="White"
                            FontSize="13">
                     </TextBlock>
