@@ -1191,6 +1191,8 @@ namespace DeskFrame
             scrollViewer.Margin = new Thickness(0, scrollViewerMargin, 0, 0);
 
             titleBar.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
+            title.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
+            frameTypeSymbol.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
             if ((int)instance.Height <= titleBar.Height) _isMinimized = true;
             if (instance.Minimized)
             {
@@ -1201,9 +1203,19 @@ namespace DeskFrame
             {
                 this.Height = instance.Height;
             }
+            titleStackPanel.MouseEnter += (s, e) => AnimateSymbolIcon(frameTypeSymbol, Instance.TitleFontSize, 1, 5);
+            titleStackPanel.MouseLeave += (s, e) => AnimateSymbolIcon(frameTypeSymbol, 0, 0, 0);
 
             _checkForChages = true;
             FileItems = new ObservableCollection<FileItem>();
+            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DeskFrame"
+            );
+
+            if (instance.Folder.StartsWith(appDataPath, StringComparison.OrdinalIgnoreCase))
+            {
+                Instance.IsShortcutsOnly = true;
+                Instance.ShowShortcutArrow = false;
+            }
             if (instance.Folder == "empty")
             {
                 showFolder.Visibility = Visibility.Hidden;
@@ -1256,6 +1268,32 @@ namespace DeskFrame
                 Debug.WriteLine("win left hide");
                 return;
             }
+        }
+        private void AnimateSymbolIcon(UIElement target, double widthTo, double opacityTo, double marginTo)
+        {
+            var marginAnimation = new ThicknessAnimation
+            {
+                To = new Thickness(0, 0, marginTo, 0),
+                Duration = TimeSpan.FromSeconds(0.1),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseInOut }
+            };
+            var widthAnimation = new DoubleAnimation
+            {
+                To = widthTo,
+                Duration = TimeSpan.FromSeconds(0.1),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseInOut }
+            };
+
+            var opacityAnimation = new DoubleAnimation
+            {
+                To = opacityTo,
+                Duration = TimeSpan.FromSeconds(0.1),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseInOut }
+            };
+
+            target.BeginAnimation(FrameworkElement.MarginProperty, marginAnimation);
+            target.BeginAnimation(FrameworkElement.WidthProperty, widthAnimation);
+            target.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
         }
 
         private void AnimateChevron(bool flip, bool onLoad, double animationSpeed)
@@ -1827,31 +1865,96 @@ namespace DeskFrame
                                 addFolder.Visibility = Visibility.Hidden;
 
                             }
-                            Directory.Move(file,
-                                !string.IsNullOrEmpty(_dropIntoFolderPath)
-                                    ? Path.Combine(_dropIntoFolderPath, Path.GetFileName(destinationPath))
-                                    : destinationPath);
 
+                            if (!Instance.IsShortcutsOnly)
+                            {
+                                Directory.Move(file,
+                                  !string.IsNullOrEmpty(_dropIntoFolderPath)
+                                      ? Path.Combine(_dropIntoFolderPath, Path.GetFileName(destinationPath))
+                                      : destinationPath);
+                            }
+                            else
+                            {
+                                CreateShortcut(file, _currentFolderPath);
+                            }
                         }
                         else
                         {
                             Debug.WriteLine("File detected: " + file);
-                            File.Move(file,
-                                !string.IsNullOrEmpty(_dropIntoFolderPath)
-                                    ? Path.Combine(_dropIntoFolderPath, Path.GetFileName(destinationPath))
-                                    : destinationPath);
+                            if (!Instance.IsShortcutsOnly)
+                            {
+                                File.Move(file,
+                                    !string.IsNullOrEmpty(_dropIntoFolderPath)
+                                        ? Path.Combine(_dropIntoFolderPath, Path.GetFileName(destinationPath))
+                                        : destinationPath);
+                            }
+                            else
+                            {
+                                CreateShortcut(file, _currentFolderPath);
+
+                            }
+
                         }
                     }
                     catch (Exception ex)
                     {
                         Debug.WriteLine("Error moving file: " + ex.Message);
+                        if (addFolder.Visibility == Visibility.Visible)
+                        {
 
+                            Instance.Folder = Path.Combine(
+                                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                                "DeskFrame",
+                                Guid.NewGuid().ToString()
+                            );
+                            _currentFolderPath = Instance.Folder;
+                            Directory.CreateDirectory(Instance.Folder);
+                            Instance.IsShortcutsOnly = true;
+                            Instance.ShowShortcutArrow = false;
+                            CreateShortcut(file, _currentFolderPath);
+
+                            title.Text = "File frame";
+                            Instance.Name = "File frame";
+                            MainWindow._controller.WriteInstanceToKey(Instance);
+                            LoadFiles(_currentFolderPath);
+                            DataContext = this;
+                            InitializeFileWatcher();
+                            showFolder.Visibility = Visibility.Visible;
+                            LoadingProgressRing.Visibility = Visibility.Visible;
+                            addFolder.Visibility = Visibility.Hidden;
+
+                        }
                     }
                 }
             }
         }
 
 
+        void CreateShortcut(string filePath, string shortcutFolder = null)
+        {
+            if (Path.GetExtension(filePath) == ".url")
+            {
+                File.Copy(filePath, Path.Combine(shortcutFolder, Path.GetFileName(filePath)));
+                return;
+            }
+            string folder = !string.IsNullOrEmpty(shortcutFolder) ? shortcutFolder : Path.GetDirectoryName(filePath);
+            string shortcutPath = Path.Combine(folder, Path.GetFileNameWithoutExtension(filePath) + ".lnk");
+
+            WshShell shell = new WshShell();
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+
+            shortcut.TargetPath = filePath;
+            shortcut.WorkingDirectory = Path.GetDirectoryName(filePath);
+            try
+            {
+                shortcut.Description = Path.GetFileName(filePath);
+            }
+            catch
+            {
+            }
+            shortcut.Save();
+        }
+       
         private void FileItem_Click(object sender, MouseButtonEventArgs e)
         {
             var clickedFileItem = (sender as Border)?.DataContext as FileItem;
@@ -2753,6 +2856,8 @@ namespace DeskFrame
                 //);
 
                 titleBar.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
+                title.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
+                frameTypeSymbol.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
             };
 
             MenuItem exitItem = new MenuItem

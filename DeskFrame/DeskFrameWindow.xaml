@@ -44,6 +44,7 @@
 
         <local:BooleanToBorderThicknessConverter x:Key="BooleanToBorderThicknessConverter"/>
         <local:TitleTextAlignmentToMarginConverter x:Key="TitleTextAlignmentToMarginConverter" />
+        <local:BooleanFrameTypeToSymbolConverter x:Key="BooleanFrameTypeToSymbolConverter"/>
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <local:OffsetConverter x:Key="OffsetConverter"/>
         <local:IconSizeToHeightWidthConverter x:Key="IconSizeToHeightWidthConverter"/>
@@ -303,9 +304,17 @@
                 <Grid.Height>
                     <Binding ElementName="titleBar" Path="Height"/>
                 </Grid.Height>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" x:Name="titleStackPanel">
+
+                    <ui:SymbolIcon x:Name="frameTypeSymbol"
+                       Symbol="{Binding Instance.IsShortcutsOnly, Converter={StaticResource BooleanFrameTypeToSymbolConverter}}" 
+                       Foreground="{Binding ElementName=title, Path=Foreground}" 
+                       FontSize="{Binding Instance.TitleFontSize}"
+                       IsHitTestVisible="True"
+                       Width="0"
+                       Opacity="0"
+                    />
                     <TextBlock x:Name="title" 
-                           IsHitTestVisible="False"
                            Foreground="White"
                            FontSize="13">
                     </TextBlock>

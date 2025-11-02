@@ -50,6 +50,20 @@ public class Instance : INotifyPropertyChanged
     private int[] _showOnVirtualDesktops;
     private double _titleFontSize = 13;
     private int _iconSize = 32;
+    private bool _isShortcutsOnly = false;
+   
+    public bool IsShortcutsOnly
+    {
+        get => _isShortcutsOnly;
+        set
+        {
+            if (_isShortcutsOnly != value)
+            {
+                _isShortcutsOnly = value;
+                OnPropertyChanged(nameof(IsShortcutsOnly), value.ToString());
+            }
+        }
+    }
     public int IconSize
     {
         get => _iconSize;
