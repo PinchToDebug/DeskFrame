@@ -386,4 +386,19 @@
   <data name="FrameSettings.FolderOpenInsideFrame" xml:space="preserve">
     <value>Otwórz folder w oknie</value>
   </data>
+  <data name="FrameTypeFlyout.Description" xml:space="preserve">
+    <value>Pierwszy folder lub plik, który przeciągniesz, określa typ ramki. Są dwa typy:</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FileTypeDescription" xml:space="preserve">
+    <value>Tworzy skróty z dowolnego miejsca, aby uzyskać dostęp do plików i folderów. Gdy przeciągniesz inny plik lub folder, zostanie utworzony skrót tego elementu.</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FolderTypeDescription" xml:space="preserve">
+    <value>Wyświetla zawartość folderu. Gdy przeciągniesz inny plik lub folder, element zostanie przeniesiony do tego folderu.</value>
+  </data>
+  <data name="FrameTypeFlyout.Folder" xml:space="preserve">
+    <value>Folder:</value>
+  </data>
+  <data name="FrameTypeFlyout.File" xml:space="preserve">
+    <value>Plik:</value>
+  </data>
 </root>

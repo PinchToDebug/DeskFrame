@@ -106,77 +106,77 @@
 
         <Grid>
 
-                <Border MouseRightButtonDown="titleBar_MouseRightButtonDown"  x:Name="titleBar" Background="White"
+            <Border MouseRightButtonDown="titleBar_MouseRightButtonDown"  x:Name="titleBar" Background="White"
                     VerticalAlignment="Top" Cursor="SizeAll" CornerRadius="5,5,0,0">
-                    <Grid  >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid>
-
-
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0">
-                                <ui:ProgressRing  x:Name="LoadingProgressRing" Visibility="Hidden" IsIndeterminate="True" Height="18" Width="18" Foreground="{Binding ElementName=title, Path=Foreground}"/>
-                                <Grid Cursor="Hand" MouseLeftButtonDown="ToggleHiddenFiles_MouseLeftButtonDown" Width="30" Background="#02000000" Name="HiddenFilesIconGrid">
-                                    <ui:SymbolIcon x:Name="HiddenFilesIcon" Symbol="Eye48" Foreground="{Binding ElementName=title, Path=Foreground}" Width="20" Height="20" FontSize="20">
-                                        <ui:SymbolIcon.RenderTransform>
-                                            <ScaleTransform x:Name="HiddenFilesScale" ScaleX="1" ScaleY="1" CenterX="0.5" CenterY="0.5" />
-                                        </ui:SymbolIcon.RenderTransform>
-                                    </ui:SymbolIcon>
-                                </Grid>
-                                <Grid Cursor="Hand" MouseLeftButtonDown="ToggleFileExtension_MouseLeftButtonDown" Width="30" Background="#02000000" Name="FileExtensionIconGrid">
-                                    <ui:SymbolIcon x:Name="FileExtensionIcon" Symbol="Document48" Foreground="{Binding ElementName=title, Path=Foreground}" Width="20" Height="20" FontSize="20">
-                                        <ui:SymbolIcon.RenderTransform>
-                                            <ScaleTransform x:Name="FileExtensionScale" ScaleX="1" ScaleY="1" CenterX="0.5" CenterY="0.5" />
-                                        </ui:SymbolIcon.RenderTransform>
-                                    </ui:SymbolIcon>
-                                </Grid>
-                                <Grid Cursor="Hand" MouseLeftButtonDown="Minimize_MouseLeftButtonDown" Width="30" Background="#02000000">
-                                    <ui:SymbolIcon x:Name="ChevronIcon" Symbol="ChevronDown48" Foreground="{Binding ElementName=title, Path=Foreground}" Width="20" Height="20" FontSize="20">
-                                        <ui:SymbolIcon.RenderTransform>
-                                            <RotateTransform x:Name="ChevronRotate" Angle="0" CenterX="0.5" CenterY="0.5" />
-                                        </ui:SymbolIcon.RenderTransform>
-                                        <ui:SymbolIcon.RenderTransformOrigin>
-                                            <Point X="0.5" Y="0.5"/>
-                                        </ui:SymbolIcon.RenderTransformOrigin>
-                                    </ui:SymbolIcon>
-                                </Grid>
-                            </StackPanel>
-                            <ui:TextBox x:Name="FilterTextBox"  HorizontalAlignment="Left"  Width="0"  Height="0" TextChanged="FilterTextBox_TextChanged" />
-                            <StackPanel x:Name="Search" Visibility="Collapsed" HorizontalAlignment="Left" Orientation="Horizontal">
-                                <ui:SymbolIcon Symbol="Search48" Margin="4,0,0,0" Foreground="White" VerticalAlignment="Center" FontSize="22"/>
-                                <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Content=":  "  FontWeight="Bold"/>
-                                <Label x:Name="searchQuery" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" />
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
-                </Border>
-                <Border >
+                <Grid  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
                     <Grid>
+
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0">
+                            <ui:ProgressRing  x:Name="LoadingProgressRing" Visibility="Hidden" IsIndeterminate="True" Height="18" Width="18" Foreground="{Binding ElementName=title, Path=Foreground}"/>
+                            <Grid Cursor="Hand" MouseLeftButtonDown="ToggleHiddenFiles_MouseLeftButtonDown" Width="30" Background="#02000000" Name="HiddenFilesIconGrid">
+                                <ui:SymbolIcon x:Name="HiddenFilesIcon" Symbol="Eye48" Foreground="{Binding ElementName=title, Path=Foreground}" Width="20" Height="20" FontSize="20">
+                                    <ui:SymbolIcon.RenderTransform>
+                                        <ScaleTransform x:Name="HiddenFilesScale" ScaleX="1" ScaleY="1" CenterX="0.5" CenterY="0.5" />
+                                    </ui:SymbolIcon.RenderTransform>
+                                </ui:SymbolIcon>
+                            </Grid>
+                            <Grid Cursor="Hand" MouseLeftButtonDown="ToggleFileExtension_MouseLeftButtonDown" Width="30" Background="#02000000" Name="FileExtensionIconGrid">
+                                <ui:SymbolIcon x:Name="FileExtensionIcon" Symbol="Document48" Foreground="{Binding ElementName=title, Path=Foreground}" Width="20" Height="20" FontSize="20">
+                                    <ui:SymbolIcon.RenderTransform>
+                                        <ScaleTransform x:Name="FileExtensionScale" ScaleX="1" ScaleY="1" CenterX="0.5" CenterY="0.5" />
+                                    </ui:SymbolIcon.RenderTransform>
+                                </ui:SymbolIcon>
+                            </Grid>
+                            <Grid Cursor="Hand" MouseLeftButtonDown="Minimize_MouseLeftButtonDown" Width="30" Background="#02000000">
+                                <ui:SymbolIcon x:Name="ChevronIcon" Symbol="ChevronDown48" Foreground="{Binding ElementName=title, Path=Foreground}" Width="20" Height="20" FontSize="20">
+                                    <ui:SymbolIcon.RenderTransform>
+                                        <RotateTransform x:Name="ChevronRotate" Angle="0" CenterX="0.5" CenterY="0.5" />
+                                    </ui:SymbolIcon.RenderTransform>
+                                    <ui:SymbolIcon.RenderTransformOrigin>
+                                        <Point X="0.5" Y="0.5"/>
+                                    </ui:SymbolIcon.RenderTransformOrigin>
+                                </ui:SymbolIcon>
+                            </Grid>
+                        </StackPanel>
+                        <ui:TextBox x:Name="FilterTextBox"  HorizontalAlignment="Left"  Width="0"  Height="0" TextChanged="FilterTextBox_TextChanged" />
+                        <StackPanel x:Name="Search" Visibility="Collapsed" HorizontalAlignment="Left" Orientation="Horizontal">
+                            <ui:SymbolIcon Symbol="Search48" Margin="4,0,0,0" Foreground="White" VerticalAlignment="Center" FontSize="22"/>
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Content=":  "  FontWeight="Bold"/>
+                            <Label x:Name="searchQuery" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+            <Border >
+                <Grid>
                     <Grid x:Name="showFolder">
-                            <ui:DynamicScrollViewer  x:Name="scrollViewer"  IsTabStop="False" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0" >
-                                <ItemsControl    Padding="0,5,0,0" x:Name="FileWrapPanel" IsTabStop="False" ItemsSource="{Binding FileItems}" ItemTemplate="{StaticResource FileItemTemplate}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True">
-                                                <WrapPanel.ItemWidth>
-                                                    <MultiBinding Converter="{StaticResource ShowDisplayNameToItemWidthConverter}">
-                                                        <Binding Path="DataContext.Instance.ShowDisplayName" RelativeSource="{RelativeSource AncestorType=Window}" />
-                                                        <Binding Path="DataContext.Instance.IconSize" RelativeSource="{RelativeSource AncestorType=Window}" />
-                                                    </MultiBinding>
-                                                </WrapPanel.ItemWidth>
-                                            </WrapPanel>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
-                            </ui:DynamicScrollViewer>
-                        </Grid>
+                        <ui:DynamicScrollViewer  x:Name="scrollViewer"  IsTabStop="False" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0" >
+                            <ItemsControl    Padding="0,5,0,0" x:Name="FileWrapPanel" IsTabStop="False" ItemsSource="{Binding FileItems}" ItemTemplate="{StaticResource FileItemTemplate}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True">
+                                            <WrapPanel.ItemWidth>
+                                                <MultiBinding Converter="{StaticResource ShowDisplayNameToItemWidthConverter}">
+                                                    <Binding Path="DataContext.Instance.ShowDisplayName" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                                    <Binding Path="DataContext.Instance.IconSize" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                                </MultiBinding>
+                                            </WrapPanel.ItemWidth>
+                                        </WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ui:DynamicScrollViewer>
+                    </Grid>
 
 
-                        <Grid x:Name="showFolderInGrid">
+                    <Grid x:Name="showFolderInGrid">
 
-                            <ui:ListView x:Name="FileListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        <ui:ListView x:Name="FileListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      ItemsSource="{Binding FileItems}"
                                      IsTabStop="False"
                                      Margin="0,30,0,0"
@@ -187,113 +187,191 @@
                                      PreviewMouseDown="FileListView_MouseLeftButtonDown"
                                      MouseRightButtonUp="FileListView_MouseRightButtonUp"
                                      BorderThickness="0">
-                                <ui:ListView.View >
-                                    <ui:GridView >
-                                        <ui:GridViewColumn Width="250" Header="{x:Static prop:Lang.FrameGridView_Name}" x:Name="NameGridColumn">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="25"/>
-                                                            <ColumnDefinition  MaxWidth="{Binding ActualWidth, ElementName=NameGridColumn}"/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Image Grid.Column="0" 
+                            <ui:ListView.View >
+                                <ui:GridView >
+                                    <ui:GridViewColumn Width="250" Header="{x:Static prop:Lang.FrameGridView_Name}" x:Name="NameGridColumn">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="25"/>
+                                                        <ColumnDefinition  MaxWidth="{Binding ActualWidth, ElementName=NameGridColumn}"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Grid.Column="0" 
                                                            Source="{Binding Thumbnail}" 
                                                            MaxWidth="20" 
                                                            Margin="-10,0,0,0"
                                                            HorizontalAlignment="Center" 
                                                            MaxHeight="15" 
                                                            Stretch="Uniform" />
-                                                        <Grid Grid.Column="1">
-                                                            <TextBlock FontSize="12" 
+                                                    <Grid Grid.Column="1">
+                                                        <TextBlock FontSize="12" 
                                                                    Text="{Binding DisplayName}" 
                                                                    TextTrimming="CharacterEllipsis" 
                                                                    TextWrapping="NoWrap" 
                                                                    Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
-                                                                <TextBlock.Effect>
-                                                                    <BlurEffect Radius="2.5" KernelType="Box"/>
-                                                                </TextBlock.Effect>
-                                                            </TextBlock>
-                                                            <TextBlock FontSize="12" 
+                                                            <TextBlock.Effect>
+                                                                <BlurEffect Radius="2.5" KernelType="Box"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
+                                                        <TextBlock FontSize="12" 
                                                                    Text="{Binding DisplayName}" 
                                                                    TextTrimming="CharacterEllipsis" 
                                                                    Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                                                        </Grid>
                                                     </Grid>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </ui:GridViewColumn>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </ui:GridViewColumn>
 
-                                        <GridViewColumn Header="{x:Static prop:Lang.FrameGridView_DateModified}" Width="150" x:Name="DateModifiedGridColumn">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Grid  MaxWidth="{Binding ActualWidth, ElementName=DateModifiedGridColumn}">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition  MaxWidth="{Binding ActualWidth, ElementName=DateModifiedGridColumn}"/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Grid Grid.Column="0">
-                                                            <TextBlock FontSize="12"
+                                    <GridViewColumn Header="{x:Static prop:Lang.FrameGridView_DateModified}" Width="150" x:Name="DateModifiedGridColumn">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid  MaxWidth="{Binding ActualWidth, ElementName=DateModifiedGridColumn}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition  MaxWidth="{Binding ActualWidth, ElementName=DateModifiedGridColumn}"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid Grid.Column="0">
+                                                        <TextBlock FontSize="12"
                                                                    Text="{Binding DateModified}" 
                                                                    TextTrimming="CharacterEllipsis" 
                                                                    Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
-                                                                <TextBlock.Effect>
-                                                                    <BlurEffect Radius="2.5" KernelType="Box"/>
-                                                                </TextBlock.Effect>
-                                                            </TextBlock>
-                                                            <TextBlock FontSize="12" Text="{Binding DateModified}"
+                                                            <TextBlock.Effect>
+                                                                <BlurEffect Radius="2.5" KernelType="Box"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
+                                                        <TextBlock FontSize="12" Text="{Binding DateModified}"
                                                                    TextTrimming="CharacterEllipsis"
                                                                    Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                                                        </Grid>
                                                     </Grid>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                        <GridViewColumn Header="{x:Static prop:Lang.FrameGridView_Size}" Width="110" x:Name="SizeGridColumn">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate >
-                                                    <StackPanel Margin="0,00,00,17" >
-                                                        <Canvas HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="{Binding ActualWidth, ElementName=SizeGridColumn}" >
-                                                            <TextBlock FontSize="12" 
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="{x:Static prop:Lang.FrameGridView_Size}" Width="110" x:Name="SizeGridColumn">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate >
+                                                <StackPanel Margin="0,00,00,17" >
+                                                    <Canvas HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="{Binding ActualWidth, ElementName=SizeGridColumn}" >
+                                                        <TextBlock FontSize="12" 
                                                                    Text="{Binding DisplaySize}"
                                                                    Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                    Canvas.Right="{Binding ActualWidth, ElementName=SizeGridColumn, Converter={StaticResource OffsetConverter}}"
                                                                    VerticalAlignment="Center">
-                                                                <TextBlock.Effect>
-                                                                    <BlurEffect Radius="2.5" KernelType="Box"/>
-                                                                </TextBlock.Effect>
-                                                            </TextBlock>
-                                                            <TextBlock FontSize="12" Text="{Binding DisplaySize}"
+                                                            <TextBlock.Effect>
+                                                                <BlurEffect Radius="2.5" KernelType="Box"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
+                                                        <TextBlock FontSize="12" Text="{Binding DisplaySize}"
                                                                    Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                    Canvas.Right="{Binding ActualWidth, ElementName=SizeGridColumn, Converter={StaticResource OffsetConverter}}"
                                                                    VerticalAlignment="Center"/>
-                                                        </Canvas>
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                    </ui:GridView>
+                                                    </Canvas>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </ui:GridView>
 
-                                </ui:ListView.View>
-                            </ui:ListView>
-                        </Grid>
+                            </ui:ListView.View>
+                        </ui:ListView>
+                    </Grid>
 
 
 
-                    <Grid x:Name="addFolder" Visibility="Hidden">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
-                            <TextBlock Text="{x:Static prop:Lang.showFolderInGrid_DropFolder}" HorizontalAlignment="Center" Foreground="White" FontSize="14" Padding="0,0,0,10"/>
-                            <ui:SymbolIcon Symbol="Add48" FontSize="88" Foreground="White" OpacityMask="#4CFFFFFF"/>
+                    <Grid x:Name="addFolder" Visibility="Hidden" >
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" >
+
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    Text="{x:Static prop:Lang.showFolderInGrid_DropFolder}"
+                                    HorizontalAlignment="Center"
+                                    Foreground="White"
+                                    FontSize="14"/>
+
+                                <ui:SymbolIcon
+                                    Symbol="Info28"
+                                    Foreground="White"
+                                    FontSize="14"
+                                    MouseEnter="SymbolIcon_MouseEnter"/>
+                               
+                                <Grid Margin="-10">
+                                    <ui:Flyout x:Name="InfoFlyout" IsOpen="False">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            
+                                            <TextBlock
+                                                Grid.Row="0" 
+                                                Width="280"
+                                                Text="{x:Static prop:Lang.FrameTypeFlyout_Description}"
+                                                Margin="0,0,0,20"
+                                                TextAlignment="Center"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"/>
+
+                                            <Grid Margin="0,0,0,0" Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock
+                                                    Grid.Row="0" Grid.Column="0"
+                                                    Text="{x:Static prop:Lang.FrameTypeFlyout_File}"
+                                                    Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                                                    FontWeight="Bold"
+                                                    FontSize="12"/>
+
+                                                <TextBlock
+                                                    Grid.Row="0" Grid.Column="1"
+                                                    Width="280"
+                                                    Text="{x:Static prop:Lang.FrameTypeFlyout_Description_FileTypeDescription}"
+                                                    Foreground="White"
+                                                    TextWrapping="Wrap"
+                                                    FontSize="12"
+                                                    Margin="0,0,0,8"/>
+
+                                                <TextBlock
+                                                    Grid.Row="1" Grid.Column="0"
+                                                    Text="{x:Static prop:Lang.FrameTypeFlyout_Folder}"
+                                                    FontWeight="Bold"
+                                                    Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                                                    FontSize="12"
+                                                    Margin="0,0,10,0"/>
+
+                                                <TextBlock
+                                                    Grid.Row="1" Grid.Column="1"
+                                                    Width="280"
+                                                    Text="{x:Static prop:Lang.FrameTypeFlyout_Description_FolderTypeDescription}"
+                                                    Foreground="White"
+                                                    FontSize="12"
+                                                    TextWrapping="Wrap"/>
+                                            </Grid>
+                                        </Grid>
+                                    </ui:Flyout>
+                                </Grid>
+                            </StackPanel>
+                            <ui:SymbolIcon Symbol="Add48" FontSize="86" Foreground="White" OpacityMask="#4CFFFFFF"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
-                </Border>
-                <Border x:Name="WindowBorder" 
+            </Border>
+            <Border x:Name="WindowBorder" 
                     CornerRadius="5"
                     BorderThickness="{Binding Instance.BorderEnabled, Converter={StaticResource BooleanToBorderThicknessConverter}}" 
                     BorderBrush="{Binding Instance.BorderColor}"
              />
             <Grid HorizontalAlignment="{Binding Instance.TitleTextAlignment}" VerticalAlignment="Top" >
-                
+
                 <Grid.Margin>
                     <MultiBinding Converter="{StaticResource TitleTextAlignmentToMarginConverter}">
                         <Binding Path="Instance.TitleTextAlignment"/>
@@ -319,7 +397,7 @@
                            FontSize="13">
                     </TextBlock>
                 </StackPanel>
-                
+
             </Grid>
             <Button x:Name="PathToBackButton" Content="&#60;" Width="30" Visibility="Collapsed" HorizontalAlignment="Left" Margin="5,5,5,0" Padding="0" VerticalAlignment="Top" Click="PathToBackButton_Click"/>
 

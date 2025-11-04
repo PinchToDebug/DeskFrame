@@ -386,4 +386,19 @@
   <data name="FrameSettings.FolderOpenInsideFrame" xml:space="preserve">
     <value>창 안에서 폴더 열기</value>
   </data>
+  <data name="FrameTypeFlyout.Description" xml:space="preserve">
+    <value>처음 드래그한 폴더나 파일이 프레임 유형을 결정합니다. 유형은 두 가지입니다:</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FileTypeDescription" xml:space="preserve">
+    <value>어디서든 파일과 폴더에 접근할 수 있는 바로가기를 생성합니다. 다른 파일이나 폴더를 드래그하면 해당 항목의 바로가기가 생성됩니다.</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FolderTypeDescription" xml:space="preserve">
+    <value>폴더의 내용을 표시합니다. 다른 파일이나 폴더를 드래그하면 해당 항목이 그 폴더 안으로 이동됩니다.</value>
+  </data>
+  <data name="FrameTypeFlyout.Folder" xml:space="preserve">
+    <value>폴더:</value>
+  </data>
+  <data name="FrameTypeFlyout.File" xml:space="preserve">
+    <value>파일:</value>
+  </data>
 </root>

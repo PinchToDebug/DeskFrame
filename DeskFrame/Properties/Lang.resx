@@ -387,4 +387,19 @@
   <data name="FrameSettings.FolderOpenInsideFrame" xml:space="preserve">
     <value>Open folder inside window</value>
   </data>
+  <data name="FrameTypeFlyout.Description" xml:space="preserve">
+    <value>The first folder or file you drag in decides the frame type. There are two types:</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FileTypeDescription" xml:space="preserve">
+    <value>Creates shortcuts from anywhere to access files and folders. When you drag another file or folder into it, it creates a shortcut of the item.</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FolderTypeDescription" xml:space="preserve">
+    <value>Shows the contents of a folder. When you drag another file or folder into it, it moves the item inside that folder.</value>
+  </data>
+  <data name="FrameTypeFlyout.Folder" xml:space="preserve">
+    <value>Folder:</value>
+  </data>
+  <data name="FrameTypeFlyout.File" xml:space="preserve">
+    <value>File:</value>
+  </data>
 </root>

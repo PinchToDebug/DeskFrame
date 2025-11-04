@@ -385,4 +385,19 @@
   <data name="FrameSettings.FolderOpenInsideFrame" xml:space="preserve">
     <value>在窗口内打开文件夹</value>
   </data>
+  <data name="FrameTypeFlyout.Description" xml:space="preserve">
+    <value>你拖入的第一个文件夹或文件决定此框架的类型。有两种类型：</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FileTypeDescription" xml:space="preserve">
+    <value>可以从任何位置创建快捷方式以访问文件和文件夹。当你将另一个文件或文件夹拖入其中时，会创建该项目的快捷方式。</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FolderTypeDescription" xml:space="preserve">
+    <value>显示文件夹的内容。当你将另一个文件或文件夹拖入其中时，该项目会被移动到该文件夹内。</value>
+  </data>
+  <data name="FrameTypeFlyout.Folder" xml:space="preserve">
+    <value>文件夹:</value>
+  </data>
+  <data name="FrameTypeFlyout.File" xml:space="preserve">
+    <value>文件:</value>
+  </data>
 </root>

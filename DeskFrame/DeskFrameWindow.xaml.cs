@@ -3258,6 +3258,12 @@ namespace DeskFrame
             _currentFolderPath = parentPath!;
             InitializeFileWatcher();
         }
+
+        private void SymbolIcon_MouseEnter(object sender, MouseEventArgs e)
+        {
+            InfoFlyout.IsOpen = true;
+        }
+
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             Instance.isWindowClosing = true;

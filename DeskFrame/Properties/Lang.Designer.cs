@@ -439,6 +439,51 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The first folder or file you drag in decides the frame type. There are two types:.
+        /// </summary>
+        public static string FrameTypeFlyout_Description {
+            get {
+                return ResourceManager.GetString("FrameTypeFlyout.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creates shortcuts from anywhere to access files and folders. When you drag another file or folder into it, it creates a shortcut of the item..
+        /// </summary>
+        public static string FrameTypeFlyout_Description_FileTypeDescription {
+            get {
+                return ResourceManager.GetString("FrameTypeFlyout.Description.FileTypeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows the contents of a folder. When you drag another file or folder into it, it moves the item inside that folder..
+        /// </summary>
+        public static string FrameTypeFlyout_Description_FolderTypeDescription {
+            get {
+                return ResourceManager.GetString("FrameTypeFlyout.Description.FolderTypeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File:.
+        /// </summary>
+        public static string FrameTypeFlyout_File {
+            get {
+                return ResourceManager.GetString("FrameTypeFlyout.File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder:.
+        /// </summary>
+        public static string FrameTypeFlyout_Folder {
+            get {
+                return ResourceManager.GetString("FrameTypeFlyout.Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drop a folder.
         /// </summary>
         public static string showFolderInGrid_DropFolder {

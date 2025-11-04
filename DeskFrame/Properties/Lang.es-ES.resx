@@ -386,4 +386,19 @@
   <data name="FrameSettings.FolderOpenInsideFrame" xml:space="preserve">
     <value>Abrir carpeta dentro de la ventana</value>
   </data>
+  <data name="FrameTypeFlyout.Description" xml:space="preserve">
+    <value>La primera carpeta o archivo que arrastres decidirá el tipo de marco. Hay dos tipos:</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FileTypeDescription" xml:space="preserve">
+    <value>Crea accesos directos desde cualquier lugar para acceder a archivos y carpetas. Cuando arrastras otro archivo o carpeta dentro, se crea un acceso directo del elemento.</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FolderTypeDescription" xml:space="preserve">
+    <value>Muestra el contenido de una carpeta. Cuando arrastras otro archivo o carpeta dentro, el elemento se mueve dentro de esa carpeta.</value>
+  </data>
+  <data name="FrameTypeFlyout.Folder" xml:space="preserve">
+    <value>Carpeta:</value>
+  </data>
+  <data name="FrameTypeFlyout.File" xml:space="preserve">
+    <value>Archivo:</value>
+  </data>
 </root>
