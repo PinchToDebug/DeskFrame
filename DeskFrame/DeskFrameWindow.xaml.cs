@@ -279,7 +279,11 @@ namespace DeskFrame
                 if (!IsCursorWithinWindowBounds() && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left mouse button is not down
                 {
                     _mouseIsOver = false;
-                    if (_canAutoClose) FilterTextBox.Text = null;
+                    if (_canAutoClose)
+                    {
+                        FilterTextBox.Text = null;
+                        FilterTextBox.Visibility = Visibility.Collapsed;
+                    }
                     this.SetNoActivate();
                     if (_didFixIsOnBottom) _fixIsOnBottomInit = false;
 
@@ -1065,6 +1069,11 @@ namespace DeskFrame
             if (e.Key == Key.Escape || !_mouseIsOver)
             {
                 FilterTextBox.Text = null;
+                FilterTextBox.Visibility = Visibility.Collapsed;
+            }
+            else if (e.Key != Key.Escape)
+            {
+                FilterTextBox.Visibility = Visibility.Visible;
             }
             FilterTextBox.Focus();
             return;
