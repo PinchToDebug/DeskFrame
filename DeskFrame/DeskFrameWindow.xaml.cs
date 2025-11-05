@@ -1143,6 +1143,20 @@ namespace DeskFrame
             IntPtr hwnd = new WindowInteropHelper(this).Handle;
             int exStyle = (int)Interop.GetWindowLong(hwnd, Interop.GWL_EXSTYLE);
             Interop.SetWindowLong(hwnd, Interop.GWL_EXSTYLE, exStyle | Interop.WS_EX_NOACTIVATE);
+            WindowChrome.SetWindowChrome(this, Instance.IsLocked ?
+                new WindowChrome
+                {
+                    ResizeBorderThickness = new Thickness(0),
+                    CaptionHeight = 0
+                } :
+                new WindowChrome
+                {
+                    GlassFrameThickness = new Thickness(0),
+                    CaptionHeight = 0,
+                    ResizeBorderThickness = new Thickness(5),
+                    CornerRadius = new CornerRadius(5)
+                }
+            );
             KeepWindowBehind();
             SetAsDesktopChild();
             SetNoActivate();
@@ -1554,7 +1568,33 @@ namespace DeskFrame
         //}
 
         private void ToggleHiddenFiles() => Instance.ShowHiddenFiles = !Instance.ShowHiddenFiles;
-        private void ToggleIsLocked() => Instance.IsLocked = !Instance.IsLocked;
+        private void ToggleIsLocked()
+        {
+            Instance.IsLocked = !Instance.IsLocked;
+            var interopHelper = new WindowInteropHelper(this);
+            interopHelper.EnsureHandle();
+            IntPtr hwnd = interopHelper.Handle;
+            SetParent(hwnd, IntPtr.Zero);
+            WindowChrome.SetWindowChrome(this, Instance.IsLocked ?
+                new WindowChrome
+                {
+                    ResizeBorderThickness = new Thickness(0),
+                    CaptionHeight = 0
+                } :
+                new WindowChrome
+                {
+                    GlassFrameThickness = new Thickness(0),
+                    CaptionHeight = 0,
+                    ResizeBorderThickness = new Thickness(5),
+                    CornerRadius = new CornerRadius(5)
+                }
+            );
+            SetAsDesktopChild();
+            HandleWindowMove(true);
+
+            this.Width += 1;
+            this.Width -= 1;
+        }
         private void ToggleFileExtension() => Instance.ShowFileExtension = !Instance.ShowFileExtension;
 
         public async void LoadFiles(string path)
@@ -1963,7 +2003,7 @@ namespace DeskFrame
             }
             shortcut.Save();
         }
-       
+
         private void FileItem_Click(object sender, MouseButtonEventArgs e)
         {
             var clickedFileItem = (sender as Border)?.DataContext as FileItem;
