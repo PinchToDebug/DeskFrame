@@ -687,7 +687,7 @@ namespace DeskFrame
                     newWindowLeft = otherRight - (windowRight - windowLeft);
                 }
             }
-
+    
             if (newWindowLeft != windowLeft || newWindowTop != windowTop || newWindowBottom != windowBottom)
             {
                 POINT pt = new POINT { X = newWindowLeft, Y = newWindowTop };
@@ -779,6 +779,15 @@ namespace DeskFrame
                 else if (_isLeftButtonDown)
                 {
                     _isOnBottom = false;
+                }
+                Debug.WriteLine(windowRight);
+                if (Math.Abs(windowLeft -workingArea.Left)<= _snapDistance)
+                {
+                    newWindowLeft = workingArea.Left;
+                }
+                else if (Math.Abs( workingArea.Right- windowRight ) <= _snapDistance)
+                {
+                    newWindowLeft = (int)(workingArea.Right - this.ActualWidth);
                 }
             }
             neighborFrameCount = 0;
