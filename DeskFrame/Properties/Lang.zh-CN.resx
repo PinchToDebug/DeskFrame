@@ -377,7 +377,7 @@
     <value>大小</value>
   </data>
   <data name="showFolderInGrid.DropFolder" xml:space="preserve">
-    <value>拖放文件夹</value>
+    <value>拖放文件或文件夹</value>
   </data>
   <data name="FrameSettings.TitleBarText" xml:space="preserve">
     <value>Frame 设置</value>

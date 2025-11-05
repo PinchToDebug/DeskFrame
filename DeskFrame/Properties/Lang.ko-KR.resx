@@ -378,7 +378,7 @@
     <value>크기</value>
   </data>
   <data name="showFolderInGrid.DropFolder" xml:space="preserve">
-    <value>폴더를 놓으세요</value>
+    <value>파일/폴더 놓기</value>
   </data>
   <data name="FrameSettings.TitleBarText" xml:space="preserve">
     <value>Frame 설정</value>

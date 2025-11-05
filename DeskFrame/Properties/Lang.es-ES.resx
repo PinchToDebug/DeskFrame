@@ -378,7 +378,7 @@
     <value>Tamaño</value>
   </data>
   <data name="showFolderInGrid.DropFolder" xml:space="preserve">
-    <value>Soltar carpeta</value>
+    <value>Suelta archivo o carpeta</value>
   </data>
   <data name="FrameSettings.TitleBarText" xml:space="preserve">
     <value>Configuración de Frame</value>

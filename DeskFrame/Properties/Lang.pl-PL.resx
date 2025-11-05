@@ -378,7 +378,7 @@
     <value>Rozmiar</value>
   </data>
   <data name="showFolderInGrid.DropFolder" xml:space="preserve">
-    <value>Upuść folder</value>
+    <value>Upuść plik lub folder</value>
   </data>
   <data name="FrameSettings.TitleBarText" xml:space="preserve">
     <value>Ustawienia Frame</value>
