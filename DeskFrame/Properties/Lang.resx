@@ -402,4 +402,15 @@
   <data name="FrameTypeFlyout.File" xml:space="preserve">
     <value>File:</value>
   </data>
+  <data name="FrameSettings.CategoryWindow" xml:space="preserve">
+    <value>Window</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth" xml:space="preserve">
+    <value>Resize width to fit icon size</value>
+    <comment>TextBlock</comment>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
+    <value>Reserve space for scrollbar</value>
+    <comment>TextBlock</comment>
+  </data>
 </root>

@@ -51,7 +51,33 @@ public class Instance : INotifyPropertyChanged
     private double _titleFontSize = 13;
     private int _iconSize = 32;
     private bool _isShortcutsOnly = false;
-   
+    private bool _snapWidthToIconWidth = false;
+    private bool _snapWidthToIconWidth_PlusScrollbarWidth = false;
+
+    public bool SnapWidthToIconWidth
+    {
+        get => _snapWidthToIconWidth;
+        set
+        {
+            if (_snapWidthToIconWidth != value)
+            {
+                _snapWidthToIconWidth = value;
+                OnPropertyChanged(nameof(SnapWidthToIconWidth), value.ToString());
+            }
+        }
+    }
+    public bool SnapWidthToIconWidth_PlusScrollbarWidth
+    {
+        get => _snapWidthToIconWidth_PlusScrollbarWidth;
+        set
+        {
+            if (_snapWidthToIconWidth_PlusScrollbarWidth != value)
+            {
+                _snapWidthToIconWidth_PlusScrollbarWidth = value;
+                OnPropertyChanged(nameof(SnapWidthToIconWidth_PlusScrollbarWidth), value.ToString());
+            }
+        }
+    }
     public bool IsShortcutsOnly
     {
         get => _isShortcutsOnly;

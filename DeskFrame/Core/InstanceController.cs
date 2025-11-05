@@ -44,6 +44,8 @@ public class InstanceController
                 key.SetValue("AutoExpandonCursor", instance.AutoExpandonCursor);
                 key.SetValue("ShowShortcutArrow", instance.ShowShortcutArrow);
                 key.SetValue("FolderOpenInsideFrame", instance.FolderOpenInsideFrame);
+                key.SetValue("SnapWidthToIconWidth", instance.SnapWidthToIconWidth);
+                key.SetValue("SnapWidthToIconWidth_PlusScrollbarWidth", instance.SnapWidthToIconWidth_PlusScrollbarWidth);
                 key.SetValue("CheckFolderSize", instance.CheckFolderSize);
                 key.SetValue("TitleBarColor", instance.TitleBarColor!);
                 key.SetValue("TitleTextColor", instance.TitleTextColor!);
@@ -116,6 +118,8 @@ public class InstanceController
                 key.SetValue("AutoExpandonCursor", instance.AutoExpandonCursor);
                 key.SetValue("ShowShortcutArrow", instance.ShowShortcutArrow);
                 key.SetValue("FolderOpenInsideFrame", instance.FolderOpenInsideFrame);
+                key.SetValue("SnapWidthToIconWidth", instance.SnapWidthToIconWidth);
+                key.SetValue("SnapWidthToIconWidth_PlusScrollbarWidth", instance.SnapWidthToIconWidth_PlusScrollbarWidth);
                 key.SetValue("CheckFolderSize", instance.CheckFolderSize);
                 if (instance.TitleBarColor != null) key.SetValue("TitleBarColor", instance.TitleBarColor);
                 if (instance.TitleTextColor != null) key.SetValue("TitleTextColor", instance.TitleTextColor);
@@ -392,6 +396,14 @@ public class InstanceController
                                             case "FolderOpenInsideFrame":
                                                 temp.FolderOpenInsideFrame = bool.Parse(value.ToString()!);
                                                 Debug.WriteLine($"FolderOpenInsideFrame added\t{temp.FolderOpenInsideFrame}");
+                                                break;
+                                            case "SnapWidthToIconWidth":
+                                                temp.SnapWidthToIconWidth = bool.Parse(value.ToString()!);
+                                                Debug.WriteLine($"SnapWidthToIconWidth added\t{temp.SnapWidthToIconWidth}");
+                                                break;
+                                            case "SnapWidthToIconWidth_PlusScrollbarWidth":
+                                                temp.SnapWidthToIconWidth_PlusScrollbarWidth = bool.Parse(value.ToString()!);
+                                                Debug.WriteLine($"SnapWidthToIconWidth_PlusScrollbarWidth added\t{temp.SnapWidthToIconWidth_PlusScrollbarWidth}");
                                                 break;
                                             case "CheckFolderSize":
                                                 temp.CheckFolderSize = bool.Parse(value.ToString()!);

@@ -400,4 +400,13 @@
   <data name="FrameTypeFlyout.File" xml:space="preserve">
     <value>文件:</value>
   </data>
+  <data name="FrameSettings.CategoryWindow" xml:space="preserve">
+    <value>窗口</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth" xml:space="preserve">
+    <value>调整宽度适应图标</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
+    <value>保留滚动条空间</value>
+  </data>
 </root>

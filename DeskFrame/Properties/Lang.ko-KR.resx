@@ -401,4 +401,13 @@
   <data name="FrameTypeFlyout.File" xml:space="preserve">
     <value>파일:</value>
   </data>
+  <data name="FrameSettings.CategoryWindow" xml:space="preserve">
+    <value>창</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth" xml:space="preserve">
+    <value>아이콘 크기에 맞게 너비 조정</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
+    <value>스크롤바 공간 예약</value>
+  </data>
 </root>

@@ -401,4 +401,13 @@
   <data name="FrameTypeFlyout.File" xml:space="preserve">
     <value>Archivo:</value>
   </data>
+  <data name="FrameSettings.CategoryWindow" xml:space="preserve">
+    <value>Ventana</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth" xml:space="preserve">
+    <value>Ajustar ancho al tamaño del icono</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
+    <value>Reservar espacio para la barra</value>
+  </data>
 </root>

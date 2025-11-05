@@ -401,4 +401,13 @@
   <data name="FrameTypeFlyout.File" xml:space="preserve">
     <value>Plik:</value>
   </data>
+  <data name="FrameSettings.CategoryWindow" xml:space="preserve">
+    <value>Okno</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth" xml:space="preserve">
+    <value>Dopasuj szerokość do ikony</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
+    <value>Zarezerwuj miejsce dla paska</value>
+  </data>
 </root>

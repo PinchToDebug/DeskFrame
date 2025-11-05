@@ -155,8 +155,8 @@
             <Border >
                 <Grid>
                     <Grid x:Name="showFolder">
-                        <ui:DynamicScrollViewer  x:Name="scrollViewer"  IsTabStop="False" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0" >
-                            <ItemsControl    Padding="0,5,0,0" x:Name="FileWrapPanel" IsTabStop="False" ItemsSource="{Binding FileItems}" ItemTemplate="{StaticResource FileItemTemplate}">
+                        <ui:DynamicScrollViewer x:Name="scrollViewer" IsTabStop="False" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0" >
+                            <ItemsControl Margin="6,5,0,5" x:Name="FileWrapPanel" IsTabStop="False" ItemsSource="{Binding FileItems}" ItemTemplate="{StaticResource FileItemTemplate}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True">

@@ -214,6 +214,15 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Window.
+        /// </summary>
+        public static string FrameSettings_CategoryWindow {
+            get {
+                return ResourceManager.GetString("FrameSettings.CategoryWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change folder.
         /// </summary>
         public static string FrameSettings_ChangeFolder {
@@ -372,6 +381,24 @@ namespace DeskFrame.Properties {
         public static string FrameSettings_ShowShortcutArrow {
             get {
                 return ResourceManager.GetString("FrameSettings.ShowShortcutArrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resize width to fit icon size.
+        /// </summary>
+        public static string FrameSettings_SnapWidthToIconWidth {
+            get {
+                return ResourceManager.GetString("FrameSettings.SnapWidthToIconWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reserve space for scrollbar.
+        /// </summary>
+        public static string FrameSettings_SnapWidthToIconWidth_PlusScrollbarWidth {
+            get {
+                return ResourceManager.GetString("FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth", resourceCulture);
             }
         }
         

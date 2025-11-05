@@ -77,6 +77,9 @@ namespace DeskFrame
             _originalInstance.AnimationSpeed = _instance.AnimationSpeed;
             _originalInstance.IdleOpacity = _instance.IdleOpacity;
             _originalInstance.IconSize = _instance.IconSize;
+            _originalInstance.SnapWidthToIconWidth = _instance.SnapWidthToIconWidth;
+            _originalInstance.SnapWidthToIconWidth_PlusScrollbarWidth = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
+
             TitleBarColorTextBox.Text = _instance.TitleBarColor;
             TitleTextColorTextBox.Text = _instance.TitleTextColor;
             ListViewBackgroundColorTextBox.Text = _instance.ListViewBackgroundColor;
@@ -93,10 +96,13 @@ namespace DeskFrame
             FileFilterRegexTextBox.Text = _instance.FileFilterRegex;
             FileFilterHideRegexTextBox.Text = _instance.FileFilterHideRegex;
             TitleTextAlignmentComboBox.SelectedIndex = (int)_instance.TitleTextAlignment;
-            
+
             ShowFileExtensionIconCheckBox.IsChecked = _instance.ShowFileExtensionIcon;
             ShowHiddenFilesIconCheckBox.IsChecked = _instance.ShowHiddenFilesIcon;
             ShowDisplayNameCheckBox.IsChecked = _instance.ShowDisplayName;
+            SnapWidthToIconWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth;
+            SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
+            SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.Visibility = _instance.SnapWidthToIconWidth ? Visibility.Visible : Visibility.Collapsed;
             AutoExpandonCursorCheckBox.IsChecked = _instance.AutoExpandonCursor;
             ShowShortcutArrowCheckBox.IsChecked = _instance.ShowShortcutArrow;
             FolderOpenInsideFrameCheckBox.IsChecked = _instance.FolderOpenInsideFrame;
@@ -339,6 +345,10 @@ namespace DeskFrame
                 _instance.ShowShortcutArrow = _originalInstance.ShowShortcutArrow;
                 _instance.FolderOpenInsideFrame = _originalInstance.FolderOpenInsideFrame;
                 _instance.CheckFolderSize = _originalInstance.CheckFolderSize;
+                _instance.SnapWidthToIconWidth = _originalInstance.SnapWidthToIconWidth;
+                _instance.SnapWidthToIconWidth_PlusScrollbarWidth = _originalInstance.SnapWidthToIconWidth_PlusScrollbarWidth;
+                SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.Visibility = _instance.SnapWidthToIconWidth ? Visibility.Visible : Visibility.Collapsed;
+
                 _instance.LastAccesedToFirstRow = _originalInstance.LastAccesedToFirstRow;
 
                 if (_originalInstance.Folder != _instance.Folder)
@@ -388,6 +398,11 @@ namespace DeskFrame
                 ShowShortcutArrowCheckBox.IsChecked = _instance.ShowShortcutArrow;
                 FolderOpenInsideFrameCheckBox.IsChecked = _instance.FolderOpenInsideFrame;
                 CheckFolderSizeCheckBox.IsChecked = _instance.CheckFolderSize;
+
+                SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth;
+                SnapWidthToIconWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
+                SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.Visibility = _instance.SnapWidthToIconWidth ? Visibility.Visible : Visibility.Collapsed;
+
                 ShowLastAccessedToFirstRowCheckBox.IsChecked = _instance.LastAccesedToFirstRow;
 
 
@@ -460,6 +475,15 @@ namespace DeskFrame
         {
             _instance.ShowDisplayName = ShowDisplayNameCheckBox.IsChecked ?? true;
             _frame.UpdateIconVisibility();
+        }
+        private void SnapWidthToIconWidth_CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            _instance.SnapWidthToIconWidth = SnapWidthToIconWidth_CheckBox.IsChecked ?? true;
+            SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.Visibility = _instance.SnapWidthToIconWidth ? Visibility.Visible : Visibility.Collapsed;
+        }
+        private void SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            _instance.SnapWidthToIconWidth_PlusScrollbarWidth = SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.IsChecked ?? true;
         }
         private void AutoExpandonCursorCheckBox_Checked(object sender, RoutedEventArgs e)
         {

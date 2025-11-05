@@ -527,7 +527,41 @@ namespace DeskFrame
                         }
                     }
                 }
+                if (Instance.SnapWidthToIconWidth)
+                {
+                    double width = rect.Right - rect.Left;
+                    var item = FindParentOrChild<WrapPanel>(FileWrapPanel);
+                    double newWidth = Math.Round(width / item.ItemWidth) * item.ItemWidth + 4; // +4 margin
+
+                    if (Instance.SnapWidthToIconWidth_PlusScrollbarWidth)
+                    {
+                        newWidth += 15;
+                        FileWrapPanel.Margin = new Thickness(6,5,0,5);
+                    }
+                    else
+                    {
+                        FileWrapPanel.Margin = new Thickness(0,0,0,0);
+                    }
+                    if (width != newWidth)
+                    {
+                        int diff = (int)(newWidth - width);
+                        int w = (int)wParam;
+
+                        if (w == 1 || w == 5 || w == 7) // left sides
+                        {
+                            rect.Left -= diff;
+                        }
+                        if (w == 2 || w == 6 || w == 8) // right sides
+                        {
+                            rect.Right += diff;
+                        }
+
+                        Marshal.StructureToPtr(rect, lParam, true);
+                        Instance.Width = this.Width;
+                    }
+                }
             }
+
             if (msg == 0x0005 && _isOnBottom) // WM_SIZE
             {
                 double newHeight = (lParam.ToInt32() >> 16) & 0xFFFF;
@@ -687,7 +721,7 @@ namespace DeskFrame
                     newWindowLeft = otherRight - (windowRight - windowLeft);
                 }
             }
-    
+
             if (newWindowLeft != windowLeft || newWindowTop != windowTop || newWindowBottom != windowBottom)
             {
                 POINT pt = new POINT { X = newWindowLeft, Y = newWindowTop };
@@ -1262,6 +1296,15 @@ namespace DeskFrame
                 DataContext = this;
                 InitializeFileWatcher();
             }
+            if (Instance.SnapWidthToIconWidth_PlusScrollbarWidth)
+            {
+                FileWrapPanel.Margin = new Thickness(6, 5, 0, 5);
+            }
+            else
+            {
+                FileWrapPanel.Margin = new Thickness(0,0,0,0);
+            }
+
             _collectionView = CollectionViewSource.GetDefaultView(FileItems);
             _originalHeight = Instance.Height;
             titleBar.Background = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(Instance.TitleBarColor));
