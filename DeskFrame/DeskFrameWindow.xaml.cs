@@ -537,11 +537,11 @@ namespace DeskFrame
                     if (Instance.SnapWidthToIconWidth_PlusScrollbarWidth)
                     {
                         newWidth += 15;
-                        FileWrapPanel.Margin = new Thickness(6,5,0,5);
+                        FileWrapPanel.Margin = new Thickness(6, 5, 0, 5);
                     }
                     else
                     {
-                        FileWrapPanel.Margin = new Thickness(0,0,0,0);
+                        FileWrapPanel.Margin = new Thickness(0, 0, 0, 0);
                     }
                     if (width != newWidth)
                     {
@@ -816,11 +816,11 @@ namespace DeskFrame
                     _isOnBottom = false;
                 }
                 Debug.WriteLine(windowRight);
-                if (Math.Abs(windowLeft -workingArea.Left)<= _snapDistance)
+                if (Math.Abs(windowLeft - workingArea.Left) <= _snapDistance)
                 {
                     newWindowLeft = workingArea.Left;
                 }
-                else if (Math.Abs( workingArea.Right- windowRight ) <= _snapDistance)
+                else if (Math.Abs(workingArea.Right - windowRight) <= _snapDistance)
                 {
                     newWindowLeft = (int)(workingArea.Right - this.ActualWidth);
                 }
@@ -1339,7 +1339,7 @@ namespace DeskFrame
             }
             else
             {
-                FileWrapPanel.Margin = new Thickness(0,0,0,0);
+                FileWrapPanel.Margin = new Thickness(0, 0, 0, 0);
             }
 
             _collectionView = CollectionViewSource.GetDefaultView(FileItems);
