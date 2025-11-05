@@ -295,6 +295,24 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Position X:.
+        /// </summary>
+        public static string FrameSettings_PositionX {
+            get {
+                return ResourceManager.GetString("FrameSettings.PositionX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position Y: .
+        /// </summary>
+        public static string FrameSettings_PositionY {
+            get {
+                return ResourceManager.GetString("FrameSettings.PositionY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Revert.
         /// </summary>
         public static string FrameSettings_RevertButton {

@@ -410,4 +410,10 @@
   <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
     <value>스크롤바 공간 예약</value>
   </data>
+  <data name="FrameSettings.PositionX" xml:space="preserve">
+    <value>위치 X:</value>
+  </data>
+  <data name="FrameSettings.PositionY" xml:space="preserve">
+    <value>위치 Y:</value>
+  </data>
 </root>

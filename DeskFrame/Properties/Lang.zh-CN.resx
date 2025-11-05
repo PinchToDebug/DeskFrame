@@ -409,4 +409,10 @@
   <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
     <value>保留滚动条空间</value>
   </data>
+  <data name="FrameSettings.PositionX" xml:space="preserve">
+    <value>位置 X：</value>
+  </data>
+  <data name="FrameSettings.PositionY" xml:space="preserve">
+    <value>位置 Y：</value>
+  </data>
 </root>

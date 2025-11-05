@@ -410,4 +410,10 @@
   <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
     <value>Reservar espacio para la barra</value>
   </data>
+  <data name="FrameSettings.PositionX" xml:space="preserve">
+    <value>Posición X:</value>
+  </data>
+  <data name="FrameSettings.PositionY" xml:space="preserve">
+    <value>Posición Y:</value>
+  </data>
 </root>

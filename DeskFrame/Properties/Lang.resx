@@ -413,4 +413,12 @@
     <value>Reserve space for scrollbar</value>
     <comment>TextBlock</comment>
   </data>
+  <data name="FrameSettings.PositionX" xml:space="preserve">
+    <value>Position X:</value>
+    <comment>TextBlock</comment>
+  </data>
+  <data name="FrameSettings.PositionY" xml:space="preserve">
+    <value>Position Y: </value>
+    <comment>TextBlock</comment>
+  </data>
 </root>

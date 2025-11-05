@@ -42,10 +42,12 @@ namespace DeskFrame
             InitializeComponent();
             _backgroundBrush = TitleBarColorTextBox.Background;
             _borderBrush = TitleBarColorTextBox.BorderBrush;
-            DataContext = this;
+           // DataContext = this;
             _originalInstance = new Instance(frame.Instance, frame.Instance.SettingDefault);
             _lastInstanceName = _originalInstance.Name;
             _instance = frame.Instance;
+            DataContext = _instance;
+
             if (_instance.SettingDefault)
             {
                 TitleTextBox.Visibility = Visibility.Hidden;
@@ -375,6 +377,9 @@ namespace DeskFrame
                 IconSizeSlider.Value = _instance.IconSize / 4;
                 IconSizeLabel.Content = _instance.IconSize;
 
+                PositionX_NumberBox.Value = _instance.PosX;
+                PositionY_NumberBox.Value = _instance.PosX;
+
                 _instance.Folder = _originalInstance.Folder;
                 _instance.Name = _originalInstance.Name;
                 _instance.TitleText = _originalInstance.TitleText;
@@ -638,6 +643,10 @@ namespace DeskFrame
                 contextMenu.Items.Add(menuItem);
             }
             ChangeStyleDropDownButton.Flyout = contextMenu;
+        }
+        private async void ChangePosition(object sender, NumberBoxValueChangedEventArgs args)
+        {
+            await _frame.AdjustPositionAsync();
         }
     }
 }

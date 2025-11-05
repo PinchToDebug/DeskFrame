@@ -410,4 +410,10 @@
   <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
     <value>Zarezerwuj miejsce dla paska</value>
   </data>
+  <data name="FrameSettings.PositionX" xml:space="preserve">
+    <value>Pozycja X:</value>
+  </data>
+  <data name="FrameSettings.PositionY" xml:space="preserve">
+    <value>Pozycja Y:</value>
+  </data>
 </root>

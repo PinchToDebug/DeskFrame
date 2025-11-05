@@ -15,7 +15,7 @@
         WindowStyle="None" 
         ResizeMode="NoResize"
         Height="830" 
-        Width="1130"
+        Width="1147"
         MinWidth="0"
         MinHeight="0">
     <Grid>
@@ -403,17 +403,33 @@
                         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
                     </Label.Foreground>
                 </Label>
+                <Label Content="{x:Static prop:Lang.FrameSettings_PositionX}" Height="30"/>
+               
+                <ui:NumberBox x:Name="PositionX_NumberBox"                             
+                     SpinButtonPlacementMode="Inline"
+                     Value="{Binding PosX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,20"
+                              ValueChanged="ChangePosition"/>
+                
+                <Label Content="{x:Static prop:Lang.FrameSettings_PositionY}" Height="30"/>
 
+                <ui:NumberBox x:Name="PositionY_NumberBox"       
+                     SpinButtonPlacementMode="Inline"
+                     Value="{Binding PosY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,20" 
+                              ValueChanged="ChangePosition"/>
+                
                 <CheckBox x:Name="SnapWidthToIconWidth_CheckBox"
                           Checked="SnapWidthToIconWidth_CheckBox_Checked"
-                          Unchecked="SnapWidthToIconWidth_CheckBox_Checked">
+                          Unchecked="SnapWidthToIconWidth_CheckBox_Checked"
+                           Margin="-11,0,-5,0">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_SnapWidthToIconWidth}" TextWrapping="Wrap"/>
                 </CheckBox>
 
                 <CheckBox x:Name="SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox"
                           Checked="SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox_Checked" 
                           Unchecked="SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox_Checked"
-                          Margin="16,0,0,0"
+                          Margin="14,0,0,0"
                           Visibility="Collapsed">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_SnapWidthToIconWidth_PlusScrollbarWidth}" TextWrapping="Wrap"/>
                 </CheckBox>

@@ -98,6 +98,7 @@ namespace DeskFrame
         private CancellationTokenSource _cts = new CancellationTokenSource();
         private CancellationTokenSource loadFilesCancellationToken = new CancellationTokenSource();
         private CancellationTokenSource _changeIconSizeCts = new CancellationTokenSource();
+        private CancellationTokenSource _adjustPositionCts;
         public DeskFrameWindow WonRight = null;
         public DeskFrameWindow WonLeft = null;
         MenuItem nameMenuItem;
@@ -1085,6 +1086,42 @@ namespace DeskFrame
                          SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW);
         }
 
+        public async Task AdjustPositionAsync()
+        {
+            _adjustPositionCts?.Cancel();
+            _adjustPositionCts = new CancellationTokenSource();
+            var token = _adjustPositionCts.Token;
+            var interopHelper = new WindowInteropHelper(this);
+            interopHelper.EnsureHandle();
+            IntPtr hwnd = interopHelper.Handle;
+            double posX = Instance.PosX;
+            double posY = Instance.PosY;
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    if (token.IsCancellationRequested) return;
+
+                    uint dpi = GetDpiForWindow(hwnd);
+                    double scale = dpi / 96.0;
+
+                    POINT pt = new POINT
+                    {
+                        X = (int)(posX * scale),
+                        Y = (int)(posY * scale)
+                    };
+
+                    if (token.IsCancellationRequested) return;
+
+                    SetWindowPos(hwnd, IntPtr.Zero,
+                                 pt.X, pt.Y,
+                                 0, 0,
+                                 SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW);
+                }, token);
+            }
+            catch { }
+        }
         public void AdjustPosition()
         {
             SetParent(hwnd, IntPtr.Zero);
