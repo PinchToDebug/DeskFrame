@@ -18,16 +18,22 @@
 
 ## ✨ Features
 
-- 🔍 Instant search *(just type while frame is focused)*
-- 🎨 Fully customizable colors
-- 🌫️ Background colors with transparency
-- 👁️ Toggle hidden files and file extensions
-- 📌 Sticky + lockable frames
-- ↕️ Open/close frame toggle
-- ⚙️ Lightweight and fast
-- 🗂️ Sorting options (by name, date, type, etc.)
+- Instant search *(just type cursor is over the frame)*
+- Fully customizable colors
+- Background colors with transparency
+- Toggle hidden files and file extensions
+- Sticky + lockable frames (hold `ALT` to stick with gap)
+- Open/close frame toggle
+- `CTRL`+`SCROLL` resize icons
+- Lightweight and fast (~75MB RAM usage)
+- Sorting options (by name, date, type, etc.)
+- First row for last accessed items
+- Regex search and item filtering
+- Option to display per virtual desktop
+- Double click on desktop to hide frames
+- Supported languages: English, Spanish, Mandarin, Polish, Korean
 
-     ...and more!
+...and more!
 
 ## 🚀 Quick Start
 
@@ -49,7 +55,7 @@
       <td><img src="https://github.com/user-attachments/assets/a50fc5ba-02d7-47ca-97f7-e6e43e1b4d92" height="250"/></td>
       <td><img src="https://github.com/user-attachments/assets/90dc62d9-7e0a-4e04-868f-d96ec25c55f0" height="250"/></td>
       <td><img src="https://github.com/user-attachments/assets/8f5fa5a5-08aa-4299-bac7-908415a9b956" height="250"/></td>
-      <td><img src="https://github.com/user-attachments/assets/c8b15aef-41cf-4cff-87ce-9ee1f0544464" height="250"/></td>
+      <td><img src="https://github.com/user-attachments/assets/6b07f6dc-09eb-49e7-9842-321b0b7d80d9" height="250"/></td>
     </tr>
   </table>
 </div>
