@@ -516,10 +516,23 @@ namespace DeskFrame
                     var wrapPanel = FindParentOrChild<WrapPanel>(FileWrapPanel);
                     if (wrapPanel != null)
                     {
-                        double itemWidth = wrapPanel.ItemWidth;
+                        double width = rect.Right - rect.Left;
                         double newWidth = rect.Right - rect.Left;
-                        int newItemPerRow = (int)Math.Floor(newWidth / itemWidth);
 
+                        if (Instance.SnapWidthToIconWidth)
+                        {
+                            newWidth = Math.Round(width / wrapPanel.ItemWidth) * wrapPanel.ItemWidth + 4; // +4 margin
+                            if (Instance.SnapWidthToIconWidth)
+                            {
+                                FileWrapPanel.Margin = new Thickness(6, 5, 0, 5);
+                                newWidth += 15;
+                            }
+                        }
+                        if (!Instance.SnapWidthToIconWidth)
+                        {
+                            FileWrapPanel.Margin = new Thickness(0, 0, 0, 0);
+                        }
+                        int newItemPerRow = (int)Math.Floor(newWidth / wrapPanel.ItemWidth);
                         if (_previousItemPerRow != newItemPerRow)
                         {
                             ItemPerRow = newItemPerRow;
@@ -528,6 +541,7 @@ namespace DeskFrame
                         }
                     }
                 }
+                
                 if (Instance.SnapWidthToIconWidth)
                 {
                     double width = rect.Right - rect.Left;
