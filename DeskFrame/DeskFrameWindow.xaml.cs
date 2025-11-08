@@ -1885,8 +1885,20 @@ namespace DeskFrame
             Storyboard fadeOut = (Storyboard)this.Resources["FadeOutStoryboard"];
             Storyboard fadeIn = (Storyboard)this.Resources["FadeInStoryboard"];
 
-            if (showLoading) fadeIn.Begin();
-            else fadeOut.Begin();
+            if (showLoading)
+            {
+                LoadingProgressRing.IsIndeterminate = true;
+                fadeIn.Begin();
+            }
+            else
+            {
+                fadeOut.Completed += (s, e) =>
+                {
+                    fadeOut.Completed -= (s, e) => { }; // cleanup
+                    LoadingProgressRing.IsIndeterminate = false;
+                };
+                fadeOut.Begin();
+            }
         }
         public void SortItems()
         {
