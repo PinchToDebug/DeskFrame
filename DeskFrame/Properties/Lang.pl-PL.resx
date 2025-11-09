@@ -416,4 +416,7 @@
   <data name="FrameSettings.PositionY" xml:space="preserve">
     <value>Pozycja Y:</value>
   </data>
+  <data name="DeskFrame.AlreadyRunning" xml:space="preserve">
+    <value>DeskFrame już jest uruchomiony</value>
+  </data>
 </root>

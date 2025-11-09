@@ -415,4 +415,7 @@
   <data name="FrameSettings.PositionY" xml:space="preserve">
     <value>位置 Y：</value>
   </data>
+  <data name="DeskFrame.AlreadyRunning" xml:space="preserve">
+    <value>DeskFrame 已在运行</value>
+  </data>
 </root>
