@@ -551,7 +551,7 @@ namespace DeskFrame
                 _frame.title.Text = _instance.TitleText;
                 _instance.TitleText = _instance.TitleText;
                 TitleTextBox.Text = _instance.TitleText;
-                DataContext = this;
+                // DataContext = this;
                 _frame.InitializeFileWatcher();
                 _frame.PathToBackButton.Visibility = Visibility.Collapsed;
             }
