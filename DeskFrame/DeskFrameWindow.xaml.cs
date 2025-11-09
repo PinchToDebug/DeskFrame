@@ -2814,9 +2814,6 @@ namespace DeskFrame
                 Instance.PosX = this.Left;
                 Instance.PosY = this.Top;
             }
-            Debug.WriteLine($"l: {this.Left}\t{Instance.PosX}\t{_isLeftButtonDown}");
-            Debug.WriteLine($"t: {this.Top}\t{Instance.PosY}\t{_isLeftButtonDown}");
-
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
