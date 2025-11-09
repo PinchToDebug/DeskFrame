@@ -56,6 +56,8 @@ namespace DeskFrame
 
         public bool VirtualDesktopSupported;
         IntPtr hwnd;
+        IntPtr shellView = IntPtr.Zero;
+
         private bool _dragdropIntoFolder;
         public int _itemPerRow;
         public int ItemPerRow
@@ -1052,8 +1054,6 @@ namespace DeskFrame
 
         private void SetAsDesktopChild()
         {
-            IntPtr shellView = IntPtr.Zero;
-
             while (true)
             {
                 while (shellView == IntPtr.Zero)
@@ -1103,6 +1103,8 @@ namespace DeskFrame
         public async Task AdjustPositionAsync()
         {
             _adjustPositionCts?.Cancel();
+            if (isMouseDown) return;
+            
             _adjustPositionCts = new CancellationTokenSource();
             var token = _adjustPositionCts.Token;
             var interopHelper = new WindowInteropHelper(this);
@@ -1127,6 +1129,7 @@ namespace DeskFrame
                     };
 
                     if (token.IsCancellationRequested) return;
+                    ScreenToClient(shellView, ref pt);
 
                     SetWindowPos(hwnd, IntPtr.Zero,
                                  pt.X, pt.Y,
@@ -2811,6 +2814,9 @@ namespace DeskFrame
                 Instance.PosX = this.Left;
                 Instance.PosY = this.Top;
             }
+            Debug.WriteLine($"l: {this.Left}\t{Instance.PosX}\t{_isLeftButtonDown}");
+            Debug.WriteLine($"t: {this.Top}\t{Instance.PosY}\t{_isLeftButtonDown}");
+
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
