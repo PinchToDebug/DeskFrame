@@ -42,12 +42,15 @@ namespace DeskFrame
             InitializeComponent();
             _backgroundBrush = TitleBarColorTextBox.Background;
             _borderBrush = TitleBarColorTextBox.BorderBrush;
-           // DataContext = this;
+            // DataContext = this;
             _originalInstance = new Instance(frame.Instance, frame.Instance.SettingDefault);
             _lastInstanceName = _originalInstance.Name;
             _instance = frame.Instance;
             DataContext = _instance;
-
+            if (_instance.Folder == "empty")
+            {
+                ChangeFolderButton.Visibility = Visibility.Collapsed;
+            }
             if (_instance.SettingDefault)
             {
                 TitleTextBox.Visibility = Visibility.Hidden;
@@ -364,7 +367,6 @@ namespace DeskFrame
 
                     MainWindow._controller.WriteOverInstanceToKey(_instance, name);
                     _frame.LoadFiles(_frame._currentFolderPath);
-                    DataContext = this;
                     _frame.InitializeFileWatcher();
 
                 }
