@@ -56,6 +56,8 @@ namespace DeskFrame
 
         public bool VirtualDesktopSupported;
         IntPtr hwnd;
+        IntPtr shellView = IntPtr.Zero;
+
         private bool _dragdropIntoFolder;
         public int _itemPerRow;
         public int ItemPerRow
@@ -1052,8 +1054,6 @@ namespace DeskFrame
 
         private void SetAsDesktopChild()
         {
-            IntPtr shellView = IntPtr.Zero;
-
             while (true)
             {
                 while (shellView == IntPtr.Zero)
@@ -1103,6 +1103,8 @@ namespace DeskFrame
         public async Task AdjustPositionAsync()
         {
             _adjustPositionCts?.Cancel();
+            if (isMouseDown) return;
+            
             _adjustPositionCts = new CancellationTokenSource();
             var token = _adjustPositionCts.Token;
             var interopHelper = new WindowInteropHelper(this);
@@ -1127,6 +1129,7 @@ namespace DeskFrame
                     };
 
                     if (token.IsCancellationRequested) return;
+                    ScreenToClient(shellView, ref pt);
 
                     SetWindowPos(hwnd, IntPtr.Zero,
                                  pt.X, pt.Y,
@@ -2985,7 +2988,8 @@ namespace DeskFrame
                 InitializeFileWatcher();
 
             };
-
+            reloadItems.Visibility = (Instance.Folder == "empty" || string.IsNullOrEmpty( Instance.Folder)) ? Visibility.Collapsed : Visibility.Visible;
+           
             MenuItem lockFrame = new MenuItem
             {
                 Header = Instance.IsLocked ? Lang.TitleBarContextMenu_UnlockFrame : Lang.TitleBarContextMenu_LockFrame,
@@ -3196,6 +3200,7 @@ namespace DeskFrame
                 Header = Lang.TitleBarContextMenu_OpenFolder,
                 Icon = new SymbolIcon { Symbol = SymbolRegular.FolderOpen20 }
             };
+            openInExplorerMenuItem.Visibility = (Instance.Folder == "empty" || string.IsNullOrEmpty(Instance.Folder)) ? Visibility.Collapsed : Visibility.Visible;
             openInExplorerMenuItem.Click += (_, _) => { OpenFolder(); };
 
 
