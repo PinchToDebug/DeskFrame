@@ -22,7 +22,7 @@ namespace DeskFrame
 
                 var dialog = new Wpf.Ui.Controls.MessageBox
                 {
-                    Title = "",
+                    Title = "DeskFrame",
                     Content = Lang.DeskFrame_AlreadyRunning,
                 };
 
