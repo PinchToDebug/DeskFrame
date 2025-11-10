@@ -383,7 +383,7 @@
                 <Grid.Height>
                     <Binding ElementName="titleBar" Path="Height"/>
                 </Grid.Height>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" x:Name="titleStackPanel">
+                <StackPanel Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" x:Name="titleStackPanel">
 
                     <ui:SymbolIcon x:Name="frameTypeSymbol" MouseRightButtonDown="titleBar_MouseRightButtonDown"
                        Symbol="{Binding Instance.IsShortcutsOnly, Converter={StaticResource BooleanFrameTypeToSymbolConverter}}" 
