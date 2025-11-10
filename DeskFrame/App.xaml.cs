@@ -17,6 +17,7 @@ namespace DeskFrame
         public RegistryHelper reg = new RegistryHelper("DeskFrame");
         protected override void OnStartup(StartupEventArgs e)
         {
+#if !DEBUG
             if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
             {
 
@@ -33,6 +34,7 @@ namespace DeskFrame
                     Application.Current.Shutdown();
                 }
             }
+#endif
             PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Critical;
             base.OnStartup(e);
             ToastNotificationManagerCompat.OnActivated += ToastActivatedHandler;
