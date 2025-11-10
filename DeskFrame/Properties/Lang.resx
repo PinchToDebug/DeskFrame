@@ -421,4 +421,7 @@
     <value>Position Y: </value>
     <comment>TextBlock</comment>
   </data>
+  <data name="DeskFrame.AlreadyRunning" xml:space="preserve">
+    <value>DeskFrame is already running</value>
+  </data>
 </root>

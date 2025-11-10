@@ -61,6 +61,15 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DeskFrame is already running.
+        /// </summary>
+        public static string DeskFrame_AlreadyRunning {
+            get {
+                return ResourceManager.GetString("DeskFrame.AlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto update. Check for update on start and every 6 hours.
         /// </summary>
         public static string DeskFrameFrameSettings_AutoUpdate {
