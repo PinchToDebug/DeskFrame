@@ -120,6 +120,7 @@ namespace DeskFrame
         private DateTime _lastUpdated;
         private string _folderSize;
         private double _itemWidth;
+        private double _windowsScalingFactor;
 
         public enum SortBy
         {
@@ -543,7 +544,7 @@ namespace DeskFrame
                         }
                     }
                 }
-                
+
                 if (Instance.SnapWidthToIconWidth)
                 {
                     double width = rect.Right - rect.Left;
@@ -1086,11 +1087,11 @@ namespace DeskFrame
 
             // convert coords to parent-relative coords
             uint dpi = GetDpiForWindow(hwnd);
-            double scale = dpi / 96.0;
+            _windowsScalingFactor = dpi / 96.0;
             POINT pt = new POINT
             {
-                X = (int)(Instance.PosX * scale),
-                Y = (int)(Instance.PosY * scale)
+                X = (int)(Instance.PosX * _windowsScalingFactor),
+                Y = (int)(Instance.PosY * _windowsScalingFactor)
             };
             ScreenToClient(shellView, ref pt);
 
@@ -1104,7 +1105,7 @@ namespace DeskFrame
         {
             _adjustPositionCts?.Cancel();
             if (isMouseDown) return;
-            
+
             _adjustPositionCts = new CancellationTokenSource();
             var token = _adjustPositionCts.Token;
             var interopHelper = new WindowInteropHelper(this);
@@ -1120,12 +1121,12 @@ namespace DeskFrame
                     if (token.IsCancellationRequested) return;
 
                     uint dpi = GetDpiForWindow(hwnd);
-                    double scale = dpi / 96.0;
+                    _windowsScalingFactor = dpi / 96.0;
 
                     POINT pt = new POINT
                     {
-                        X = (int)(posX * scale),
-                        Y = (int)(posY * scale)
+                        X = (int)(posX * _windowsScalingFactor),
+                        Y = (int)(posY * _windowsScalingFactor)
                     };
 
                     if (token.IsCancellationRequested) return;
@@ -1139,7 +1140,7 @@ namespace DeskFrame
             }
             catch { }
         }
-        public void AdjustPosition()
+        public async void AdjustPosition()
         {
             SetParent(hwnd, IntPtr.Zero);
             SetAsDesktopChild();
@@ -1147,7 +1148,20 @@ namespace DeskFrame
             {
                 this.Height = titleBar.Height;
             }
+            var interopHelper = new WindowInteropHelper(this);
+            interopHelper.EnsureHandle();
+            IntPtr _hwnd = interopHelper.Handle;
+            double currentScale = GetDpiForWindow(_hwnd) / 96.0;
+            if (_windowsScalingFactor != currentScale)
+            {
+                _windowsScalingFactor = currentScale;
+                foreach (var item in FileItems)
+                {
+                    item.Thumbnail = await GetThumbnailAsync(item.FullPath!);
+                }
+            }
         }
+
         public void SetAsToolWindow()
         {
             WindowInteropHelper wih = new WindowInteropHelper(this);
@@ -1314,7 +1328,7 @@ namespace DeskFrame
             title.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
             frameTypeSymbol.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
             titleStackPanel.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
-            
+
             if ((int)instance.Height <= titleBar.Height) _isMinimized = true;
             if (instance.Minimized)
             {
@@ -2416,9 +2430,10 @@ namespace DeskFrame
                 }
                 IntPtr hBitmap = IntPtr.Zero;
                 BitmapSource? thumbnail = null;
+                int iconSize = (int)(Instance.IconSize * _windowsScalingFactor);
                 if (Path.GetExtension(path).ToLower() == ".svg")
                 {
-                    thumbnail = await LoadSvgThumbnailAsync(path);
+                    thumbnail = await LoadSvgThumbnailAsync(path, iconSize);
                     return thumbnail;
                 }
                 string ext = Path.GetExtension(path).ToLowerInvariant();
@@ -2430,7 +2445,7 @@ namespace DeskFrame
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            thumbnail = GetThumbnail(path, Instance.IconSize);
+                            thumbnail = GetThumbnail(path, iconSize);
                         });
                         if (Instance.ShowShortcutArrow)
                         {
@@ -2455,8 +2470,7 @@ namespace DeskFrame
                                     var visual = new DrawingVisual();
                                     using (var dc = visual.RenderOpen())
                                     {
-                                        double iconSize = Instance.IconSize;
-
+                                        Debug.WriteLine("iconsize: " + iconSize);
                                         double scale = iconSize / Math.Max(thumbnail.PixelWidth, thumbnail.PixelHeight);
                                         double thumbnailWidth = thumbnail.PixelWidth * scale;
                                         double thumbnailHeight = thumbnail.PixelHeight * scale;
@@ -2472,7 +2486,11 @@ namespace DeskFrame
                                                 thumbnailWidth,
                                                 thumbnailHeight)
                                         );
-                                        double overlayScale = iconSize < 32 ? iconSize / 32.0 : 1.0;
+                                        double overlayScale = (iconSize < 32 ? iconSize / 32.0 : 1.0);
+                                        if (_windowsScalingFactor != 1.0)
+                                        {
+                                            overlayScale *= (1 / _windowsScalingFactor);
+                                        }
                                         if (overlayScale != 1.0)
                                         {
                                             overlay = new TransformedBitmap(overlay, new ScaleTransform(overlayScale, overlayScale));
@@ -2490,8 +2508,8 @@ namespace DeskFrame
                                     }
 
                                     var rtb = new RenderTargetBitmap(
-                                        Instance.IconSize,
-                                        Instance.IconSize,
+                                        iconSize,
+                                        iconSize,
                                         thumbnail.DpiX,
                                         thumbnail.DpiY,
                                         PixelFormats.Pbgra32);
@@ -2522,7 +2540,7 @@ namespace DeskFrame
                             {
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                    thumbnail = GetThumbnail(path, Instance.IconSize);
+                                    thumbnail = GetThumbnail(path, iconSize);
                                 });
                                 if (thumbnail != null)
                                 {
@@ -2553,13 +2571,13 @@ namespace DeskFrame
 
 
 
-        private async Task<BitmapSource?> LoadSvgThumbnailAsync(string path)
+        private async Task<BitmapSource?> LoadSvgThumbnailAsync(string path, int iconSize)
         {
             try
             {
                 var svgDocument = Svg.SvgDocument.Open(path);
 
-                using (var bitmap = svgDocument.Draw(Instance.IconSize, Instance.IconSize))
+                using (var bitmap = svgDocument.Draw(iconSize, iconSize))
                 {
                     using (var ms = new MemoryStream())
                     {
@@ -2990,8 +3008,8 @@ namespace DeskFrame
                 InitializeFileWatcher();
 
             };
-            reloadItems.Visibility = (Instance.Folder == "empty" || string.IsNullOrEmpty( Instance.Folder)) ? Visibility.Collapsed : Visibility.Visible;
-           
+            reloadItems.Visibility = (Instance.Folder == "empty" || string.IsNullOrEmpty(Instance.Folder)) ? Visibility.Collapsed : Visibility.Visible;
+
             MenuItem lockFrame = new MenuItem
             {
                 Header = Instance.IsLocked ? Lang.TitleBarContextMenu_UnlockFrame : Lang.TitleBarContextMenu_LockFrame,
