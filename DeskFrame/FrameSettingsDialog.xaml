@@ -137,16 +137,9 @@
                 <Label Content="{x:Static prop:Lang.FrameSettings_ShowOnVirtualDesktopLabel}" Height="30"/>
                 <ui:TextBox x:Name="ShowOnVirtualDesktopTextBox" PlaceholderText="{x:Static prop:Lang.FrameSettings_ShowOnVirtualDesktopPlaceHolder}" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
 
-
-                <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarIcons}" Height="30"/>
-                <StackPanel Orientation="Vertical">
-                    <CheckBox x:Name="ShowFileExtensionIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowFileExtensionIcon}" Margin="-11,0,10,0" Checked="ShowFileExtensionIconCheckBox_Checked" Unchecked="ShowFileExtensionIconCheckBox_Checked"/>
-                    <CheckBox x:Name="ShowHiddenFilesIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowHiddenFilesIcon}" Margin="-11,0,0,0" Checked="ShowHiddenFilesIconCheckBox_Checked" Unchecked="ShowHiddenFilesIconCheckBox_Checked"/>
-                </StackPanel>
-
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="{x:Static prop:Lang.FrameSettings_AnimationSpeed}" Height="30" Margin="0,20,0,0"/>
-                    <Label x:Name="AnimationSpeedLabel" Content="0.0" Height="30" Margin="5,20,0,0" Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" FontWeight="Bold"/>
+                    <Label Content="{x:Static prop:Lang.FrameSettings_AnimationSpeed}" Height="30" Margin="0,0,0,0"/>
+                    <Label x:Name="AnimationSpeedLabel" Content="0.0" Height="30" Margin="5,00,0,0" Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" FontWeight="Bold"/>
                 </StackPanel>
                 <Slider x:Name="AnimationSpeedSlider" Width="200" TickPlacement="TopLeft" TickFrequency="1" Minimum="0" Maximum="10" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
 
@@ -263,8 +256,13 @@
                     </ui:TextBox>
                 </Grid>
 
+                <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarIcons}" Height="30"/>
+                <StackPanel Orientation="Vertical">
+                    <CheckBox x:Name="ShowFileExtensionIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowFileExtensionIcon}" Margin="-11,0,10,0" Checked="ShowFileExtensionIconCheckBox_Checked" Unchecked="ShowFileExtensionIconCheckBox_Checked"/>
+                    <CheckBox x:Name="ShowHiddenFilesIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowHiddenFilesIcon}" Margin="-11,0,0,0" Checked="ShowHiddenFilesIconCheckBox_Checked" Unchecked="ShowHiddenFilesIconCheckBox_Checked"/>
+                </StackPanel>
 
-                <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarTextText}" Height="30"/>
+                <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarTextText}"  Margin="0,20,0,0" Height="30"/>
                 <ui:TextBox x:Name="TitleTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
 
 
