@@ -256,13 +256,7 @@
                     </ui:TextBox>
                 </Grid>
 
-                <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarIcons}" Height="30"/>
-                <StackPanel Orientation="Vertical">
-                    <CheckBox x:Name="ShowFileExtensionIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowFileExtensionIcon}" Margin="-11,0,10,0" Checked="ShowFileExtensionIconCheckBox_Checked" Unchecked="ShowFileExtensionIconCheckBox_Checked"/>
-                    <CheckBox x:Name="ShowHiddenFilesIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowHiddenFilesIcon}" Margin="-11,0,0,0" Checked="ShowHiddenFilesIconCheckBox_Checked" Unchecked="ShowHiddenFilesIconCheckBox_Checked"/>
-                </StackPanel>
-
-                <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarTextText}"  Margin="0,20,0,0" Height="30"/>
+                <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarTextText}"  Margin="0,0,0,0" Height="30"/>
                 <ui:TextBox x:Name="TitleTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
 
 
@@ -286,7 +280,12 @@
                     <ComboBoxItem Content="Center"/>
                     <ComboBoxItem Content="Right"/>
                 </ComboBox>
-
+                <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarIcons}" Height="30"/>
+                
+                <StackPanel Orientation="Vertical">
+                    <CheckBox x:Name="ShowFileExtensionIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowFileExtensionIcon}" Margin="-11,0,10,0" Checked="ShowFileExtensionIconCheckBox_Checked" Unchecked="ShowFileExtensionIconCheckBox_Checked"/>
+                    <CheckBox x:Name="ShowHiddenFilesIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowHiddenFilesIcon}" Margin="-11,0,0,0" Checked="ShowHiddenFilesIconCheckBox_Checked" Unchecked="ShowHiddenFilesIconCheckBox_Checked"/>
+                </StackPanel>
 
             </StackPanel>
             <Separator HorizontalAlignment="Center"  Grid.Column="3" Margin="0,20,0,20"/>
