@@ -107,7 +107,7 @@
         <Grid>
 
             <Border MouseRightButtonDown="titleBar_MouseRightButtonDown"  x:Name="titleBar" Background="White"
-                    VerticalAlignment="Top" Cursor="SizeAll" CornerRadius="5,5,0,0">
+                   VerticalAlignment="Top" Cursor="SizeAll" CornerRadius="5,5,0,0">
                 <Grid  >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -115,7 +115,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid>
                         <Button Cursor="Hand" x:Name="PathToBackButton" Width="30" Visibility="Collapsed" HorizontalAlignment="Left" Margin="5,0,5,0" Padding="0" VerticalAlignment="Center" Click="PathToBackButton_Click">
-                            <ui:SymbolIcon Symbol="ArrowLeft24" VerticalAlignment="Top" Height="18"/>
+                            <ui:SymbolIcon Symbol="ArrowLeft12"  Foreground="{Binding ElementName=title, Path=Foreground}"  VerticalAlignment="Top" Height="18"/>
                         </Button>
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0">
