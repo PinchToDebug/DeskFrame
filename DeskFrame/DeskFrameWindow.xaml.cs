@@ -1185,6 +1185,7 @@ namespace DeskFrame
             else if (e.Key != Key.Escape)
             {
                 FilterTextBox.Visibility = Visibility.Visible;
+                Search.Visibility = Visibility.Visible;
             }
             FilterTextBox.Focus();
             return;
@@ -1200,10 +1201,9 @@ namespace DeskFrame
             else if (_mouseIsOver)
             {
                 Search.Visibility = Visibility.Visible;
-                title.Visibility = Visibility.Hidden;
+                title.Visibility = Visibility.Collapsed;
             }
 
-            searchQuery.Content = FilterTextBox.Text;
 
             if (_collectionView == null)
                 return;
