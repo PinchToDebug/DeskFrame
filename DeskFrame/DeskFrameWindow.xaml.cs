@@ -1034,6 +1034,7 @@ namespace DeskFrame
                 titleBar.CornerRadius = WindowBorder.CornerRadius;
             }
 
+            Debug.WriteLine("CHAGED corner");
 
 
             if ((initWindow && _isOnBottom) ||
@@ -1258,14 +1259,15 @@ namespace DeskFrame
                 new WindowChrome
                 {
                     ResizeBorderThickness = new Thickness(0),
-                    CaptionHeight = 0
+                    CaptionHeight = 0,
+                    CornerRadius = new CornerRadius(0)
                 } :
                 new WindowChrome
                 {
                     GlassFrameThickness = new Thickness(0),
                     CaptionHeight = 0,
                     ResizeBorderThickness = new Thickness(5),
-                    CornerRadius = new CornerRadius(5)
+                    CornerRadius = new CornerRadius(0)
                 }
             );
             KeepWindowBehind();
@@ -1701,14 +1703,15 @@ namespace DeskFrame
                 new WindowChrome
                 {
                     ResizeBorderThickness = new Thickness(0),
-                    CaptionHeight = 0
+                    CaptionHeight = 0,
+                    CornerRadius = new CornerRadius(0)
                 } :
                 new WindowChrome
                 {
                     GlassFrameThickness = new Thickness(0),
                     CaptionHeight = 0,
                     ResizeBorderThickness = new Thickness(5),
-                    CornerRadius = new CornerRadius(5)
+                    CornerRadius = new CornerRadius(0)
                 }
             );
             SetAsDesktopChild();

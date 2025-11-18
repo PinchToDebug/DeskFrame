@@ -100,7 +100,7 @@
 
     </Window.Resources>
     <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="0,5,0,5"  CaptionHeight="0" ResizeBorderThickness="5" CornerRadius="5" />
+        <WindowChrome GlassFrameThickness="0,5,0,5"  CaptionHeight="0" ResizeBorderThickness="5" CornerRadius="0" />
     </WindowChrome.WindowChrome>
     <Border CornerRadius="5" x:Name="WindowBackground" >
 
