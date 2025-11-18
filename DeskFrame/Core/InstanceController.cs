@@ -392,7 +392,7 @@ public class InstanceController
                                             case "ShowShortcutArrow":
                                                 temp.ShowShortcutArrow = bool.Parse(value.ToString()!);
                                                 Debug.WriteLine($"ShowShortcutArrow added\t{temp.ShowShortcutArrow}");
-                                                break; 
+                                                break;
                                             case "FolderOpenInsideFrame":
                                                 temp.FolderOpenInsideFrame = bool.Parse(value.ToString()!);
                                                 Debug.WriteLine($"FolderOpenInsideFrame added\t{temp.FolderOpenInsideFrame}");

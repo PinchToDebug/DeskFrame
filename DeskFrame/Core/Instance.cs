@@ -372,7 +372,8 @@ public class Instance : INotifyPropertyChanged
                 OnPropertyChanged(nameof(ShowShortcutArrow), value.ToString());
             }
         }
-    } public bool FolderOpenInsideFrame
+    }
+    public bool FolderOpenInsideFrame
     {
         get => _folderOpenInsideFrame;
         set
@@ -740,7 +741,7 @@ public class Instance : INotifyPropertyChanged
         {
             if ((!propertyName.Contains("Pos")))
             {
-               // Debug.WriteLine($"Property {propertyName} has changed.");
+                // Debug.WriteLine($"Property {propertyName} has changed.");
             }
             if (!_settingDefault && Name != "empty" && Folder != null)
             {

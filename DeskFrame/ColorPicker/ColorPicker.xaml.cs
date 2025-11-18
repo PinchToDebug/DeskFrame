@@ -233,7 +233,7 @@ namespace DeskFrame.ColorPicker
             Canvas.SetLeft(OpacitySelector, normalizedX - OpacitySelector.ActualWidth / 2);
             Canvas.SetTop(OpacitySelector, Canvas.GetTop(OpacityStrip) + (OpacityStrip.ActualHeight - OpacitySelector.ActualHeight) / 2);
 
-            OpacityPercentageTB.Text = "Opacity: " + (100 - (int)(normalizedX / 256 * 100)).ToString()+"%";
+            OpacityPercentageTB.Text = "Opacity: " + (100 - (int)(normalizedX / 256 * 100)).ToString() + "%";
 
             _opacityColorZero.A = (byte)Math.Abs(255 - normalizedX);
             alpha = _opacityColorZero.A;

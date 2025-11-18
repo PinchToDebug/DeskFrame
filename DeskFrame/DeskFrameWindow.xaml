@@ -298,7 +298,7 @@
                                     Foreground="White"
                                     FontSize="14"
                                     MouseEnter="SymbolIcon_MouseEnter"/>
-                               
+
                                 <Grid Margin="-10">
                                     <ui:Flyout x:Name="InfoFlyout" IsOpen="False">
                                         <Grid>
@@ -306,7 +306,7 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            
+
                                             <TextBlock
                                                 Grid.Row="0" 
                                                 Width="280"
