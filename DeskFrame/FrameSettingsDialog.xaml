@@ -138,7 +138,7 @@
                 <ui:TextBox x:Name="ShowOnVirtualDesktopTextBox" PlaceholderText="{x:Static prop:Lang.FrameSettings_ShowOnVirtualDesktopPlaceHolder}" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
 
 
-                <Label Content="{x:Static prop:Lang.FrameSettings_ShowFileExtensionIcon}" Height="30"/>
+                <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarIcons}" Height="30"/>
                 <StackPanel Orientation="Vertical">
                     <CheckBox x:Name="ShowFileExtensionIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowFileExtensionIcon}" Margin="-11,0,10,0" Checked="ShowFileExtensionIconCheckBox_Checked" Unchecked="ShowFileExtensionIconCheckBox_Checked"/>
                     <CheckBox x:Name="ShowHiddenFilesIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowHiddenFilesIcon}" Margin="-11,0,0,0" Checked="ShowHiddenFilesIconCheckBox_Checked" Unchecked="ShowHiddenFilesIconCheckBox_Checked"/>
