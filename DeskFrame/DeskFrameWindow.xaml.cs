@@ -1034,7 +1034,6 @@ namespace DeskFrame
                 titleBar.CornerRadius = WindowBorder.CornerRadius;
             }
 
-            Debug.WriteLine("CHAGED corner");
 
 
             if ((initWindow && _isOnBottom) ||
