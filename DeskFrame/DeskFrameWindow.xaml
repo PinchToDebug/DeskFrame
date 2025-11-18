@@ -147,9 +147,9 @@
                         </StackPanel>
                         <ui:TextBox x:Name="FilterTextBox" Visibility="Collapsed" HorizontalAlignment="Left"  Width="0"  Height="0" TextChanged="FilterTextBox_TextChanged" />
                         <StackPanel x:Name="Search" Visibility="Collapsed" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Search48" Margin="4,0,0,0" Foreground="White" VerticalAlignment="Center" FontSize="22"/>
-                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Content=":  "  FontWeight="Bold"/>
-                            <Label x:Name="searchQuery" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" />
+                            <ui:SymbolIcon Symbol="Search48" Margin="4,0,0,0" Foreground="{Binding ElementName=title, Path=Foreground}" VerticalAlignment="Center" FontSize="22"/>
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Content=":  " Foreground="{Binding ElementName=title, Path=Foreground}" FontWeight="Bold"/>
+                            <Label x:Name="searchQuery" FontWeight="DemiBold" Foreground="{Binding ElementName=title, Path=Foreground}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" />
                         </StackPanel>
                     </Grid>
                 </Grid>
