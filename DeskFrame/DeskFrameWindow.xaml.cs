@@ -2099,7 +2099,8 @@ namespace DeskFrame
                             CreateShortcut(file, _currentFolderPath);
 
                             title.Text = "File frame";
-                            Instance.Name = "File frame";
+                            Instance.TitleText = "File frame";
+                            Instance.Name = Path.GetFileName(Instance.Folder);
                             MainWindow._controller.WriteInstanceToKey(Instance);
                             LoadFiles(_currentFolderPath);
                             DataContext = this;
