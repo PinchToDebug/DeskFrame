@@ -139,7 +139,6 @@ namespace DeskFrame
                 }
             };
 
-            UpdateBorderColorEnabled();
 
             FontList = new ObservableCollection<string>();
             InstalledFontCollection fonts = new InstalledFontCollection();
@@ -188,11 +187,10 @@ namespace DeskFrame
 
         private void BorderEnabledCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            UpdateBorderColorEnabled();
+            BorderColorTextBox.IsEnabled = BorderEnabledCheckBox.IsChecked == true;
             ValidateSettings();
         }
 
-        private void UpdateBorderColorEnabled() => BorderColorTextBox.IsEnabled = BorderEnabledCheckBox.IsChecked == true;
         private bool ValidateVirtualDesktop(string strValue)
         {
             return strValue
@@ -425,7 +423,6 @@ namespace DeskFrame
                     _frame.Show();
                     this.Activate();
                 }
-                UpdateBorderColorEnabled();
                 _isReverting = false;
                 ValidateSettings();
             }
