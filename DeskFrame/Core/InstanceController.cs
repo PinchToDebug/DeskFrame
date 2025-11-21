@@ -53,9 +53,13 @@ public class InstanceController
                 key.SetValue("TitleText", instance.TitleText != null ? instance.TitleText : instance.Name);
                 key.SetValue("BorderColor", instance.BorderColor!);
                 key.SetValue("BorderEnabled", instance.BorderEnabled!);
+                key.SetValue("ActiveBorderEnabled", instance.ActiveBorderEnabled!);
+                key.SetValue("ActiveBackgroundEnabled", instance.ActiveBackgroundEnabled!);
                 key.SetValue("FileFilterRegex", instance.FileFilterRegex!);
                 key.SetValue("FileFilterHideRegex", instance.FileFilterHideRegex!);
                 key.SetValue("ListViewBackgroundColor", instance.ListViewBackgroundColor!);
+                key.SetValue("ActiveBackgroundColor", instance.ActiveBackgroundColor!);
+                key.SetValue("ActiveBorderColor", instance.ActiveBorderColor!);
                 key.SetValue("ListViewFontColor", instance.ListViewFontColor!);
                 key.SetValue("ListViewFontShadowColor", instance.ListViewFontShadowColor!);
                 key.SetValue("Opacity", instance.Opacity);
@@ -127,9 +131,13 @@ public class InstanceController
                 if (instance.TitleText != null) key.SetValue("TitleText", instance.TitleText);
                 if (instance.BorderColor != null) key.SetValue("BorderColor", instance.BorderColor);
                 key.SetValue("BorderEnabled", instance.BorderEnabled);
+                key.SetValue("ActiveBorderEnabled", instance.ActiveBorderEnabled!);
+                key.SetValue("ActiveBackgroundEnabled", instance.ActiveBackgroundEnabled!);
                 if (instance.FileFilterRegex != null) key.SetValue("FileFilterRegex", instance.FileFilterRegex);
                 if (instance.FileFilterHideRegex != null) key.SetValue("FileFilterHideRegex", instance.FileFilterHideRegex);
                 if (instance.ListViewBackgroundColor != null) key.SetValue("ListViewBackgroundColor", instance.ListViewBackgroundColor);
+                if (instance.ActiveBackgroundColor != null) key.SetValue("ActiveBackgroundColor", instance.ActiveBackgroundColor);
+                if (instance.ActiveBorderColor != null) key.SetValue("ActiveBorderColor", instance.ActiveBorderColor);
                 if (instance.ListViewFontColor != null) key.SetValue("ListViewFontColor", instance.ListViewFontColor);
                 if (instance.ListViewFontShadowColor != null) key.SetValue("ListViewFontShadowColor", instance.ListViewFontShadowColor);
                 key.SetValue("Opacity", instance.Opacity);
@@ -435,6 +443,14 @@ public class InstanceController
                                                 temp.BorderEnabled = bool.Parse(value.ToString()!);
                                                 Debug.WriteLine($"BorderEnabled added\t{temp.BorderEnabled}");
                                                 break;
+                                            case "ActiveBorderEnabled":
+                                                temp.ActiveBorderEnabled = bool.Parse(value.ToString()!);
+                                                Debug.WriteLine($"ActiveBorderEnabled added\t{temp.ActiveBorderEnabled}");
+                                                break;
+                                            case "ActiveBackgroundEnabled":
+                                                temp.ActiveBackgroundEnabled = bool.Parse(value.ToString()!);
+                                                Debug.WriteLine($"ActiveBackgroundEnabled added\t{temp.ActiveBackgroundEnabled}");
+                                                break;
                                             case "FileFilterRegex":
                                                 temp.FileFilterRegex = value.ToString()!;
                                                 Debug.WriteLine($"FileFilterRegex added\t{temp.FileFilterRegex}");
@@ -446,6 +462,14 @@ public class InstanceController
                                             case "ListViewBackgroundColor":
                                                 temp.ListViewBackgroundColor = value.ToString()!;
                                                 Debug.WriteLine($"ListViewBackgroundColor added\t{temp.ListViewBackgroundColor}");
+                                                break;
+                                            case "ActiveBackgroundColor":
+                                                temp.ActiveBackgroundColor = value.ToString()!;
+                                                Debug.WriteLine($"ActiveBackgroundColor added\t{temp.ActiveBackgroundColor}");
+                                                break;
+                                            case "ActiveBorderColor":
+                                                temp.ActiveBorderColor = value.ToString()!;
+                                                Debug.WriteLine($"ActiveBorderColor added\t{temp.ActiveBorderColor}");
                                                 break;
                                             case "ListViewFontColor":
                                                 temp.ListViewFontColor = value.ToString()!;

@@ -36,11 +36,15 @@ public class Instance : INotifyPropertyChanged
     private string _titleTextColor = "#FFFFFF";
     private string _borderColor = "#FFFFFF";
     private bool _borderEnabled = false;
+    private bool _activeBorderEnabled = false;
+    private bool _activeBackgroundEnabled = false;
     private Forms.HorizontalAlignment _titleTextAlignment = Forms.HorizontalAlignment.Center;
     private string? _titleText;
     private string _fileFilterRegex = "";
     private string _fileFilterHideRegex = "";
     private string _listViewBackgroundColor = "#0C000000";
+    private string _activeBackgroundColor = "#0C000000";
+    private string _activeBorderColor = "#FFFFFF";
     private string _listViewFontColor = "#FFFFFF";
     private string _listViewFontShadowColor = "#000000";
     private List<string> _lastAccessedFiles = new List<string>();
@@ -436,6 +440,30 @@ public class Instance : INotifyPropertyChanged
         }
     }
 
+    public string ActiveBackgroundColor
+    {
+        get => _activeBackgroundColor;
+        set
+        {
+            if (_activeBackgroundColor != value)
+            {
+                _activeBackgroundColor = value;
+                OnPropertyChanged(nameof(ActiveBackgroundColor), value);
+            }
+        }
+    }
+    public string ActiveBorderColor
+    {
+        get => _activeBorderColor;
+        set
+        {
+            if (_activeBorderColor != value)
+            {
+                _activeBorderColor = value;
+                OnPropertyChanged(nameof(ActiveBorderColor), value);
+            }
+        }
+    }
     public bool BorderEnabled
     {
         get => _borderEnabled;
@@ -445,6 +473,30 @@ public class Instance : INotifyPropertyChanged
             {
                 _borderEnabled = value;
                 OnPropertyChanged(nameof(BorderEnabled), value.ToString());
+            }
+        }
+    }
+    public bool ActiveBorderEnabled
+    {
+        get => _activeBorderEnabled;
+        set
+        {
+            if (_activeBorderEnabled != value)
+            {
+                _activeBorderEnabled = value;
+                OnPropertyChanged(nameof(ActiveBorderEnabled), value.ToString());
+            }
+        }
+    }
+    public bool ActiveBackgroundEnabled
+    {
+        get => _activeBackgroundEnabled;
+        set
+        {
+            if (_activeBackgroundEnabled != value)
+            {
+                _activeBackgroundEnabled = value;
+                OnPropertyChanged(nameof(ActiveBackgroundEnabled), value.ToString());
             }
         }
     }
@@ -612,7 +664,11 @@ public class Instance : INotifyPropertyChanged
         _titleBarColor = instance._titleBarColor;
         _titleTextColor = instance._titleTextColor;
         _borderColor = instance._borderColor;
+        _activeBackgroundColor = instance._activeBackgroundColor;
+        _activeBorderColor = instance._activeBorderColor;
         _borderEnabled = instance._borderEnabled;
+        _activeBorderEnabled = instance._activeBorderEnabled;
+        _activeBackgroundEnabled = instance._activeBackgroundEnabled;
         _titleTextAlignment = instance._titleTextAlignment;
         _fileFilterRegex = instance._fileFilterRegex;
         _fileFilterHideRegex = instance._fileFilterHideRegex;
@@ -668,6 +724,12 @@ public class Instance : INotifyPropertyChanged
             v = helper.ReadKeyValueRoot("BorderEnabled");
             if (v != null) _borderEnabled = (bool)v;
 
+            v = helper.ReadKeyValueRoot("ActiveBorderEnabled");
+            if (v != null) _activeBorderEnabled = (bool)v;
+
+            v = helper.ReadKeyValueRoot("ActiveBackgroundEnabled");
+            if (v != null) _activeBackgroundEnabled = (bool)v;
+
             v = helper.ReadKeyValueRoot("TitleTextAlignment");
             if (v != null) _titleTextAlignment = (Forms.HorizontalAlignment)Enum.Parse(typeof(Forms.HorizontalAlignment), v.ToString());
 
@@ -685,6 +747,12 @@ public class Instance : INotifyPropertyChanged
 
             v = helper.ReadKeyValueRoot("ListViewBackgroundColor");
             if (v != null) _listViewBackgroundColor = v.ToString();
+
+            v = helper.ReadKeyValueRoot("ActiveBackgroundColor");
+            if (v != null) _activeBackgroundColor = v.ToString();
+
+            v = helper.ReadKeyValueRoot("ActiveBorderColor");
+            if (v != null) _activeBorderColor = v.ToString();
 
             v = helper.ReadKeyValueRoot("ListViewFontColor");
             if (v != null) _listViewFontColor = v.ToString();

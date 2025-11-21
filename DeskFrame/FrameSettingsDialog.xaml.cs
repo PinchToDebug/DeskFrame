@@ -24,6 +24,8 @@ namespace DeskFrame
         private bool _isValidTitleTextColor = false;
         private bool _isValidTitleTextAlignment = true;
         private bool _isValidBorderColor = false;
+        private bool _isValidActiveBorderColor = false;
+        private bool _isValidActiveBackgroundColor = false;
         private bool _isValidFileFilterRegex = true;
         private bool _isValidFileFilterHideRegex = true;
         private bool _isValidListViewBackgroundColor = true;
@@ -91,7 +93,11 @@ namespace DeskFrame
             ListViewFontColorTextBox.Text = _instance.ListViewFontColor;
             ListViewFontShadowColorTextBox.Text = _instance.ListViewFontShadowColor;
             BorderColorTextBox.Text = _instance.BorderColor;
+            ActiveBorderColorTextBox.Text = _instance.ActiveBorderColor;
+            ActiveBackgroundColorTextBox.Text = _instance.ActiveBackgroundColor;
             BorderEnabledCheckBox.IsChecked = _instance.BorderEnabled;
+            ActiveBorderEnabledCheckBox.IsChecked = _instance.ActiveBorderEnabled;
+            ActiveBackgroundEnabledCheckBox.IsChecked = _instance.ActiveBackgroundEnabled;
             TitleTextBox.Text = _instance.TitleText ?? _instance.Name;
             TitleFontSizeNumberBox.Value = _instance.TitleFontSize;
             if (!_instance.SettingDefault)
@@ -184,6 +190,16 @@ namespace DeskFrame
             BorderColorTextBox.IsEnabled = BorderEnabledCheckBox.IsChecked == true;
             ValidateSettings();
         }
+        private void ActiveBorderEnabledCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ActiveBorderColorTextBox.IsEnabled = ActiveBorderEnabledCheckBox.IsChecked == true;
+            ValidateSettings();
+        }
+        private void ActiveBackgroundEnabledCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ActiveBackgroundColorTextBox.IsEnabled = ActiveBackgroundEnabledCheckBox.IsChecked == true;
+            ValidateSettings();
+        }
 
         private bool ValidateVirtualDesktop(string strValue)
         {
@@ -205,6 +221,8 @@ namespace DeskFrame
             _isValidTitleBarColor = TryParseColor(string.IsNullOrEmpty(TitleBarColorTextBox.Text) ? "#0C000000" : TitleBarColorTextBox.Text, TitleBarColorTextBox);
             _isValidTitleTextColor = TryParseColor(string.IsNullOrEmpty(TitleTextColorTextBox.Text) ? "#FFFFFF" : TitleTextColorTextBox.Text, TitleTextColorTextBox);
             _isValidBorderColor = BorderEnabledCheckBox.IsChecked == true ? TryParseColor(string.IsNullOrEmpty(BorderColorTextBox.Text) ? "#FFFFFF" : BorderColorTextBox.Text, BorderColorTextBox) : true;
+            _isValidActiveBorderColor = ActiveBorderEnabledCheckBox.IsChecked == true ? TryParseColor(string.IsNullOrEmpty(ActiveBorderColorTextBox.Text) ? "#FFFFFF" : ActiveBorderColorTextBox.Text, ActiveBorderColorTextBox) : true;
+            _isValidActiveBackgroundColor = ActiveBackgroundEnabledCheckBox.IsChecked == true ? TryParseColor(string.IsNullOrEmpty(ActiveBackgroundColorTextBox.Text) ? "#FFFFFF" : ActiveBackgroundColorTextBox.Text, ActiveBackgroundColorTextBox) : true;
             _isValidFileFilterRegex = TryParseRegex(FileFilterRegexTextBox.Text, FileFilterRegexTextBox);
             _isValidFileFilterHideRegex = TryParseRegex(FileFilterHideRegexTextBox.Text, FileFilterHideRegexTextBox);
 
@@ -216,7 +234,7 @@ namespace DeskFrame
             _isValidShowOnVirtualDesktops = ValidateVirtualDesktop(ShowOnVirtualDesktopTextBox.Text);
 
             if (_isValidTitleBarColor && _isValidTitleTextColor && _isValidTitleTextAlignment &&
-                _isValidBorderColor && _isValidFileFilterRegex && _isValidFileFilterHideRegex &&
+                _isValidBorderColor && _isValidActiveBorderColor && _isValidActiveBackgroundColor && _isValidFileFilterRegex && _isValidFileFilterHideRegex &&
                 _isValidListViewBackgroundColor && _isValidListViewFontColor && _isValidListViewFontShadowColor &&
                 _isValidShowOnVirtualDesktops)
             {
@@ -224,7 +242,11 @@ namespace DeskFrame
                 _instance.TitleTextColor = string.IsNullOrEmpty(TitleTextColorTextBox.Text) ? "#FFFFFF" : TitleTextColorTextBox.Text;
 
                 _instance.BorderColor = BorderColorTextBox.Text;
+                _instance.ActiveBorderColor = ActiveBorderColorTextBox.Text;
+                _instance.ActiveBackgroundColor = ActiveBackgroundColorTextBox.Text;
                 _instance.BorderEnabled = BorderEnabledCheckBox.IsChecked == true;
+                _instance.ActiveBorderEnabled = ActiveBorderEnabledCheckBox.IsChecked == true;
+                _instance.ActiveBackgroundEnabled = ActiveBackgroundEnabledCheckBox.IsChecked == true;
                 _instance.TitleTextAlignment = (System.Windows.HorizontalAlignment)TitleTextAlignmentComboBox.SelectedIndex;
                 _instance.TitleText = TitleTextBox.Text;
                 _instance.FileFilterRegex = FileFilterRegexTextBox.Text;
@@ -264,6 +286,8 @@ namespace DeskFrame
                 ListViewFontColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.ListViewFontColor));
                 ListViewFontShadowColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.ListViewFontShadowColor));
                 BorderColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(TryParseColor(BorderColorTextBox.Text, BorderColorTextBox) ? _instance.BorderColor : "#FFFFFF"));
+                ActiveBorderColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(TryParseColor(ActiveBorderColorTextBox.Text, ActiveBorderColorTextBox) ? _instance.ActiveBorderColor : "#FFFFFF"));
+                ActiveBackgroundColorTextBox.Icon!.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(TryParseColor(ActiveBackgroundColorTextBox.Text, ActiveBackgroundColorTextBox) ? _instance.ActiveBackgroundColor : "#FFFFFF"));
             }
         }
 
@@ -323,7 +347,11 @@ namespace DeskFrame
                 _instance.TitleBarColor = _originalInstance.TitleBarColor;
                 _instance.TitleTextColor = _originalInstance.TitleTextColor;
                 _instance.BorderColor = _originalInstance.BorderColor;
+                _instance.ActiveBorderColor = _originalInstance.ActiveBorderColor;
+                _instance.ActiveBackgroundColor = _originalInstance.ActiveBackgroundColor;
                 _instance.BorderEnabled = _originalInstance.BorderEnabled;
+                _instance.ActiveBorderEnabled = _originalInstance.ActiveBorderEnabled;
+                _instance.ActiveBackgroundEnabled = _originalInstance.ActiveBackgroundEnabled;
                 _instance.TitleText = _originalInstance.TitleText ?? _originalInstance.Name;
                 _instance.FileFilterRegex = _originalInstance.FileFilterRegex;
                 _instance.FileFilterHideRegex = _originalInstance.FileFilterHideRegex;
@@ -381,7 +409,11 @@ namespace DeskFrame
                 TitleBarColorTextBox.Text = _instance.TitleBarColor;
                 TitleTextColorTextBox.Text = _instance.TitleTextColor;
                 BorderColorTextBox.Text = _instance.BorderColor;
+                ActiveBorderColorTextBox.Text = _instance.ActiveBorderColor;
+                ActiveBackgroundColorTextBox.Text = _instance.ActiveBackgroundColor;
                 BorderEnabledCheckBox.IsChecked = _instance.BorderEnabled;
+                ActiveBorderEnabledCheckBox.IsChecked = _instance.ActiveBorderEnabled;
+                ActiveBackgroundEnabledCheckBox.IsChecked = _instance.ActiveBackgroundEnabled;
                 TitleTextBox.Text = _instance.TitleText ?? _instance.Name;
                 FileFilterRegexTextBox.Text = _instance.FileFilterRegex;
                 FileFilterHideRegexTextBox.Text = _instance.FileFilterHideRegex;
@@ -436,6 +468,16 @@ namespace DeskFrame
             OpenColorPicker(BorderColorTextBox);
         }
 
+        private void ActiveBorderColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ActiveBorderEnabledCheckBox.IsChecked == false) return;
+            OpenColorPicker(ActiveBorderColorTextBox);
+        }
+        private void ActiveBackgroundColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ActiveBackgroundEnabledCheckBox.IsChecked == false) return;
+            OpenColorPicker(ActiveBackgroundColorTextBox);
+        }
         private void FilesBackgroundColorButton_Click(object sender, RoutedEventArgs e)
         {
             ColorCard.Children.Clear();
@@ -594,6 +636,15 @@ namespace DeskFrame
         {
             OpenColorPicker(BorderColorTextBox);
         }
+
+        private void ActiveBorderColorTextBoxIcon_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenColorPicker(ActiveBorderColorTextBox);
+        }
+        private void ActiveBackgroundColorTextBoxIcon_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenColorPicker(ActiveBackgroundColorTextBox);
+        }
         private void ChangeStyleDropDownButton_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow._controller.Instances.Count <= 1)
@@ -623,7 +674,11 @@ namespace DeskFrame
                     ListViewFontColorTextBox.Text = instance.ListViewFontColor;
                     ListViewFontShadowColorTextBox.Text = instance.ListViewFontShadowColor;
                     BorderColorTextBox.Text = instance.BorderColor;
+                    ActiveBorderColorTextBox.Text = instance.ActiveBorderColor;
+                    ActiveBackgroundColorTextBox.Text = instance.ActiveBackgroundColor;
                     BorderEnabledCheckBox.IsChecked = instance.BorderEnabled;
+                    ActiveBorderEnabledCheckBox.IsChecked = instance.ActiveBorderEnabled;
+                    ActiveBackgroundEnabledCheckBox.IsChecked = instance.ActiveBackgroundEnabled;
                     TitleFontSizeNumberBox.Value = instance.TitleFontSize;
                     TitleTextAlignmentComboBox.SelectedIndex = (int)instance.TitleTextAlignment;
                     AutoExpandonCursorCheckBox.IsChecked = instance.AutoExpandonCursor;

@@ -44,6 +44,7 @@ using File = System.IO.File;
 using DeskFrame.Core;
 using DeskFrame.Properties;
 using Microsoft.WindowsAPICodePack.Shell;
+using Binding = System.Windows.Data.Binding;
 namespace DeskFrame
 {
     public partial class DeskFrameWindow : System.Windows.Window
@@ -274,15 +275,20 @@ namespace DeskFrame
 
             return size;
         }
-        private void MouseLeaveWindow()
+        private void MouseLeaveWindow(bool animateActiveColor = true)
         {
             var timer = new System.Windows.Forms.Timer();
             timer.Interval = 1;
             timer.Tick += (s, e) =>
             {
-                if (!IsCursorWithinWindowBounds() && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left mouse button is not down
+                if (animateActiveColor && !IsCursorWithinWindowBounds())
                 {
                     _mouseIsOver = false;
+                    AnimateActiveColor();
+                }
+                if (!IsCursorWithinWindowBounds() && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left mouse button is not down
+                {
+
                     if (_canAutoClose)
                     {
                         FilterTextBox.Text = null;
@@ -1275,7 +1281,7 @@ namespace DeskFrame
             SetAsToolWindow();
             HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             source.AddHook(WndProc);
-            MouseLeaveWindow();
+            MouseLeaveWindow(false);
             FileListView.ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
         }
         private void ItemContainerGenerator_StatusChanged(object sender, EventArgs e)
@@ -1567,6 +1573,68 @@ namespace DeskFrame
             };
             this.BeginAnimation(OpacityProperty, animation);
         }
+        private void AnimateActiveColor()
+        {
+            if (Instance.ActiveBackgroundEnabled || Instance.ActiveBorderEnabled)
+            {
+                _mouseIsOver = IsCursorWithinWindowBounds();
+            }
+            if (Instance.ActiveBorderEnabled)
+            {
+                if (!Instance.BorderEnabled)
+                {
+                    WindowBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00000000"));
+                    WindowBorder.BorderThickness = new Thickness(1.3);
+                }
+                var animation = new ColorAnimation
+                {
+                    From = _mouseIsOver ? !Instance.BorderEnabled
+                                            ? (Color)ColorConverter.ConvertFromString("#00000000")
+                                            : (Color)ColorConverter.ConvertFromString(Instance.BorderColor)
+                                        : (Color)ColorConverter.ConvertFromString(Instance.ActiveBorderColor),
+                    To = _mouseIsOver ? (Color)ColorConverter.ConvertFromString(Instance.ActiveBorderColor)
+                                        : !Instance.BorderEnabled
+                                            ? (Color)ColorConverter.ConvertFromString("#00000000")
+                                            : (Color)ColorConverter.ConvertFromString(Instance.BorderColor),
+                    Duration = TimeSpan.FromSeconds(0.1),
+                };
+                WindowBorder.BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
+                animation.Completed += (sender, e) =>
+                {
+                    WindowBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Instance.BorderColor));
+
+                    WindowBorder.SetBinding(Border.BorderThicknessProperty, new Binding("Instance.BorderEnabled")
+                    {
+                        Source = this,
+                        Converter = (IValueConverter)Resources["BooleanToBorderThicknessConverter"]
+                    });
+                };
+            }
+            else
+            {
+                WindowBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Instance.BorderColor));
+
+                WindowBorder.SetBinding(Border.BorderThicknessProperty, new Binding("Instance.BorderEnabled")
+                {
+                    Source = this,
+                    Converter = (IValueConverter)Resources["BooleanToBorderThicknessConverter"]
+                });
+            }
+
+            if (Instance.ActiveBackgroundEnabled)
+            {
+                var animation = new ColorAnimation
+                {
+                    From = _mouseIsOver ? (Color)ColorConverter.ConvertFromString(Instance.ListViewBackgroundColor)
+                                        : (Color)ColorConverter.ConvertFromString(Instance.ActiveBackgroundColor),
+                    To = _mouseIsOver ? (Color)ColorConverter.ConvertFromString(Instance.ActiveBackgroundColor)
+                                        : (Color)ColorConverter.ConvertFromString(Instance.ListViewBackgroundColor),
+                    Duration = TimeSpan.FromSeconds(0.1),
+                };
+                WindowBackground.Background.BeginAnimation(SolidColorBrush.ColorProperty, animation);
+            }
+        }
+
         private void AnimateWindowHeight(double targetHeight, double animationSpeed)
         {
             double currentHeight = this.ActualHeight;
@@ -3398,6 +3466,10 @@ namespace DeskFrame
         }
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
+            if (!_mouseIsOver && IsCursorWithinWindowBounds())
+            {
+                AnimateActiveColor();
+            }
             _mouseIsOver = true;
             var hwnd = new WindowInteropHelper(this).Handle;
             BringFrameToFront(hwnd);
