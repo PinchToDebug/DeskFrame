@@ -88,6 +88,7 @@
                         <ui:TextBox.Icon>
                             <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
                                        x:Name="BorderColorTextBoxIcon"
+                                       Cursor="Hand"
                                        MouseUp="BorderColorTextBoxIcon_MouseUp" 
                                        />
                         </ui:TextBox.Icon>
@@ -129,6 +130,7 @@
                         <ui:TextBox.Icon>
                             <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
                      x:Name="ListViewBackgroundColorTextBoxIcon" 
+                                           Cursor="Hand"
                      MouseUp="ListViewBackgroundColorTextBoxIcon_MouseUp" />
                         </ui:TextBox.Icon>
                     </ui:TextBox>
@@ -149,10 +151,7 @@
                 </StackPanel>
                 <Slider x:Name="IdleOpacitySlider" Width="200" TickPlacement="TopLeft" TickFrequency="1" Minimum="1" Maximum="10" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
 
-                <CheckBox x:Name="AutoExpandonCursorCheckBox" Margin="-11,10,0,0" Checked="AutoExpandonCursorCheckBox_Checked" Unchecked="AutoExpandonCursorCheckBox_Unchecked">
-                    <TextBlock Text="{x:Static prop:Lang.FrameSettings_AutoExpandonCursor}" TextWrapping="Wrap"/>
-                </CheckBox>
-                <CheckBox x:Name="ShowShortcutArrowCheckBox" Margin="-11,0,0,0" Checked="ShowShortcutArrowCheckBox_Checked" Unchecked="ShowShortcutArrowCheckBox_Unchecked">
+                <CheckBox x:Name="ShowShortcutArrowCheckBox" Margin="-11,15,0,0" Checked="ShowShortcutArrowCheckBox_Checked" Unchecked="ShowShortcutArrowCheckBox_Unchecked">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_ShowShortcutArrow}" TextWrapping="Wrap"/>
                 </CheckBox>
                 <CheckBox x:Name="CheckFolderSizeCheckBox" Margin="-11,0,0,0" Checked="CheckFolderSizeCheckBox_Checkked" Unchecked="CheckFolderSizeCheckBox_Uncheckked">
@@ -209,6 +208,7 @@
                         <ui:TextBox.Icon>
                             <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
                                        x:Name="TitleBarColorTextBoxIcon"
+                                       Cursor="Hand"       
                                        MouseUp="TitleBarColorTextBoxIcon_MouseUp" />
                         </ui:TextBox.Icon>
                     </ui:TextBox>
@@ -251,6 +251,7 @@
                         <ui:TextBox.Icon>
                             <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30"
                                            x:Name="TitleTextColorTextBoxIcon"
+                                           Cursor="Hand"
                                            MouseUp="TitleTextColorTextBoxIcon_MouseUp" />
                         </ui:TextBox.Icon>
                     </ui:TextBox>
@@ -333,6 +334,7 @@
                         <ui:TextBox.Icon>
                             <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
                                         x:Name="ListViewFontColorTextBoxIcon" 
+                                        Cursor="Hand"
                                         MouseUp="ListViewFontColorTextBoxIcon_MouseUp" />
                         </ui:TextBox.Icon>
                     </ui:TextBox>
@@ -376,6 +378,7 @@
                         <ui:TextBox.Icon>
                             <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
                                        x:Name="ListViewFontShadowColorTextBoxIcon" 
+                                       Cursor="Hand"
                                        MouseUp="ListViewFontShadowColorTextBoxIcon_MouseUp" />
                         </ui:TextBox.Icon>
                     </ui:TextBox>
@@ -416,11 +419,21 @@
                      Margin="0,0,0,20" 
                               ValueChanged="ChangePosition"/>
                 
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{x:Static prop:Lang.FrameSettings_IdleOpacityLabel}" Height="30" Margin="0,20,0,0"/>
+                    <Label x:Name="IdleOpacityLabel" Content="0%" Height="30" Margin="5,20,0,0" Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" FontWeight="Bold"/>
+                </StackPanel>
+                <Slider x:Name="IdleOpacitySlider" Width="200" TickPlacement="TopLeft" TickFrequency="1" Minimum="1" Maximum="10" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
+
                 <CheckBox x:Name="SnapWidthToIconWidth_CheckBox"
                           Checked="SnapWidthToIconWidth_CheckBox_Checked"
                           Unchecked="SnapWidthToIconWidth_CheckBox_Checked"
-                           Margin="-11,0,-5,0">
+                           Margin="-11,15,0,0">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_SnapWidthToIconWidth}" TextWrapping="Wrap"/>
+                </CheckBox>
+
+                <CheckBox x:Name="AutoExpandonCursorCheckBox" Margin="-11,0,0,0" Checked="AutoExpandonCursorCheckBox_Checked" Unchecked="AutoExpandonCursorCheckBox_Unchecked">
+                    <TextBlock Text="{x:Static prop:Lang.FrameSettings_AutoExpandonCursor}" TextWrapping="Wrap"/>
                 </CheckBox>
 
                 <CheckBox x:Name="SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox"

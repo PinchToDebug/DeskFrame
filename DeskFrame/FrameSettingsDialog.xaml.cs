@@ -161,12 +161,6 @@ namespace DeskFrame
 
                 }
             };
-            TitleBarColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
-            TitleTextColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
-            ListViewBackgroundColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
-            ListViewFontColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
-            ListViewFontShadowColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
-            BorderColorTextBoxIcon.Cursor = System.Windows.Input.Cursors.Hand;
 
             _initDone = true;
         }
