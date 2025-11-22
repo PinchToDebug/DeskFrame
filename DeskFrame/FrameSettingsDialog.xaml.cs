@@ -430,8 +430,8 @@ namespace DeskFrame
                 FolderOpenInsideFrameCheckBox.IsChecked = _instance.FolderOpenInsideFrame;
                 CheckFolderSizeCheckBox.IsChecked = _instance.CheckFolderSize;
 
-                SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth;
-                SnapWidthToIconWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
+                SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
+                SnapWidthToIconWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth;
                 SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.Visibility = _instance.SnapWidthToIconWidth ? Visibility.Visible : Visibility.Collapsed;
 
                 ShowLastAccessedToFirstRowCheckBox.IsChecked = _instance.LastAccesedToFirstRow;
