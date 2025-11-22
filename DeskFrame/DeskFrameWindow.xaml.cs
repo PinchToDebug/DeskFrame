@@ -504,6 +504,9 @@ namespace DeskFrame
                     return IntPtr.Zero;
                 }
                 Interop.RECT rect = (Interop.RECT)Marshal.PtrToStructure(lParam, typeof(Interop.RECT));
+                
+                Instance.PosX = this.Left;
+                Instance.PosY = this.Top;
 
                 Instance.Width = this.Width;
                 double height = rect.Bottom - rect.Top;
