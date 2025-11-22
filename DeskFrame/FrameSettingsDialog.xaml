@@ -544,10 +544,14 @@
                 </StackPanel>
                 <Slider x:Name="IdleOpacitySlider" Width="200" TickPlacement="TopLeft" TickFrequency="1" Minimum="1" Maximum="10" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
 
+                <CheckBox x:Name="AutoExpandonCursorCheckBox" Margin="-11,15,0,0" Checked="AutoExpandonCursorCheckBox_Checked" Unchecked="AutoExpandonCursorCheckBox_Unchecked">
+                    <TextBlock Text="{x:Static prop:Lang.FrameSettings_AutoExpandonCursor}" TextWrapping="Wrap"/>
+                </CheckBox>
+                
                 <CheckBox x:Name="SnapWidthToIconWidth_CheckBox"
                           Checked="SnapWidthToIconWidth_CheckBox_Checked"
                           Unchecked="SnapWidthToIconWidth_CheckBox_Checked"
-                           Margin="-11,15,0,0">
+                           Margin="-11,0,0,0">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_SnapWidthToIconWidth}" TextWrapping="Wrap"/>
                 </CheckBox>
                 <CheckBox x:Name="SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox"
@@ -557,11 +561,6 @@
                           Visibility="Collapsed">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_SnapWidthToIconWidth_PlusScrollbarWidth}" TextWrapping="Wrap"/>
                 </CheckBox>
-                
-                <CheckBox x:Name="AutoExpandonCursorCheckBox" Margin="-11,0,0,0" Checked="AutoExpandonCursorCheckBox_Checked" Unchecked="AutoExpandonCursorCheckBox_Unchecked">
-                    <TextBlock Text="{x:Static prop:Lang.FrameSettings_AutoExpandonCursor}" TextWrapping="Wrap"/>
-                </CheckBox>
-
               
 
             </StackPanel>
