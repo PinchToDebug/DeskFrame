@@ -399,8 +399,8 @@ namespace DeskFrame
                 IconSizeSlider.Value = _instance.IconSize / 4;
                 IconSizeLabel.Content = _instance.IconSize;
 
-                PositionX_NumberBox.Value = _instance.PosX;
-                PositionY_NumberBox.Value = _instance.PosX;
+                PositionX_NumberBox.Value = _originalInstance.PosX;
+                PositionY_NumberBox.Value = _originalInstance.PosY;
 
                 _instance.Folder = _originalInstance.Folder;
                 _instance.Name = _originalInstance.Name;
