@@ -119,7 +119,7 @@
                                     </LinearGradientBrush>
                                 </ui:Button.Foreground>
                             </ui:Button>
-                            <Label Content="Active color (Hex):"  VerticalAlignment="Center" />
+                            <Label Content="{x:Static prop:Lang.FrameSettings_ActiveColor}"  VerticalAlignment="Center" />
                         </StackPanel>
                         <Grid>
                             <Rectangle  Width="20" Height="20" RadiusX="5"   IsHitTestVisible="False" Panel.ZIndex="2" RadiusY="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,7,16,0">
@@ -223,7 +223,7 @@
                                     </LinearGradientBrush>
                                 </ui:Button.Foreground>
                             </ui:Button>
-                            <Label Content="Active color (Hex):"  VerticalAlignment="Center" />
+                            <Label Content="{x:Static prop:Lang.FrameSettings_ActiveColor}"  VerticalAlignment="Center" />
                         </StackPanel>
                         <Grid>
                             <Rectangle  Width="20" Height="20" RadiusX="5"   IsHitTestVisible="False" Panel.ZIndex="2" RadiusY="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,7,16,0">

@@ -419,4 +419,7 @@
   <data name="DeskFrame.AlreadyRunning" xml:space="preserve">
     <value>DeskFrame이(가) 이미 실행 중입니다</value>
   </data>
+  <data name="FrameSettings.ActiveColor" xml:space="preserve">
+    <value>활성 색상 (hex):</value>
+  </data>
 </root>

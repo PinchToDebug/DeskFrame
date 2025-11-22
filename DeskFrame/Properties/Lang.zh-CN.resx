@@ -418,4 +418,7 @@
   <data name="DeskFrame.AlreadyRunning" xml:space="preserve">
     <value>DeskFrame 已在运行</value>
   </data>
+  <data name="FrameSettings.ActiveColor" xml:space="preserve">
+    <value>活动颜色（hex）：</value>
+  </data>
 </root>
