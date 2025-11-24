@@ -504,7 +504,7 @@ namespace DeskFrame
                     return IntPtr.Zero;
                 }
                 Interop.RECT rect = (Interop.RECT)Marshal.PtrToStructure(lParam, typeof(Interop.RECT));
-                
+
                 Instance.PosX = this.Left;
                 Instance.PosY = this.Top;
 
@@ -1595,12 +1595,12 @@ namespace DeskFrame
                                             ? (Color)ColorConverter.ConvertFromString("#00000000")
                                             : (Color)ColorConverter.ConvertFromString(Instance.BorderColor)
                                         : (Color)ColorConverter.ConvertFromString(Instance.ActiveBorderColor),
-                    
+
                     To = _mouseIsOver ? (Color)ColorConverter.ConvertFromString(Instance.ActiveBorderColor)
                                         : !Instance.BorderEnabled
                                             ? (Color)ColorConverter.ConvertFromString("#00000000")
                                             : (Color)ColorConverter.ConvertFromString(Instance.BorderColor),
-                   
+
                     Duration = animationSpeed == 0 ? TimeSpan.FromSeconds(0)
                                                    : TimeSpan.FromSeconds(0.2 / animationSpeed)
                 };
@@ -3494,7 +3494,14 @@ namespace DeskFrame
         public bool IsCursorWithinWindowBounds()
         {
             Point cursor = System.Windows.Forms.Cursor.Position;
-            return WindowFromPoint(new POINT { X = cursor.X, Y = cursor.Y }) == new WindowInteropHelper(this).Handle;
+            bool cursorIsOverTheWindow = WindowFromPoint(new POINT { X = cursor.X, Y = cursor.Y }) == new WindowInteropHelper(this).Handle;
+
+            Interop.GetWindowRect(new WindowInteropHelper(this).Handle, out RECT rect);
+            Point point = System.Windows.Forms.Cursor.Position;
+            var curPoint = new Point((int)point.X, (int)point.Y);
+            bool cursorIsWithinWindowBounds = point.X + 1 > rect.Left && point.X - 1 < rect.Right && point.Y + 1 > rect.Top && point.Y - 1 < rect.Bottom;
+
+            return cursorIsOverTheWindow || cursorIsWithinWindowBounds;
         }
 
         public void UpdateIconVisibility()
