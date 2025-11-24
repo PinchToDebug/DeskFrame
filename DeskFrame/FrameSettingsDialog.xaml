@@ -14,7 +14,7 @@
         Background="#66232323" 
         WindowStyle="None" 
         ResizeMode="NoResize"
-        Height="830" 
+        Height="920" 
         Width="1147"
         MinWidth="0"
         MinHeight="0">
@@ -59,7 +59,7 @@
                         </LinearGradientBrush>
                     </Border.Background>
                     <StackPanel>
-                        
+
                         <StackPanel Orientation="Horizontal" >
                             <CheckBox x:Name="BorderEnabledCheckBox" Margin="-11,0,-5,0" Checked="BorderEnabledCheckBox_Checked"  Unchecked="BorderEnabledCheckBox_Checked"/>
                             <ui:Button x:Name="BorderColorButton"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,7,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="BorderColorButton_Click">
@@ -167,48 +167,48 @@
                     </Border.Background>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                    <ui:Button  x:Name="FilesBackgroundColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="FilesBackgroundColorButton_Click">
-                        <ui:Button.Foreground>
-                            <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFFF5A5A"/>
-                                <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
-                                <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
-                            </LinearGradientBrush>
-                        </ui:Button.Foreground>
-                    </ui:Button>
-                    <Label Content="{x:Static prop:Lang.FrameSettings_BackgroundColor}" Height="30"/>
-                </StackPanel>
-                <Grid>
-                    <Rectangle  Width="20" Height="20" RadiusX="5"   IsHitTestVisible="False" Panel.ZIndex="2" RadiusY="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,7,16,0">
-                        <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" TileMode="Tile" Viewport="0,0,8,8" ViewboxUnits="RelativeToBoundingBox" ViewportUnits="Absolute" >
-                                <VisualBrush.Visual>
-                                    <Canvas Width="8" Height="8">
-                                        <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="0" Canvas.Top="0"/>
-                                        <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="4" Canvas.Top="0"/>
-                                        <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="0" Canvas.Top="4"/>
-                                        <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="4" Canvas.Top="4"/>
-                                    </Canvas>
-                                </VisualBrush.Visual>
-                            </VisualBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
+                            <ui:Button  x:Name="FilesBackgroundColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="FilesBackgroundColorButton_Click">
+                                <ui:Button.Foreground>
+                                    <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFFF5A5A"/>
+                                        <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
+                                        <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
+                                    </LinearGradientBrush>
+                                </ui:Button.Foreground>
+                            </ui:Button>
+                            <Label Content="{x:Static prop:Lang.FrameSettings_BackgroundColor}" Height="30"/>
+                        </StackPanel>
+                        <Grid>
+                            <Rectangle  Width="20" Height="20" RadiusX="5"   IsHitTestVisible="False" Panel.ZIndex="2" RadiusY="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,7,16,0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Uniform" TileMode="Tile" Viewport="0,0,8,8" ViewboxUnits="RelativeToBoundingBox" ViewportUnits="Absolute" >
+                                        <VisualBrush.Visual>
+                                            <Canvas Width="8" Height="8">
+                                                <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="0" Canvas.Top="0"/>
+                                                <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="4" Canvas.Top="0"/>
+                                                <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="0" Canvas.Top="4"/>
+                                                <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="4" Canvas.Top="4"/>
+                                            </Canvas>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
 
-                    <Rectangle Width="20" Height="20" RadiusX="5" RadiusY="5" Panel.ZIndex="4344"
+                            <Rectangle Width="20" Height="20" RadiusX="5" RadiusY="5" Panel.ZIndex="4344"
                                Fill="{Binding Foreground, ElementName=ListViewBackgroundColorTextBoxIcon}" 
                                HorizontalAlignment="Right" IsHitTestVisible="False" VerticalAlignment="Top" Margin="0,7,16,0"/>
 
-                    <ui:TextBox x:Name="ListViewBackgroundColorTextBox"  IconPlacement="Right" PlaceholderText="#0C000000" Margin="0,0,0,20" TextChanged="TextChangedHandler">
-                        <ui:TextBox.Icon>
-                            <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
+                            <ui:TextBox x:Name="ListViewBackgroundColorTextBox"  IconPlacement="Right" PlaceholderText="#0C000000" Margin="0,0,0,20" TextChanged="TextChangedHandler">
+                                <ui:TextBox.Icon>
+                                    <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30" 
                                            x:Name="ListViewBackgroundColorTextBoxIcon" 
                                            Cursor="Hand"
                                            MouseUp="ListViewBackgroundColorTextBoxIcon_MouseUp" />
-                        </ui:TextBox.Icon>
-                    </ui:TextBox>
-                </Grid>
+                                </ui:TextBox.Icon>
+                            </ui:TextBox>
+                        </Grid>
 
-                        
+
                         <StackPanel Orientation="Horizontal" Margin="0,-2,0,0">
                             <CheckBox x:Name="ActiveBackgroundEnabledCheckBox" 
                                       Checked="ActiveBackgroundEnabledCheckBox_Checked"
@@ -334,48 +334,118 @@
                     </ui:TextBox>
                 </Grid>
 
-                <StackPanel Orientation="Horizontal">
-                    <ui:Button x:Name="TitleTextColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="TitleTextColorButton_Click">
-                        <ui:Button.Foreground>
-                            <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFFF5A5A"/>
-                                <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
-                                <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
-                            </LinearGradientBrush>
-                        </ui:Button.Foreground>
-                    </ui:Button>
-                    <Label Content="{x:Static prop:Lang.FrameSettings_TextColor}" Height="30"/>
-                </StackPanel>
 
-                <Grid>
-                    <Rectangle  Width="20" Height="20" RadiusX="5"   IsHitTestVisible="False" Panel.ZIndex="2" RadiusY="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,7,16,0">
-                        <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" TileMode="Tile" Viewport="0,0,8,8" ViewboxUnits="RelativeToBoundingBox" ViewportUnits="Absolute" >
-                                <VisualBrush.Visual>
-                                    <Canvas Width="8" Height="8">
-                                        <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="0" Canvas.Top="0"/>
-                                        <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="4" Canvas.Top="0"/>
-                                        <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="0" Canvas.Top="4"/>
-                                        <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="4" Canvas.Top="4"/>
-                                    </Canvas>
-                                </VisualBrush.Visual>
-                            </VisualBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
 
-                    <Rectangle Width="20" Height="20" RadiusX="5" RadiusY="5" Panel.ZIndex="4344"
+
+
+                <Border CornerRadius="8" BorderThickness="2"  Padding="10,10,10,0" Margin="-10,10,-10,10"  BorderBrush="#19C5C5C5">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="1,0">
+                            <GradientStop Color="#05FFFFFF" Offset="0.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+
+
+
+                        <StackPanel Orientation="Horizontal">
+                            <ui:Button x:Name="TitleTextColorButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,1,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="TitleTextColorButton_Click">
+                                <ui:Button.Foreground>
+                                    <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFFF5A5A"/>
+                                        <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
+                                        <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
+                                    </LinearGradientBrush>
+                                </ui:Button.Foreground>
+                            </ui:Button>
+                            <Label Content="{x:Static prop:Lang.FrameSettings_TextColor}" Height="30"/>
+                        </StackPanel>
+
+                        <Grid>
+                            <Rectangle  Width="20" Height="20" RadiusX="5"   IsHitTestVisible="False" Panel.ZIndex="2" RadiusY="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,7,16,0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Uniform" TileMode="Tile" Viewport="0,0,8,8" ViewboxUnits="RelativeToBoundingBox" ViewportUnits="Absolute" >
+                                        <VisualBrush.Visual>
+                                            <Canvas Width="8" Height="8">
+                                                <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="0" Canvas.Top="0"/>
+                                                <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="4" Canvas.Top="0"/>
+                                                <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="0" Canvas.Top="4"/>
+                                                <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="4" Canvas.Top="4"/>
+                                            </Canvas>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <Rectangle Width="20" Height="20" RadiusX="5" RadiusY="5" Panel.ZIndex="4344"
                                Fill="{Binding Foreground, ElementName=TitleTextColorTextBoxIcon}" 
                                HorizontalAlignment="Right" IsHitTestVisible="False" VerticalAlignment="Top" Margin="0,7,16,0"/>
 
-                    <ui:TextBox x:Name="TitleTextColorTextBox" PlaceholderText="#FFFFFF" Margin="0,0,0,20" IconPlacement="Right" TextChanged="TextChangedHandler">
-                        <ui:TextBox.Icon>
-                            <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30"
+                            <ui:TextBox x:Name="TitleTextColorTextBox" PlaceholderText="#FFFFFF" Margin="0,0,0,20" IconPlacement="Right" TextChanged="TextChangedHandler">
+                                <ui:TextBox.Icon>
+                                    <ui:SymbolIcon Symbol="Square20" Filled="True" FontSize="30"
                                            x:Name="TitleTextColorTextBoxIcon"
                                            Cursor="Hand"
                                            MouseUp="TitleTextColorTextBoxIcon_MouseUp" />
-                        </ui:TextBox.Icon>
-                    </ui:TextBox>
-                </Grid>
+                                </ui:TextBox.Icon>
+                            </ui:TextBox>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,-2,0,0">
+                            <CheckBox x:Name="ActiveTitleTextEnabledCheckBox" 
+                              Checked="ActiveTitleTextEnabledCheckBox_Checked"
+                              Unchecked="ActiveTitleTextEnabledCheckBox_Checked"
+                              Margin="-11,0,-5,0" />
+                            <ui:Button x:Name="ActiveTitleTextColorButton"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,7,5,0" Icon="{ui:SymbolIcon Color24}" Padding="-10" Click="ActiveTitleTextColorButton_Click">
+                                <ui:Button.Foreground>
+                                    <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFFF5A5A"/>
+                                        <GradientStop Color="#FF5A5AFF" Offset="0.8"/>
+                                        <GradientStop Color="#FF5AFF5A" Offset="0.4"/>
+                                    </LinearGradientBrush>
+                                </ui:Button.Foreground>
+                            </ui:Button>
+                            <Label Content="{x:Static prop:Lang.FrameSettings_ActiveColor}"  VerticalAlignment="Center" />
+                        </StackPanel>
+                        <Grid>
+                            <Rectangle  Width="20" Height="20" RadiusX="5"
+                                        IsHitTestVisible="False" Panel.ZIndex="2" RadiusY="5" 
+                                        HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,7,16,0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Uniform" TileMode="Tile" Viewport="0,0,8,8" 
+                                                 ViewboxUnits="RelativeToBoundingBox" ViewportUnits="Absolute" >
+                                        <VisualBrush.Visual>
+                                            <Canvas Width="8" Height="8">
+                                                <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="0" Canvas.Top="0"/>
+                                                <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="4" Canvas.Top="0"/>
+                                                <Rectangle Width="4" Height="4" Fill="#FF424242" Canvas.Left="0" Canvas.Top="4"/>
+                                                <Rectangle Width="4" Height="4" Fill="#FF6B6B6B" Canvas.Left="4" Canvas.Top="4"/>
+                                            </Canvas>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <Rectangle Width="20" Height="20" RadiusX="5" RadiusY="5" Panel.ZIndex="4344"
+                               Fill="{Binding Foreground, ElementName=ActiveTitleTextColorTextBoxIcon}" 
+                               HorizontalAlignment="Right" IsHitTestVisible="False" VerticalAlignment="Top" Margin="0,7,16,0"/>
+
+                            <ui:TextBox x:Name="ActiveTitleTextColorTextBox"  IconPlacement="Right" Margin="0,0,0,20" TextChanged="TextChangedHandler">
+                                <ui:TextBox.Icon>
+                                    <ui:SymbolIcon x:Name="ActiveTitleTextColorTextBoxIcon"
+                               Symbol="Square20" Filled="True" FontSize="30"
+                               Cursor="Hand" 
+                               MouseUp="ActiveTitleTextColorTextBoxIcon_MouseUp" 
+                                />
+                                </ui:TextBox.Icon>
+                            </ui:TextBox>
+                        </Grid>
+
+
+                    </StackPanel>
+                </Border>
+
+
 
                 <Label Content="{x:Static prop:Lang.FrameSettings_TitleBarTextText}"  Margin="0,0,0,0" Height="30"/>
                 <ui:TextBox x:Name="TitleTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
@@ -551,7 +621,7 @@
                 <CheckBox x:Name="AutoExpandonCursorCheckBox" Margin="-11,15,0,0" Checked="AutoExpandonCursorCheckBox_Checked" Unchecked="AutoExpandonCursorCheckBox_Unchecked">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_AutoExpandonCursor}" TextWrapping="Wrap"/>
                 </CheckBox>
-                
+
                 <CheckBox x:Name="SnapWidthToIconWidth_CheckBox"
                           Checked="SnapWidthToIconWidth_CheckBox_Checked"
                           Unchecked="SnapWidthToIconWidth_CheckBox_Checked"
@@ -565,7 +635,7 @@
                           Visibility="Collapsed">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_SnapWidthToIconWidth_PlusScrollbarWidth}" TextWrapping="Wrap"/>
                 </CheckBox>
-              
+
 
             </StackPanel>
             <Button x:Name="RevertButton" Content="{x:Static prop:Lang.FrameSettings_RevertButton}" Grid.Column="7" HorizontalAlignment="Right" Margin="10" Height="30" Click="RevertButton_Click"  VerticalAlignment="Bottom"/>

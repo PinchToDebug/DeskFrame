@@ -38,6 +38,7 @@ public class Instance : INotifyPropertyChanged
     private bool _borderEnabled = false;
     private bool _activeBorderEnabled = false;
     private bool _activeBackgroundEnabled = false;
+    private bool _activeTitleTextEnabled = false;
     private Forms.HorizontalAlignment _titleTextAlignment = Forms.HorizontalAlignment.Center;
     private string? _titleText;
     private string _fileFilterRegex = "";
@@ -45,6 +46,7 @@ public class Instance : INotifyPropertyChanged
     private string _listViewBackgroundColor = "#0C000000";
     private string _activeBackgroundColor = "#0C000000";
     private string _activeBorderColor = "#FFFFFF";
+    private string _activeTitleTextColor = "#FFFFFF";
     private string _listViewFontColor = "#FFFFFF";
     private string _listViewFontShadowColor = "#000000";
     private List<string> _lastAccessedFiles = new List<string>();
@@ -514,6 +516,30 @@ public class Instance : INotifyPropertyChanged
         }
     }
 
+    public bool ActiveTitleTextEnabled
+    {
+        get => _activeTitleTextEnabled;
+        set
+        {
+            if (_activeTitleTextEnabled != value)
+            {
+                _activeTitleTextEnabled = value;
+                OnPropertyChanged(nameof(ActiveTitleTextEnabled), value.ToString());
+            }
+        }
+    }
+    public string ActiveTitleTextColor
+    {
+        get => _activeTitleTextColor;
+        set
+        {
+            if (_activeTitleTextColor != value)
+            {
+                _activeTitleTextColor = value;
+                OnPropertyChanged(nameof(ActiveTitleTextColor), value);
+            }
+        }
+    }
     public string? TitleText
     {
         get => _titleText;
@@ -679,9 +705,11 @@ public class Instance : INotifyPropertyChanged
         _borderColor = instance._borderColor;
         _activeBackgroundColor = instance._activeBackgroundColor;
         _activeBorderColor = instance._activeBorderColor;
+        _activeTitleTextColor = instance._activeTitleTextColor;
         _borderEnabled = instance._borderEnabled;
         _activeBorderEnabled = instance._activeBorderEnabled;
         _activeBackgroundEnabled = instance._activeBackgroundEnabled;
+        _activeTitleTextEnabled = instance._activeTitleTextEnabled;
         _titleTextAlignment = instance._titleTextAlignment;
         _fileFilterRegex = instance._fileFilterRegex;
         _fileFilterHideRegex = instance._fileFilterHideRegex;
@@ -743,6 +771,9 @@ public class Instance : INotifyPropertyChanged
             v = helper.ReadKeyValueRoot("ActiveBackgroundEnabled");
             if (v != null) _activeBackgroundEnabled = (bool)v;
 
+            v = helper.ReadKeyValueRoot("ActiveTitleTextEnabled");
+            if (v != null) _activeTitleTextEnabled = (bool)v;
+
             v = helper.ReadKeyValueRoot("TitleTextAlignment");
             if (v != null) _titleTextAlignment = (Forms.HorizontalAlignment)Enum.Parse(typeof(Forms.HorizontalAlignment), v.ToString());
 
@@ -763,6 +794,9 @@ public class Instance : INotifyPropertyChanged
 
             v = helper.ReadKeyValueRoot("ActiveBackgroundColor");
             if (v != null) _activeBackgroundColor = v.ToString();
+
+            v = helper.ReadKeyValueRoot("ActiveTitleTextColor");
+            if (v != null) _activeTitleTextColor = v.ToString();
 
             v = helper.ReadKeyValueRoot("ActiveBorderColor");
             if (v != null) _activeBorderColor = v.ToString();

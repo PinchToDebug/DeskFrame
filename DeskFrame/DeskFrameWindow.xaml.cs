@@ -1584,7 +1584,7 @@ namespace DeskFrame
         }
         private void AnimateActiveColor(double animationSpeed)
         {
-            if (Instance.ActiveBackgroundEnabled || Instance.ActiveBorderEnabled)
+            if (Instance.ActiveBackgroundEnabled || Instance.ActiveBorderEnabled || Instance.ActiveTitleTextEnabled)
             {
                 _mouseIsOver = IsCursorWithinWindowBounds();
             }
@@ -1595,7 +1595,7 @@ namespace DeskFrame
                     WindowBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00000000"));
                     WindowBorder.BorderThickness = new Thickness(1.3);
                 }
-                var animation = new ColorAnimation
+                var backgroundColorAnimation = new ColorAnimation
                 {
                     From = _mouseIsOver ? !Instance.BorderEnabled
                                             ? (Color)ColorConverter.ConvertFromString("#00000000")
@@ -1610,8 +1610,8 @@ namespace DeskFrame
                     Duration = animationSpeed == 0 ? TimeSpan.FromSeconds(0)
                                                    : TimeSpan.FromSeconds(0.2 / animationSpeed)
                 };
-                WindowBorder.BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
-                animation.Completed += (sender, e) =>
+                WindowBorder.BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, backgroundColorAnimation);
+                backgroundColorAnimation.Completed += (sender, e) =>
                 {
                     WindowBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Instance.BorderColor));
 
@@ -1635,7 +1635,7 @@ namespace DeskFrame
 
             if (Instance.ActiveBackgroundEnabled)
             {
-                var animation = new ColorAnimation
+                var borderColorAnimation = new ColorAnimation
                 {
                     From = _mouseIsOver ? (Color)ColorConverter.ConvertFromString(Instance.ListViewBackgroundColor)
                                         : (Color)ColorConverter.ConvertFromString(Instance.ActiveBackgroundColor),
@@ -1644,7 +1644,20 @@ namespace DeskFrame
                     Duration = animationSpeed == 0 ? TimeSpan.FromSeconds(0)
                                                    : TimeSpan.FromSeconds(0.2 / animationSpeed)
                 };
-                WindowBackground.Background.BeginAnimation(SolidColorBrush.ColorProperty, animation);
+                WindowBackground.Background.BeginAnimation(SolidColorBrush.ColorProperty, borderColorAnimation);
+            }
+            if (Instance.ActiveTitleTextEnabled)
+            {
+                var titleBarItemsColorAnimation = new ColorAnimation
+                {
+                    From = _mouseIsOver ? (Color)ColorConverter.ConvertFromString(Instance.TitleTextColor)
+                                       : (Color)ColorConverter.ConvertFromString(Instance.ActiveTitleTextColor),
+                    To = _mouseIsOver ? (Color)ColorConverter.ConvertFromString(Instance.ActiveTitleTextColor)
+                                       : (Color)ColorConverter.ConvertFromString(Instance.TitleTextColor),
+                    Duration = animationSpeed == 0 ? TimeSpan.FromSeconds(0)
+                                                  : TimeSpan.FromSeconds(0.2 / animationSpeed)
+                };
+                title.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, titleBarItemsColorAnimation);
             }
         }
 
