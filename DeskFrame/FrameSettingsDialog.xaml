@@ -272,7 +272,7 @@
 
 
 
-                <CheckBox x:Name="CheckFolderSizeCheckBox" Margin="-11,15,0,0" Checked="CheckFolderSizeCheckBox_Checkked" Unchecked="CheckFolderSizeCheckBox_Uncheckked">
+                <CheckBox x:Name="CheckFolderSizeCheckBox" Margin="-11,0,0,0" Checked="CheckFolderSizeCheckBox_Checkked" Unchecked="CheckFolderSizeCheckBox_Uncheckked">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_CheckFolderSize}" TextWrapping="Wrap"/>
                 </CheckBox>
 
