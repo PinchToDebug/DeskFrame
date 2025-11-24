@@ -285,6 +285,10 @@ namespace DeskFrame
                 {
                     _mouseIsOver = false;
                     AnimateActiveColor(Instance.AnimationSpeed);
+                    if (Instance.HideTitleBarIconsWhenInactive)
+                    {
+                        TitleBarIconsFadeAnimation(false);
+                    }
                 }
                 if (!IsCursorWithinWindowBounds() && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left mouse button is not down
                 {
@@ -1389,6 +1393,8 @@ namespace DeskFrame
             _originalHeight = Instance.Height;
             titleBar.Background = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(Instance.TitleBarColor));
             title.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(Instance.TitleTextColor));
+            titleBarIcons.Opacity = Instance.HideTitleBarIconsWhenInactive ? 0 : 1;
+
             if (Instance.TitleFontFamily != null)
             {
                 try
@@ -1992,6 +1998,25 @@ namespace DeskFrame
                 {
                     fadeOut.Completed -= (s, e) => { }; // cleanup
                     LoadingProgressRing.IsIndeterminate = false;
+                };
+                fadeOut.Begin();
+            }
+        }
+
+        public void TitleBarIconsFadeAnimation(bool show)
+        {
+            Storyboard fadeIn = (Storyboard)this.Resources["FadeIn_titleBarIcons_Storyboard"];
+            Storyboard fadeOut = (Storyboard)this.Resources["FadeOut_titleBarIcons_Storyboard"];
+
+            if (show)
+            {
+                fadeIn.Begin();
+            }
+            else
+            {
+                fadeOut.Completed += (s, e) =>
+                {
+                    fadeOut.Completed -= (s, e) => { }; // cleanup
                 };
                 fadeOut.Begin();
             }
@@ -3476,6 +3501,10 @@ namespace DeskFrame
             if (!_mouseIsOver && IsCursorWithinWindowBounds())
             {
                 AnimateActiveColor(Instance.AnimationSpeed);
+                if (Instance.HideTitleBarIconsWhenInactive)
+                {
+                    TitleBarIconsFadeAnimation(true);
+                }
             }
             _mouseIsOver = true;
             var hwnd = new WindowInteropHelper(this).Handle;

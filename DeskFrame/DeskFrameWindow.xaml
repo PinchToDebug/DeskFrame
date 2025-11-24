@@ -42,6 +42,15 @@
             <DoubleAnimation Storyboard.TargetName="LoadingProgressRing" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.2"/>
         </Storyboard>
 
+        <Storyboard x:Key="FadeIn_titleBarIcons_Storyboard">
+            <DoubleAnimation Storyboard.TargetName="titleBarIcons" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.1"/>
+        </Storyboard>
+
+        <Storyboard x:Key="FadeOut_titleBarIcons_Storyboard">
+            <DoubleAnimation Storyboard.TargetName="titleBarIcons" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.1"/>
+        </Storyboard>
+
+        
         <local:BooleanToBorderThicknessConverter x:Key="BooleanToBorderThicknessConverter"/>
         <local:TitleTextAlignmentToMarginConverter x:Key="TitleTextAlignmentToMarginConverter" />
         <local:BooleanFrameTypeToSymbolConverter x:Key="BooleanFrameTypeToSymbolConverter"/>
@@ -113,7 +122,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Grid x:Name="titleBarItems">
+                    <Grid x:Name="titleBarIcons">
                         <Button Cursor="Hand" x:Name="PathToBackButton" Width="30" Visibility="Collapsed" HorizontalAlignment="Left" Margin="5,0,5,0" Padding="0" VerticalAlignment="Center" Click="PathToBackButton_Click">
                             <ui:SymbolIcon Symbol="ArrowLeft12"  Foreground="{Binding ElementName=title, Path=Foreground}"  VerticalAlignment="Top" Height="18"/>
                         </Button>

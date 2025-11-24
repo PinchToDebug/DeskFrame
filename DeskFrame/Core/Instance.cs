@@ -57,7 +57,20 @@ public class Instance : INotifyPropertyChanged
     private bool _isShortcutsOnly = false;
     private bool _snapWidthToIconWidth = false;
     private bool _snapWidthToIconWidth_PlusScrollbarWidth = false;
+    private bool _hideTitleBarIconsWhenInactive = false;
 
+    public bool HideTitleBarIconsWhenInactive
+    {
+        get => _hideTitleBarIconsWhenInactive;
+        set
+        {
+            if (_hideTitleBarIconsWhenInactive != value)
+            {
+                _hideTitleBarIconsWhenInactive = value;
+                OnPropertyChanged(nameof(HideTitleBarIconsWhenInactive), value.ToString());
+            }
+        }
+    }
     public bool SnapWidthToIconWidth
     {
         get => _snapWidthToIconWidth;

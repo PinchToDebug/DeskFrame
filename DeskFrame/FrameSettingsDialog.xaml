@@ -406,6 +406,10 @@
                 <StackPanel Orientation="Vertical">
                     <CheckBox x:Name="ShowFileExtensionIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowFileExtensionIcon}" Margin="-11,0,10,0" Checked="ShowFileExtensionIconCheckBox_Checked" Unchecked="ShowFileExtensionIconCheckBox_Checked"/>
                     <CheckBox x:Name="ShowHiddenFilesIconCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowHiddenFilesIcon}" Margin="-11,0,0,0" Checked="ShowHiddenFilesIconCheckBox_Checked" Unchecked="ShowHiddenFilesIconCheckBox_Checked"/>
+                    <CheckBox x:Name="HideTitleBarIconsWhenInactive_CheckBox" Margin="-11,0,0,0" Checked="HideTitleBarIconsWhenInactive_CheckBox_Checked" Unchecked="HideTitleBarIconsWhenInactive_CheckBox_Checked">
+                        <TextBlock Text="{x:Static prop:Lang.FrameSettings_HideTitleBarIconsWhenInactive}" TextWrapping="Wrap"/>
+                    </CheckBox>
+
                 </StackPanel>
 
             </StackPanel>

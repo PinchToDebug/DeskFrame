@@ -425,4 +425,7 @@
   <data name="Deskframe.Update.DialogContent" xml:space="preserve">
     <value>업데이트하려면 관리자 권한이 필요합니다</value>
   </data>
+  <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
+    <value>비활성 창에서 아이콘 숨기기</value>
+  </data>
 </root>

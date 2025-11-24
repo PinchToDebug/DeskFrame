@@ -425,4 +425,7 @@
   <data name="Deskframe.Update.DialogContent" xml:space="preserve">
     <value>Aktualizacja wymaga uprawnień administratora</value>
   </data>
+  <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
+    <value>Ukryj ikony w nieaktywnej oknie</value>
+  </data>
 </root>

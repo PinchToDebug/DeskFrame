@@ -431,4 +431,7 @@
     <value>Updating requires administrator privileges</value>
     <comment>Content of dialog</comment>
   </data>
+  <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
+    <value>Hide icons on inactive window</value>
+  </data>
 </root>

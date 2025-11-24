@@ -44,6 +44,7 @@ public class InstanceController
                 key.SetValue("AutoExpandonCursor", instance.AutoExpandonCursor);
                 key.SetValue("ShowShortcutArrow", instance.ShowShortcutArrow);
                 key.SetValue("FolderOpenInsideFrame", instance.FolderOpenInsideFrame);
+                key.SetValue("HideTitleBarIconsWhenInactive", instance.HideTitleBarIconsWhenInactive);
                 key.SetValue("SnapWidthToIconWidth", instance.SnapWidthToIconWidth);
                 key.SetValue("SnapWidthToIconWidth_PlusScrollbarWidth", instance.SnapWidthToIconWidth_PlusScrollbarWidth);
                 key.SetValue("CheckFolderSize", instance.CheckFolderSize);
@@ -122,6 +123,7 @@ public class InstanceController
                 key.SetValue("AutoExpandonCursor", instance.AutoExpandonCursor);
                 key.SetValue("ShowShortcutArrow", instance.ShowShortcutArrow);
                 key.SetValue("FolderOpenInsideFrame", instance.FolderOpenInsideFrame);
+                key.SetValue("HideTitleBarIconsWhenInactive", instance.HideTitleBarIconsWhenInactive);
                 key.SetValue("SnapWidthToIconWidth", instance.SnapWidthToIconWidth);
                 key.SetValue("SnapWidthToIconWidth_PlusScrollbarWidth", instance.SnapWidthToIconWidth_PlusScrollbarWidth);
                 key.SetValue("CheckFolderSize", instance.CheckFolderSize);
@@ -404,6 +406,10 @@ public class InstanceController
                                             case "FolderOpenInsideFrame":
                                                 temp.FolderOpenInsideFrame = bool.Parse(value.ToString()!);
                                                 Debug.WriteLine($"FolderOpenInsideFrame added\t{temp.FolderOpenInsideFrame}");
+                                                break;
+                                            case "HideTitleBarIconsWhenInactive":
+                                                temp.HideTitleBarIconsWhenInactive = bool.Parse(value.ToString()!);
+                                                Debug.WriteLine($"HideTitleBarIconsWhenInactive added\t{temp.HideTitleBarIconsWhenInactive}");
                                                 break;
                                             case "SnapWidthToIconWidth":
                                                 temp.SnapWidthToIconWidth = bool.Parse(value.ToString()!);

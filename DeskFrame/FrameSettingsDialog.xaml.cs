@@ -84,6 +84,7 @@ namespace DeskFrame
             _originalInstance.AnimationSpeed = _instance.AnimationSpeed;
             _originalInstance.IdleOpacity = _instance.IdleOpacity;
             _originalInstance.IconSize = _instance.IconSize;
+            _originalInstance.HideTitleBarIconsWhenInactive = _instance.HideTitleBarIconsWhenInactive;
             _originalInstance.SnapWidthToIconWidth = _instance.SnapWidthToIconWidth;
             _originalInstance.SnapWidthToIconWidth_PlusScrollbarWidth = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
 
@@ -111,6 +112,7 @@ namespace DeskFrame
             ShowFileExtensionIconCheckBox.IsChecked = _instance.ShowFileExtensionIcon;
             ShowHiddenFilesIconCheckBox.IsChecked = _instance.ShowHiddenFilesIcon;
             ShowDisplayNameCheckBox.IsChecked = _instance.ShowDisplayName;
+            HideTitleBarIconsWhenInactive_CheckBox.IsChecked = _instance.HideTitleBarIconsWhenInactive;
             SnapWidthToIconWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth;
             SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
             SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.Visibility = _instance.SnapWidthToIconWidth ? Visibility.Visible : Visibility.Collapsed;
@@ -370,10 +372,11 @@ namespace DeskFrame
                 _instance.ShowShortcutArrow = _originalInstance.ShowShortcutArrow;
                 _instance.FolderOpenInsideFrame = _originalInstance.FolderOpenInsideFrame;
                 _instance.CheckFolderSize = _originalInstance.CheckFolderSize;
+                _instance.HideTitleBarIconsWhenInactive = _originalInstance.HideTitleBarIconsWhenInactive;
                 _instance.SnapWidthToIconWidth = _originalInstance.SnapWidthToIconWidth;
                 _instance.SnapWidthToIconWidth_PlusScrollbarWidth = _originalInstance.SnapWidthToIconWidth_PlusScrollbarWidth;
                 SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.Visibility = _instance.SnapWidthToIconWidth ? Visibility.Visible : Visibility.Collapsed;
-
+                
                 _instance.LastAccesedToFirstRow = _originalInstance.LastAccesedToFirstRow;
 
                 if (_originalInstance.Folder != _instance.Folder)
@@ -391,6 +394,8 @@ namespace DeskFrame
 
                 }
 
+
+                _frame.TitleBarIconsFadeAnimation(!_instance.HideTitleBarIconsWhenInactive);
                 AnimationSpeedSlider.Value = _originalInstance.AnimationSpeed * 4;
                 AnimationSpeedLabel.Content = _originalInstance.AnimationSpeed == 0.0 ? "OFF" : "x" + _originalInstance.AnimationSpeed;
                 IdleOpacitySlider.Value = _instance.IdleOpacity * 10;
@@ -429,6 +434,8 @@ namespace DeskFrame
                 ShowShortcutArrowCheckBox.IsChecked = _instance.ShowShortcutArrow;
                 FolderOpenInsideFrameCheckBox.IsChecked = _instance.FolderOpenInsideFrame;
                 CheckFolderSizeCheckBox.IsChecked = _instance.CheckFolderSize;
+
+                HideTitleBarIconsWhenInactive_CheckBox.IsChecked = _instance.HideTitleBarIconsWhenInactive;
 
                 SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
                 SnapWidthToIconWidth_CheckBox.IsChecked = _instance.SnapWidthToIconWidth;
@@ -515,6 +522,11 @@ namespace DeskFrame
         {
             _instance.ShowDisplayName = ShowDisplayNameCheckBox.IsChecked ?? true;
             _frame.UpdateIconVisibility();
+        }
+        private void HideTitleBarIconsWhenInactive_CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            _instance.HideTitleBarIconsWhenInactive = HideTitleBarIconsWhenInactive_CheckBox.IsChecked ?? true;
+            _frame.TitleBarIconsFadeAnimation(!_instance.HideTitleBarIconsWhenInactive);
         }
         private void SnapWidthToIconWidth_CheckBox_Checked(object sender, RoutedEventArgs e)
         {

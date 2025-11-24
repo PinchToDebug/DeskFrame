@@ -424,4 +424,7 @@
   <data name="Deskframe.Update.DialogContent" xml:space="preserve">
     <value>更新需要管理员权限</value>
   </data>
+  <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
+    <value>隐藏非活动窗口上的图标</value>
+  </data>
 </root>

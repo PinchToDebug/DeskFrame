@@ -425,4 +425,7 @@
   <data name="Deskframe.Update.DialogContent" xml:space="preserve">
     <value>La actualización requiere privilegios de administrador</value>
   </data>
+  <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
+    <value>Ocultar iconos en ventana inactiva</value>
+  </data>
 </root>
