@@ -34,11 +34,11 @@
             <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:0.2" />
         </Storyboard>
 
-        <Storyboard x:Key="FadeOutStoryboard">
+        <Storyboard x:Key="FadeOutLoadingProgressRingStoryboard">
             <DoubleAnimation Storyboard.TargetName="LoadingProgressRing" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.4"/>
         </Storyboard>
 
-        <Storyboard x:Key="FadeInStoryboard">
+        <Storyboard x:Key="FadeInLoadingProgressRingStoryboard">
             <DoubleAnimation Storyboard.TargetName="LoadingProgressRing" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.2"/>
         </Storyboard>
 
@@ -113,7 +113,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Grid>
+                    <Grid x:Name="titleBarItems">
                         <Button Cursor="Hand" x:Name="PathToBackButton" Width="30" Visibility="Collapsed" HorizontalAlignment="Left" Margin="5,0,5,0" Padding="0" VerticalAlignment="Center" Click="PathToBackButton_Click">
                             <ui:SymbolIcon Symbol="ArrowLeft12"  Foreground="{Binding ElementName=title, Path=Foreground}"  VerticalAlignment="Top" Height="18"/>
                         </Button>

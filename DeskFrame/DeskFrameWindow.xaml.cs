@@ -431,7 +431,7 @@ namespace DeskFrame
                     {
                         Dispatcher.Invoke(() =>
                         {
-                            LoadingChevronIconFade(true);
+                            LoadingProgressRingFade(true);
                         });
                         foreach (var item in FileItems)
                         {
@@ -445,7 +445,7 @@ namespace DeskFrame
                                 await Task.Delay(200, token);
                                 Dispatcher.Invoke(() =>
                                 {
-                                    LoadingChevronIconFade(false);
+                                    LoadingProgressRingFade(false);
                                 });
                             });
                         });
@@ -1808,13 +1808,13 @@ namespace DeskFrame
                 {
                     return;
                 }
-                LoadingChevronIconFade(true);
+                LoadingProgressRingFade(true);
 
                 var fileEntries = await Task.Run(() =>
                 {
                     if (loadFiles_cts.IsCancellationRequested)
                     {
-                        LoadingChevronIconFade(false);
+                        LoadingProgressRingFade(false);
                         return new List<FileSystemInfo>();
                     }
                     var dirInfo = new DirectoryInfo(path);
@@ -1838,7 +1838,7 @@ namespace DeskFrame
 
                 if (loadFiles_cts.IsCancellationRequested)
                 {
-                    LoadingChevronIconFade(false);
+                    LoadingProgressRingFade(false);
                     return;
                 }
                 if (Instance.LastAccesedToFirstRow)
@@ -1859,14 +1859,14 @@ namespace DeskFrame
                 {
                     if (loadFiles_cts.IsCancellationRequested)
                     {
-                        LoadingChevronIconFade(false);
+                        LoadingProgressRingFade(false);
                         return;
                     }
                     for (int i = FileItems.Count - 1; i >= 0; i--)  // Remove item that no longer exist
                     {
                         if (loadFiles_cts.IsCancellationRequested)
                         {
-                            LoadingChevronIconFade(false);
+                            LoadingProgressRingFade(false);
                             return;
                         }
                         if (!fileNames.Contains(Path.GetFileName(FileItems[i].FullPath!)))
@@ -1879,7 +1879,7 @@ namespace DeskFrame
                     {
                         if (loadFiles_cts.IsCancellationRequested)
                         {
-                            LoadingChevronIconFade(false);
+                            LoadingProgressRingFade(false);
                             return;
                         }
 
@@ -1964,7 +1964,7 @@ namespace DeskFrame
                         await Task.Delay(200);
                         Dispatcher.Invoke(() =>
                         {
-                            LoadingChevronIconFade(false);
+                            LoadingProgressRingFade(false);
                         });
                     });
                     Debug.WriteLine("LOADEDDDDDDDD");
@@ -1972,14 +1972,14 @@ namespace DeskFrame
             }
             catch (OperationCanceledException)
             {
-                LoadingChevronIconFade(false);
+                LoadingProgressRingFade(false);
                 Debug.WriteLine("LoadFiles was canceled.");
             }
         }
-        private void LoadingChevronIconFade(bool showLoading)
+        private void LoadingProgressRingFade(bool showLoading)
         {
-            Storyboard fadeOut = (Storyboard)this.Resources["FadeOutStoryboard"];
-            Storyboard fadeIn = (Storyboard)this.Resources["FadeInStoryboard"];
+            Storyboard fadeOut = (Storyboard)this.Resources["FadeOutLoadingProgressRingStoryboard"];
+            Storyboard fadeIn = (Storyboard)this.Resources["FadeInLoadingProgressRingStoryboard"];
 
             if (showLoading)
             {
