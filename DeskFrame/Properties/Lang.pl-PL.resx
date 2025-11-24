@@ -422,4 +422,7 @@
   <data name="FrameSettings.ActiveColor" xml:space="preserve">
     <value>Aktywny kolor (hex):</value>
   </data>
+  <data name="Deskframe.Update.DialogContent" xml:space="preserve">
+    <value>Aktualizacja wymaga uprawnień administratora</value>
+  </data>
 </root>

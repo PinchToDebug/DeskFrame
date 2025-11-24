@@ -422,4 +422,7 @@
   <data name="FrameSettings.ActiveColor" xml:space="preserve">
     <value>활성 색상 (hex):</value>
   </data>
+  <data name="Deskframe.Update.DialogContent" xml:space="preserve">
+    <value>업데이트하려면 관리자 권한이 필요합니다</value>
+  </data>
 </root>

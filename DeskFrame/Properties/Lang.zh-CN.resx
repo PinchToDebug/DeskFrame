@@ -421,4 +421,7 @@
   <data name="FrameSettings.ActiveColor" xml:space="preserve">
     <value>活动颜色（hex）：</value>
   </data>
+  <data name="Deskframe.Update.DialogContent" xml:space="preserve">
+    <value>更新需要管理员权限</value>
+  </data>
 </root>

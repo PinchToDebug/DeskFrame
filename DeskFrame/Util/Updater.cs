@@ -6,6 +6,8 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
 using System.Net.Http;
 using System.Globalization;
+using System.Text;
+using DeskFrame.Properties;
 namespace DeskFrame
 {
     public class Updater
@@ -154,28 +156,86 @@ namespace DeskFrame
                 RestartApplication(tempFilePath);
             }
         }
-
-        private static void ExecuteCommand(string command)
+        private static bool HasPermissionToWrite(string currentExecutablePath)
         {
-            Debug.WriteLine("Starting CMD...");
-            Process.Start(new ProcessStartInfo
+            string path = Path.GetDirectoryName(currentExecutablePath)!;
+            ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
-                Arguments = $"/C {command}",
+                Arguments = $"/C cd /d \"{path}\" && echo. > DeskFrameUpdatePermissionCheck",
                 UseShellExecute = false,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
+            };
+
+            Process proc = Process.Start(psi)!;
+            proc.WaitForExit();
+            if (proc.ExitCode == 0)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments = $"/C cd /d \"{path}\" && del DeskFrameUpdatePermissionCheck",
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                });
+                return true;
+            }
+            return false;
+        }
+
+        private static void ExecuteCommand(string command, bool needAdmin)
+        {
+            Debug.WriteLine("Starting CMD...");
+            string tempCmd = "";
+            if (needAdmin)
+            {
+                tempCmd = Path.Combine(Path.GetTempPath(), "deskframe_update.cmd");
+                File.WriteAllText(Path.Combine(Path.GetTempPath(), "deskframe_update.cmd"), command, Encoding.UTF8);
+            }
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = needAdmin ? tempCmd : "cmd.exe",
+                Arguments = needAdmin ? null : $"/C {command}",
+                UseShellExecute = needAdmin,
                 CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
                 Verb = "runas"
-            });
-            Debug.WriteLine("CMD done!");
+            };
+            Process.Start(psi);
 
         }
 
         private static void RestartApplication(string tempPath)
         {
             string currentExecutablePath = Process.GetCurrentProcess().MainModule!.FileName;
-            string command = $"timeout /t 2 && move /y \"{tempPath}\" \"{currentExecutablePath}\" & \"{currentExecutablePath}\" ";
+            string command = $"timeout /t 2 && move /y \"{tempPath}\" \"{currentExecutablePath}\" & \"{currentExecutablePath}\" && exit ";
 
-            ExecuteCommand(command);
+            if (HasPermissionToWrite(currentExecutablePath))
+            {
+                ExecuteCommand(command, false);
+            }
+            else
+            {
+                var dialog = new Wpf.Ui.Controls.MessageBox
+                {
+                    Title = "DeskFrame",
+                    Content = Lang.Deskframe_Update_DialogContent,
+                    PrimaryButtonText = "OK"
+                };
+
+                var result = dialog.ShowDialogAsync();
+
+                if (result.Result == Wpf.Ui.Controls.MessageBoxResult.Primary)
+                {
+                    ExecuteCommand(command, true);
+                }
+                else
+                {
+                    return;
+                }
+            }
             Environment.Exit(0);
         }
     }

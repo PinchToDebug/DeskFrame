@@ -427,4 +427,8 @@
   <data name="FrameSettings.ActiveColor" xml:space="preserve">
     <value>Active color (hex)</value>
   </data>
+  <data name="Deskframe.Update.DialogContent" xml:space="preserve">
+    <value>Updating requires administrator privileges</value>
+    <comment>Content of dialog</comment>
+  </data>
 </root>
