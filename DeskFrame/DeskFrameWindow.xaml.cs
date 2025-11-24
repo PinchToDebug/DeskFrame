@@ -284,7 +284,7 @@ namespace DeskFrame
                 if (animateActiveColor && !IsCursorWithinWindowBounds())
                 {
                     _mouseIsOver = false;
-                    AnimateActiveColor();
+                    AnimateActiveColor(Instance.AnimationSpeed);
                 }
                 if (!IsCursorWithinWindowBounds() && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left mouse button is not down
                 {
@@ -1576,7 +1576,7 @@ namespace DeskFrame
             };
             this.BeginAnimation(OpacityProperty, animation);
         }
-        private void AnimateActiveColor()
+        private void AnimateActiveColor(double animationSpeed)
         {
             if (Instance.ActiveBackgroundEnabled || Instance.ActiveBorderEnabled)
             {
@@ -1595,11 +1595,14 @@ namespace DeskFrame
                                             ? (Color)ColorConverter.ConvertFromString("#00000000")
                                             : (Color)ColorConverter.ConvertFromString(Instance.BorderColor)
                                         : (Color)ColorConverter.ConvertFromString(Instance.ActiveBorderColor),
+                    
                     To = _mouseIsOver ? (Color)ColorConverter.ConvertFromString(Instance.ActiveBorderColor)
                                         : !Instance.BorderEnabled
                                             ? (Color)ColorConverter.ConvertFromString("#00000000")
                                             : (Color)ColorConverter.ConvertFromString(Instance.BorderColor),
-                    Duration = TimeSpan.FromSeconds(0.1),
+                   
+                    Duration = animationSpeed == 0 ? TimeSpan.FromSeconds(0)
+                                                   : TimeSpan.FromSeconds(0.2 / animationSpeed)
                 };
                 WindowBorder.BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
                 animation.Completed += (sender, e) =>
@@ -1632,7 +1635,8 @@ namespace DeskFrame
                                         : (Color)ColorConverter.ConvertFromString(Instance.ActiveBackgroundColor),
                     To = _mouseIsOver ? (Color)ColorConverter.ConvertFromString(Instance.ActiveBackgroundColor)
                                         : (Color)ColorConverter.ConvertFromString(Instance.ListViewBackgroundColor),
-                    Duration = TimeSpan.FromSeconds(0.1),
+                    Duration = animationSpeed == 0 ? TimeSpan.FromSeconds(0)
+                                                   : TimeSpan.FromSeconds(0.2 / animationSpeed)
                 };
                 WindowBackground.Background.BeginAnimation(SolidColorBrush.ColorProperty, animation);
             }
@@ -3471,7 +3475,7 @@ namespace DeskFrame
         {
             if (!_mouseIsOver && IsCursorWithinWindowBounds())
             {
-                AnimateActiveColor();
+                AnimateActiveColor(Instance.AnimationSpeed);
             }
             _mouseIsOver = true;
             var hwnd = new WindowInteropHelper(this).Handle;
