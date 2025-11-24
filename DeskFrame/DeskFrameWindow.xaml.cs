@@ -3489,11 +3489,8 @@ namespace DeskFrame
         }
         public bool IsCursorWithinWindowBounds()
         {
-            Interop.GetWindowRect(new WindowInteropHelper(this).Handle, out RECT rect);
-            Point point = System.Windows.Forms.Cursor.Position;
-            var curPoint = new Point((int)point.X, (int)point.Y);
-            return point.X + 1 > rect.Left && point.X - 1 < rect.Right &&
-                   point.Y + 1 > rect.Top && point.Y - 1 < rect.Bottom;
+            Point cursor = System.Windows.Forms.Cursor.Position;
+            return WindowFromPoint(new POINT { X = cursor.X, Y = cursor.Y }) == new WindowInteropHelper(this).Handle;
         }
 
         public void UpdateIconVisibility()
