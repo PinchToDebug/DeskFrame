@@ -34,6 +34,8 @@ namespace DeskFrame.Util
     /// </example>
     public class ShellContextMenu
     {
+        public event Action ContextMenuClosed;
+
         #region Constructor
         /// <summary>Default constructor</summary>
         public ShellContextMenu()
@@ -229,28 +231,37 @@ namespace DeskFrame.Util
         /// </summary>
         /// <param name="arrFI">Array of FileInfo</param>
         /// <returns>Array of PIDLs</returns>
-        protected IntPtr[] GetPIDLs(FileInfo[] arrFI)
+        protected IntPtr[] GetPIDLs(FileSystemInfo[] arrFSI)
         {
-            if (null == arrFI || 0 == arrFI.Length)
+            if (arrFSI == null || 0 == arrFSI.Length)
             {
                 return null;
             }
 
-            IShellFolder oParentFolder = GetParentFolder(arrFI[0].DirectoryName);
-            if (null == oParentFolder)
+            string parentPath = arrFSI[0].FullName;
+            if (arrFSI[0] is FileInfo fi)
+            {
+                parentPath = fi.DirectoryName ?? parentPath;
+            }
+            else if (arrFSI[0] is DirectoryInfo di)
+            {
+                parentPath = Path.GetDirectoryName(di.FullName) ?? parentPath;
+            }
+
+            IShellFolder oParentFolder = GetParentFolder(parentPath);
+            if (oParentFolder == null)
             {
                 return null;
             }
 
-            IntPtr[] arrPIDLs = new IntPtr[arrFI.Length];
+            IntPtr[] arrPIDLs = new IntPtr[arrFSI.Length];
             int n = 0;
-            foreach (FileInfo fi in arrFI)
+            foreach (FileSystemInfo fsi in arrFSI)
             {
-                // Get the file relative to folder
                 uint pchEaten = 0;
                 SFGAO pdwAttributes = 0;
                 IntPtr pPIDL = IntPtr.Zero;
-                int nResult = oParentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, fi.Name, ref pchEaten, out pPIDL, ref pdwAttributes);
+                int nResult = oParentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, fsi.Name, ref pchEaten, out pPIDL, ref pdwAttributes);
                 if (S_OK != nResult)
                 {
                     FreePIDLs(arrPIDLs);
@@ -349,7 +360,7 @@ namespace DeskFrame.Util
         /// <param name="handleOwner">Window that will get messages</param>
         /// <param name="arrFI">FileInfos (should all be in same directory)</param>
         /// <param name="pointScreen">Where to show the menu</param>
-        public void ShowContextMenu(IntPtr handleOwner, FileInfo[] arrFI, Point pointScreen)
+        public void ShowContextMenu(IntPtr handleOwner, object target, Point pointScreen)
         {
             // Release all resources first.
             ReleaseAll();
@@ -360,10 +371,24 @@ namespace DeskFrame.Util
 
             try
             {
-                //Application.AddMessageFilter(this);
+                if (target is FileInfo[] arrFI)
+                {
+                    _arrPIDLs = GetPIDLs(arrFI);
+                    _oParentFolder = GetParentFolder(arrFI[0].DirectoryName);
+                    _strParentFolder = arrFI[0].DirectoryName;
+                }
+                else if (target is DirectoryInfo dir)
+                {
+                    _arrPIDLs = GetPIDLs(new FileSystemInfo[] { dir });
+                    _oParentFolder = GetParentFolder(dir.FullName);
+                    _strParentFolder = dir.FullName;
+                }
+                else
+                {
+                    throw new ArgumentException("Target must be FileInfo[] or DirectoryInfo");
+                }
 
-                _arrPIDLs = GetPIDLs(arrFI);
-                if (null == _arrPIDLs)
+                if (_arrPIDLs == null || !_arrPIDLs.Any())
                 {
                     ReleaseAll();
                     return;
@@ -416,6 +441,7 @@ namespace DeskFrame.Util
                     DestroyMenu(pMenu);
                 }
                 ReleaseAll();
+                ContextMenuClosed?.Invoke();
             }
         }
         #endregion
