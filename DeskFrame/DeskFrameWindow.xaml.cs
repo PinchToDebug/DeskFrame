@@ -74,6 +74,7 @@ namespace DeskFrame
         }
         string _dropIntoFolderPath;
         FrameworkElement _lastBorder;
+        private bool _isDragging = false;
         private bool _mouseIsOver;
         private bool _contextMenuIsOpen = false;
         private bool _fixIsOnBottomInit = true;
@@ -284,13 +285,18 @@ namespace DeskFrame
             timer.Interval = 1;
             timer.Tick += (s, e) =>
             {
-                if (animateActiveColor && !IsCursorWithinWindowBounds())
+                if (animateActiveColor && !IsCursorWithinWindowBounds() && (GetAsyncKeyState(0x01) & 0x8000) == 0)
                 {
                     _mouseIsOver = false;
                     AnimateActiveColor(Instance.AnimationSpeed);
                     if (Instance.HideTitleBarIconsWhenInactive)
                     {
                         TitleBarIconsFadeAnimation(false);
+                    }
+                    foreach (var fileItem in FileItems)
+                    {
+                        fileItem.IsSelected = false;
+                        fileItem.Background = Brushes.Transparent;
                     }
                 }
                 if (!IsCursorWithinWindowBounds() && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left mouse button is not down
@@ -2329,7 +2335,7 @@ namespace DeskFrame
             {
                 if (dragBorder.DataContext is FileItem fileItem)
                 {
-
+                    _isDragging = true;
                     DataObject data = new DataObject(DataFormats.FileDrop, new string[] { fileItem.FullPath! });
                     DragDrop.DoDragDrop(dragBorder, data, DragDropEffects.Copy | DragDropEffects.Move);
                 }
@@ -2381,11 +2387,27 @@ namespace DeskFrame
             {
                 AnimateWindowHeight(titleBar.Height, Instance.AnimationSpeed);
             }
+            if (!IsCursorWithinWindowBounds() && !_isDragging)
+            {
+                AnimateActiveColor(Instance.AnimationSpeed);
+                if (Instance.HideTitleBarIconsWhenInactive)
+                {
+                    TitleBarIconsFadeAnimation(true);
+                }
+            }
             AnimateWindowOpacity(Instance.IdleOpacity, Instance.AnimationSpeed);
             _dragdropIntoFolder = false;
         }
         private void Window_DragEnter(object sender, DragEventArgs e)
         {
+            if (!_mouseIsOver && IsCursorWithinWindowBounds())
+            {
+                AnimateActiveColor(Instance.AnimationSpeed);
+                if (Instance.HideTitleBarIconsWhenInactive)
+                {
+                    TitleBarIconsFadeAnimation(true);
+                }
+            }
             AnimateWindowHeight(Instance.Height, Instance.AnimationSpeed); AnimateWindowOpacity(1, Instance.AnimationSpeed);
             var sourceElement = e.OriginalSource as DependencyObject;
             var currentBorder = new Border();
@@ -2402,6 +2424,7 @@ namespace DeskFrame
             {
                 if (_lastBorder != null)
                 {
+                   // _isDragging = true;
                     FileItem_MouseLeave(_lastBorder, null);
                 }
                 _lastBorder = currentBorder;
@@ -3096,7 +3119,7 @@ namespace DeskFrame
         }
         private void titleBar_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-             contextMenu = new ContextMenu();
+            contextMenu = new ContextMenu();
 
             ToggleSwitch toggleHiddenFiles = new ToggleSwitch { Content = Lang.TitleBarContextMenu_HiddenFiles };
             toggleHiddenFiles.Click += (s, args) => { ToggleHiddenFiles(); LoadFiles(_currentFolderPath); };
@@ -3564,14 +3587,27 @@ namespace DeskFrame
             Point point = System.Windows.Forms.Cursor.Position;
             var curPoint = new Point((int)point.X, (int)point.Y);
             bool cursorIsWithinWindowBounds = point.X + 1 > rect.Left && point.X - 1 < rect.Right && point.Y + 1 > rect.Top && point.Y - 1 < rect.Bottom;
-            if (_contextMenuIsOpen || contextMenu.IsOpen) return true;
+           
+            if (_isDragging && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left not down
+            {
+                _isDragging = false;
+            }
+            if (_isDragging)
+            {
+                if (cursorIsWithinWindowBounds) return true;
+                if (!cursorIsWithinWindowBounds) return false;
+            }
+
+            if (_contextMenuIsOpen
+                || contextMenu.IsOpen
+                || (_isDragging && (GetAsyncKeyState(0x01) & 0x8000) != 0)) return true;
             if (!_contextMenuIsOpen)
             {
                 if (cursorIsOverTheWindow)
                 {
                     return true;
                 }
-                
+
                 return false;
             }
             return false;
