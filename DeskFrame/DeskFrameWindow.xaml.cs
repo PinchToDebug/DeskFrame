@@ -105,6 +105,8 @@ namespace DeskFrame
         private CancellationTokenSource _adjustPositionCts;
         public DeskFrameWindow WonRight = null;
         public DeskFrameWindow WonLeft = null;
+
+        ContextMenu contextMenu = new ContextMenu();
         MenuItem nameMenuItem;
         MenuItem dateModifiedMenuItem;
         MenuItem dateCreatedMenuItem;
@@ -484,9 +486,17 @@ namespace DeskFrame
                     var curPos = System.Windows.Forms.Cursor.Position;
                     try
                     {
-                        var shellItem = new Vanara.Windows.Shell.ShellItem(_currentFolderPath);
+                        var windowHelper = new WindowInteropHelper(this);
+                        Point cursorPosition = System.Windows.Forms.Cursor.Position;
+                        System.Windows.Point wpfPoint = new System.Windows.Point(cursorPosition.X, cursorPosition.Y);
+                        Point drawingPoint = new Point((int)wpfPoint.X, (int)wpfPoint.Y);
+                        DirectoryInfo folder = new DirectoryInfo(_currentFolderPath);
                         _contextMenuIsOpen = true;
-                        shellItem.ContextMenu.ShowContextMenu(curPos);
+                        scm.ContextMenuClosed += () =>
+                        {
+                            _contextMenuIsOpen = false;
+                        };
+                        scm.ShowContextMenu(windowHelper.Handle, new DirectoryInfo(_currentFolderPath), drawingPoint);
                         handled = true;
                     }
                     catch
@@ -1660,7 +1670,7 @@ namespace DeskFrame
                                                   : TimeSpan.FromSeconds(0.2 / animationSpeed)
                 };
                 title.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, titleBarItemsColorAnimation);
-        }
+            }
         }
 
         private void AnimateWindowHeight(double targetHeight, double animationSpeed)
@@ -2119,6 +2129,10 @@ namespace DeskFrame
                 System.Windows.Point wpfPoint = new System.Windows.Point(cursorPosition.X, cursorPosition.Y);
                 Point drawingPoint = new Point((int)wpfPoint.X, (int)wpfPoint.Y);
                 _contextMenuIsOpen = true;
+                scm.ContextMenuClosed += () =>
+                {
+                    _contextMenuIsOpen = false;
+                };
                 scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint);
             }
         }
@@ -2353,6 +2367,10 @@ namespace DeskFrame
                 System.Windows.Point wpfPoint = new System.Windows.Point(cursorPosition.X, cursorPosition.Y);
                 Point drawingPoint = new Point((int)wpfPoint.X, (int)wpfPoint.Y);
                 _contextMenuIsOpen = true;
+                scm.ContextMenuClosed += () =>
+                {
+                    _contextMenuIsOpen = false;
+                };
                 scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint);
             }
         }
@@ -3078,7 +3096,7 @@ namespace DeskFrame
         }
         private void titleBar_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ContextMenu contextMenu = new ContextMenu();
+             contextMenu = new ContextMenu();
 
             ToggleSwitch toggleHiddenFiles = new ToggleSwitch { Content = Lang.TitleBarContextMenu_HiddenFiles };
             toggleHiddenFiles.Click += (s, args) => { ToggleHiddenFiles(); LoadFiles(_currentFolderPath); };
@@ -3411,7 +3429,6 @@ namespace DeskFrame
             contextMenu.Items.Add(new Separator());
             contextMenu.Items.Add(exitItem);
 
-            _contextMenuIsOpen = true;
             contextMenu.IsOpen = true;
         }
 
@@ -3518,7 +3535,6 @@ namespace DeskFrame
         {
             if (!_mouseIsOver && IsCursorWithinWindowBounds())
             {
-                _contextMenuIsOpen = false;
                 AnimateActiveColor(Instance.AnimationSpeed);
                 if (Instance.HideTitleBarIconsWhenInactive)
                 {
@@ -3538,7 +3554,7 @@ namespace DeskFrame
             {
                 Minimize_MouseLeftButtonDown(null, null);
             }
-        }   
+        }
         public bool IsCursorWithinWindowBounds()
         {
             Point cursor = System.Windows.Forms.Cursor.Position;
@@ -3548,8 +3564,17 @@ namespace DeskFrame
             Point point = System.Windows.Forms.Cursor.Position;
             var curPoint = new Point((int)point.X, (int)point.Y);
             bool cursorIsWithinWindowBounds = point.X + 1 > rect.Left && point.X - 1 < rect.Right && point.Y + 1 > rect.Top && point.Y - 1 < rect.Bottom;
-            
-            return cursorIsOverTheWindow || (cursorIsWithinWindowBounds && _contextMenuIsOpen);
+            if (_contextMenuIsOpen || contextMenu.IsOpen) return true;
+            if (!_contextMenuIsOpen)
+            {
+                if (cursorIsOverTheWindow)
+                {
+                    return true;
+                }
+                
+                return false;
+            }
+            return false;
         }
 
         public void UpdateIconVisibility()

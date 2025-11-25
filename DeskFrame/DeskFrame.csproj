@@ -48,7 +48,6 @@
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
     <PackageReference Include="Slions.VirtualDesktop" Version="6.9.2" />
     <PackageReference Include="Svg" Version="3.4.7" />
-    <PackageReference Include="Vanara.Windows.Shell" Version="4.2.1" />
     <PackageReference Include="WPF-UI.Tray" Version="4.0.3" />
   </ItemGroup>
 
