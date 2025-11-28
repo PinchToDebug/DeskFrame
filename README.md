@@ -15,7 +15,7 @@
   <i align="center">A customizable, frameless folder viewer for your desktop<br>minimal, snappy, and always at hand.</i>
 </p>
 
-
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J61PAH6H)
 ## ✨ Features
 
 - Instant search *(just type cursor is over the frame)*
