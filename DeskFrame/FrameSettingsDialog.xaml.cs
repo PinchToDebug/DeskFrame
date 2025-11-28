@@ -390,7 +390,7 @@ namespace DeskFrame
                 _instance.SnapWidthToIconWidth = _originalInstance.SnapWidthToIconWidth;
                 _instance.SnapWidthToIconWidth_PlusScrollbarWidth = _originalInstance.SnapWidthToIconWidth_PlusScrollbarWidth;
                 SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.Visibility = _instance.SnapWidthToIconWidth ? Visibility.Visible : Visibility.Collapsed;
-                
+
                 _instance.LastAccesedToFirstRow = _originalInstance.LastAccesedToFirstRow;
 
                 if (_originalInstance.Folder != _instance.Folder)
@@ -680,7 +680,7 @@ namespace DeskFrame
         }
         private void ActiveTitleTextColorTextBoxIcon_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           OpenColorPicker(ActiveTitleTextColorTextBox);
+            OpenColorPicker(ActiveTitleTextColorTextBox);
         }
         private void ChangeStyleDropDownButton_Click(object sender, RoutedEventArgs e)
         {
@@ -734,6 +734,18 @@ namespace DeskFrame
         private async void ChangePosition(object sender, NumberBoxValueChangedEventArgs args)
         {
             await _frame.AdjustPositionAsync();
+        }
+
+        private void KofiButtonImage_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                ProcessStartInfo sInfo = new ProcessStartInfo($"https://ko-fi.com/J3J61PAH6H") { UseShellExecute = true };
+                _ = Process.Start(sInfo);
+            }
+            catch
+            {
+            }
         }
     }
 }

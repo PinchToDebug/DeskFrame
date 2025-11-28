@@ -36,7 +36,15 @@
 
             </StackPanel>
         </StackPanel>
-
+        
+        <ui:Image x:Name="KofiButtonImage" VerticalAlignment="Bottom"
+                     Source="/Icon/support_me_on_kofi_badge_dark.png" 
+                     RenderOptions.BitmapScalingMode="Fant" 
+                     Height="60"
+                     Margin="8"
+                     HorizontalAlignment="Left"
+                     Cursor="Hand" MouseUp="KofiButtonImage_MouseUp"/>
+        
         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Margin="0,0,10,5" VerticalAlignment="Bottom">
             <Label Content="{x:Static prop:Lang.DeskFrameFrameSettings_MadewithSpace}" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DimGray"/>
             <ui:SymbolIcon Symbol="Heart20" Filled="True" Margin="0,-2,0,0" Foreground="DimGray"/>

@@ -135,7 +135,18 @@ namespace DeskFrame
             _controller.reg.WriteToRegistryRoot("DoubleClickToHide", DoubleClickToHideSwitch.IsChecked!);
             _window.DoubleClickToHide = (bool)DoubleClickToHideSwitch.IsChecked!;
         }
-
+       
+        private void KofiButtonImage_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                ProcessStartInfo sInfo = new ProcessStartInfo($"https://ko-fi.com/J3J61PAH6H") { UseShellExecute = true };
+                _ = Process.Start(sInfo);
+            }
+            catch
+            {
+            }
+        }
 
     }
 }

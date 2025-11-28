@@ -282,6 +282,13 @@
 
 
             </StackPanel>
+            <ui:Image x:Name="KofiButtonImage" VerticalAlignment="Bottom"
+                       Source="/Icon/support_me_on_kofi_badge_dark.png" 
+                       RenderOptions.BitmapScalingMode="Fant" Height="80"
+                       Margin="14"
+                       HorizontalAlignment="Left"
+                       Cursor="Hand" MouseUp="KofiButtonImage_MouseUp"/>
+
             <Separator HorizontalAlignment="Center"  Grid.Column="1" Margin="0,20,0,20"/>
 
             <StackPanel  Orientation="Vertical" Margin="10,45,10,0" Grid.Column="2">
@@ -586,7 +593,7 @@
                 <CheckBox x:Name="ShowLastAccessedToFirstRowCheckBox" Margin="-11,0,0,0" Checked="ShowLastAccessedToFirstRowCheckBox_Checked" Unchecked="ShowLastAccessedToFirstRowCheckBox_Unchecked">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_ShowLastAccessedItem}" TextWrapping="Wrap"/>
                 </CheckBox>
-                
+
                 <StackPanel Orientation="Horizontal">
                     <Label Content="{x:Static prop:Lang.FrameSettings_IconSize}" Height="30" Margin="0,20,0,0"/>
                     <Label x:Name="IconSizeLabel" Content="0%" Height="30" Margin="5,20,0,0" Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" FontWeight="Bold"/>
