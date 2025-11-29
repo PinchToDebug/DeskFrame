@@ -436,4 +436,7 @@
   <data name="DeskFrameFrameSettings.Scroll" xml:space="preserve">
     <value>滚动</value>
   </data>
+  <data name="DeskFrameFrameSettings.ChangeIconSizeDescription" xml:space="preserve">
+    <value>更改图标大小</value>
+  </data>
 </root>
