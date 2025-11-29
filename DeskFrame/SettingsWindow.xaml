@@ -12,7 +12,7 @@
         Background="#66232323" 
         WindowStyle="None" 
         ResizeMode="NoResize"
-        Height="366" 
+        Height="550" 
                  Width="464"
                  Closing="FluentWindow_Closing">
     <Grid>
@@ -34,9 +34,50 @@
                 <ui:ToggleSwitch x:Name="AutoUpdateToggleSwitch" Content="{x:Static prop:Lang.DeskFrameFrameSettings_AutoUpdate}" Margin="10,20,0,0" Click="AutoUpdateToggleSwitch_Click"/>
                 <ui:ToggleSwitch x:Name="DoubleClickToHideSwitch" Content="{x:Static prop:Lang.DeskFrameFrameSettings_DoubleClickHide}" Margin="10,20,0,0" Click="DoubleClickToHideSwitch_Click"/>
 
+                <Separator HorizontalAlignment="Center" Margin="20,10,20,10" Width="461"/>
+
+
+                <StackPanel>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Border HorizontalAlignment="Left" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4"  Margin="0,0,8,0">
+                                <TextBlock Text="ALT"  Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border HorizontalAlignment="Left" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4">
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_Drag}"  Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_SnapDescription}" TextWrapping="Wrap" Foreground="LightGray" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                    </Grid>
+
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Border HorizontalAlignment="Left" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4"  Margin="0,0,8,0">
+                                <TextBlock Text="CTRL" Foreground="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border HorizontalAlignment="Left" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4">
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_Scroll}" Foreground="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_ChangeIconSizeDescription}" TextWrapping="Wrap" Foreground="LightGray"  VerticalAlignment="Center" Margin="16,0,0,0"/>
+                    </Grid>
+
+                    <StackPanel Margin="10">
+                        <TextBlock TextWrapping="Wrap" Text="To search move the cursor over the frame you want to search in and start typing" Foreground="LightGray" />
+                    </StackPanel>
+
+                </StackPanel>
             </StackPanel>
         </StackPanel>
-        
+
         <ui:Image x:Name="KofiButtonImage" VerticalAlignment="Bottom"
                      Source="/Icon/support_me_on_kofi_badge_dark.png" 
                      RenderOptions.BitmapScalingMode="Fant" 
@@ -44,7 +85,7 @@
                      Margin="8"
                      HorizontalAlignment="Left"
                      Cursor="Hand" MouseUp="KofiButtonImage_MouseUp"/>
-        
+
         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Margin="0,0,10,5" VerticalAlignment="Bottom">
             <Label Content="{x:Static prop:Lang.DeskFrameFrameSettings_MadewithSpace}" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DimGray"/>
             <ui:SymbolIcon Symbol="Heart20" Filled="True" Margin="0,-2,0,0" Foreground="DimGray"/>

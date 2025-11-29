@@ -88,6 +88,15 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change icon size.
+        /// </summary>
+        public static string DeskFrameFrameSettings_ChangeIconSizeDescription {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.ChangeIconSizeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default frame style.
         /// </summary>
         public static string DeskFrameFrameSettings_DefaultFrameStyle {
@@ -102,6 +111,15 @@ namespace DeskFrame.Properties {
         public static string DeskFrameFrameSettings_DoubleClickHide {
             get {
                 return ResourceManager.GetString("DeskFrameFrameSettings.DoubleClickHide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DRAG.
+        /// </summary>
+        public static string DeskFrameFrameSettings_Drag {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.Drag", resourceCulture);
             }
         }
         
@@ -129,6 +147,24 @@ namespace DeskFrame.Properties {
         public static string DeskFrameFrameSettings_ResetDefaultStyle {
             get {
                 return ResourceManager.GetString("DeskFrameFrameSettings.ResetDefaultStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SCROLL.
+        /// </summary>
+        public static string DeskFrameFrameSettings_Scroll {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.Scroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snap frame with 10 pixel distance.
+        /// </summary>
+        public static string DeskFrameFrameSettings_SnapDescription {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.SnapDescription", resourceCulture);
             }
         }
         

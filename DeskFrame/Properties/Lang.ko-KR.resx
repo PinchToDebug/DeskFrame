@@ -428,4 +428,16 @@
   <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
     <value>비활성 창에서 아이콘 숨기기</value>
   </data>
+  <data name="DeskFrameFrameSettings.Drag" xml:space="preserve">
+    <value>드래그</value>
+  </data>
+  <data name="DeskFrameFrameSettings.SnapDescription" xml:space="preserve">
+    <value>10픽셀 거리로 창 맞추기</value>
+  </data>
+  <data name="DeskFrameFrameSettings.Scroll" xml:space="preserve">
+    <value>스크롤</value>
+  </data>
+  <data name="DeskFrameFrameSettings.ChangeIconSizeDescription" xml:space="preserve">
+    <value>아이콘 크기 변경</value>
+  </data>
 </root>

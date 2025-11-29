@@ -427,4 +427,13 @@
   <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
     <value>隐藏非活动窗口上的图标</value>
   </data>
+  <data name="DeskFrameFrameSettings.Drag" xml:space="preserve">
+    <value>拖动</value>
+  </data>
+  <data name="DeskFrameFrameSettings.SnapDescription" xml:space="preserve">
+    <value>将窗口以10像素的距离对齐</value>
+  </data>
+  <data name="DeskFrameFrameSettings.Scroll" xml:space="preserve">
+    <value>滚动</value>
+  </data>
 </root>

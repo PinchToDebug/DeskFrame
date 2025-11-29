@@ -428,4 +428,16 @@
   <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
     <value>Ukryj ikony w nieaktywnej oknie</value>
   </data>
+  <data name="DeskFrameFrameSettings.Drag" xml:space="preserve">
+    <value>DRAGOWAĆ</value>
+  </data>
+  <data name="DeskFrameFrameSettings.SnapDescription" xml:space="preserve">
+    <value>Przyciągnij okno na 10 pikseli</value>
+  </data>
+  <data name="DeskFrameFrameSettings.Scroll" xml:space="preserve">
+    <value>PRZEWIJ</value>
+  </data>
+  <data name="DeskFrameFrameSettings.ChangeIconSizeDescription" xml:space="preserve">
+    <value>Zmień rozmiar ikony</value>
+  </data>
 </root>
