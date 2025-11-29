@@ -158,7 +158,6 @@
                             <ui:SymbolIcon Symbol="Search48" Margin="4,0,0,0" Foreground="{Binding ElementName=title, Path=Foreground}" VerticalAlignment="Center" FontSize="22"/>
                             <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Content=":  " Foreground="{Binding ElementName=title, Path=Foreground}" FontWeight="Bold"/>
                             <ui:TextBox x:Name="FilterTextBox"
-                                Visibility="Collapsed" 
                                 HorizontalAlignment="Left" 
                                 FontWeight="DemiBold" 
                                 Foreground="{Binding ElementName=title, Path=Foreground}" 

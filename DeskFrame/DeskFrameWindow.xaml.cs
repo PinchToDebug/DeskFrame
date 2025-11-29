@@ -305,7 +305,7 @@ namespace DeskFrame
                     if (_canAutoClose)
                     {
                         FilterTextBox.Text = null;
-                        FilterTextBox.Visibility = Visibility.Collapsed;
+                        //   FilterTextBox.Visibility = Visibility.Collapsed;
                     }
                     this.SetNoActivate();
                     if (_didFixIsOnBottom) _fixIsOnBottomInit = false;
@@ -1211,11 +1211,10 @@ namespace DeskFrame
             if (e.Key == Key.Escape || !_mouseIsOver)
             {
                 FilterTextBox.Text = null;
-                FilterTextBox.Visibility = Visibility.Collapsed;
             }
-            else if (e.Key != Key.Escape)
+            else
             {
-                FilterTextBox.Visibility = Visibility.Visible;
+                Search.Opacity = 0;
                 Search.Visibility = Visibility.Visible;
             }
             FilterTextBox.Focus();
@@ -1231,6 +1230,7 @@ namespace DeskFrame
             }
             else if (_mouseIsOver)
             {
+                Search.Opacity = 1;
                 Search.Visibility = Visibility.Visible;
                 title.Visibility = Visibility.Collapsed;
             }
@@ -2424,7 +2424,7 @@ namespace DeskFrame
             {
                 if (_lastBorder != null)
                 {
-                   // _isDragging = true;
+                    // _isDragging = true;
                     FileItem_MouseLeave(_lastBorder, null);
                 }
                 _lastBorder = currentBorder;
@@ -3587,7 +3587,7 @@ namespace DeskFrame
             Point point = System.Windows.Forms.Cursor.Position;
             var curPoint = new Point((int)point.X, (int)point.Y);
             bool cursorIsWithinWindowBounds = point.X + 1 > rect.Left && point.X - 1 < rect.Right && point.Y + 1 > rect.Top && point.Y - 1 < rect.Bottom;
-           
+
             if (_isDragging && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left not down
             {
                 _isDragging = false;
