@@ -284,7 +284,7 @@
             </StackPanel>
             <ui:Image x:Name="KofiButtonImage" VerticalAlignment="Bottom"
                        Source="/Icon/support_me_on_kofi_badge_dark.png" 
-                       RenderOptions.BitmapScalingMode="Fant" Height="80"
+                       RenderOptions.BitmapScalingMode="Fant" Height="60"
                        Margin="14"
                        HorizontalAlignment="Left"
                        Cursor="Hand" MouseUp="KofiButtonImage_MouseUp"/>
