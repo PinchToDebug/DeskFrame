@@ -1,24 +1,35 @@
-﻿using DeskFrame.Util;
+﻿using DeskFrame.Core;
+using DeskFrame.Properties;
+using DeskFrame.Util;
+using IWshRuntimeLibrary;
 using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Shell;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
+using System.Windows.Threading;
+using WindowsDesktop;
 using Wpf.Ui.Controls;
+using static DeskFrame.Util.Interop;
 using Application = System.Windows.Application;
+using Binding = System.Windows.Data.Binding;
 using Brush = System.Windows.Media.Brush;
 using Brushes = System.Windows.Media.Brushes;
 using Color = System.Windows.Media.Color;
@@ -27,24 +38,15 @@ using DataFormats = System.Windows.DataFormats;
 using DataObject = System.Windows.DataObject;
 using DragDropEffects = System.Windows.DragDropEffects;
 using DragEventArgs = System.Windows.DragEventArgs;
+using File = System.IO.File;
+using ListView = Wpf.Ui.Controls.ListView;
+using ListViewItem = System.Windows.Controls.ListViewItem;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
 using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Point = System.Drawing.Point;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
-using ListView = Wpf.Ui.Controls.ListView;
-using ListViewItem = System.Windows.Controls.ListViewItem;
-using WindowsDesktop;
-using System.Windows.Controls.Primitives;
-using System.Windows.Threading;
-using static DeskFrame.Util.Interop;
-using IWshRuntimeLibrary;
-using File = System.IO.File;
-using DeskFrame.Core;
-using DeskFrame.Properties;
-using Microsoft.WindowsAPICodePack.Shell;
-using Binding = System.Windows.Data.Binding;
 namespace DeskFrame
 {
     public partial class DeskFrameWindow : System.Windows.Window
@@ -1329,6 +1331,7 @@ namespace DeskFrame
         public DeskFrameWindow(Instance instance)
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
             this.MinWidth = 98;
             this.Loaded += MainWindow_Loaded;
             this.SourceInitialized += MainWindow_SourceInitialized!;
