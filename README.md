@@ -18,7 +18,7 @@
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J61PAH6H)
 ## ✨ Features
 
-- Instant search *(just type cursor is over the frame)*
+- Instant search *(just type when the cursor is over the frame)*
 - Fully customizable colors
 - Background colors with transparency
 - Toggle hidden files and file extensions
