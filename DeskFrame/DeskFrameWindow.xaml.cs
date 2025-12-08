@@ -1445,6 +1445,7 @@ namespace DeskFrame
                 KeepWindowBehind();
                 if (!_isLocked)
                 {
+                    BringFrameToFront(hwnd, true);
                     this.DragMove();
                 }
                 Debug.WriteLine("win left hide");
@@ -3537,7 +3538,14 @@ namespace DeskFrame
 
             foreach (var hwnd in windowHandles)
             {
-                int z = GetZIndex(hwnd);
+                int z = 0;
+                IntPtr prev = hwnd;
+
+                while ((prev = Interop.GetWindow(prev, GW_HWNDPREV)) != IntPtr.Zero)
+                {
+                    z++;
+                }
+
                 if (z >= 0 && z < lowestZ)
                 {
                     lowestZ = z;
@@ -3546,16 +3554,64 @@ namespace DeskFrame
             }
             return lowestWindow;
         }
-        void BringFrameToFront(IntPtr hwnd)
+        Rectangle RectToRectangle(RECT r)
         {
-            IntPtr hwndLower = Interop.GetWindow(GetWindowWithMinZIndex(MainWindow._controller._subWindowsPtr), GW_HWNDPREV);
-            IntPtr insertAfter = hwndLower != IntPtr.Zero ? hwndLower : IntPtr.Zero;
-            SendMessage(hwnd, WM_SETREDRAW, 0, IntPtr.Zero);
+            return new Rectangle(
+                r.Left,
+                r.Top,
+                r.Right - r.Left,
+                r.Bottom - r.Top
+            );
+        }
+        private bool WindowIsOverlapped(IntPtr hwnd, List<IntPtr> windowHandles)
+        {
+            if (!GetWindowRect(hwnd, out RECT thisR))
+            {
+                return false;
+            }
+            Rectangle thisRect = RectToRectangle(thisR);
+            if (Instance.AutoExpandonCursor && _isMinimized)
+            {
+                thisRect = new Rectangle(
+                    thisRect.Left,
+                    thisRect.Top,
+                    thisRect.Width,
+                    (int)Instance.Height
+                );
+            }
 
-            SetWindowPos(hwnd, insertAfter, 0, 0, 0, 0,
+            foreach (var window in windowHandles)
+            {
+                if (window == hwnd) continue;
+                if (!GetWindowRect(window, out RECT testR)) continue;
+
+                Rectangle testRect = RectToRectangle(testR);
+                Rectangle intersect = Rectangle.Intersect(thisRect, testRect);
+
+                if (!intersect.IsEmpty)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        void BringFrameToFront(IntPtr hwnd, bool forceToFront)
+        {
+            IntPtr hwndLower = GetWindowWithMinZIndex(MainWindow._controller._subWindowsPtr);
+            bool overlapped = WindowIsOverlapped(hwnd, MainWindow._controller._subWindowsPtr);
+
+            if (forceToFront || (hwnd != hwndLower && overlapped))
+            {
+                hwndLower = Interop.GetWindow(hwndLower, GW_HWNDPREV);
+                IntPtr insertAfter = hwndLower != IntPtr.Zero ? hwndLower : IntPtr.Zero;
+                SendMessage(hwnd, WM_SETREDRAW, 0, IntPtr.Zero);
+
+                SetWindowPos(hwnd, insertAfter, 0, 0, 0, 0,
                SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOSENDCHANGING);
 
-            SendMessage(hwnd, WM_SETREDRAW, 1, IntPtr.Zero);
+                SendMessage(hwnd, WM_SETREDRAW, 1, IntPtr.Zero);
+            }
         }
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -3569,7 +3625,7 @@ namespace DeskFrame
             }
             _mouseIsOver = true;
             var hwnd = new WindowInteropHelper(this).Handle;
-            BringFrameToFront(hwnd);
+            BringFrameToFront(hwnd, false);
             SetForegroundWindow(hwnd);
             this.Activate();
             SetFocus(hwnd);
