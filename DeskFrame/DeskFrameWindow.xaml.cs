@@ -865,7 +865,6 @@ namespace DeskFrame
                 {
                     _isOnBottom = false;
                 }
-                Debug.WriteLine(windowRight);
                 if (Math.Abs(windowLeft - workingArea.Left) <= _snapDistance)
                 {
                     newWindowLeft = workingArea.Left;
