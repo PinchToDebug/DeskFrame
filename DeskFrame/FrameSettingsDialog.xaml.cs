@@ -88,6 +88,7 @@ namespace DeskFrame
             _originalInstance.HideTitleBarIconsWhenInactive = _instance.HideTitleBarIconsWhenInactive;
             _originalInstance.SnapWidthToIconWidth = _instance.SnapWidthToIconWidth;
             _originalInstance.SnapWidthToIconWidth_PlusScrollbarWidth = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
+            _originalInstance.ShowShortcutArrow = _instance.ShowShortcutArrow;
 
             TitleBarColorTextBox.Text = _instance.TitleBarColor;
             TitleTextColorTextBox.Text = _instance.TitleTextColor;
