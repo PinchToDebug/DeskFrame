@@ -31,8 +31,8 @@
 - Regex search and item filtering
 - Option to display per virtual desktop
 - Double click on desktop to hide frames
+- Grayscale
 - Supported languages: English, Spanish, Mandarin, Polish, Korean
-
 ...and more!
 
 ## 🚀 Quick Start
