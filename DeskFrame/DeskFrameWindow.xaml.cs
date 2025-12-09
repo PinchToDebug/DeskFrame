@@ -2034,11 +2034,16 @@ namespace DeskFrame
             }
             else
             {
+                try
+                {
                 fadeOut.Completed += (s, e) =>
                 {
                     fadeOut.Completed -= (s, e) => { }; // cleanup
                     LoadingProgressRing.IsIndeterminate = false;
                 };
+                }
+                catch { }
+
                 fadeOut.Begin();
             }
         }
