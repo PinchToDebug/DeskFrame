@@ -3525,14 +3525,12 @@ namespace DeskFrame
 
         private int GetZIndex(IntPtr hwnd)
         {
-            IntPtr h = GetTopWindow(IntPtr.Zero);
+            IntPtr h = GetTopWindow(shellView);
             int z = 0;
 
             while (h != IntPtr.Zero)
             {
-                if (h == hwnd)
-                    return z;
-
+                if (h == hwnd) return z;
                 h = Interop.GetWindow(h, GW_HWNDNEXT);
                 z++;
             }
@@ -3586,11 +3584,12 @@ namespace DeskFrame
                     (int)Instance.Height
                 );
             }
-
+            int zIndex = GetZIndex(hwnd);
             foreach (var window in windowHandles)
             {
                 if (window == hwnd) continue;
                 if (!GetWindowRect(window, out RECT testR)) continue;
+                if (GetZIndex(window) > zIndex) continue;
 
                 Rectangle testRect = RectToRectangle(testR);
                 Rectangle intersect = Rectangle.Intersect(thisRect, testRect);
