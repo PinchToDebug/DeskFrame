@@ -1642,8 +1642,7 @@ namespace DeskFrame
                 WindowBorder.BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, backgroundColorAnimation);
                 backgroundColorAnimation.Completed += (sender, e) =>
                 {
-                    WindowBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Instance.BorderColor));
-
+              
                     WindowBorder.SetBinding(Border.BorderThicknessProperty, new Binding("Instance.BorderEnabled")
                     {
                         Source = this,
@@ -1653,8 +1652,7 @@ namespace DeskFrame
             }
             else
             {
-                WindowBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Instance.BorderColor));
-
+             
                 WindowBorder.SetBinding(Border.BorderThicknessProperty, new Binding("Instance.BorderEnabled")
                 {
                     Source = this,
