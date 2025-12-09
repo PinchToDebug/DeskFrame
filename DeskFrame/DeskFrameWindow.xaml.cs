@@ -3594,8 +3594,7 @@ namespace DeskFrame
 
                 Rectangle testRect = RectToRectangle(testR);
                 Rectangle intersect = Rectangle.Intersect(thisRect, testRect);
-
-                if (!intersect.IsEmpty)
+                if (intersect.Width > 0 && intersect.Height > 0)
                 {
                     return true;
                 }
