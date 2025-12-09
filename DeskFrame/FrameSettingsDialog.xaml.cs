@@ -192,22 +192,22 @@ namespace DeskFrame
 
         private void BorderEnabledCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            BorderColorTextBox.IsEnabled = BorderEnabledCheckBox.IsChecked == true;
+            //  BorderColorTextBox.IsEnabled = BorderEnabledCheckBox.IsChecked == true;
             ValidateSettings();
         }
         private void ActiveBorderEnabledCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            ActiveBorderColorTextBox.IsEnabled = ActiveBorderEnabledCheckBox.IsChecked == true;
+            // ActiveBorderColorTextBox.IsEnabled = ActiveBorderEnabledCheckBox.IsChecked == true;
             ValidateSettings();
         }
         private void ActiveTitleTextEnabledCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            ActiveTitleTextColorTextBox.IsEnabled = ActiveTitleTextEnabledCheckBox.IsChecked == true;
+            //  ActiveTitleTextColorTextBox.IsEnabled = ActiveTitleTextEnabledCheckBox.IsChecked == true;
             ValidateSettings();
         }
         private void ActiveBackgroundEnabledCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            ActiveBackgroundColorTextBox.IsEnabled = ActiveBackgroundEnabledCheckBox.IsChecked == true;
+            //  ActiveBackgroundColorTextBox.IsEnabled = ActiveBackgroundEnabledCheckBox.IsChecked == true;
             ValidateSettings();
         }
 
