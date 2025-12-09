@@ -30,6 +30,9 @@ public class InstanceController
                 key.SetValue("IconSize", instance.IconSize!);
                 key.SetValue("IdleOpacity", instance.IdleOpacity!);
                 key.SetValue("AnimationSpeed", instance.AnimationSpeed!);
+                key.SetValue("MaxGrayScaleStrength", instance.MaxGrayScaleStrength!);
+                key.SetValue("GrayScaleEnabled", instance.GrayScaleEnabled!);
+                key.SetValue("GrayScaleEnabled_InactiveOnly", instance.GrayScaleEnabled_InactiveOnly!);
                 key.SetValue("Minimized", instance.Minimized!);
                 key.SetValue("Folder", instance.Folder!);
                 key.SetValue("TitleFontFamily", instance.TitleFontFamily!);
@@ -111,6 +114,9 @@ public class InstanceController
                 key.SetValue("IconSize", instance.IconSize);
                 key.SetValue("IdleOpacity", instance.IdleOpacity);
                 key.SetValue("AnimationSpeed", instance.AnimationSpeed);
+                key.SetValue("MaxGrayScaleStrength", instance.MaxGrayScaleStrength!);
+                key.SetValue("GrayScaleEnabled", instance.GrayScaleEnabled!);
+                key.SetValue("GrayScaleEnabled_InactiveOnly", instance.GrayScaleEnabled_InactiveOnly!);
                 key.SetValue("Minimized", instance.Minimized);
                 if (instance.Folder != null) key.SetValue("Folder", instance.Folder);
                 if (instance.TitleFontFamily != null) key.SetValue("TitleFontFamily", instance.TitleFontFamily);
@@ -349,7 +355,21 @@ public class InstanceController
                                                     temp.AnimationSpeed = parsedAnimationSpeed;
                                                 }
                                                 break;
-
+                                           
+                                            case "MaxGrayScaleStrength":
+                                                if (double.TryParse(value.ToString(), out double parsedMaxGrayScaleStrength))
+                                                {
+                                                    temp.MaxGrayScaleStrength = parsedMaxGrayScaleStrength;
+                                                }
+                                                break;
+                                            case "GrayScaleEnabled":
+                                                temp.GrayScaleEnabled = bool.Parse(value.ToString()!);
+                                                Debug.WriteLine($"GrayScaleEnabled added\t{temp.GrayScaleEnabled}");
+                                                break;
+                                            case "GrayScaleEnabled_InactiveOnly":
+                                                temp.GrayScaleEnabled_InactiveOnly = bool.Parse(value.ToString()!);
+                                                Debug.WriteLine($"GrayScaleEnabled_InactiveOnly added\t{temp.GrayScaleEnabled_InactiveOnly}");
+                                                break;
                                             case "Name":
                                                 temp.Name = value.ToString()!;
                                                 Debug.WriteLine($"Name added\t{temp.Name}");

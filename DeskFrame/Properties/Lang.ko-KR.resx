@@ -440,4 +440,13 @@
   <data name="DeskFrameFrameSettings.ChangeIconSizeDescription" xml:space="preserve">
     <value>아이콘 크기 변경</value>
   </data>
+  <data name="FrameSettings.GrayscaleEnable" xml:space="preserve">
+    <value>그레이스케일 켜기</value>
+  </data>
+  <data name="FrameSettings.GrayScaleEnabledInactiveOnly" xml:space="preserve">
+    <value>프레임이 비활성 상태일 때만 그레이스케일 적용</value>
+  </data>
+  <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
+    <value>명암 단계:</value>
+  </data>
 </root>

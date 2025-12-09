@@ -48,8 +48,10 @@ namespace DeskFrame
             // DataContext = this;
             _originalInstance = new Instance(frame.Instance, frame.Instance.SettingDefault);
             _lastInstanceName = _originalInstance.Name;
+            _frame = frame;
             _instance = frame.Instance;
             DataContext = _instance;
+
             if (_instance.Folder == "empty")
             {
                 ChangeFolderButton.Visibility = Visibility.Collapsed;
@@ -67,9 +69,11 @@ namespace DeskFrame
             IdleOpacityLabel.Content = _instance.IdleOpacity * 100 + "%";
             IconSizeSlider.Value = _instance.IconSize / 4;
             IconSizeLabel.Content = _instance.IconSize;
+            GrayScaleEnabled_CheckBox.IsChecked = _instance.GrayScaleEnabled;
+            GrayScaleEnabled_InactiveOnly_CheckBox.IsChecked = _instance.GrayScaleEnabled_InactiveOnly;
+            MaxGrayScaleStrengthSlider.Value = _instance.MaxGrayScaleStrength * 10;
 
             frame.AnimateWindowOpacity(_instance.IdleOpacity, _instance.AnimationSpeed);
-            _frame = frame;
             if (!frame.VirtualDesktopSupported)
             {
                 ShowOnVirtualDesktopTextBox.Text = "Not available";
@@ -89,6 +93,9 @@ namespace DeskFrame
             _originalInstance.SnapWidthToIconWidth = _instance.SnapWidthToIconWidth;
             _originalInstance.SnapWidthToIconWidth_PlusScrollbarWidth = _instance.SnapWidthToIconWidth_PlusScrollbarWidth;
             _originalInstance.ShowShortcutArrow = _instance.ShowShortcutArrow;
+
+            _originalInstance.MaxGrayScaleStrength = _instance.MaxGrayScaleStrength;
+
 
             TitleBarColorTextBox.Text = _instance.TitleBarColor;
             TitleTextColorTextBox.Text = _instance.TitleTextColor;
@@ -392,6 +399,10 @@ namespace DeskFrame
                 _instance.SnapWidthToIconWidth_PlusScrollbarWidth = _originalInstance.SnapWidthToIconWidth_PlusScrollbarWidth;
                 SnapWidthToIconWidth_PlusScrollbarWidth_CheckBox.Visibility = _instance.SnapWidthToIconWidth ? Visibility.Visible : Visibility.Collapsed;
 
+                _instance.MaxGrayScaleStrength = _originalInstance.MaxGrayScaleStrength;
+                _instance.GrayScaleEnabled = _originalInstance.GrayScaleEnabled;
+                _instance.GrayScaleEnabled_InactiveOnly = _originalInstance.GrayScaleEnabled_InactiveOnly;
+
                 _instance.LastAccesedToFirstRow = _originalInstance.LastAccesedToFirstRow;
 
                 if (_originalInstance.Folder != _instance.Folder)
@@ -436,6 +447,11 @@ namespace DeskFrame
                 ActiveBorderEnabledCheckBox.IsChecked = _instance.ActiveBorderEnabled;
                 ActiveBackgroundEnabledCheckBox.IsChecked = _instance.ActiveBackgroundEnabled;
                 ActiveTitleTextEnabledCheckBox.IsChecked = _instance.ActiveTitleTextEnabled;
+
+                GrayScaleEnabled_CheckBox.IsChecked = _instance.GrayScaleEnabled;
+                GrayScaleEnabled_InactiveOnly_CheckBox.IsChecked = _instance.GrayScaleEnabled_InactiveOnly;
+                MaxGrayScaleStrengthSlider.Value = _instance.MaxGrayScaleStrength * 10;
+
                 TitleTextBox.Text = _instance.TitleText ?? _instance.Name;
                 FileFilterRegexTextBox.Text = _instance.FileFilterRegex;
                 FileFilterHideRegexTextBox.Text = _instance.FileFilterHideRegex;
@@ -562,6 +578,24 @@ namespace DeskFrame
         private void AutoExpandonCursorCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             _instance.AutoExpandonCursor = true;
+        }
+        private void GrayScaleEnabled_CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            _instance.GrayScaleEnabled = (bool)GrayScaleEnabled_CheckBox.IsChecked!;
+            GrayScaleEnabled_InactiveOnly_CheckBox.Visibility =
+                _instance.GrayScaleEnabled ? Visibility.Visible : Visibility.Collapsed;
+            if (!_instance.GrayScaleEnabled)
+            {
+                _frame.AnimateGrayScale(_instance.MaxGrayScaleStrength, 0);
+            }
+            else if (_instance.GrayScaleEnabled != null)
+            {
+                _frame.AnimateGrayScale(0, _instance.MaxGrayScaleStrength);
+            }
+        }
+        private void GrayScaleEnabled_InactiveOnly_CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            _instance.GrayScaleEnabled_InactiveOnly = (bool)GrayScaleEnabled_InactiveOnly_CheckBox.IsChecked!;
         }
 
         private void AutoExpandonCursorCheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -748,5 +782,20 @@ namespace DeskFrame
             {
             }
         }
+
+        private void MaxGrayScaleStrengthSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            _instance.MaxGrayScaleStrength = MaxGrayScaleStrengthSlider.Value / 10;
+            MaxGrayScaleStrengthLabel.Content = (_instance.MaxGrayScaleStrength * 100).ToString("F0") + "%";
+            if (_instance.GrayScaleEnabled)
+            {
+                _frame.AnimateGrayScale(e.OldValue / 10, e.NewValue / 10);
+            }
+            else if (!_instance.GrayScaleEnabled)
+            {
+                _frame.AnimateGrayScale(_instance.MaxGrayScaleStrength, 0);
+            }
+        }
+
     }
 }

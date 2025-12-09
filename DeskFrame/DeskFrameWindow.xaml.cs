@@ -1,5 +1,6 @@
 ﻿using DeskFrame.Core;
 using DeskFrame.Properties;
+using DeskFrame.Shaders;
 using DeskFrame.Util;
 using IWshRuntimeLibrary;
 using Microsoft.Win32;
@@ -51,6 +52,7 @@ namespace DeskFrame
 {
     public partial class DeskFrameWindow : System.Windows.Window
     {
+        private GrayscaleEffect _grayscaleEffect;
         ShellContextMenu scm = new ShellContextMenu();
         public Instance Instance { get; set; }
         public string _currentFolderPath;
@@ -1350,6 +1352,10 @@ namespace DeskFrame
             };
 
             Instance = instance;
+
+            _grayscaleEffect = (GrayscaleEffect)FindResource("ImageGrayscaleEffect");
+            _grayscaleEffect.Strength = Instance.GrayScaleEnabled ? Instance.MaxGrayScaleStrength : 0;
+
             this.Width = instance.Width;
             this.Opacity = Instance.IdleOpacity;
             _currentFolderPath = instance.Folder;
@@ -1611,11 +1617,38 @@ namespace DeskFrame
             };
             this.BeginAnimation(OpacityProperty, animation);
         }
+        public void AnimateGrayScale(double oldValue, double newValue)
+        {
+            var animation = new DoubleAnimation
+            {
+                From = oldValue,
+                To = newValue,
+                Duration = TimeSpan.FromSeconds(0.1),
+                FillBehavior = FillBehavior.HoldEnd
+            };
+            _grayscaleEffect.BeginAnimation(GrayscaleEffect.StrengthProperty, animation);
+        }
         private void AnimateActiveColor(double animationSpeed)
         {
-            if (Instance.ActiveBackgroundEnabled || Instance.ActiveBorderEnabled || Instance.ActiveTitleTextEnabled)
+            if (Instance.ActiveBackgroundEnabled
+                || Instance.ActiveBorderEnabled
+                || Instance.ActiveTitleTextEnabled
+                || Instance.GrayScaleEnabled && Instance.GrayScaleEnabled_InactiveOnly)
             {
                 _mouseIsOver = IsCursorWithinWindowBounds();
+            }
+            if (Instance.GrayScaleEnabled && Instance.GrayScaleEnabled_InactiveOnly)
+            {
+                var animation = new DoubleAnimation
+                {
+                    From = _mouseIsOver ? Instance.MaxGrayScaleStrength : 0.0,
+                    To = _mouseIsOver ? 0.0 : Instance.MaxGrayScaleStrength,
+                    Duration = animationSpeed == 0 ? TimeSpan.FromSeconds(0)
+                                                   : TimeSpan.FromSeconds(0.2 / animationSpeed),
+                    FillBehavior = FillBehavior.HoldEnd
+                };
+
+                _grayscaleEffect.BeginAnimation(GrayscaleEffect.StrengthProperty, animation);
             }
             if (Instance.ActiveBorderEnabled)
             {
@@ -1642,7 +1675,7 @@ namespace DeskFrame
                 WindowBorder.BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, backgroundColorAnimation);
                 backgroundColorAnimation.Completed += (sender, e) =>
                 {
-              
+
                     WindowBorder.SetBinding(Border.BorderThicknessProperty, new Binding("Instance.BorderEnabled")
                     {
                         Source = this,
@@ -1652,7 +1685,7 @@ namespace DeskFrame
             }
             else
             {
-             
+
                 WindowBorder.SetBinding(Border.BorderThicknessProperty, new Binding("Instance.BorderEnabled")
                 {
                     Source = this,
@@ -2036,11 +2069,11 @@ namespace DeskFrame
             {
                 try
                 {
-                fadeOut.Completed += (s, e) =>
-                {
-                    fadeOut.Completed -= (s, e) => { }; // cleanup
-                    LoadingProgressRing.IsIndeterminate = false;
-                };
+                    fadeOut.Completed += (s, e) =>
+                    {
+                        fadeOut.Completed -= (s, e) => { }; // cleanup
+                        LoadingProgressRing.IsIndeterminate = false;
+                    };
                 }
                 catch { }
 

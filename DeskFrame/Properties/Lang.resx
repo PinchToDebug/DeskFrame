@@ -449,4 +449,15 @@
     <value>Change icon size</value>
     <comment>Button</comment>
   </data>
+  <data name="FrameSettings.GrayscaleEnable" xml:space="preserve">
+    <value>Enable grayscale</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="FrameSettings.GrayScaleEnabledInactiveOnly" xml:space="preserve">
+    <value>Grayscale only when frame is inactive</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
+    <value>Gray level:</value>
+  </data>
 </root>

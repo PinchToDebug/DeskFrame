@@ -440,4 +440,13 @@
   <data name="DeskFrameFrameSettings.ChangeIconSizeDescription" xml:space="preserve">
     <value>Cambiar tamaño del icono</value>
   </data>
+  <data name="FrameSettings.GrayscaleEnable" xml:space="preserve">
+    <value>Activar escala de grises</value>
+  </data>
+  <data name="FrameSettings.GrayScaleEnabledInactiveOnly" xml:space="preserve">
+    <value>Escala de grises al inactivar</value>
+  </data>
+  <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
+    <value>Nivel de gris:</value>
+  </data>
 </root>

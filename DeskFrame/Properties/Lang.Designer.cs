@@ -331,6 +331,33 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable grayscale.
+        /// </summary>
+        public static string FrameSettings_GrayscaleEnable {
+            get {
+                return ResourceManager.GetString("FrameSettings.GrayscaleEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grayscale only when frame is inactive.
+        /// </summary>
+        public static string FrameSettings_GrayScaleEnabledInactiveOnly {
+            get {
+                return ResourceManager.GetString("FrameSettings.GrayScaleEnabledInactiveOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gray level:.
+        /// </summary>
+        public static string FrameSettings_GrayScaleMaxLevel {
+            get {
+                return ResourceManager.GetString("FrameSettings.GrayScaleMaxLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide files (regex):.
         /// </summary>
         public static string FrameSettings_HideFilesRegex {

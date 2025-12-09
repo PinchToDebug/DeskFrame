@@ -599,6 +599,38 @@
                     <Label x:Name="IconSizeLabel" Content="0%" Height="30" Margin="5,20,0,0" Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" FontWeight="Bold"/>
                 </StackPanel>
                 <Slider x:Name="IconSizeSlider" Width="200" TickPlacement="TopLeft" TickFrequency="1" Minimum="1" Maximum="64" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
+
+
+                <CheckBox x:Name="GrayScaleEnabled_CheckBox"
+                       Checked="GrayScaleEnabled_CheckBox_Checked"
+                       Unchecked="GrayScaleEnabled_CheckBox_Checked"
+                       Margin="-11,20,0,0" >
+                    <TextBlock Text="{x:Static prop:Lang.FrameSettings_GrayscaleEnable}" TextWrapping="Wrap"/>
+                </CheckBox>
+
+                <CheckBox x:Name="GrayScaleEnabled_InactiveOnly_CheckBox"
+                          Checked="GrayScaleEnabled_InactiveOnly_CheckBox_Checked"
+                          Unchecked="GrayScaleEnabled_InactiveOnly_CheckBox_Checked"
+                          Margin="14,0,0,0"
+                          Visibility="Collapsed">
+                    <TextBlock Text="{x:Static prop:Lang.FrameSettings_GrayScaleEnabledInactiveOnly}" TextWrapping="Wrap"/>
+                </CheckBox>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="{x:Static prop:Lang.FrameSettings_GrayScaleMaxLevel}" Height="30" Margin="0,0,0,0"/>
+                    <Label x:Name="MaxGrayScaleStrengthLabel"
+                           Content="0%" 
+                           ContentStringFormat="F1" Height="30" Margin="5,00,0,0"
+                           Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" 
+                           FontWeight="Bold"/>
+                </StackPanel>
+
+                <Slider x:Name="MaxGrayScaleStrengthSlider" 
+                        Width="200" TickPlacement="TopLeft"
+                        TickFrequency="1" Minimum="0" Maximum="10"
+                        ValueChanged="MaxGrayScaleStrengthSlider_ValueChanged"
+                        IsSnapToTickEnabled="True"/>
+
             </StackPanel>
             <Separator HorizontalAlignment="Center"  Grid.Column="5" Margin="0,20,0,20"/>
             <StackPanel Orientation="Vertical" Margin="10,45,10,0" Grid.Column="6">

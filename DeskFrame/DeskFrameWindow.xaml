@@ -59,7 +59,8 @@
         <local:OffsetConverter x:Key="OffsetConverter"/>
         <local:IconSizeToHeightWidthConverter x:Key="IconSizeToHeightWidthConverter"/>
         <local:ShowDisplayNameToItemWidthConverter x:Key="ShowDisplayNameToItemWidthConverter"/>
-
+        <shader:GrayscaleEffect x:Key="ImageGrayscaleEffect" />
+        
         <!-- DataTemplate to display each file item -->
         <DataTemplate x:Key="FileItemTemplate">
             <Border Background="{Binding Background}" Margin="4,0,0,5" CornerRadius="5"
@@ -74,7 +75,7 @@
                            Width="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToHeightWidthConverter}}"
                            Height="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToHeightWidthConverter}}"
                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                           />
+                           Effect="{StaticResource ImageGrayscaleEffect}"/>
                     <Grid Margin="0,0,0,2" Visibility="{Binding DataContext.Instance.ShowDisplayName, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="0,0,0,0" Margin="0,-2.5,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 

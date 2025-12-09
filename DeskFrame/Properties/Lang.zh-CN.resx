@@ -439,4 +439,13 @@
   <data name="DeskFrameFrameSettings.ChangeIconSizeDescription" xml:space="preserve">
     <value>更改图标大小</value>
   </data>
+  <data name="FrameSettings.GrayscaleEnable" xml:space="preserve">
+    <value>开启灰度模式</value>
+  </data>
+  <data name="FrameSettings.GrayScaleEnabledInactiveOnly" xml:space="preserve">
+    <value>仅在框架不活动时启用灰度</value>
+  </data>
+  <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
+    <value>灰度等级：</value>
+  </data>
 </root>

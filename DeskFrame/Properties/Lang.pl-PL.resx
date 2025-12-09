@@ -440,4 +440,13 @@
   <data name="DeskFrameFrameSettings.ChangeIconSizeDescription" xml:space="preserve">
     <value>Zmień rozmiar ikony</value>
   </data>
+  <data name="FrameSettings.GrayscaleEnable" xml:space="preserve">
+    <value>Aktywuj skalę szarości</value>
+  </data>
+  <data name="FrameSettings.GrayScaleEnabledInactiveOnly" xml:space="preserve">
+    <value>Skala szarości tylko gdy ramka jest nieaktywna</value>
+  </data>
+  <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
+    <value>Poziom szarości:</value>
+  </data>
 </root>

@@ -15,6 +15,9 @@ public class Instance : INotifyPropertyChanged
     private double _height;
     private double _idleOpacity = 1.0;
     private double _animationSpeed = 1.0;
+    private double _maxGrayscaleStrength = 1.0;
+    private bool _grayScaleEnabled = false;
+    private bool _grayScaleEnabled_InactiveOnly = false;
     private string _name;
     private string _folder;
     private string _titleFontFamily = "Segoe UI";
@@ -204,6 +207,42 @@ public class Instance : INotifyPropertyChanged
             {
                 _animationSpeed = value;
                 OnPropertyChanged(nameof(AnimationSpeed), value.ToString());
+            }
+        }
+    }
+    public double MaxGrayScaleStrength
+    {
+        get => _maxGrayscaleStrength;
+        set
+        {
+            if (_maxGrayscaleStrength != value)
+            {
+                _maxGrayscaleStrength = value;
+                OnPropertyChanged(nameof(MaxGrayScaleStrength), value.ToString());
+            }
+        }
+    }
+    public bool GrayScaleEnabled
+    {
+        get => _grayScaleEnabled;
+        set
+        {
+            if (_grayScaleEnabled != value)
+            {
+                _grayScaleEnabled = value;
+                OnPropertyChanged(nameof(GrayScaleEnabled), value.ToString());
+            }
+        }
+    }
+    public bool GrayScaleEnabled_InactiveOnly
+    {
+        get => _grayScaleEnabled_InactiveOnly;
+        set
+        {
+            if (_grayScaleEnabled_InactiveOnly != value)
+            {
+                _grayScaleEnabled_InactiveOnly = value;
+                OnPropertyChanged(nameof(GrayScaleEnabled_InactiveOnly), value.ToString());
             }
         }
     }
@@ -743,6 +782,15 @@ public class Instance : INotifyPropertyChanged
 
             v = helper.ReadKeyValueRoot("AnimationSpeed");
             if (v != null) _animationSpeed = double.Parse(v.ToString());
+           
+            v = helper.ReadKeyValueRoot("MaxGrayScaleStrength");
+            if (v != null) _maxGrayscaleStrength = double.Parse(v.ToString());
+           
+            v = helper.ReadKeyValueRoot("GrayScaleEnabled");
+            if (v != null) _grayScaleEnabled = (bool)v;
+           
+            v = helper.ReadKeyValueRoot("GrayScaleEnabled_InactiveOnly");
+            if (v != null) _grayScaleEnabled_InactiveOnly = (bool)v;
 
             v = helper.ReadKeyValueRoot("TitleFontFamily");
             if (v != null) _titleFontFamily = v.ToString();
