@@ -76,6 +76,7 @@ namespace DeskFrame
         }
         string _dropIntoFolderPath;
         FrameworkElement _lastBorder;
+        private bool _bringForwardForMove = false;
         private bool _isDragging = false;
         private bool _mouseIsOver;
         private bool _contextMenuIsOpen = false;
@@ -431,6 +432,12 @@ namespace DeskFrame
         {
             if (!(HwndSource.FromHwnd(hWnd).RootVisual is Window rootVisual))
                 return IntPtr.Zero;
+            if (_isLeftButtonDown && _bringForwardForMove && msg == 0x0003) // WM_MOVE
+            {
+                BringFrameToFront(new WindowInteropHelper(this).Handle, true);
+                _bringForwardForMove = false;
+                return -1;
+            }
             if (msg == 0x020A && (GetAsyncKeyState(0x11) & 0x8000) != 0) // WM_MOUSEWHEEL && control down
             {
                 _changeIconSizeCts.Cancel();
@@ -472,11 +479,13 @@ namespace DeskFrame
             if (msg == 0x0201) // WM_LBUTTONDOWN
             {
                 _isLeftButtonDown = true;
+                _bringForwardForMove = true;
                 _grabbedOnLeft = Mouse.GetPosition(this).X < this.Width / 2;
             }
             if (msg == 0x0202) // WM_LBUTTONUP
             {
                 _isLeftButtonDown = false;
+                _bringForwardForMove = false;
             }
             if (msg == 0x0205) // WM_RBUTTONUP
             {
@@ -1444,7 +1453,6 @@ namespace DeskFrame
                 KeepWindowBehind();
                 if (!_isLocked)
                 {
-                    BringFrameToFront(hwnd, true);
                     this.DragMove();
                 }
                 Debug.WriteLine("win left hide");
@@ -3603,10 +3611,9 @@ namespace DeskFrame
             if (forceToFront || (hwnd != hwndLower && overlapped))
             {
                 hwndLower = Interop.GetWindow(hwndLower, GW_HWNDPREV);
-                IntPtr insertAfter = hwndLower != IntPtr.Zero ? hwndLower : IntPtr.Zero;
                 SendMessage(hwnd, WM_SETREDRAW, 0, IntPtr.Zero);
-
-                SetWindowPos(hwnd, insertAfter, 0, 0, 0, 0,
+                Debug.WriteLine("moved to the front");
+                SetWindowPos(hwnd, 0, 0, 0, 0, 0,
                SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOSENDCHANGING);
 
                 SendMessage(hwnd, WM_SETREDRAW, 1, IntPtr.Zero);
