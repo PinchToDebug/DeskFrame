@@ -18,6 +18,7 @@
     <None Remove="ico.png" />
     <None Remove="Icon\ico.png" />
     <None Remove="Icon\support_me_on_kofi_badge_dark.png" />
+    <None Remove="Shaders\GrayscaleEffect.ps" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,6 +67,7 @@
   <ItemGroup>
     <Resource Include="ico.png" />
     <Resource Include="Icon\ico.png" />
+    <Resource Include="Shaders\GrayscaleEffect.ps" />
   </ItemGroup>
 
   <ItemGroup>
