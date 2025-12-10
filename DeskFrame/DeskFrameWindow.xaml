@@ -51,7 +51,7 @@
             <DoubleAnimation Storyboard.TargetName="titleBarIcons" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.1"/>
         </Storyboard>
 
-        
+
         <local:BooleanToBorderThicknessConverter x:Key="BooleanToBorderThicknessConverter"/>
         <local:TitleTextAlignmentToMarginConverter x:Key="TitleTextAlignmentToMarginConverter" />
         <local:BooleanFrameTypeToSymbolConverter x:Key="BooleanFrameTypeToSymbolConverter"/>
@@ -60,7 +60,7 @@
         <local:IconSizeToHeightWidthConverter x:Key="IconSizeToHeightWidthConverter"/>
         <local:ShowDisplayNameToItemWidthConverter x:Key="ShowDisplayNameToItemWidthConverter"/>
         <shader:GrayscaleEffect x:Key="ImageGrayscaleEffect" />
-        
+
         <!-- DataTemplate to display each file item -->
         <DataTemplate x:Key="FileItemTemplate">
             <Border Background="{Binding Background}" Margin="4,0,0,5" CornerRadius="5"
@@ -80,45 +80,45 @@
                         <Grid.CacheMode>
                             <BitmapCache SnapsToDevicePixels="True" EnableClearType="True"/>
                         </Grid.CacheMode>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="2,0,2,0" Margin="0,-2.5,0,0"
+                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}" 
                            HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
                            Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
                             <TextBlock.Effect>
-                                <BlurEffect Radius="2" KernelType="Box"/>
+                                <BlurEffect Radius="1" KernelType="Box"/>
                             </TextBlock.Effect>
                         </TextBlock>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="2,0,2,0" Margin="0,-2.5,0,0"
+                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}"  
                              HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
                              Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
                             <TextBlock.Effect>
-                                <BlurEffect Radius="2" KernelType="Box"/>
+                                <BlurEffect Radius="1" KernelType="Box"/>
                             </TextBlock.Effect>
                         </TextBlock>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="2,0,2,0" Margin="0,-2.5,0,0"
+                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}"  
                              HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
                              Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
                             <TextBlock.Effect>
-                                <BlurEffect Radius="2" KernelType="Box"/>
+                                <BlurEffect Radius="1" KernelType="Box"/>
                             </TextBlock.Effect>
                         </TextBlock>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="2,0,2,0" Margin="0,-2.5,0,0"
+                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}"  
                              HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
                              Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
                             <TextBlock.Effect>
-                                <DropShadowEffect BlurRadius="2" ShadowDepth="1"/>
+                                <DropShadowEffect BlurRadius="4" ShadowDepth="1.5" Direction="315"/>
                             </TextBlock.Effect>
                         </TextBlock>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="2,0,2,0" Margin="0,-3,0,0"
+                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-3,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 
-                           TextTrimming="{Binding TextTrimming}" 
+                           TextTrimming="{Binding TextTrimming}"  
                            HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}"
                            Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"
                             />
