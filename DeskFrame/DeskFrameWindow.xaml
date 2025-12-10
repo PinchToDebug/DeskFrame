@@ -75,7 +75,7 @@
                            Width="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToHeightWidthConverter}}"
                            Height="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToHeightWidthConverter}}"
                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                           Effect="{StaticResource ImageGrayscaleEffect}"/>
+                          />
                     <Grid Margin="0,0,0,2" Visibility="{Binding DataContext.Instance.ShowDisplayName, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Grid.CacheMode>
                             <BitmapCache SnapsToDevicePixels="True" EnableClearType="True"/>
@@ -203,7 +203,7 @@
                     </Grid>
                 </Grid>
             </Border>
-            <Border >
+            <Border Effect="{StaticResource ImageGrayscaleEffect}" >
                 <Grid>
                     <Grid x:Name="showFolder">
                         <ui:DynamicScrollViewer x:Name="scrollViewer" IsTabStop="False" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0" >
