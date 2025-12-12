@@ -3748,6 +3748,14 @@ namespace DeskFrame
             InfoFlyout.IsOpen = true;
         }
 
+        private void scrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             Instance.isWindowClosing = true;
