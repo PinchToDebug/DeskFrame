@@ -77,53 +77,32 @@
                            VerticalAlignment="Center" HorizontalAlignment="Center"
                           />
                     <Grid Margin="0,0,0,2" Visibility="{Binding DataContext.Instance.ShowDisplayName, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Grid.CacheMode>
-                            <BitmapCache SnapsToDevicePixels="True" EnableClearType="True"/>
-                        </Grid.CacheMode>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
+                            <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}" 
                            HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
                            Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
-                            <TextBlock.Effect>
-                                <BlurEffect Radius="1" KernelType="Box"/>
-                            </TextBlock.Effect>
-                        </TextBlock>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
+                                <TextBlock.Effect>
+                                    <BlurEffect Radius="2" KernelType="Box"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                            <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}"  
                              HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
                              Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
-                            <TextBlock.Effect>
-                                <BlurEffect Radius="1" KernelType="Box"/>
-                            </TextBlock.Effect>
-                        </TextBlock>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
-                           TextWrapping="Wrap" TextAlignment="Center" 
-                           TextTrimming="{Binding TextTrimming}"  
-                             HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
-                             Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
-                            <TextBlock.Effect>
-                                <BlurEffect Radius="1" KernelType="Box"/>
-                            </TextBlock.Effect>
-                        </TextBlock>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
-                           TextWrapping="Wrap" TextAlignment="Center" 
-                           TextTrimming="{Binding TextTrimming}"  
-                             HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
-                             Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
-                            <TextBlock.Effect>
-                                <DropShadowEffect BlurRadius="4" ShadowDepth="1.5" Direction="315"/>
-                            </TextBlock.Effect>
-                        </TextBlock>
-                        <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-3,0,0"
+                                <TextBlock.Effect>
+                                    <BlurEffect Radius="2" KernelType="Box"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                            <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-3,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}"  
                            HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}"
                            Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"
                             />
                     </Grid>
-                </StackPanel>
+                    </StackPanel>
             </Border>
         </DataTemplate>
 
