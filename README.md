@@ -33,6 +33,7 @@
 - Double click on desktop to hide frames
 - Grayscale
 - Supported languages: English, Spanish, Mandarin, Polish, Korean
+  
 ...and more!
 
 ## 🚀 Quick Start
