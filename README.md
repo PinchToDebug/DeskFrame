@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <i align="center">Highly customizable, open source portals and fences for your desktop.</i>
+   <i align="center">A highly customizable, open-source tool for desktop organization.<br><b>Fast, lightweight, and always at hand.</b></i>
 </p>
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J61PAH6H)
@@ -36,18 +36,6 @@
   
 ...and more!
 
-## 🚀 Quick Start
-
-1. [Download the latest release](https://github.com/PinchToDebug/DeskFrame/releases/latest/download/DeskFrame.exe)
-2. Run the executable.
-3. Drag a folder into the frame.
-
-## ⌨️ Tips
-
-- Type while focused to search.
-- Scroll content with the mouse wheel.
-- Right-click the title bar for options and customization.
-
 ## 🖼️ Screenshot
 
 <div align="center">
@@ -60,6 +48,18 @@
     </tr>
   </table>
 </div>
+
+## 🚀 Quick Start
+
+1. [Download the latest release](https://github.com/PinchToDebug/DeskFrame/releases/latest/download/DeskFrame.exe)
+2. Run the executable.
+3. Drag a folder into the frame.
+
+## ⌨️ Tips
+
+- Type while focused to search.
+- Scroll content with the mouse wheel.
+- Right-click the title bar for options and customization.
 
 ## 🤝 Contributing
 
