@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <i align="center">A customizable, frameless folder viewer for your desktop<br>minimal, snappy, and always at hand.</i>
+  <i align="center">Highly customizable, open source portals and fences for your desktop.</i>
 </p>
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J61PAH6H)
