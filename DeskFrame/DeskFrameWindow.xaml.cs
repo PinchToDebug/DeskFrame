@@ -216,16 +216,8 @@ namespace DeskFrame
             else if (folderOrder == 2)
                 sortedItems = sortedItems.OrderBy(i => i.item is DirectoryInfo).ToList();
 
-
             var sortedFileInfos = sortedItems.Select(x => x.item).ToList();
-            if (Instance.EnableCustomItemsOrder)
-            {
-                SortCustomOrder(sortedFileInfos, Instance.CustomOrderFiles);
-            }
-            if (Instance.LastAccesedToFirstRow)
-            {
-                FirstRowByLastAccessed(sortedFileInfos, Instance.LastAccessedFiles, ItemPerRow);
-            }
+
             return sortedFileInfos;
         }
         public void SortCustomOrder(List<FileSystemInfo> items, List<Tuple<string, string>> customOrderedItems)
