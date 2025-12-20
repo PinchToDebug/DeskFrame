@@ -460,4 +460,19 @@
   <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
     <value>Gray level:</value>
   </data>
+  <data name="TitleBarContextMenu.CustomItemOrder" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="TitleBarContextMenu.CustomItemOrder.DeleteOrder" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Delete button</comment>
+  </data>
+  <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Enable" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>Enable/Disable ToggleSwitch</comment>
+  </data>
+  <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable" xml:space="preserve">
+    <value>Disabled</value>
+    <comment>Enable/Disable ToggleSwitch</comment>
+  </data>
 </root>

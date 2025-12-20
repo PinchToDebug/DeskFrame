@@ -449,4 +449,16 @@
   <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
     <value>명암 단계:</value>
   </data>
+  <data name="TitleBarContextMenu.CustomItemOrder" xml:space="preserve">
+    <value>사용자</value>
+  </data>
+  <data name="TitleBarContextMenu.CustomItemOrder.DeleteOrder" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Enable" xml:space="preserve">
+    <value>켜짐</value>
+  </data>
+  <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable" xml:space="preserve">
+    <value>꺼짐</value>
+  </data>
 </root>

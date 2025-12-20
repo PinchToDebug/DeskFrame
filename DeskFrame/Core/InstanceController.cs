@@ -38,6 +38,7 @@ public class InstanceController
                 key.SetValue("TitleFontFamily", instance.TitleFontFamily!);
                 key.SetValue("ShowHiddenFiles", instance.ShowHiddenFiles!);
                 key.SetValue("LastAccesedToFirstRow", instance.LastAccesedToFirstRow);
+                key.SetValue("EnableCustomItemsOrder", instance.EnableCustomItemsOrder);
                 key.SetValue("ShowFileExtension", instance.ShowFileExtension!);
                 key.SetValue("ShowFileExtensionIcon", instance.ShowFileExtensionIcon!);
                 key.SetValue("ShowHiddenFilesIcon", instance.ShowHiddenFilesIcon!);
@@ -78,6 +79,10 @@ public class InstanceController
                 if (instance.LastAccessedFiles != null && instance.LastAccessedFiles.Count > 0)
                 {
                     key.SetValue("LastAccessedFiles", instance.LastAccessedFiles.ToArray(), RegistryValueKind.MultiString);
+                }
+                if (instance.CustomOrderFiles != null && instance.CustomOrderFiles.Count > 0)
+                {
+                    key.SetValue("CustomOrderFiles", instance.CustomOrderFiles.Select(t => $"{t.Item1},{t.Item2}").ToArray(), RegistryValueKind.MultiString);
                 }
                 key.SetValue("TitleFontSize", instance.TitleFontSize);
             }
@@ -122,6 +127,7 @@ public class InstanceController
                 if (instance.TitleFontFamily != null) key.SetValue("TitleFontFamily", instance.TitleFontFamily);
                 key.SetValue("ShowHiddenFiles", instance.ShowHiddenFiles);
                 key.SetValue("LastAccesedToFirstRow", instance.LastAccesedToFirstRow);
+                key.SetValue("EnableCustomItemsOrder", instance.EnableCustomItemsOrder);
                 key.SetValue("ShowFileExtension", instance.ShowFileExtension);
                 key.SetValue("ShowFileExtensionIcon", instance.ShowFileExtensionIcon);
                 key.SetValue("ShowHiddenFilesIcon", instance.ShowHiddenFilesIcon);
@@ -159,6 +165,10 @@ public class InstanceController
                 if (instance.LastAccessedFiles != null && instance.LastAccessedFiles.Count > 0)
                 {
                     key.SetValue("LastAccessedFiles", instance.LastAccessedFiles.ToArray(), RegistryValueKind.MultiString);
+                }
+                if (instance.CustomOrderFiles != null && instance.CustomOrderFiles.Count > 0)
+                {
+                    key.SetValue("CustomOrderFiles", instance.CustomOrderFiles.Select(t => $"{t.Item1},{t.Item2}").ToArray(), RegistryValueKind.MultiString);
                 }
                 key.SetValue("TitleFontSize", instance.TitleFontSize);
             }
@@ -355,7 +365,7 @@ public class InstanceController
                                                     temp.AnimationSpeed = parsedAnimationSpeed;
                                                 }
                                                 break;
-                                           
+
                                             case "MaxGrayScaleStrength":
                                                 if (double.TryParse(value.ToString(), out double parsedMaxGrayScaleStrength))
                                                 {
@@ -394,6 +404,10 @@ public class InstanceController
                                             case "LastAccesedToFirstRow":
                                                 temp.LastAccesedToFirstRow = bool.Parse(value.ToString()!);
                                                 Debug.WriteLine($"LastAccesedToFirstRow added\t{temp.LastAccesedToFirstRow}");
+                                                break;
+                                            case "EnableCustomItemsOrder":
+                                                temp.EnableCustomItemsOrder = bool.Parse(value.ToString()!);
+                                                Debug.WriteLine($"EnableCustomItemsOrder added\t{temp.EnableCustomItemsOrder}");
                                                 break;
                                             case "ShowFileExtension":
                                                 temp.ShowFileExtension = bool.Parse(value.ToString()!);
@@ -563,6 +577,17 @@ public class InstanceController
                                                 if (value is string[] strArray)
                                                 {
                                                     temp.LastAccessedFiles = new List<string>(strArray);
+                                                }
+                                                break;
+                                            case "CustomOrderFiles":
+                                                if (value is string[] values)
+                                                {
+                                                    temp.CustomOrderFiles = values
+                                                        .Select(s =>
+                                                        {
+                                                            var parts = s.Split(',');
+                                                            return Tuple.Create(parts[0], parts[1]);
+                                                        }).ToList();
                                                 }
                                                 break;
 

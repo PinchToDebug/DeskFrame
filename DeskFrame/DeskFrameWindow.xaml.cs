@@ -76,8 +76,12 @@ namespace DeskFrame
                 }
             }
         }
+
+        private FileItem _draggedItem;
+        private FileItem _itemUnderCursor;
         string _dropIntoFolderPath;
         FrameworkElement _lastBorder;
+        private bool _canChangeItemPosition = false;
         private bool _bringForwardForMove = false;
         private bool _isDragging = false;
         private bool _mouseIsOver;
@@ -120,6 +124,8 @@ namespace DeskFrame
         MenuItem fileSizeMenuItem;
         MenuItem ascendingMenuItem;
         MenuItem descendingMenuItem;
+        MenuItem CustomItemOrderMenuItem;
+        MenuItem CustomItemOrderEnabledMenuItem;
         MenuItem folderOrderMenuItem;
         MenuItem folderFirstMenuItem;
         MenuItem folderLastMenuItem;
@@ -212,12 +218,74 @@ namespace DeskFrame
 
 
             var sortedFileInfos = sortedItems.Select(x => x.item).ToList();
+            if (Instance.EnableCustomItemsOrder)
+            {
+                SortCustomOrder(sortedFileInfos, Instance.CustomOrderFiles);
+            }
             if (Instance.LastAccesedToFirstRow)
             {
                 FirstRowByLastAccessed(sortedFileInfos, Instance.LastAccessedFiles, ItemPerRow);
             }
             return sortedFileInfos;
         }
+        public void SortCustomOrder(List<FileSystemInfo> items, List<Tuple<string, string>> customOrderedItems)
+        {
+            if (items == null || items.Count == 0 || customOrderedItems == null || customOrderedItems.Count == 0)
+            {
+                return;
+            }
+
+            var fileLookup = items
+                .Where(f => f.FullName != null)
+                .GroupBy(f => GetFileId(f.FullName).ToString())
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            var reOrderedFiles = new List<FileSystemInfo>();
+
+            foreach (var t in customOrderedItems)
+            {
+                if (fileLookup.TryGetValue(t.Item1, out var files))
+                {
+                    if (int.TryParse(t.Item2, out int index))
+                    {
+                        reOrderedFiles.AddRange(files);
+                    }
+                    else
+                    {
+                        reOrderedFiles.AddRange(files);
+                    }
+                }
+            }
+
+            var remainingFiles = items.Except(reOrderedFiles).ToList();
+            items.Clear();
+            items.AddRange(reOrderedFiles);
+            items.AddRange(remainingFiles);
+        }
+
+        public void SortCustomOrderOc(ObservableCollection<FileItem> items, List<Tuple<string, string>> customOrderedItems)
+        {
+
+            if (items == null || items.Count == 0 || customOrderedItems == null || customOrderedItems.Count == 0)
+            {
+                return;
+            }
+            foreach (var t in customOrderedItems)
+            {
+                string fileId = t.Item1;
+                if (!int.TryParse(t.Item2, out int targetIndex)) continue;
+
+                var itemToMove = items.FirstOrDefault(f => GetFileId(f.FullPath!).ToString() == fileId);
+                if (itemToMove == null) continue;
+
+                int currentIndex = items.IndexOf(itemToMove);
+                if (currentIndex != targetIndex && targetIndex >= 0 && targetIndex < items.Count)
+                {
+                    items.Move(currentIndex, targetIndex);
+                }
+            }
+        }
+
         public void FirstRowByLastAccessed(List<FileSystemInfo> items, List<string> lastAccessedFileIds, int topN)
         {
             if (items == null || items.Count == 0 || lastAccessedFileIds == null || lastAccessedFileIds.Count == 0 || topN <= 0)
@@ -1931,6 +1999,15 @@ namespace DeskFrame
                     _previousItemPerRow = ItemPerRow;
                 }
                 fileEntries = await SortFileItemsToList(fileEntries, (int)Instance.SortBy, Instance.FolderOrder);
+
+                if (Instance.EnableCustomItemsOrder)
+                {
+                    SortCustomOrder(fileEntries, Instance.CustomOrderFiles);
+                }
+                if (Instance.LastAccesedToFirstRow)
+                {
+                    FirstRowByLastAccessed(fileEntries, Instance.LastAccessedFiles, ItemPerRow);
+                }
                 var fileNames = new HashSet<string>(fileEntries.Select(f => f.Name));
 
 
@@ -2027,6 +2104,10 @@ namespace DeskFrame
                         }
                         FileItems.Add(fileItem);
                     }
+                    if (Instance.EnableCustomItemsOrder)
+                    {
+                        SortCustomOrderOc(FileItems, Instance.CustomOrderFiles);
+                    }
                     if (Instance.LastAccesedToFirstRow)
                     {
                         FirstRowByLastAccessed(FileItems, Instance.LastAccessedFiles, ItemPerRow);
@@ -2103,6 +2184,10 @@ namespace DeskFrame
         {
             var sortedList = SortFileItems(FileItems, (int)Instance.SortBy, Instance.FolderOrder);
 
+            if (Instance.EnableCustomItemsOrder)
+            {
+                SortCustomOrderOc(sortedList, Instance.CustomOrderFiles);
+            }
             if (Instance.LastAccesedToFirstRow)
             {
                 FirstRowByLastAccessed(sortedList, Instance.LastAccessedFiles, ItemPerRow);
@@ -2189,6 +2274,36 @@ namespace DeskFrame
                 scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint);
             }
         }
+        private void MoveItemToPosition()
+        {
+            _canChangeItemPosition = false;
+            if (_draggedItem != _itemUnderCursor)
+            {
+                try
+                {
+                    int fromIndex = FileItems.IndexOf(_draggedItem);
+                    int toIndex = FileItems.IndexOf(_itemUnderCursor);
+                    FileItems.Move(fromIndex, toIndex);
+                    _itemUnderCursor.IsMoveBarVisible = false;
+                    _draggedItem.IsSelected = false;
+                    _itemUnderCursor.Background = Brushes.Transparent;
+                    AddToCustomOrder(_draggedItem.FullPath!, toIndex);
+                }
+                catch
+                {
+                    Debug.WriteLine("Failed to swap items");
+                }
+            }
+        }
+        private void AddToCustomOrder(string path, int index)
+        {
+            var fileId = GetFileId(path).ToString();
+            var newList = new List<Tuple<string, string>>(Instance.CustomOrderFiles);
+            newList.RemoveAll(t => t.Item1 == fileId);
+            newList.Add(new Tuple<string, string>(fileId, index.ToString()));
+            Instance.CustomOrderFiles = newList;
+        }
+
         private void Window_Drop(object sender, DragEventArgs e)
         {
             _dragdropIntoFolder = false;
@@ -2200,6 +2315,11 @@ namespace DeskFrame
             });
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
+                if (_canChangeItemPosition)
+                {
+                    MoveItemToPosition();
+                    return;
+                }
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (var file in files)
                 {
@@ -2382,6 +2502,10 @@ namespace DeskFrame
             {
                 if (dragBorder.DataContext is FileItem fileItem)
                 {
+                    if (((GetAsyncKeyState(0xA4) & 0x8000) != 0 || (GetAsyncKeyState(0xA5) & 0x8000) != 0))
+                    {
+                        _draggedItem = fileItem;
+                    }
                     _isDragging = true;
                     DataObject data = new DataObject(DataFormats.FileDrop, new string[] { fileItem.FullPath! });
                     DragDrop.DoDragDrop(dragBorder, data, DragDropEffects.Copy | DragDropEffects.Move);
@@ -2560,7 +2684,30 @@ namespace DeskFrame
         {
             if (sender is Border border && border.DataContext is FileItem fileItem)
             {
-                if (_dragdropIntoFolder && fileItem.IsFolder)
+                if (Instance.EnableCustomItemsOrder && ((GetAsyncKeyState(0xA4) & 0x8000) != 0 ||
+                    (GetAsyncKeyState(0xA5) & 0x8000) != 0)) // Left or right ALT is down
+                {
+                    //  fileItem.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
+                    _canChangeItemPosition = true;
+                    _itemUnderCursor = fileItem;
+                }
+                else
+                {
+                    _canChangeItemPosition = false;
+                }
+
+                if (_canChangeItemPosition && _isDragging && !fileItem.IsSelected)
+                {
+                    fileItem.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
+
+                    fileItem.IsMoveBarVisible = true;
+                    _itemUnderCursor = fileItem;
+                }
+                else
+                {
+                    fileItem.IsMoveBarVisible = false;
+                }
+                if (_dragdropIntoFolder && fileItem.IsFolder && !_canChangeItemPosition)
                 {
                     _dropIntoFolderPath = fileItem.FullPath + "\\";
                     if (showFolderInGrid.Visibility == Visibility.Visible)
@@ -2594,6 +2741,7 @@ namespace DeskFrame
         {
             if (sender is Border border && border.DataContext is FileItem fileItem)
             {
+                fileItem.IsMoveBarVisible = false;
                 _dropIntoFolderPath = "";
                 if (!fileItem.IsSelected)
                 {
@@ -3390,6 +3538,40 @@ namespace DeskFrame
 
             FrameInfoItem.Header = InfoText;
 
+            CustomItemOrderMenuItem = new MenuItem
+            {
+                Header = Lang.TitleBarContextMenu_CustomItemOrder,
+                Height = 36,
+                StaysOpenOnClick = true,
+                Icon = new SymbolIcon { Symbol = SymbolRegular.Star20 }
+            };
+
+            MenuItem CustomItemOrder_Delete_MenuItem = new MenuItem
+            {
+                Header = Lang.TitleBarContextMenu_CustomItemOrder_DeleteOrder,
+                Height = 34,
+                Icon = new SymbolIcon { Symbol = SymbolRegular.Delete20 }
+            };
+            CustomItemOrder_Delete_MenuItem.Click += (s, args) =>
+            {
+                Instance.CustomOrderFiles = null;
+                SortItems();
+            };
+            ToggleSwitch CustomItemOrder_ToggleSwitch = new ToggleSwitch
+            {
+                IsChecked = Instance.EnableCustomItemsOrder,
+                Content = Instance.EnableCustomItemsOrder ? Lang.TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Enable : Lang.TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable,
+                Height = 20,
+            };
+            CustomItemOrder_ToggleSwitch.Click += (s, args) =>
+            {
+                Instance.EnableCustomItemsOrder = !Instance.EnableCustomItemsOrder;
+                CustomItemOrder_ToggleSwitch.Content = Instance.EnableCustomItemsOrder ?
+                    Lang.TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Enable : Lang.TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable;
+                SortItems();
+            };
+            CustomItemOrderMenuItem.Items.Add(CustomItemOrder_ToggleSwitch);
+            CustomItemOrderMenuItem.Items.Add(CustomItemOrder_Delete_MenuItem);
 
             folderOrderMenuItem = new MenuItem
             {
@@ -3472,6 +3654,7 @@ namespace DeskFrame
             folderOrderMenuItem.Items.Add(folderLastMenuItem);
 
 
+            sortByMenuItem.Items.Add(CustomItemOrderMenuItem);
             sortByMenuItem.Items.Add(folderOrderMenuItem);
             sortByMenuItem.Items.Add(new Separator());
             sortByMenuItem.Items.Add(nameMenuItem);

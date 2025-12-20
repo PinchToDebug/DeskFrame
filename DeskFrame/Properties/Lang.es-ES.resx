@@ -449,4 +449,16 @@
   <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
     <value>Nivel de gris:</value>
   </data>
+  <data name="TitleBarContextMenu.CustomItemOrder" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  <data name="TitleBarContextMenu.CustomItemOrder.DeleteOrder" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Enable" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable" xml:space="preserve">
+    <value>Inactivo</value>
+  </data>
 </root>

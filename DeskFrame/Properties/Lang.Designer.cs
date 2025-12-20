@@ -646,6 +646,42 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        public static string TitleBarContextMenu_CustomItemOrder {
+            get {
+                return ResourceManager.GetString("TitleBarContextMenu.CustomItemOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string TitleBarContextMenu_CustomItemOrder_DeleteOrder {
+            get {
+                return ResourceManager.GetString("TitleBarContextMenu.CustomItemOrder.DeleteOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable {
+            get {
+                return ResourceManager.GetString("TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        public static string TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Enable {
+            get {
+                return ResourceManager.GetString("TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details view.
         /// </summary>
         public static string TitleBarContextMenu_DetailsView {

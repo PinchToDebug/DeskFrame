@@ -22,6 +22,7 @@ public class Instance : INotifyPropertyChanged
     private string _folder;
     private string _titleFontFamily = "Segoe UI";
     private bool _lastAccesedToFirstRow = false;
+    private bool _customItemsOrderEnabled = true;
     private bool _settingDefault;
     private bool _minimized;
     private bool _showHiddenFiles;
@@ -53,6 +54,7 @@ public class Instance : INotifyPropertyChanged
     private string _listViewFontColor = "#FFFFFF";
     private string _listViewFontShadowColor = "#000000";
     private List<string> _lastAccessedFiles = new List<string>();
+    private List<Tuple<string, string>> _customOderFiles = new List<Tuple<string, string>>();
     private int _opacity = 26;
     private int _sortBy = 1;
     private int _folderOrder = 0;
@@ -133,6 +135,18 @@ public class Instance : INotifyPropertyChanged
             {
                 _lastAccessedFiles = value ?? new List<string>();
                 OnPropertyChanged(nameof(LastAccessedFiles), value.ToString());
+            }
+        }
+    }
+    public List<Tuple<string, string>> CustomOrderFiles
+    {
+        get => _customOderFiles;
+        set
+        {
+            if (_customOderFiles != value)
+            {
+                _customOderFiles = value ?? new List<Tuple<string, string>>();
+                OnPropertyChanged(nameof(CustomOrderFiles), value?.ToString());
             }
         }
     }
@@ -328,6 +342,18 @@ public class Instance : INotifyPropertyChanged
             {
                 _lastAccesedToFirstRow = value;
                 OnPropertyChanged(nameof(LastAccesedToFirstRow), value.ToString());
+            }
+        }
+    }
+    public bool EnableCustomItemsOrder
+    {
+        get => _customItemsOrderEnabled;
+        set
+        {
+            if (_customItemsOrderEnabled != value)
+            {
+                _customItemsOrderEnabled = value;
+                OnPropertyChanged(nameof(EnableCustomItemsOrder), value.ToString());
             }
         }
     }
@@ -782,13 +808,13 @@ public class Instance : INotifyPropertyChanged
 
             v = helper.ReadKeyValueRoot("AnimationSpeed");
             if (v != null) _animationSpeed = double.Parse(v.ToString());
-           
+
             v = helper.ReadKeyValueRoot("MaxGrayScaleStrength");
             if (v != null) _maxGrayscaleStrength = double.Parse(v.ToString());
-           
+
             v = helper.ReadKeyValueRoot("GrayScaleEnabled");
             if (v != null) _grayScaleEnabled = (bool)v;
-           
+
             v = helper.ReadKeyValueRoot("GrayScaleEnabled_InactiveOnly");
             if (v != null) _grayScaleEnabled_InactiveOnly = (bool)v;
 
@@ -911,6 +937,10 @@ public class Instance : INotifyPropertyChanged
                 if (propertyName == "LastAccessedFiles")
                 {
                     MainWindow._controller.reg.WriteMultiLineRegistry(propertyName, LastAccessedFiles, this);
+                }
+                else if (propertyName == "CustomOrderFiles")
+                {
+                    MainWindow._controller.reg.WriteMultiLineTupleRegistry(propertyName, CustomOrderFiles, this);
                 }
                 else if (propertyName != "ShowOnVirtualDesktops")
                 {

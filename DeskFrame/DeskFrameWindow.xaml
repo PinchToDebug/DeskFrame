@@ -67,8 +67,14 @@
             MouseLeftButtonDown="FileItem_Click"
             MouseEnter="FileItem_MouseEnter" MouseLeave="FileItem_MouseLeave"
             BorderThickness="1" MouseRightButtonDown="FileItem_RightClick">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                    <Image Margin="5" Source="{Binding Thumbnail}" 
+                <Grid>
+                    <Rectangle x:Name="MoveBar"
+                               Visibility="{Binding IsMoveBarVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                               Height="auto" Margin="-4,10,0,10" Width="3" 
+                               Fill="{Binding ElementName=title, Path=Foreground}" 
+                               HorizontalAlignment="Left" RadiusX="3" RadiusY="3"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                        <Image Margin="5" Source="{Binding Thumbnail}" 
                            SnapsToDevicePixels="True"
                            RenderOptions.BitmapScalingMode="NearestNeighbor"
                            UseLayoutRounding="True"
@@ -76,7 +82,7 @@
                            Height="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToHeightWidthConverter}}"
                            VerticalAlignment="Center" HorizontalAlignment="Center"
                           />
-                    <Grid Margin="0,0,0,2" Visibility="{Binding DataContext.Instance.ShowDisplayName, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid Margin="0,0,0,2" Visibility="{Binding DataContext.Instance.ShowDisplayName, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
                            TextWrapping="Wrap" TextAlignment="Center" 
                            TextTrimming="{Binding TextTrimming}" 
@@ -101,8 +107,9 @@
                            HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}"
                            Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"
                             />
-                    </Grid>
+                        </Grid>
                     </StackPanel>
+                </Grid>
             </Border>
         </DataTemplate>
 

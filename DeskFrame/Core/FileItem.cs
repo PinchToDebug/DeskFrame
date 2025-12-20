@@ -12,6 +12,7 @@ namespace DeskFrame.Core
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        private bool _isMoveBarVisible;
         private bool _isSelected;
         public bool IsFolder { get; set; }
         private Brush _background = Brushes.Transparent;
@@ -27,6 +28,18 @@ namespace DeskFrame.Core
         public long ItemSize { get; set; }
         public string DisplaySize { get; set; }
 
+        public bool IsMoveBarVisible
+        {
+            get => _isMoveBarVisible;
+            set
+            {
+                if (_isMoveBarVisible != value)
+                {
+                    _isMoveBarVisible = value;
+                    OnPropertyChanged(nameof(IsMoveBarVisible));
+                }
+            }
+        }
         public string DisplayName
         {
             get => Name;
