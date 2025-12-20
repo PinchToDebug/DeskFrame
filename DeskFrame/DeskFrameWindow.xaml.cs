@@ -2464,6 +2464,8 @@ namespace DeskFrame
                         _currentFolderPath = clickedItem.FullPath;
                         PathToBackButton.Visibility = _currentFolderPath == Instance.Folder
                             ? Visibility.Collapsed : Visibility.Visible;
+                        Search.Margin = PathToBackButton.Visibility == Visibility.Visible ?
+                                        new Thickness(PathToBackButton.Width + 4, 0, 0, 0) : new Thickness(0, 0, 0, 0);
                         InitializeFileWatcher();
                         FileItems.Clear();
                         LoadFiles(clickedItem.FullPath);
