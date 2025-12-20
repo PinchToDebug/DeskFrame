@@ -234,34 +234,35 @@ namespace DeskFrame
             {
                 return;
             }
-
-            var fileLookup = items
-                .Where(f => f.FullName != null)
-                .GroupBy(f => GetFileId(f.FullName).ToString())
-                .ToDictionary(g => g.Key, g => g.ToList());
-
-            var reOrderedFiles = new List<FileSystemInfo>();
-
             foreach (var t in customOrderedItems)
             {
-                if (fileLookup.TryGetValue(t.Item1, out var files))
+                string fileId = t.Item1;
+                if (!int.TryParse(t.Item2, out int targetIndex))
                 {
-                    if (int.TryParse(t.Item2, out int index))
-                    {
-                        reOrderedFiles.AddRange(files);
-                    }
-                    else
-                    {
-                        reOrderedFiles.AddRange(files);
-                    }
+                    continue;
                 }
-            }
+                var itemToMove = items.FirstOrDefault(f => GetFileId(f.FullName!).ToString() == fileId);
 
-            var remainingFiles = items.Except(reOrderedFiles).ToList();
-            items.Clear();
-            items.AddRange(reOrderedFiles);
-            items.AddRange(remainingFiles);
+                if (itemToMove == null)
+                {
+                    continue;
+                }
+
+                int currentIndex = items.IndexOf(itemToMove);
+
+                if (currentIndex == targetIndex)
+                {
+                    continue;
+                }
+                if (targetIndex < 0 || targetIndex >= items.Count)
+                {
+                    continue;
+                }
+                items.RemoveAt(currentIndex);
+                items.Insert(targetIndex, itemToMove);
+            }
         }
+
 
         public void SortCustomOrderOc(ObservableCollection<FileItem> items, List<Tuple<string, string>> customOrderedItems)
         {
