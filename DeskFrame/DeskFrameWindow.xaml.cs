@@ -1313,6 +1313,8 @@ namespace DeskFrame
             {
                 Search.Opacity = 1;
                 Search.Visibility = Visibility.Visible;
+                Search.Margin = PathToBackButton.Visibility == Visibility.Visible ?
+                    new Thickness(PathToBackButton.Width + 4, 0, 0, 0) : new Thickness(0, 0, 0, 0);
                 title.Visibility = Visibility.Collapsed;
             }
 
