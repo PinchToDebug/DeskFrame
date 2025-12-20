@@ -3922,7 +3922,8 @@ namespace DeskFrame
             Debug.WriteLine(parentPath);
             PathToBackButton.Visibility = parentPath == Instance.Folder
                 ? Visibility.Collapsed : Visibility.Visible;
-
+            Search.Margin = PathToBackButton.Visibility == Visibility.Visible ?
+                   new Thickness(PathToBackButton.Width + 4, 0, 0, 0) : new Thickness(0, 0, 0, 0);
             FileItems.Clear();
             LoadFiles(parentPath!);
             _currentFolderPath = parentPath!;
