@@ -22,6 +22,7 @@
 - Fully customizable colors
 - Background colors with transparency
 - Toggle hidden files and file extensions
+- Rearrange items with `ALT` + drag
 - Sticky + lockable frames (hold `ALT` to stick with gap)
 - Open/close frame toggle
 - `CTRL`+`SCROLL` resize icons
