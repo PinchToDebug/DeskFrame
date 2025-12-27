@@ -36,6 +36,7 @@ public class InstanceController
                 key.SetValue("Minimized", instance.Minimized!);
                 key.SetValue("Folder", instance.Folder!);
                 key.SetValue("TitleFontFamily", instance.TitleFontFamily!);
+                key.SetValue("ItemFontFamily", instance.ItemFontFamily!);
                 key.SetValue("ShowHiddenFiles", instance.ShowHiddenFiles!);
                 key.SetValue("LastAccesedToFirstRow", instance.LastAccesedToFirstRow);
                 key.SetValue("EnableCustomItemsOrder", instance.EnableCustomItemsOrder);
@@ -125,6 +126,7 @@ public class InstanceController
                 key.SetValue("Minimized", instance.Minimized);
                 if (instance.Folder != null) key.SetValue("Folder", instance.Folder);
                 if (instance.TitleFontFamily != null) key.SetValue("TitleFontFamily", instance.TitleFontFamily);
+                if (instance.ItemFontFamily != null) key.SetValue("ItemFontFamily", instance.ItemFontFamily);
                 key.SetValue("ShowHiddenFiles", instance.ShowHiddenFiles);
                 key.SetValue("LastAccesedToFirstRow", instance.LastAccesedToFirstRow);
                 key.SetValue("EnableCustomItemsOrder", instance.EnableCustomItemsOrder);
@@ -392,6 +394,10 @@ public class InstanceController
                                             case "TitleFontFamily":
                                                 temp.TitleFontFamily = value.ToString()!;
                                                 Debug.WriteLine($"TitleFontFamily added\t{temp.TitleFontFamily}");
+                                                break;
+                                            case "ItemFontFamily":
+                                                temp.ItemFontFamily = value.ToString()!;
+                                                Debug.WriteLine($"ItemFontFamily added\t{temp.ItemFontFamily}");
                                                 break;
                                             case "Minimized":
                                                 temp.Minimized = bool.Parse(value.ToString()!);

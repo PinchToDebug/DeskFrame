@@ -1503,6 +1503,16 @@ namespace DeskFrame
                 {
                 }
             }
+            if (Instance.ItemFontFamily != null)
+            {
+                try
+                {
+                    this.Resources["ItemFont"] = new System.Windows.Media.FontFamily(Instance.TitleFontFamily);
+                }
+                catch
+                {
+                }
+            }
             if (Instance.ShowInGrid)
             {
                 showFolder.Visibility = Visibility.Visible;

@@ -21,6 +21,7 @@ public class Instance : INotifyPropertyChanged
     private string _name;
     private string _folder;
     private string _titleFontFamily = "Segoe UI";
+    private string _itemFontFamily = "Segoe UI";
     private bool _lastAccesedToFirstRow = false;
     private bool _customItemsOrderEnabled = true;
     private bool _settingDefault;
@@ -293,6 +294,18 @@ public class Instance : INotifyPropertyChanged
             {
                 _titleFontFamily = value;
                 OnPropertyChanged(nameof(TitleFontFamily), value);
+            }
+        }
+    }
+    public string ItemFontFamily
+    {
+        get => _itemFontFamily;
+        set
+        {
+            if (_itemFontFamily != value)
+            {
+                _itemFontFamily = value;
+                OnPropertyChanged(nameof(ItemFontFamily), value);
             }
         }
     }
@@ -785,6 +798,7 @@ public class Instance : INotifyPropertyChanged
         _sortBy = instance._sortBy;
         _titleFontSize = instance._titleFontSize;
         _titleFontFamily = instance._titleFontFamily;
+        _itemFontFamily = instance._itemFontFamily;
     }
 
     public Instance(string name, bool settingDefault) // default instance
@@ -820,6 +834,9 @@ public class Instance : INotifyPropertyChanged
 
             v = helper.ReadKeyValueRoot("TitleFontFamily");
             if (v != null) _titleFontFamily = v.ToString();
+           
+            v = helper.ReadKeyValueRoot("ItemFontFamily");
+            if (v != null) _itemFontFamily = v.ToString();
 
             v = helper.ReadKeyValueRoot("ShowHiddenFiles");
             if (v != null) _showHiddenFiles = (bool)v;

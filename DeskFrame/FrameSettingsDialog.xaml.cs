@@ -134,6 +134,7 @@ namespace DeskFrame
             ShowLastAccessedToFirstRowCheckBox.IsChecked = _instance.LastAccesedToFirstRow;
 
             TitleTextAutoSuggestionBox.Text = _instance.TitleFontFamily;
+            ItemTextAutoSuggestionBox.Text = _instance.ItemFontFamily;
             _frame.title.FontSize = _instance.TitleFontSize;
             _frame.title.TextWrapping = TextWrapping.Wrap;
 
@@ -180,7 +181,19 @@ namespace DeskFrame
 
                 }
             };
-
+            ItemTextAutoSuggestionBox.OriginalItemsSource = FontList;
+            ItemTextAutoSuggestionBox.TextChanged += (sender, args) =>
+            {
+                if (ItemTextAutoSuggestionBox.Text != null)
+                {
+                    _frame.Resources["ItemFont"] = new System.Windows.Media.FontFamily(ItemTextAutoSuggestionBox.Text);
+                    _instance.ItemFontFamily = ItemTextAutoSuggestionBox.Text;
+                }
+                else
+                {
+                    _frame.Resources["ItemFont"] = new System.Windows.Media.FontFamily(ItemTextAutoSuggestionBox.Text);
+                }
+            };
             _initDone = true;
         }
 
@@ -386,6 +399,7 @@ namespace DeskFrame
                 _instance.Opacity = _originalInstance.Opacity;
                 _instance.TitleFontSize = _originalInstance.TitleFontSize;
                 _instance.TitleFontFamily = _originalInstance.TitleFontFamily;
+                _instance.ItemFontFamily = _originalInstance.ItemFontFamily;
                 _instance.ShowOnVirtualDesktops = _originalInstance.ShowOnVirtualDesktops;
                 _instance.IdleOpacity = _originalInstance.IdleOpacity;
                 _instance.IconSize = _originalInstance.IconSize;
@@ -462,6 +476,7 @@ namespace DeskFrame
                 ListViewFontShadowColorTextBox.Text = _instance.ListViewFontShadowColor;
                 TitleFontSizeNumberBox.Value = _instance.TitleFontSize;
                 TitleTextAutoSuggestionBox.Text = _instance.TitleFontFamily;
+                ItemTextAutoSuggestionBox.Text = _instance.ItemFontFamily;
 
                 AutoExpandonCursorCheckBox.IsChecked = _instance.AutoExpandonCursor;
                 ShowShortcutArrowCheckBox.IsChecked = _instance.ShowShortcutArrow;
@@ -754,6 +769,8 @@ namespace DeskFrame
                     ActiveBackgroundEnabledCheckBox.IsChecked = instance.ActiveBackgroundEnabled;
                     ActiveTitleTextEnabledCheckBox.IsChecked = instance.ActiveTitleTextEnabled;
                     TitleFontSizeNumberBox.Value = instance.TitleFontSize;
+                    TitleTextAutoSuggestionBox.Text = instance.ItemFontFamily;
+                    ItemTextAutoSuggestionBox.Text = instance.ItemFontFamily;
                     TitleTextAlignmentComboBox.SelectedIndex = (int)instance.TitleTextAlignment;
                     AutoExpandonCursorCheckBox.IsChecked = instance.AutoExpandonCursor;
                     ShowShortcutArrowCheckBox.IsChecked = instance.ShowShortcutArrow;

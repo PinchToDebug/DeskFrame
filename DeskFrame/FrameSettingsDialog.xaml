@@ -586,6 +586,12 @@
 
                 <Label Content="{x:Static prop:Lang.FrameSettings_HideFilesRegex}" Height="30"/>
                 <ui:TextBox x:Name="FileFilterHideRegexTextBox" Margin="0,0,0,20" TextChanged="TextChangedHandler"/>
+
+                <Label Content="{x:Static prop:Lang.FrameSettings_Font}" Height="30"/>
+                <ui:AutoSuggestBox x:Name="ItemTextAutoSuggestionBox"
+                                   OriginalItemsSource="{Binding FontList}"
+                                   PlaceholderText="{x:Static prop:Lang.FrameSettings_Searchdot}" Margin="0,0,0,20"/>
+
                 <CheckBox x:Name="ShowDisplayNameCheckBox" Content="{x:Static prop:Lang.FrameSettings_ShowIconText}" Margin="-11,0,0,0" Checked="ShowDisplayNameCheckBox_Checked" Unchecked="ShowDisplayNameCheckBox_Checked"/>
                 <CheckBox x:Name="ShowShortcutArrowCheckBox" Margin="-11,0,0,0" Checked="ShowShortcutArrowCheckBox_Checked" Unchecked="ShowShortcutArrowCheckBox_Unchecked">
                     <TextBlock Text="{x:Static prop:Lang.FrameSettings_ShowShortcutArrow}" TextWrapping="Wrap"/>
