@@ -81,6 +81,7 @@ namespace DeskFrame
         private FileItem _itemUnderCursor;
         string _dropIntoFolderPath;
         FrameworkElement _lastBorder;
+        private bool _isRenaming = true;
         private bool _canChangeItemPosition = false;
         private bool _bringForwardForMove = false;
         private bool _isDragging = false;
@@ -585,7 +586,23 @@ namespace DeskFrame
 
                 }
             }
+            if (msg == 0x0100 && wParam.ToInt32() == 0x71) // F2 down
+            {
+                if (_itemUnderCursor != null)
+                {
+                    _itemUnderCursor.IsRenaming = true;
+                    var container = FileWrapPanel.ItemContainerGenerator.ContainerFromItem(_itemUnderCursor) as DependencyObject;
+                    var renameTextBox = FindParentOrChild<System.Windows.Controls.TextBox>(container);
+                    renameTextBox!.Text = _itemUnderCursor.Name;
+                    _isRenaming = true;
+                    renameTextBox.Focus();
 
+                    var text = renameTextBox.Text;
+                    var dotIndex = text.LastIndexOf('.');
+                    if (dotIndex <= 0) renameTextBox.SelectAll();
+                    else renameTextBox.Select(0, dotIndex);
+                }
+            }
 
             if (msg == 0x0214) // WM_SIZING
             {
@@ -1281,6 +1298,10 @@ namespace DeskFrame
         }
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            if (_isRenaming)
+            {
+                return;
+            }
             if (e.Key == Key.Escape || !_mouseIsOver)
             {
                 FilterTextBox.Text = null;
@@ -1876,14 +1897,14 @@ namespace DeskFrame
             {
                 Debug.WriteLine($"File renamed: {e.OldFullPath} to {e.FullPath}");
                 var renamedItem = FileItems.FirstOrDefault(item => item.FullPath == e.OldFullPath);
-
+               
                 if (renamedItem != null)
                 {
                     renamedItem.FullPath = e.FullPath;
 
                     string fileName = Path.GetFileName(e.FullPath);
                     Debug.WriteLine("FILENAME:: " + fileName);
-                    if (renamedItem is FileInfo)
+                    if (!renamedItem.IsFolder)
                     {
                         Debug.WriteLine("NOT");
                         string actualExt = Path.GetExtension(fileName);
@@ -2691,12 +2712,12 @@ namespace DeskFrame
         {
             if (sender is Border border && border.DataContext is FileItem fileItem)
             {
+                _itemUnderCursor = fileItem;
                 if (Instance.EnableCustomItemsOrder && ((GetAsyncKeyState(0xA4) & 0x8000) != 0 ||
                     (GetAsyncKeyState(0xA5) & 0x8000) != 0)) // Left or right ALT is down
                 {
                     //  fileItem.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
                     _canChangeItemPosition = true;
-                    _itemUnderCursor = fileItem;
                 }
                 else
                 {
@@ -2708,7 +2729,6 @@ namespace DeskFrame
                     fileItem.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
 
                     fileItem.IsMoveBarVisible = true;
-                    _itemUnderCursor = fileItem;
                 }
                 else
                 {
@@ -2748,6 +2768,8 @@ namespace DeskFrame
         {
             if (sender is Border border && border.DataContext is FileItem fileItem)
             {
+                fileItem.IsRenaming = false;
+                _isRenaming = false;
                 fileItem.IsMoveBarVisible = false;
                 _dropIntoFolderPath = "";
                 if (!fileItem.IsSelected)
@@ -3944,6 +3966,42 @@ namespace DeskFrame
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void RenameTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && _itemUnderCursor != null)
+            {
+              
+                string newName = ((System.Windows.Controls.TextBox)sender).Text;
+                if (!Instance.ShowFileExtension && newName.Contains('.'))
+                {
+                    return;
+                }
+
+                string oldPath = _itemUnderCursor.FullPath!;
+                string newPath = Path.Combine(Path.GetDirectoryName(oldPath)!, newName);
+
+                if (!_itemUnderCursor.IsFolder)
+                {
+                    var ext = Path.GetExtension(oldPath);
+                    if (!string.IsNullOrEmpty(ext) && string.IsNullOrEmpty(Path.GetExtension(newName)))
+                    {
+                        newPath += ext;
+
+                    }
+                    File.Move(oldPath, newPath);
+                }
+                else
+                {
+                    Directory.Move(oldPath, newPath);
+                }
+
+                _itemUnderCursor.Name = newName;
+                _itemUnderCursor.IsRenaming = false;
+                _itemUnderCursor.IsSelected = false;
+                _itemUnderCursor.Background = Brushes.Transparent;
             }
         }
 

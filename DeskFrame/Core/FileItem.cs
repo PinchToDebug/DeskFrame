@@ -14,12 +14,14 @@ namespace DeskFrame.Core
 
         private bool _isMoveBarVisible;
         private bool _isSelected;
+        private bool _isRenaming = false;
+        public bool IsNotRenaming => !_isRenaming;
         public bool IsFolder { get; set; }
         private Brush _background = Brushes.Transparent;
         private int _maxHeight = 40;
         private TextTrimming _textTrimming = TextTrimming.CharacterEllipsis;
         private string? _displayName;
-        public string? Name { get; set; }
+        private string? _name;
         public string? FullPath { get; set; }
         public BitmapSource? Thumbnail { get; set; }
         public DateTime DateModified { get; set; }
@@ -28,6 +30,27 @@ namespace DeskFrame.Core
         public long ItemSize { get; set; }
         public string DisplaySize { get; set; }
 
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(DisplayName));
+            }
+        }
+
+        public bool IsRenaming
+        {
+            get => _isRenaming;
+            set
+            {
+                _isRenaming = value;
+                OnPropertyChanged(nameof(IsRenaming));
+                OnPropertyChanged(nameof(IsNotRenaming));
+            }
+        }
         public bool IsMoveBarVisible
         {
             get => _isMoveBarVisible;
@@ -42,9 +65,8 @@ namespace DeskFrame.Core
         }
         public string DisplayName
         {
-            get => Name;
-
-            private set
+            get => _name;
+            set
             {
                 _displayName = value;
                 OnPropertyChanged(nameof(DisplayName));
