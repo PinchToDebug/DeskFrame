@@ -1873,6 +1873,11 @@ namespace DeskFrame
         public void InitializeFileWatcher()
         {
             _fileWatcher = null;
+            if (!Path.Exists(_currentFolderPath))
+            {
+                this.Close();
+                return;
+            }
             _fileWatcher = new FileSystemWatcher(_currentFolderPath)
             {
                 NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.LastWrite,
