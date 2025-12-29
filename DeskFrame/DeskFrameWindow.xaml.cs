@@ -2769,6 +2769,7 @@ namespace DeskFrame
         {
             if (sender is Border border && border.DataContext is FileItem fileItem)
             {
+                _itemUnderCursor = null;
                 fileItem.IsRenaming = false;
                 _isRenaming = false;
                 fileItem.IsMoveBarVisible = false;
