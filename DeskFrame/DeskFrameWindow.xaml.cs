@@ -365,6 +365,7 @@ namespace DeskFrame
                         fileItem.IsSelected = false;
                         fileItem.Background = Brushes.Transparent;
                     }
+                    _itemUnderCursor = null;
                 }
                 if (!IsCursorWithinWindowBounds() && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left mouse button is not down
                 {
@@ -3971,7 +3972,7 @@ namespace DeskFrame
 
         private void RenameTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == Key.Enter && _itemUnderCursor != null)
+            if (e.Key == Key.Enter && _itemUnderCursor != null && _mouseIsOver)
             {
               
                 string newName = ((System.Windows.Controls.TextBox)sender).Text;
