@@ -4003,6 +4003,10 @@ namespace DeskFrame
                 _itemUnderCursor.IsSelected = false;
                 _itemUnderCursor.Background = Brushes.Transparent;
             }
+            else if (e.Key == Key.Escape && _itemUnderCursor != null)
+            {
+                _itemUnderCursor.IsRenaming = false;
+            }
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
