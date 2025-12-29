@@ -769,7 +769,7 @@ namespace DeskFrame
                     ActiveBackgroundEnabledCheckBox.IsChecked = instance.ActiveBackgroundEnabled;
                     ActiveTitleTextEnabledCheckBox.IsChecked = instance.ActiveTitleTextEnabled;
                     TitleFontSizeNumberBox.Value = instance.TitleFontSize;
-                    TitleTextAutoSuggestionBox.Text = instance.ItemFontFamily;
+                    TitleTextAutoSuggestionBox.Text = instance.TitleFontFamily;
                     ItemTextAutoSuggestionBox.Text = instance.ItemFontFamily;
                     TitleTextAlignmentComboBox.SelectedIndex = (int)instance.TitleTextAlignment;
                     AutoExpandonCursorCheckBox.IsChecked = instance.AutoExpandonCursor;
