@@ -592,7 +592,15 @@ namespace DeskFrame
                 if (_itemUnderCursor != null)
                 {
                     _itemUnderCursor.IsRenaming = true;
-                    var container = FileWrapPanel.ItemContainerGenerator.ContainerFromItem(_itemUnderCursor) as DependencyObject;
+                    DependencyObject container;
+                    if (Instance.ShowInGrid)
+                    {
+                        container = FileWrapPanel.ItemContainerGenerator.ContainerFromItem(_itemUnderCursor);
+                    }
+                    else
+                    {
+                        container = FileListView.ItemContainerGenerator.ContainerFromItem(_itemUnderCursor);
+                    }
                     var renameTextBox = FindParentOrChild<System.Windows.Controls.TextBox>(container);
                     renameTextBox!.Text = _itemUnderCursor.Name;
                     _isRenaming = true;
@@ -1903,7 +1911,7 @@ namespace DeskFrame
             {
                 Debug.WriteLine($"File renamed: {e.OldFullPath} to {e.FullPath}");
                 var renamedItem = FileItems.FirstOrDefault(item => item.FullPath == e.OldFullPath);
-               
+
                 if (renamedItem != null)
                 {
                     renamedItem.FullPath = e.FullPath;
@@ -2685,6 +2693,7 @@ namespace DeskFrame
 
             if (sender is ListViewItem item && item.DataContext is FileItem fileItem)
             {
+                _itemUnderCursor = fileItem;
                 var sourceElement = e.OriginalSource as DependencyObject;
                 var currentBorder = sourceElement as Border ?? FindParentOrChild<Border>(sourceElement);
 
@@ -2702,6 +2711,13 @@ namespace DeskFrame
             _dropIntoFolderPath = "";
             if (sender is ListViewItem item && item.DataContext is FileItem fileItem)
             {
+                _itemUnderCursor = null;
+                fileItem.IsRenaming = false;
+                _isRenaming = false;
+                if (Instance.ShowInGrid)
+                {
+                    Keyboard.ClearFocus(); // Remove focus border
+                }
                 var sourceElement = e.OriginalSource as DependencyObject;
                 var currentBorder = sourceElement as Border ?? FindParentOrChild<Border>(sourceElement);
 
@@ -3980,7 +3996,7 @@ namespace DeskFrame
         {
             if (e.Key == Key.Enter && _itemUnderCursor != null && _mouseIsOver)
             {
-              
+
                 string newName = ((System.Windows.Controls.TextBox)sender).Text;
                 if (!Instance.ShowFileExtension && newName.Contains('.'))
                 {
