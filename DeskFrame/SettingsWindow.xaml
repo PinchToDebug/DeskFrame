@@ -12,7 +12,7 @@
         Background="#66232323" 
         WindowStyle="None" 
         ResizeMode="NoResize"
-        Height="550" 
+        Height="600" 
                  Width="464"
                  Closing="FluentWindow_Closing">
     <Grid>
@@ -51,7 +51,11 @@
                                 <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_Drag}"  Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                         </StackPanel>
-                        <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_SnapDescription}" TextWrapping="Wrap" Foreground="LightGray" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_SnapDescription}" TextWrapping="Wrap" Foreground="LightGray" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                            <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_ReorderDescription}" TextWrapping="Wrap" Foreground="LightGray" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                        </StackPanel>
+
                     </Grid>
 
                     <Grid Margin="10">
@@ -69,9 +73,22 @@
                         </StackPanel>
                         <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_ChangeIconSizeDescription}" TextWrapping="Wrap" Foreground="LightGray"  VerticalAlignment="Center" Margin="16,0,0,0"/>
                     </Grid>
+                  
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Border HorizontalAlignment="Left" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4"  Margin="0,0,8,0">
+                                <TextBlock Text="F2" Foreground="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_RenameFilesDescription}" TextWrapping="Wrap" Foreground="LightGray"  VerticalAlignment="Center" Margin="16,0,0,0"/>
+                    </Grid>
 
                     <StackPanel Margin="10">
-                        <TextBlock TextWrapping="Wrap" Text="To search move the cursor over the frame you want to search in and start typing" Foreground="LightGray" />
+                        <TextBlock TextWrapping="Wrap" Text="{x:Static prop:Lang.DeskFrameFrameSettings_SearchDescription}" Foreground="LightGray" />
                     </StackPanel>
 
                 </StackPanel>

@@ -432,7 +432,7 @@
     <value>ARRASTRAR</value>
   </data>
   <data name="DeskFrameFrameSettings.SnapDescription" xml:space="preserve">
-    <value>Ajustar ventana a 10 píxeles</value>
+    <value>[Marco] Ajustar ventana a 10 píxeles</value>
   </data>
   <data name="DeskFrameFrameSettings.Scroll" xml:space="preserve">
     <value>DESPLAZAR</value>
@@ -460,5 +460,14 @@
   </data>
   <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable" xml:space="preserve">
     <value>Inactivo</value>
+  </data>
+  <data name="DeskFrameFrameSettings.RenameFilesDescription" xml:space="preserve">
+    <value>Renombrar archivos, presione ENTER para confirmar</value>
+  </data>
+  <data name="DeskFrameFrameSettings_ReorderDescription" xml:space="preserve">
+    <value>[Archivo] Cambiar el orden del archivo</value>
+  </data>
+  <data name="DeskFrameFrameSettings_SearchDescription" xml:space="preserve">
+    <value>Para buscar, coloque el cursor sobre el marco en el que desea buscar y comience a escribir</value>
   </data>
 </root>

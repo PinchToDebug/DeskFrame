@@ -142,6 +142,24 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rename items, ENTER to confirm.
+        /// </summary>
+        public static string DeskFrameFrameSettings_RenameFilesDescription {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.RenameFilesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [File] Change the order of the file.
+        /// </summary>
+        public static string DeskFrameFrameSettings_ReorderDescription {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings_ReorderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset default style.
         /// </summary>
         public static string DeskFrameFrameSettings_ResetDefaultStyle {
@@ -160,7 +178,16 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Snap frame with 10 pixel distance.
+        ///   Looks up a localized string similar to To search move the cursor over the frame you want to search in and start typing.
+        /// </summary>
+        public static string DeskFrameFrameSettings_SearchDescription {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings_SearchDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Frame] Snap frame with 10 pixel distance.
         /// </summary>
         public static string DeskFrameFrameSettings_SnapDescription {
             get {

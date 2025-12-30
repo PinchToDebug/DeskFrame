@@ -432,7 +432,7 @@
     <value>드래그</value>
   </data>
   <data name="DeskFrameFrameSettings.SnapDescription" xml:space="preserve">
-    <value>10픽셀 거리로 창 맞추기</value>
+    <value>[프레임] 10픽셀 거리로 창 맞추기</value>
   </data>
   <data name="DeskFrameFrameSettings.Scroll" xml:space="preserve">
     <value>스크롤</value>
@@ -460,5 +460,14 @@
   </data>
   <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable" xml:space="preserve">
     <value>꺼짐</value>
+  </data>
+  <data name="DeskFrameFrameSettings.RenameFilesDescription" xml:space="preserve">
+    <value>파일 이름 변경, ENTER를 눌러 확인</value>
+  </data>
+  <data name="DeskFrameFrameSettings_ReorderDescription" xml:space="preserve">
+    <value>[파일] 파일 순서 변경</value>
+  </data>
+  <data name="DeskFrameFrameSettings_SearchDescription" xml:space="preserve">
+    <value>검색하려면 검색할 프레임 위에 커서를 올리고 입력을 시작하세요</value>
   </data>
 </root>

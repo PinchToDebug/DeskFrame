@@ -432,7 +432,7 @@
     <value>DRAGOWAĆ</value>
   </data>
   <data name="DeskFrameFrameSettings.SnapDescription" xml:space="preserve">
-    <value>Przyciągnij okno na 10 pikseli</value>
+    <value>[Ramka] Przyciągnij okno na 10 pikseli</value>
   </data>
   <data name="DeskFrameFrameSettings.Scroll" xml:space="preserve">
     <value>PRZEWIJ</value>
@@ -460,5 +460,14 @@
   </data>
   <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable" xml:space="preserve">
     <value>Wył</value>
+  </data>
+  <data name="DeskFrameFrameSettings.RenameFilesDescription" xml:space="preserve">
+    <value>Zmień nazwy plików, naciśnij ENTER, aby potwierdzić</value>
+  </data>
+  <data name="DeskFrameFrameSettings_ReorderDescription" xml:space="preserve">
+    <value>[Plik] Zmień kolejność pliku</value>
+  </data>
+  <data name="DeskFrameFrameSettings_SearchDescription" xml:space="preserve">
+    <value>Aby wyszukać, przesuń kursor nad ramkę, w której chcesz wyszukiwać, i zacznij pisać</value>
   </data>
 </root>
