@@ -7,8 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
-    <AssemblyVersion>1.37.0</AssemblyVersion>
-    <FileVersion>1.37.0</FileVersion>
+    <AssemblyVersion>1.38.0</AssemblyVersion>
+    <FileVersion>1.38.0</FileVersion>
     <PackageIcon>ico.png</PackageIcon>
     <ApplicationIcon>Icon\ico.ico</ApplicationIcon>
     <Platforms>AnyCPU;x64</Platforms>
