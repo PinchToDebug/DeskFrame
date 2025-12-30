@@ -1537,7 +1537,7 @@ namespace DeskFrame
             {
                 try
                 {
-                    this.Resources["ItemFont"] = new System.Windows.Media.FontFamily(Instance.TitleFontFamily);
+                    this.Resources["ItemFont"] = new System.Windows.Media.FontFamily(Instance.ItemFontFamily);
                 }
                 catch
                 {
