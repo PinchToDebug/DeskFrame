@@ -584,6 +584,10 @@ namespace DeskFrame
                         {
                             _contextMenuIsOpen = false;
                         };
+                        if (_itemCurrentlyRenaming != null)
+                        {
+                            _itemCurrentlyRenaming.IsRenaming = false;
+                        }
                         scm.ShowContextMenu(windowHelper.Handle, new DirectoryInfo(_currentFolderPath), drawingPoint, true);
                         handled = true;
                     }
@@ -2640,7 +2644,10 @@ namespace DeskFrame
                 scm.ContextMenuRenameSelected += renameHandler;
                 if (clickedFileItem != null)
                 {
-
+                    if (_itemCurrentlyRenaming != null)
+                    {
+                        _itemCurrentlyRenaming.IsRenaming = false;
+                    }
                     scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint, (clickedFileItem!.FullPath == _currentFolderPath));
                 }
             }

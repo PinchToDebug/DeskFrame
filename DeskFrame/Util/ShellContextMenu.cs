@@ -424,7 +424,7 @@ namespace DeskFrame.Util
                     IntPtr.Zero);
 
                 int topLevelMenuCount = 9999;
-                if (IsRootFolder && nSelected != 0)
+                if (!IsRootFolder && nSelected != 0)
                 {
                     topLevelMenuCount = (int)GetMenuItemID(pMenu, GetMenuItemCount(pMenu) - 1);
                 }
@@ -434,7 +434,7 @@ namespace DeskFrame.Util
 
                 if (nSelected != 0)
                 {
-                    if (renaming && IsRootFolder)
+                    if (renaming && !IsRootFolder)
                     {
                         ContextMenuRenameSelected?.Invoke();
                     }
