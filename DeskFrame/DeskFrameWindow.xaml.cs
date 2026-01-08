@@ -48,6 +48,7 @@ using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Point = System.Drawing.Point;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
+using TextBox = System.Windows.Controls.TextBox;
 namespace DeskFrame
 {
     public partial class DeskFrameWindow : System.Windows.Window
@@ -79,9 +80,11 @@ namespace DeskFrame
 
         private FileItem _draggedItem;
         private FileItem _itemUnderCursor;
+        private FileItem _itemCurrentlyRenaming;
         string _dropIntoFolderPath;
         FrameworkElement _lastBorder;
         private bool _isRenaming = true;
+        private bool _isRenamingFromContextMenu = false;
         private bool _canChangeItemPosition = false;
         private bool _bringForwardForMove = false;
         private bool _isDragging = false;
@@ -365,7 +368,10 @@ namespace DeskFrame
                         fileItem.IsSelected = false;
                         fileItem.Background = Brushes.Transparent;
                     }
-                    _itemUnderCursor = null;
+                    if (!_isRenamingFromContextMenu)
+                    {
+                        _itemCurrentlyRenaming = null;
+                    }
                 }
                 if (!IsCursorWithinWindowBounds() && (GetAsyncKeyState(0x01) & 0x8000) == 0) // Left mouse button is not down
                 {
@@ -578,7 +584,7 @@ namespace DeskFrame
                         {
                             _contextMenuIsOpen = false;
                         };
-                        scm.ShowContextMenu(windowHelper.Handle, new DirectoryInfo(_currentFolderPath), drawingPoint);
+                        scm.ShowContextMenu(windowHelper.Handle, new DirectoryInfo(_currentFolderPath), drawingPoint, true);
                         handled = true;
                     }
                     catch
@@ -591,18 +597,24 @@ namespace DeskFrame
             {
                 if (_itemUnderCursor != null)
                 {
-                    _itemUnderCursor.IsRenaming = true;
+                    if (_itemCurrentlyRenaming != null)
+                    {
+                        _itemCurrentlyRenaming.IsRenaming = false;
+                    }
+                    _itemCurrentlyRenaming = _itemUnderCursor;
+                    _itemCurrentlyRenaming.IsRenaming = true;
                     DependencyObject container;
                     if (Instance.ShowInGrid)
                     {
-                        container = FileWrapPanel.ItemContainerGenerator.ContainerFromItem(_itemUnderCursor);
+                        container = FileWrapPanel.ItemContainerGenerator.ContainerFromItem(_itemCurrentlyRenaming);
                     }
                     else
                     {
-                        container = FileListView.ItemContainerGenerator.ContainerFromItem(_itemUnderCursor);
+                        container = FileListView.ItemContainerGenerator.ContainerFromItem(_itemCurrentlyRenaming);
+                        FileListView.SelectedItem = _itemCurrentlyRenaming;
                     }
-                    var renameTextBox = FindParentOrChild<System.Windows.Controls.TextBox>(container);
-                    renameTextBox!.Text = _itemUnderCursor.Name;
+                    var renameTextBox = FindParentOrChild<TextBox>(container);
+                    renameTextBox!.Text = _itemCurrentlyRenaming.Name;
                     _isRenaming = true;
                     renameTextBox.Focus();
 
@@ -1427,6 +1439,10 @@ namespace DeskFrame
                         container.MouseLeave += ListViewItem_MouseLeave;
                         container.Selected += ListViewItem_Selected;
                         container.Unselected += ListViewItem_Unselected;
+                        container.PreviewMouseUp += FileListView_PreviewMouseUp;
+                        container.MouseDoubleClick += FileListView_DoubleClick;
+                        container.PreviewMouseDown += FileListView_MouseLeftButtonDown;
+                        container.MouseRightButtonUp += FileListView_MouseRightButtonUp;
                     }
                 }
             }
@@ -1917,10 +1933,10 @@ namespace DeskFrame
                     renamedItem.FullPath = e.FullPath;
 
                     string fileName = Path.GetFileName(e.FullPath);
-                    Debug.WriteLine("FILENAME:: " + fileName);
+                    Debug.WriteLine("FILENAME: " + fileName);
                     if (!renamedItem.IsFolder)
                     {
-                        Debug.WriteLine("NOT");
+                        Debug.WriteLine("NOT FOLDER");
                         string actualExt = Path.GetExtension(fileName);
                         renamedItem.Name = Instance.ShowFileExtension || string.IsNullOrEmpty(actualExt)
                              ? fileName
@@ -2297,12 +2313,11 @@ namespace DeskFrame
             {
                 element = VisualTreeHelper.GetParent(element);
             }
-            if (element is ListViewItem item && item.DataContext is FileItem clickedItem)
+            if (element is ListViewItem item && item.DataContext is FileItem clickedFileItem)
             {
                 var windowHelper = new WindowInteropHelper(this);
                 FileInfo[] files = new FileInfo[1];
-                files[0] = new FileInfo(clickedItem.FullPath!);
-
+                files[0] = new FileInfo(clickedFileItem.FullPath!);
                 Point cursorPosition = System.Windows.Forms.Cursor.Position;
                 System.Windows.Point wpfPoint = new System.Windows.Point(cursorPosition.X, cursorPosition.Y);
                 Point drawingPoint = new Point((int)wpfPoint.X, (int)wpfPoint.Y);
@@ -2311,7 +2326,7 @@ namespace DeskFrame
                 {
                     _contextMenuIsOpen = false;
                 };
-                scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint);
+                scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint, (clickedFileItem.FullPath! == _currentFolderPath));
             }
         }
         private void MoveItemToPosition()
@@ -2586,11 +2601,48 @@ namespace DeskFrame
                 System.Windows.Point wpfPoint = new System.Windows.Point(cursorPosition.X, cursorPosition.Y);
                 Point drawingPoint = new Point((int)wpfPoint.X, (int)wpfPoint.Y);
                 _contextMenuIsOpen = true;
+                Action renameHandler = null;
                 scm.ContextMenuClosed += () =>
                 {
                     _contextMenuIsOpen = false;
                 };
-                scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint);
+                renameHandler = () =>
+                {
+                    try
+                    {
+                        if (clickedFileItem != null)
+                        {
+                            if (_itemCurrentlyRenaming != null)
+                            {
+                                _itemCurrentlyRenaming.IsRenaming = false;
+                            }
+
+                            _itemCurrentlyRenaming = clickedFileItem;
+                            _itemCurrentlyRenaming.IsRenaming = true;
+                            _isRenamingFromContextMenu = true;
+                            DependencyObject container = FileWrapPanel.ItemContainerGenerator.ContainerFromItem(_itemCurrentlyRenaming);
+
+                            var renameTextBox = FindParentOrChild<TextBox>(container);
+
+                            renameTextBox!.Text = _itemCurrentlyRenaming.Name;
+                            _isRenaming = true;
+                            renameTextBox.Focus();
+
+                            var text = renameTextBox.Text;
+                            var dotIndex = text.LastIndexOf('.');
+                            if (dotIndex <= 0) renameTextBox.SelectAll();
+                            else renameTextBox.Select(0, dotIndex);
+                            scm.ContextMenuRenameSelected -= renameHandler;
+                        }
+                    }
+                    catch { }
+                };
+                scm.ContextMenuRenameSelected += renameHandler;
+                if (clickedFileItem != null)
+                {
+
+                    scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint, (clickedFileItem!.FullPath == _currentFolderPath));
+                }
             }
         }
 
@@ -2712,8 +2764,11 @@ namespace DeskFrame
             if (sender is ListViewItem item && item.DataContext is FileItem fileItem)
             {
                 _itemUnderCursor = null;
-                fileItem.IsRenaming = false;
-                _isRenaming = false;
+                if (!_isRenamingFromContextMenu)
+                {
+                    fileItem.IsRenaming = false;
+                    _isRenaming = false;
+                }
                 if (Instance.ShowInGrid)
                 {
                     Keyboard.ClearFocus(); // Remove focus border
@@ -2791,8 +2846,11 @@ namespace DeskFrame
             if (sender is Border border && border.DataContext is FileItem fileItem)
             {
                 _itemUnderCursor = null;
-                fileItem.IsRenaming = false;
-                _isRenaming = false;
+                if (!_isRenamingFromContextMenu)
+                {
+                    fileItem.IsRenaming = false;
+                    _isRenaming = false;
+                }
                 fileItem.IsMoveBarVisible = false;
                 _dropIntoFolderPath = "";
                 if (!fileItem.IsSelected)
@@ -3367,7 +3425,10 @@ namespace DeskFrame
         private void titleBar_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             contextMenu = new ContextMenu();
-
+            if (_itemCurrentlyRenaming != null)
+            {
+                _itemCurrentlyRenaming.IsRenaming = false;
+            }
             ToggleSwitch toggleHiddenFiles = new ToggleSwitch { Content = Lang.TitleBarContextMenu_HiddenFiles };
             toggleHiddenFiles.Click += (s, args) => { ToggleHiddenFiles(); LoadFiles(_currentFolderPath); };
 
@@ -3994,19 +4055,18 @@ namespace DeskFrame
 
         private void RenameTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == Key.Enter && _itemUnderCursor != null && _mouseIsOver)
+            if (e.Key == Key.Enter && _itemCurrentlyRenaming != null && (_mouseIsOver || _isRenamingFromContextMenu))
             {
-
-                string newName = ((System.Windows.Controls.TextBox)sender).Text;
+                string newName = ((TextBox)sender).Text;
                 if (!Instance.ShowFileExtension && newName.Contains('.'))
                 {
                     return;
                 }
 
-                string oldPath = _itemUnderCursor.FullPath!;
+                string oldPath = _itemCurrentlyRenaming.FullPath!;
                 string newPath = Path.Combine(Path.GetDirectoryName(oldPath)!, newName);
 
-                if (!_itemUnderCursor.IsFolder)
+                if (!_itemCurrentlyRenaming.IsFolder)
                 {
                     var ext = Path.GetExtension(oldPath);
                     if (!string.IsNullOrEmpty(ext) && string.IsNullOrEmpty(Path.GetExtension(newName)))
@@ -4020,15 +4080,19 @@ namespace DeskFrame
                 {
                     Directory.Move(oldPath, newPath);
                 }
-
-                _itemUnderCursor.Name = newName;
-                _itemUnderCursor.IsRenaming = false;
-                _itemUnderCursor.IsSelected = false;
-                _itemUnderCursor.Background = Brushes.Transparent;
+                _isRenaming = false;
+                _isRenamingFromContextMenu = false;
+                _itemCurrentlyRenaming.Name = newName;
+                _itemCurrentlyRenaming.IsRenaming = false;
+                _itemCurrentlyRenaming.IsSelected = false;
+                _itemCurrentlyRenaming.Background = Brushes.Transparent;
             }
-            else if (e.Key == Key.Escape && _itemUnderCursor != null)
+            else if (e.Key == Key.Escape && _itemCurrentlyRenaming != null)
             {
-                _itemUnderCursor.IsRenaming = false;
+                _itemCurrentlyRenaming.IsRenaming = false;
+                _isRenamingFromContextMenu = false;
+                _isRenaming = false;
+
             }
         }
 

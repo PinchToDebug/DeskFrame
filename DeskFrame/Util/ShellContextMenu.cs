@@ -35,6 +35,7 @@ namespace DeskFrame.Util
     public class ShellContextMenu
     {
         public event Action ContextMenuClosed;
+        public event Action ContextMenuRenameSelected;
 
         #region Constructor
         /// <summary>Default constructor</summary>
@@ -360,7 +361,7 @@ namespace DeskFrame.Util
         /// <param name="handleOwner">Window that will get messages</param>
         /// <param name="arrFI">FileInfos (should all be in same directory)</param>
         /// <param name="pointScreen">Where to show the menu</param>
-        public void ShowContextMenu(IntPtr handleOwner, object target, Point pointScreen)
+        public void ShowContextMenu(IntPtr handleOwner, object target, Point pointScreen, bool IsRootFolder)
         {
             // Release all resources first.
             ReleaseAll();
@@ -409,6 +410,7 @@ namespace DeskFrame.Util
                     CMD_LAST,
                     CMF.EXPLORE |
                     CMF.NORMAL |
+                    (!IsRootFolder ? CMF.CANRENAME : CMF.NORMAL) |
                     ((Control.ModifierKeys & Keys.Shift) != 0 ? CMF.EXTENDEDVERBS : 0));
 
                 hook.Install();
@@ -421,12 +423,25 @@ namespace DeskFrame.Util
                     handleOwner,
                     IntPtr.Zero);
 
+                int topLevelMenuCount = 9999;
+                if (IsRootFolder && nSelected != 0)
+                {
+                    topLevelMenuCount = (int)GetMenuItemID(pMenu, GetMenuItemCount(pMenu) - 1);
+                }
+                bool renaming = nSelected + 1 == topLevelMenuCount;
                 DestroyMenu(pMenu);
                 pMenu = IntPtr.Zero;
 
                 if (nSelected != 0)
                 {
-                    InvokeCommand(_oContextMenu, nSelected, _strParentFolder, pointScreen);
+                    if (renaming && IsRootFolder)
+                    {
+                        ContextMenuRenameSelected?.Invoke();
+                    }
+                    else
+                    {
+                        InvokeCommand(_oContextMenu, nSelected, _strParentFolder!, pointScreen);
+                    }
                 }
             }
             catch
@@ -502,6 +517,14 @@ namespace DeskFrame.Util
         #endregion
 
         #region DLL Import
+
+        // Retrieves the number of menu items in the contextmenu
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern uint GetMenuItemID(IntPtr hMenu, int nPos);
+
+        // Retrieves the number of menu items in the contextmenu
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int GetMenuItemCount(IntPtr hMenu);
 
         // Retrieves the IShellFolder interface for the desktop folder, which is the root of the Shell's namespace.
         [DllImport("shell32.dll")]
