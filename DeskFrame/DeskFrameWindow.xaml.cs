@@ -3624,6 +3624,10 @@ namespace DeskFrame
                         Registry.CurrentUser.DeleteSubKeyTree(Instance.GetKeyLocation());
                     }
                     MainWindow._controller.RemoveInstance(Instance, this);
+                    if (Instance.IsShortcutsOnly)
+                    {
+                        Directory.Delete(Instance.Folder, true);
+                    }
                     this.Close();
 
                 }
