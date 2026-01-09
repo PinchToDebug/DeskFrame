@@ -78,6 +78,7 @@ namespace DeskFrame
             }
         }
 
+        private List<FileItem> _selectedItems = new List<FileItem>();
         private FileItem _draggedItem;
         private FileItem _itemUnderCursor;
         private FileItem _itemCurrentlyRenaming;
@@ -363,10 +364,14 @@ namespace DeskFrame
                     {
                         TitleBarIconsFadeAnimation(false);
                     }
-                    foreach (var fileItem in FileItems)
+                    if (!_contextMenuIsOpen)
                     {
-                        fileItem.IsSelected = false;
-                        fileItem.Background = Brushes.Transparent;
+                        _selectedItems.Clear();
+                        foreach (var fileItem in FileItems)
+                        {
+                            fileItem.IsSelected = false;
+                            fileItem.Background = Brushes.Transparent;
+                        }
                     }
                     if (!_isRenamingFromContextMenu)
                     {
@@ -414,10 +419,14 @@ namespace DeskFrame
                         {
                             try
                             {
-                                foreach (var fileItem in FileItems)
+                                if (!_contextMenuIsOpen)
                                 {
-                                    fileItem.IsSelected = false;
-                                    fileItem.Background = Brushes.Transparent;
+                                    _selectedItems.Clear();
+                                    foreach (var fileItem in FileItems)
+                                    {
+                                        fileItem.IsSelected = false;
+                                        fileItem.Background = Brushes.Transparent;
+                                    }
                                 }
                             }
                             catch { }
@@ -1368,10 +1377,15 @@ namespace DeskFrame
             try
             {
                 await Task.Delay(50, token);
-                foreach (var fileItem in FileItems)
+                _selectedItems.Clear();
+                if (!_contextMenuIsOpen)
                 {
-                    fileItem.IsSelected = false;
-                    fileItem.Background = Brushes.Transparent;
+                    foreach (var fileItem in FileItems)
+                    {
+                        fileItem.IsSelected = false;
+                        fileItem.Background = Brushes.Transparent;
+                    }
+                    _selectedItems.Clear();
                 }
                 string regexPattern = Regex.Escape(filter).Replace("\\*", ".*"); // Escape other regex special chars and replace '*' with '.*'
 
@@ -2503,19 +2517,32 @@ namespace DeskFrame
             shortcut.Save();
         }
 
-        private void FileItem_Click(object sender, MouseButtonEventArgs e)
+        private void FileItem_LeftMouseButtonDown(object sender, MouseButtonEventArgs e)
         {
             var clickedFileItem = (sender as Border)?.DataContext as FileItem;
 
             if (clickedFileItem != null)
             {
-                clickedFileItem.IsSelected = !clickedFileItem.IsSelected;
+                clickedFileItem.IsSelected = true;
 
-                foreach (var fileItem in FileItems)
+                if (!(Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
                 {
-                    if (fileItem != clickedFileItem)
+                    if (!_contextMenuIsOpen)
                     {
-                        fileItem.IsSelected = false;
+                        _selectedItems.Clear();
+
+                        foreach (var fileItem in FileItems)
+                        {
+                            if (fileItem != clickedFileItem)
+                            {
+                                fileItem.IsSelected = false;
+                                fileItem.Background = Brushes.Transparent;
+                            }
+                        }
+                    }
+                    if (!_selectedItems.Contains(clickedFileItem))
+                    {
+                        _selectedItems.Add(clickedFileItem);
                     }
                 }
             }
@@ -2559,7 +2586,7 @@ namespace DeskFrame
                     //  MessageBox.Show($"Error opening file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            else if (e.LeftButton == MouseButtonState.Pressed && sender is Border dragBorder)
+            else if (!(Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && e.LeftButton == MouseButtonState.Pressed && sender is Border dragBorder)
             {
                 if (dragBorder.DataContext is FileItem fileItem)
                 {
@@ -2572,7 +2599,21 @@ namespace DeskFrame
                     DragDrop.DoDragDrop(dragBorder, data, DragDropEffects.Copy | DragDropEffects.Move);
                 }
             }
+            if (clickedFileItem != null && (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+            {
+                if (!_selectedItems.Contains(clickedFileItem))
+                {
 
+                    if (clickedFileItem.IsSelected)
+                    {
+                        _selectedItems.Add(clickedFileItem);
+                    }
+                    else
+                    {
+                        _selectedItems.Remove(clickedFileItem);
+                    }
+                }
+            }
         }
 
 
@@ -2583,16 +2624,21 @@ namespace DeskFrame
 
             if (clickedFileItem != null)
             {
-                clickedFileItem.IsSelected = !clickedFileItem.IsSelected;
-
-                foreach (var fileItem in FileItems)
+                clickedFileItem.IsSelected = true;
+                if (_selectedItems.Count <= 1 && !_selectedItems.Contains(clickedFileItem))
                 {
-                    if (fileItem != clickedFileItem)
+                    _selectedItems.Clear();
+                    foreach (var fileItem in FileItems)
                     {
-                        fileItem.IsSelected = false;
+                        if (fileItem != clickedFileItem)
+                        {
+                            fileItem.IsSelected = false;
+                        }
                     }
+                    _selectedItems.Add(clickedFileItem);
                 }
             }
+
             if (sender is Border border && border.DataContext is FileItem clickedItem)
             {
                 var windowHelper = new WindowInteropHelper(this);
@@ -2608,6 +2654,7 @@ namespace DeskFrame
                 Action renameHandler = null;
                 scm.ContextMenuClosed += () =>
                 {
+                    _selectedItems.Clear();
                     _contextMenuIsOpen = false;
                 };
                 renameHandler = () =>
@@ -2644,6 +2691,14 @@ namespace DeskFrame
                 scm.ContextMenuRenameSelected += renameHandler;
                 if (clickedFileItem != null)
                 {
+                    if (_selectedItems.Count > 0 && _selectedItems.Contains(clickedItem))
+                    {
+                        files = _selectedItems.Select(item => new FileInfo(item.FullPath!)).ToArray();
+                    }
+                    else
+                    {
+                        _selectedItems.Clear();
+                    }
                     if (_itemCurrentlyRenaming != null)
                     {
                         _itemCurrentlyRenaming.IsRenaming = false;
@@ -3293,9 +3348,14 @@ namespace DeskFrame
             if (cursorPos.X - 10 < windowPos.X || cursorPos.X + 10 > windowPos.X + windowWidth ||
                 cursorPos.Y - 10 < windowPos.Y || cursorPos.Y + 10 > windowPos.Y + windowHeight)
             {
-                foreach (var fileItem in FileItems)
+                if (!_contextMenuIsOpen)
                 {
-                    fileItem.IsSelected = false;
+                    _selectedItems.Clear();
+                    foreach (var fileItem in FileItems)
+                    {
+                        fileItem.IsSelected = false;
+                        fileItem.Background = Brushes.Transparent;
+                    }
                 }
             }
         }
