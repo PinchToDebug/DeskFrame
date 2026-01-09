@@ -19,7 +19,14 @@
         MinWidth="0"
         MinHeight="0">
     <Grid>
-        <ui:TitleBar Title="{x:Static prop:Lang.FrameSettings_TitleBarText}" Name="Titlebar" Padding="8,0,0,0" Height="30" CanMaximize="False" ShowMinimize="False" ApplicationTheme="Dark" ShowMaximize="False" CloseClicked="Titlebar_CloseClicked">
+        <ui:TitleBar Name="Titlebar" Padding="8,0,0,0" Height="30" CanMaximize="False" ShowMinimize="False" ApplicationTheme="Dark" ShowMaximize="False" CloseClicked="Titlebar_CloseClicked">
+            <ui:TitleBar.Title>
+                <MultiBinding StringFormat="{}{0}   •   {1}">
+                    <Binding Source="{x:Static prop:Lang.FrameSettings_TitleBarText}"/>
+                    <Binding Path="Folder"/>
+                </MultiBinding>
+            </ui:TitleBar.Title>
+
             <ui:TitleBar.Icon>
                 <ui:ImageIcon Source="/ico.png" Margin="0,0,6,0" />
             </ui:TitleBar.Icon>
