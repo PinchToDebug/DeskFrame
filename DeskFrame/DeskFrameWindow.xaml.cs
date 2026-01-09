@@ -1598,7 +1598,6 @@ namespace DeskFrame
                 {
                     this.DragMove();
                 }
-                Debug.WriteLine("win left hide");
                 return;
             }
         }
@@ -2655,6 +2654,10 @@ namespace DeskFrame
                 scm.ContextMenuClosed += () =>
                 {
                     _selectedItems.Clear();
+                    foreach (var item in FileItems)
+                    {
+                        item.IsSelected = false;
+                    }
                     _contextMenuIsOpen = false;
                 };
                 renameHandler = () =>
@@ -2693,7 +2696,7 @@ namespace DeskFrame
                 {
                     if (_selectedItems.Count > 0 && _selectedItems.Contains(clickedItem))
                     {
-                        files = _selectedItems.Select(item => new FileInfo(item.FullPath!)).ToArray();
+                        files = _selectedItems.Where(item => item.IsSelected).Select(item => new FileInfo(item.FullPath!)).ToArray();
                     }
                     else
                     {
@@ -2703,7 +2706,14 @@ namespace DeskFrame
                     {
                         _itemCurrentlyRenaming.IsRenaming = false;
                     }
-                    scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint, (clickedFileItem!.FullPath == _currentFolderPath));
+                    if (_selectedItems.Count > 1)
+                    {
+                        scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint, true);
+                    }
+                    else
+                    {
+                        scm.ShowContextMenu(windowHelper.Handle, files, drawingPoint, (clickedFileItem!.FullPath == _currentFolderPath));
+                    }
                 }
             }
         }
