@@ -2458,7 +2458,7 @@ namespace DeskFrame
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine("Error moving file: " + ex.Message);
+                         Debug.WriteLine("Error moving file: " + ex.Message);
                         if (addFolder.Visibility == Visibility.Visible)
                         {
 
@@ -2522,10 +2522,12 @@ namespace DeskFrame
 
             if (clickedFileItem != null)
             {
-                clickedFileItem.IsSelected = true;
-
-                if (!(Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+                if (!(Keyboard.IsKeyDown(Key.LeftCtrl)
+                || Keyboard.IsKeyDown(Key.RightCtrl)
+                || Keyboard.IsKeyDown(Key.LeftShift)
+                || Keyboard.IsKeyDown(Key.RightShift)))
                 {
+                    clickedFileItem.IsSelected = true;
                     if (!_contextMenuIsOpen)
                     {
                         _selectedItems.Clear();
@@ -2539,10 +2541,14 @@ namespace DeskFrame
                             }
                         }
                     }
-                    if (!_selectedItems.Contains(clickedFileItem))
-                    {
-                        _selectedItems.Add(clickedFileItem);
-                    }
+                }
+                else
+                {
+                    clickedFileItem.IsSelected = !clickedFileItem.IsSelected;
+                }
+                if (clickedFileItem.IsSelected && !_selectedItems.Contains(clickedFileItem))
+                {
+                    _selectedItems.Add(clickedFileItem);
                 }
             }
             if (e.ClickCount == 2 && sender is Border border && border.DataContext is FileItem clickedItem)
@@ -2610,6 +2616,39 @@ namespace DeskFrame
                     else
                     {
                         _selectedItems.Remove(clickedFileItem);
+                    }
+                }
+            }
+            if (clickedFileItem != null && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
+            {
+                int clickedIndex = FileItems.IndexOf(clickedFileItem);
+                int minSelectedIndex = int.MaxValue;
+                int maxSelectedIndex = -1;
+                for (int i = 0; i < FileItems.Count; i++)
+                {
+                    if (!FileItems[i].IsSelected) continue;
+                    if (i == clickedIndex) continue;
+                    maxSelectedIndex = i;
+                    if (minSelectedIndex > i) minSelectedIndex = i;
+                }
+                int selectToIndex = Math.Abs(clickedIndex - minSelectedIndex) <= Math.Abs(clickedIndex - maxSelectedIndex)
+                                    ? minSelectedIndex
+                                    : maxSelectedIndex;
+
+                int start = Math.Min(clickedIndex, selectToIndex);
+                int end = Math.Max(clickedIndex, selectToIndex);
+                _selectedItems.Clear();
+
+                for (int i = 0; i < FileItems.Count; i++)
+                {
+                    if (start <= i && i <= end)
+                    {
+                        FileItems[i].IsSelected = true;
+                        _selectedItems.Add(FileItems[i]);
+                    }
+                    else
+                    {
+                        FileItems[i].IsSelected = false;
                     }
                 }
             }
