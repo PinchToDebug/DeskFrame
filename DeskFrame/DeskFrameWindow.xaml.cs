@@ -2619,7 +2619,8 @@ namespace DeskFrame
                     }
                 }
             }
-            if (clickedFileItem != null && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
+            if (clickedFileItem != null && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                && !((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))))
             {
                 int clickedIndex = FileItems.IndexOf(clickedFileItem);
                 int minSelectedIndex = int.MaxValue;
