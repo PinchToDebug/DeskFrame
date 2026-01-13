@@ -806,8 +806,9 @@ public class Instance : INotifyPropertyChanged
         _settingDefault = settingDefault;
         _width = 175;
         _height = 215;
-        _posX = Screen.PrimaryScreen!.Bounds.Width / 2 - _width / 2;
-        _posY = Screen.PrimaryScreen!.Bounds.Height / 2 - _height / 2;
+        double scale = Graphics.FromHwnd(IntPtr.Zero).DpiX / 96f;
+        _posX = ((Screen.PrimaryScreen!.Bounds.Width - _width * scale) / 2) / scale;
+        _posY = ((Screen.PrimaryScreen!.Bounds.Height - _height * scale) / 2) / scale;
         _name = name;
         _minimized = false;
         _folder = "empty";
@@ -834,7 +835,7 @@ public class Instance : INotifyPropertyChanged
 
             v = helper.ReadKeyValueRoot("TitleFontFamily");
             if (v != null) _titleFontFamily = v.ToString();
-           
+
             v = helper.ReadKeyValueRoot("ItemFontFamily");
             if (v != null) _itemFontFamily = v.ToString();
 
