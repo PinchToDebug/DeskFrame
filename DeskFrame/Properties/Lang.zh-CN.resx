@@ -469,4 +469,7 @@
   <data name="DeskFrameFrameSettings_SearchDescription" xml:space="preserve">
     <value>要搜索，请将光标移到要搜索的框架上并开始输入</value>
   </data>
+  <data name="Deskframe.DropaFileOrFolder" xml:space="preserve">
+    <value>拖拽文件或文件夹</value>
+  </data>
 </root>

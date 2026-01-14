@@ -484,4 +484,8 @@
   <data name="DeskFrameFrameSettings_SearchDescription" xml:space="preserve">
     <value>To search move the cursor over the frame you want to search in and start typing</value>
   </data>
+  <data name="Deskframe.DropaFileOrFolder" xml:space="preserve">
+    <value>Drop a file or folder</value>
+    <comment>Text above the + sign when the frame folder isn't set</comment>
+  </data>
 </root>

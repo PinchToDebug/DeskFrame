@@ -470,4 +470,7 @@
   <data name="DeskFrameFrameSettings_SearchDescription" xml:space="preserve">
     <value>Para buscar, coloque el cursor sobre el marco en el que desea buscar y comience a escribir</value>
   </data>
+  <data name="Deskframe.DropaFileOrFolder" xml:space="preserve">
+    <value>Arrastra archivo/carpeta</value>
+  </data>
 </root>

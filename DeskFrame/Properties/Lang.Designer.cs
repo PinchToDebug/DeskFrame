@@ -70,6 +70,15 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drop a file or folder.
+        /// </summary>
+        public static string Deskframe_DropaFileOrFolder {
+            get {
+                return ResourceManager.GetString("Deskframe.DropaFileOrFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updating requires administrator privileges.
         /// </summary>
         public static string Deskframe_Update_DialogContent {

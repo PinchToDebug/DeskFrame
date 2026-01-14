@@ -470,4 +470,7 @@
   <data name="DeskFrameFrameSettings_SearchDescription" xml:space="preserve">
     <value>검색하려면 검색할 프레임 위에 커서를 올리고 입력을 시작하세요</value>
   </data>
+  <data name="Deskframe.DropaFileOrFolder" xml:space="preserve">
+    <value>파일/폴더 드래그</value>
+  </data>
 </root>

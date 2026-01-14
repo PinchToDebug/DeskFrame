@@ -402,7 +402,7 @@
 
                                 <TextBlock
                                     Margin="0,5,5,10"
-                                    Text="Drop a file or folder"
+                                    Text="{x:Static prop:Lang.Deskframe_DropaFileOrFolder}"
                                     HorizontalAlignment="Center"
                                     Foreground="White"
                                     FontSize="14"/>
