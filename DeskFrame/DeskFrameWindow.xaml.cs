@@ -24,6 +24,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using System.Windows.Shell;
 using System.Windows.Threading;
 using WindowsDesktop;
@@ -46,13 +47,18 @@ using MenuItem = Wpf.Ui.Controls.MenuItem;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
 using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using Path = System.IO.Path;
 using Point = System.Drawing.Point;
+using Rectangle = System.Drawing.Rectangle;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
 using TextBox = System.Windows.Controls.TextBox;
 namespace DeskFrame
 {
     public partial class DeskFrameWindow : System.Windows.Window
     {
+        private readonly List<Particle> particles = new List<Particle>();
+        private readonly List<Ellipse> visuals = new List<Ellipse>();
+
         private GrayscaleEffect _grayscaleEffect;
         ShellContextMenu scm = new ShellContextMenu();
         public Instance Instance { get; set; }
@@ -2458,7 +2464,7 @@ namespace DeskFrame
                     }
                     catch (Exception ex)
                     {
-                         Debug.WriteLine("Error moving file: " + ex.Message);
+                        Debug.WriteLine("Error moving file: " + ex.Message);
                         if (addFolder.Visibility == Visibility.Visible)
                         {
 
@@ -3483,7 +3489,76 @@ namespace DeskFrame
             {
                 VirtualDesktopSupported = false;
             }
+            if (Instance.Folder == "empty")
+            {
+                ParticleCanvas.Margin = new Thickness(0, titleBar.Height + 10, 0, 0);
+                CompositionTarget.Rendering += UpdateParticle!;
+            }
+            else
+            {
+                ParticleCanvas.Visibility = Visibility.Hidden;
+            }
         }
+
+        private void UpdateParticle(object sender, EventArgs e)
+        {
+            double cx = ParticleCanvas.ActualWidth / 2;
+            double cy = (ParticleCanvas.ActualHeight + titleBar.Height) / 2;
+
+            if (_dragdropIntoFolder && Instance.Folder == "empty")
+            {
+                for (int i = 0; i < 20 && particles.Count < 20; i++)
+                {
+                    CreateParticle();
+                }
+            }
+            else if (Instance.Folder != "empty" && particles.Count == 0)
+            {
+                CompositionTarget.Rendering -= UpdateParticle;
+                ParticleCanvas.Visibility = Visibility.Hidden;
+            }
+
+            for (int i = particles.Count - 1; i >= 0; i--)
+            {
+                Particle p = particles[i];
+                p.Update(cx, cy, 400);
+                Ellipse v = visuals[i];
+                v.Opacity = p.Opacity;
+                Canvas.SetLeft(v, p.X);
+                Canvas.SetTop(v, p.Y);
+
+                if (!p.ToRemove)
+                {
+                    ParticleCanvas.Children.Remove(v);
+                    visuals.RemoveAt(i);
+                    particles.RemoveAt(i);
+                }
+            }
+        }
+        private void CreateParticle()
+        {
+            Particle p = new Particle(ParticleCanvas.ActualWidth, ParticleCanvas.ActualHeight);
+            particles.Add(p);
+
+            Ellipse e = new Ellipse
+            {
+                Width = 6,
+                Height = 6,
+                Opacity = 1,
+                Fill = new RadialGradientBrush
+                {
+                    GradientStops =
+                    {
+                        new GradientStop(Colors.White, 0.0),
+                        new GradientStop(Colors.White, 0.6),
+                        new GradientStop(Colors.Transparent, 1.0)
+                    }
+                }
+            };
+            visuals.Add(e);
+            ParticleCanvas.Children.Add(e);
+        }
+
         private void MainWindow_SourceInitialized(object sender, EventArgs e)
         {
             _previousHeight = Instance.Height;
