@@ -430,7 +430,7 @@ namespace DeskFrame
 
                     MainWindow._controller.WriteOverInstanceToKey(_instance, name);
                     _frame.LoadFiles(_frame._currentFolderPath);
-                    _frame.InitializeFileWatcher();
+                    _frame.InitializeFileWatchers();
 
                 }
 
@@ -670,7 +670,7 @@ namespace DeskFrame
                 _instance.TitleText = _instance.TitleText;
                 TitleTextBox.Text = _instance.TitleText;
                 // DataContext = this;
-                _frame.InitializeFileWatcher();
+                _frame.InitializeFileWatchers();
                 _frame.PathToBackButton.Visibility = Visibility.Collapsed;
             }
         }

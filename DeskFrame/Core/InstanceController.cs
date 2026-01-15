@@ -622,7 +622,8 @@ public class InstanceController
                                         RegistryKey key = Registry.CurrentUser.OpenSubKey(temp.GetKeyLocation(), true)!;
                                         if (key != null)
                                         {
-                                            Registry.CurrentUser.DeleteSubKeyTree(temp.GetKeyLocation());
+                                            temp.IsFolderMissing = true;
+                                            Instances.Add(temp);
                                         }
                                     }
                                 }

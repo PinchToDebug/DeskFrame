@@ -64,6 +64,7 @@ namespace DeskFrame
         public Instance Instance { get; set; }
         public string _currentFolderPath;
         private FileSystemWatcher _fileWatcher = new FileSystemWatcher();
+        private FileSystemWatcher _parentWatcher = new FileSystemWatcher();
         public ObservableCollection<FileItem> FileItems { get; set; }
 
         public bool VirtualDesktopSupported;
@@ -1539,15 +1540,21 @@ namespace DeskFrame
                 showFolder.Visibility = Visibility.Hidden;
                 addFolder.Visibility = Visibility.Visible;
             }
-            else
+            else if (!instance.IsFolderMissing)
             {
                 LoadingProgressRing.Visibility = Visibility.Visible;
                 LoadFiles(instance.Folder);
                 title.Text = Instance.TitleText ?? Instance.Name;
-
                 DataContext = this;
-                InitializeFileWatcher();
             }
+            else if (instance.IsFolderMissing)
+            {
+                title.Text = Instance.TitleText ?? Instance.Name;
+                DataContext = this;
+                missingFolderGrid.Visibility = Visibility.Visible;
+            }
+            InitializeFileWatchers();
+
             if (Instance.SnapWidthToIconWidth_PlusScrollbarWidth)
             {
                 FileWrapPanel.Margin = new Thickness(6, 5, 0, 5);
@@ -1917,14 +1924,29 @@ namespace DeskFrame
             this.BeginAnimation(HeightProperty, animation);
         }
 
-        public void InitializeFileWatcher()
+        public void InitializeFileWatchers()
         {
             _fileWatcher = null;
-            if (!Path.Exists(_currentFolderPath))
+            _parentWatcher = new FileSystemWatcher(Path.GetDirectoryName(Instance.Folder))
             {
-                this.Close();
+                NotifyFilter = NotifyFilters.DirectoryName,
+                IncludeSubdirectories = false,
+                EnableRaisingEvents = true
+            };
+            _parentWatcher.Created += OnParentChanged;
+            _parentWatcher.Deleted += OnParentChanged;
+            _parentWatcher.Renamed += OnParentRenamed;
+
+            if (!Path.Exists(Instance.Folder))
+            {
+                missingFolderGrid.Visibility = Visibility.Visible;
                 return;
             }
+            else
+            {
+                missingFolderGrid.Visibility = Visibility.Hidden;
+            }
+
             _fileWatcher = new FileSystemWatcher(_currentFolderPath)
             {
                 NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.LastWrite,
@@ -1936,10 +1958,83 @@ namespace DeskFrame
             _fileWatcher.Renamed += OnFileRenamed;
             _fileWatcher.Changed += OnFileChanged;
         }
+        private void OnParentRenamed(object sender, RenamedEventArgs e)
+        {
+            if (e.Name!.Equals(Path.GetFileName(Instance.Folder), StringComparison.OrdinalIgnoreCase))
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    if (!Path.Exists(Instance.Folder))
+                    {
+                        PathToBackButton.Visibility = Visibility.Collapsed;
+                        missingFolderGrid.Visibility = Visibility.Visible;
+                        FileItems.Clear();
+                    }
+                    else
+                    {
+                        missingFolderGrid.Visibility = Visibility.Hidden;
+                        LoadFiles(Instance.Folder);
+                        InitializeFileWatchers();
+                    }
+                });
+            }
+            if (e.OldName!.Equals(Path.GetFileName(Instance.Folder), StringComparison.OrdinalIgnoreCase))
+            {
+
+                var lastInstanceName = Instance.Name;
+                Dispatcher.Invoke(() =>
+                {
+                    Instance.Folder = e.FullPath;
+                    Instance.IsFolderMissing = false;
+                    _currentFolderPath = Instance.Folder;
+                    Instance.Name = Path.GetFileName(e.Name!);
+                    MainWindow._controller.WriteOverInstanceToKey(Instance, lastInstanceName);
+                    title.Text = Instance.TitleText ?? Instance.Name;
+                    PathToBackButton.Visibility = Visibility.Collapsed;
+                    missingFolderGrid.Visibility = Visibility.Hidden;
+                    InitializeFileWatchers();
+
+                });
+            }
+        }
+        private void OnParentChanged(object sender, FileSystemEventArgs e)
+        {
+
+            if (e.Name.Equals(Path.GetFileName(Instance.Folder), StringComparison.OrdinalIgnoreCase))
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    if (!Path.Exists(Instance.Folder))
+                    {
+                        PathToBackButton.Visibility = Visibility.Collapsed;
+                        missingFolderGrid.Visibility = Visibility.Visible;
+                        FileItems.Clear();
+
+
+                    }
+                    else
+                    {
+                        missingFolderGrid.Visibility = Visibility.Hidden;
+                        LoadFiles(Instance.Folder);
+                        InitializeFileWatchers();
+                    }
+                });
+            }
+        }
         private void OnFileChanged(object sender, FileSystemEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
+                if (!Path.Exists(Instance.Folder) || e.Name == Instance.Folder)
+                {
+                    PathToBackButton.Visibility = Visibility.Collapsed;
+                    missingFolderGrid.Visibility = Visibility.Visible;
+                    return;
+                }
+                else
+                {
+                    missingFolderGrid.Visibility = Visibility.Hidden;
+                }
                 Debug.WriteLine($"File changed: {e.ChangeType} - {e.FullPath}");
                 LoadFiles(_currentFolderPath);
             });
@@ -2425,7 +2520,7 @@ namespace DeskFrame
                                 MainWindow._controller.WriteInstanceToKey(Instance);
                                 LoadFiles(_currentFolderPath);
                                 DataContext = this;
-                                InitializeFileWatcher();
+                                InitializeFileWatchers();
                                 showFolder.Visibility = Visibility.Visible;
                                 LoadingProgressRing.Visibility = Visibility.Visible;
                                 addFolder.Visibility = Visibility.Hidden;
@@ -2465,6 +2560,12 @@ namespace DeskFrame
                     catch (Exception ex)
                     {
                         Debug.WriteLine("Error moving file: " + ex.Message);
+                        if (!Path.Exists(Instance.Folder))
+                        {
+                            PathToBackButton.Visibility = Visibility.Collapsed;
+                            missingFolderGrid.Visibility = Visibility.Visible;
+                            FileItems.Clear();
+                        }
                         if (addFolder.Visibility == Visibility.Visible)
                         {
 
@@ -2485,7 +2586,7 @@ namespace DeskFrame
                             MainWindow._controller.WriteInstanceToKey(Instance);
                             LoadFiles(_currentFolderPath);
                             DataContext = this;
-                            InitializeFileWatcher();
+                            InitializeFileWatchers();
                             showFolder.Visibility = Visibility.Visible;
                             LoadingProgressRing.Visibility = Visibility.Visible;
                             addFolder.Visibility = Visibility.Hidden;
@@ -2568,7 +2669,7 @@ namespace DeskFrame
                             ? Visibility.Collapsed : Visibility.Visible;
                         Search.Margin = PathToBackButton.Visibility == Visibility.Visible ?
                                         new Thickness(PathToBackButton.Width + 4, 0, 0, 0) : new Thickness(0, 0, 0, 0);
-                        InitializeFileWatcher();
+                        InitializeFileWatchers();
                         FileItems.Clear();
                         LoadFiles(clickedItem.FullPath);
                     }
@@ -3666,7 +3767,7 @@ namespace DeskFrame
                 FileItems.Clear();
                 LoadFiles(Instance.Folder);
                 _currentFolderPath = Instance.Folder;
-                InitializeFileWatcher();
+                InitializeFileWatchers();
 
             };
             reloadItems.Visibility = (Instance.Folder == "empty" || string.IsNullOrEmpty(Instance.Folder)) ? Visibility.Collapsed : Visibility.Visible;
@@ -4233,7 +4334,7 @@ namespace DeskFrame
             FileItems.Clear();
             LoadFiles(parentPath!);
             _currentFolderPath = parentPath!;
-            InitializeFileWatcher();
+            InitializeFileWatchers();
         }
 
         private void SymbolIcon_MouseEnter(object sender, MouseEventArgs e)
@@ -4289,6 +4390,29 @@ namespace DeskFrame
                 _isRenamingFromContextMenu = false;
                 _isRenaming = false;
 
+            }
+        }
+        private void pickMissingFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            var folderDialog = new FolderBrowserDialog
+            {
+                Description = "Select a folder",
+                ShowNewFolderButton = true
+            };
+            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var lastInstanceName = Instance.Name;
+                FileItems.Clear();
+                Instance.Folder = folderDialog.SelectedPath;
+                Instance.IsFolderMissing = false;
+                _currentFolderPath = Instance.Folder;
+                Instance.Name = Path.GetFileName(folderDialog.SelectedPath);
+                MainWindow._controller.WriteOverInstanceToKey(Instance, lastInstanceName);
+                LoadFiles(_currentFolderPath);
+                title.Text = Instance.TitleText ?? Instance.Name;
+                PathToBackButton.Visibility = Visibility.Collapsed;
+                missingFolderGrid.Visibility = Visibility.Hidden;
+                InitializeFileWatchers();
             }
         }
 

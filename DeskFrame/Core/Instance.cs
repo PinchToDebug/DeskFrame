@@ -8,7 +8,7 @@ public class Instance : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     public bool isWindowClosing = false;
-
+    public bool IsFolderMissing = false;
     private double _posX;
     private double _posY;
     private double _width;

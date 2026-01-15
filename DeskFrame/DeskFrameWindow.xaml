@@ -481,6 +481,51 @@
                             <ui:SymbolIcon Symbol="Add48" FontSize="86" Foreground="White" OpacityMask="#4CFFFFFF"/>
                         </StackPanel>
                     </Grid>
+
+                    <Border >
+                        <Grid x:Name="missingFolderGrid" Visibility="Hidden" 
+                              HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.Resources>
+                                <DropShadowEffect x:Key="glowEffect" BlurRadius="2" Direction="320" Opacity="1" ShadowDepth="0.5" Color="Black"/>
+                            </Grid.Resources>
+                            <StackPanel Orientation="Vertical" >
+                                <Grid HorizontalAlignment="Center"  Effect="{StaticResource glowEffect}">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <ui:SymbolIcon Grid.Column="0"  Effect="{StaticResource glowEffect}"
+                                                   Symbol="Warning12"
+                                                   Foreground="#FFFEA5A5"
+                                               FontWeight="Bold"
+                                                   FontSize="20" 
+                                                   VerticalAlignment="Center"/>
+
+                                    <TextBlock Grid.Column="1" Effect="{StaticResource glowEffect}"
+                                               Margin="6,0,0,0"
+                                               Text="Folder is missing"
+                                               Foreground="#FFFEA5A5"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center" 
+                                               FontSize="14" 
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Center"/>
+
+                                </Grid>
+                                <Grid HorizontalAlignment="Center"  Effect="{StaticResource glowEffect}">
+                                    <Button Content="Pick folder"  Effect="{StaticResource glowEffect}"
+                                            x:Name="pickMissingFolderButton"
+                                            Click="pickMissingFolderButton_Click"
+                                            HorizontalAlignment="Center"
+                                            Foreground="White"
+                                            Margin="0,10,0,5"/>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
                 </Grid>
             </Border>
             <Border x:Name="WindowBorder" 
