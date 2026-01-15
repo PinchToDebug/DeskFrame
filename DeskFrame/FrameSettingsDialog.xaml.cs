@@ -310,7 +310,8 @@ namespace DeskFrame
                 }
                 _frame.titleBar.Background = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.TitleBarColor));
                 _frame.title.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.TitleTextColor));
-                _frame.title.Text = TitleTextBox.Text ?? _frame.Instance.Name;
+                _frame.title.Text = TitleTextBox.Text == "" ? _instance.Name : _instance.TitleText;
+
                 _frame.WindowBackground.Background = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString(_instance.ListViewBackgroundColor)); ;
 
 
@@ -389,7 +390,7 @@ namespace DeskFrame
                 _instance.ActiveBorderEnabled = _originalInstance.ActiveBorderEnabled;
                 _instance.ActiveBackgroundEnabled = _originalInstance.ActiveBackgroundEnabled;
                 _instance.ActiveTitleTextEnabled = _originalInstance.ActiveTitleTextEnabled;
-                _instance.TitleText = _originalInstance.TitleText ?? _originalInstance.Name;
+                _instance.TitleText = _originalInstance.TitleText == "" ? _originalInstance.Name : _originalInstance.TitleText;
                 _instance.FileFilterRegex = _originalInstance.FileFilterRegex;
                 _instance.FileFilterHideRegex = _originalInstance.FileFilterHideRegex;
                 _instance.TitleTextAlignment = _originalInstance.TitleTextAlignment;
@@ -424,9 +425,9 @@ namespace DeskFrame
                     _instance.Folder = _originalInstance.Folder;
                     _frame._currentFolderPath = _originalInstance.Folder;
                     string name = _instance.Name;
-
-                    _frame.title.Text = Path.GetFileName(_frame._currentFolderPath);
                     _instance.Name = Path.GetFileName(_originalInstance.Name);
+
+                    _frame.title.Text = TitleTextBox.Text == "" ? _instance.Name : _instance.TitleText;
 
                     MainWindow._controller.WriteOverInstanceToKey(_instance, name);
                     _frame.LoadFiles(_frame._currentFolderPath);
@@ -666,7 +667,7 @@ namespace DeskFrame
                 MainWindow._controller.WriteOverInstanceToKey(_instance, _lastInstanceName);
                 _lastInstanceName = _instance.Name;
                 _frame.LoadFiles(_frame._currentFolderPath);
-                _frame.title.Text = _instance.TitleText;
+                _frame.title.Text = _instance.TitleText == "" ? _instance.Name : _instance.TitleText;
                 _instance.TitleText = _instance.TitleText;
                 TitleTextBox.Text = _instance.TitleText;
                 // DataContext = this;

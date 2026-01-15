@@ -1544,12 +1544,13 @@ namespace DeskFrame
             {
                 LoadingProgressRing.Visibility = Visibility.Visible;
                 LoadFiles(instance.Folder);
-                title.Text = Instance.TitleText ?? Instance.Name;
+                title.Text = Instance.TitleText == "" ? Instance.Name : Instance.TitleText;
+
                 DataContext = this;
             }
             else if (instance.IsFolderMissing)
             {
-                title.Text = Instance.TitleText ?? Instance.Name;
+                title.Text = Instance.TitleText == "" ? Instance.Name : Instance.TitleText;
                 DataContext = this;
                 missingFolderGrid.Visibility = Visibility.Visible;
             }
@@ -1989,7 +1990,7 @@ namespace DeskFrame
                     _currentFolderPath = Instance.Folder;
                     Instance.Name = Path.GetFileName(e.Name!);
                     MainWindow._controller.WriteOverInstanceToKey(Instance, lastInstanceName);
-                    title.Text = Instance.TitleText ?? Instance.Name;
+                    title.Text = Instance.TitleText == "" ? Instance.Name : Instance.TitleText;
                     PathToBackButton.Visibility = Visibility.Collapsed;
                     missingFolderGrid.Visibility = Visibility.Hidden;
                     InitializeFileWatchers();
@@ -4409,7 +4410,7 @@ namespace DeskFrame
                 Instance.Name = Path.GetFileName(folderDialog.SelectedPath);
                 MainWindow._controller.WriteOverInstanceToKey(Instance, lastInstanceName);
                 LoadFiles(_currentFolderPath);
-                title.Text = Instance.TitleText ?? Instance.Name;
+                title.Text = Instance.TitleText == "" ? Instance.Name : Instance.TitleText;
                 PathToBackButton.Visibility = Visibility.Collapsed;
                 missingFolderGrid.Visibility = Visibility.Hidden;
                 InitializeFileWatchers();
