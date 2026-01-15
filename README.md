@@ -82,5 +82,4 @@ This project is licensed under the MIT License.
 - [SVG.NET](https://github.com/svg-net/SVG) - [MS-PL License](https://github.com/svg-net/SVG?tab=MS-PL-1-ov-file#readme)
 - [VirtualDesktop](https://github.com/Slion/VirtualDesktop) - [MIT License](https://github.com/Slion/VirtualDesktop/blob/main/LICENSE)
 - [H.Hooks](https://github.com/HavenDV/H.Hooks) - [MIT License](https://github.com/HavenDV/H.Hooks?tab=MIT-1-ov-file#readme)
-- [Vanara](https://github.com/dahall/Vanara) - [MIT License](https://github.com/dahall/Vanara?tab=MIT-1-ov-file#readme)
 - [Microsoft.WindowsAPICodePack.Shell](https://github.com/contre/Windows-API-Code-Pack-1.1) - [Custom License](https://github.com/contre/Windows-API-Code-Pack-1.1?tab=License-1-ov-file)
