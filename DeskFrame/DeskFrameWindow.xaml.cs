@@ -3042,7 +3042,7 @@ namespace DeskFrame
 
                 if (_canChangeItemPosition && _isDragging && !fileItem.IsSelected)
                 {
-                    border.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
+                    fileItem.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
 
                     fileItem.IsMoveBarVisible = true;
                 }
@@ -3059,7 +3059,7 @@ namespace DeskFrame
                     }
                     else
                     {
-                        border.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
+                        fileItem.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
                     }
                 }
                 else if (!_dragdropIntoFolder)
@@ -3070,7 +3070,7 @@ namespace DeskFrame
                     }
                     else
                     {
-                        border.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
+                        fileItem.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
                     }
                 }
                 if (showFolderInGrid.Visibility == Visibility.Visible && !fileItem.IsSelected && fileItem.IsFolder)
@@ -3094,11 +3094,11 @@ namespace DeskFrame
                 _dropIntoFolderPath = "";
                 if (!fileItem.IsSelected)
                 {
-                    border.Background = fileItem.IsSelected ? new SolidColorBrush(Color.FromArgb(30, 255, 255, 255)) : Brushes.Transparent;
+                    fileItem.Background = fileItem.IsSelected ? new SolidColorBrush(Color.FromArgb(30, 255, 255, 255)) : Brushes.Transparent;
                 }
                 else
                 {
-                    border.Background = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255));
+                    fileItem.Background = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255));
                 }
                 if (showFolderInGrid.Visibility == Visibility.Visible && !fileItem.IsSelected /*&& !fileItem.IsFolder*/)
                 {
