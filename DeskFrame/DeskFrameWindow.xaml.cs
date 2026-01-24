@@ -3520,10 +3520,19 @@ namespace DeskFrame
         {
             var cursorPos = System.Windows.Forms.Cursor.Position;
             var windowPos = this.PointToScreen(new System.Windows.Point(0, 0));
-            var windowWidth = this.ActualWidth;
-            var windowHeight = this.ActualHeight;
-            if (cursorPos.X - 10 < windowPos.X || cursorPos.X + 10 > windowPos.X + windowWidth ||
-                cursorPos.Y - 10 < windowPos.Y || cursorPos.Y + 10 > windowPos.Y + windowHeight)
+
+            // [수정 1] 스케일 팩터가 0일 경우를 대비해 기본값 1.0 설정
+            double scale = _windowsScalingFactor > 0 ? _windowsScalingFactor : 1.0;
+
+            // [수정 2] 논리 크기(WPF 단위)를 물리 크기(모니터 픽셀 단위)로 변환
+            var physicalWidth = this.ActualWidth * scale;
+            var physicalHeight = this.ActualHeight * scale;
+
+            // [수정 3] 비교 로직에 변환된 물리 크기 사용
+            if (cursorPos.X - 10 < windowPos.X ||
+                cursorPos.X + 10 > windowPos.X + physicalWidth ||
+                cursorPos.Y - 10 < windowPos.Y ||
+                cursorPos.Y + 10 > windowPos.Y + physicalHeight)
             {
                 if (!_contextMenuIsOpen)
                 {
