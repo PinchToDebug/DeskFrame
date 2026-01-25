@@ -525,6 +525,11 @@ namespace DeskFrame
                 _bringForwardForMove = false;
                 return -1;
             }
+            if (_isLeftButtonDown && msg == 0x0003) // WM_MOVING
+            {
+                CheckAndReScaleSwindow();
+            }
+
             if (msg == 0x020A && (GetAsyncKeyState(0x11) & 0x8000) != 0) // WM_MOUSEWHEEL && control down
             {
                 _changeIconSizeCts.Cancel();
@@ -1248,8 +1253,7 @@ namespace DeskFrame
             SetWindowLong(hwnd, GWL_STYLE, style);
 
             // convert coords to parent-relative coords
-            uint dpi = GetDpiForWindow(hwnd);
-            _windowsScalingFactor = dpi / 96.0;
+            _windowsScalingFactor = GetScalingForWindow();
             POINT pt = new POINT
             {
                 X = (int)(Instance.PosX * _windowsScalingFactor),
@@ -1282,8 +1286,7 @@ namespace DeskFrame
                 {
                     if (token.IsCancellationRequested) return;
 
-                    uint dpi = GetDpiForWindow(hwnd);
-                    _windowsScalingFactor = dpi / 96.0;
+                    _windowsScalingFactor = GetScalingForWindow();
 
                     POINT pt = new POINT
                     {
@@ -1310,18 +1313,8 @@ namespace DeskFrame
             {
                 this.Height = titleBar.Height;
             }
-            var interopHelper = new WindowInteropHelper(this);
-            interopHelper.EnsureHandle();
-            IntPtr _hwnd = interopHelper.Handle;
-            double currentScale = GetDpiForWindow(_hwnd) / 96.0;
-            if (_windowsScalingFactor != currentScale)
-            {
-                _windowsScalingFactor = currentScale;
-                foreach (var item in FileItems)
-                {
-                    item.Thumbnail = await GetThumbnailAsync(item.FullPath!);
-                }
-            }
+            CheckAndReScaleSwindow(true);
+
         }
 
         public void SetAsToolWindow()
@@ -1449,6 +1442,7 @@ namespace DeskFrame
             HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             source.AddHook(WndProc);
             MouseLeaveWindow(false);
+            _windowsScalingFactor = GetScalingForWindow();
             FileListView.ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
         }
         private void ItemContainerGenerator_StatusChanged(object sender, EventArgs e)
@@ -1998,7 +1992,7 @@ namespace DeskFrame
             }
             if (e.OldName!.Equals(Path.GetFileName(Instance.Folder), StringComparison.OrdinalIgnoreCase))
             {
-                
+
                 var lastInstanceName = Instance.Name;
                 Dispatcher.Invoke(() =>
                 {
@@ -3544,32 +3538,11 @@ namespace DeskFrame
                 Instance.PosX = this.Left;
                 Instance.PosY = this.Top;
             }
+            CheckAndReScaleSwindow(true);
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             KeepWindowBehind();
-            //WindowChrome.SetWindowChrome(this, Instance.IsLocked ?
-            //new WindowChrome
-            //{
-            //    ResizeBorderThickness = new Thickness(0),
-            //    CaptionHeight = 0
-            //}
-            //: _isOnBottom ?
-            //    new WindowChrome
-            //    {
-            //        GlassFrameThickness = new Thickness(5),
-            //        CaptionHeight = 0,
-            //        ResizeBorderThickness = new Thickness(0, Instance.Minimized ? 0 : 5, 5, 0),
-            //        CornerRadius = new CornerRadius(5)
-            //    } :
-            //    new WindowChrome
-            //    {
-            //        GlassFrameThickness = new Thickness(5),
-            //        CaptionHeight = 0,
-            //        ResizeBorderThickness = new Thickness(5, 0, 5, Instance.Minimized ? 0 : 5),
-            //        CornerRadius = new CornerRadius(5)
-            //    }
-            //);
             HandleWindowMove(true);
             try
             {
@@ -4434,6 +4407,42 @@ namespace DeskFrame
                 missingFolderGrid.Visibility = Visibility.Hidden;
                 InitializeFileWatchers();
             }
+        }
+        private void CheckAndReScaleSwindow(bool force = false)
+        {
+            double scale = GetScalingForWindow();
+            uint dpi = GetDpiForWindow(new WindowInteropHelper(this).Handle);
+            var scaleFactor = dpi / 96.0;
+
+            _windowsScalingFactor = scale;
+            WindowBackground.LayoutTransform = new ScaleTransform(_windowsScalingFactor / scaleFactor,
+                _windowsScalingFactor / scaleFactor);
+            WindowBackground.UpdateLayout();
+            WindowBackground.InvalidateMeasure();
+            WindowBackground.InvalidateArrange();
+            WindowBackground.UpdateLayout();
+            foreach (var item in FileItems)
+            {
+                Task.Run(async () => item.Thumbnail = await GetThumbnailAsync(item.FullPath!));
+            }
+        }
+        private double GetScalingForWindow()
+        {
+            IntPtr hwnd = new WindowInteropHelper(this).Handle;
+            GetWindowRect(hwnd, out RECT rect);
+
+            int centerX = (rect.Left + rect.Right) / 2;
+            int centerY = (rect.Top + rect.Bottom) / 2;
+
+            POINT pt = new POINT { X = centerX, Y = centerY };
+            ScreenToClient(GetParent(hwnd), ref pt);
+
+            IntPtr hMon = MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST);
+
+
+            GetDpiForMonitor(hMon, MonitorDpiType.MDT_EFFECTIVE_DPI, out uint dpiX, out _);
+
+            return dpiX / 96f;
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
