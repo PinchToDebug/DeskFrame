@@ -167,7 +167,7 @@
         <Grid>
             <Canvas x:Name="ParticleCanvas" IsHitTestVisible="False" Background="Transparent"/>
 
-            <Border MouseRightButtonDown="titleBar_MouseRightButtonDown"  x:Name="titleBar" Background="White"
+            <Border MouseRightButtonDown="titleBar_MouseRightButtonDown"  x:Name="titleBar" Background="White" 
                    VerticalAlignment="Top" Cursor="SizeAll" CornerRadius="5,5,0,0">
                 <Grid  >
                     <Grid.ColumnDefinitions>

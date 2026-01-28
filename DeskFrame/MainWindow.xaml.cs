@@ -230,7 +230,7 @@ namespace DeskFrame
                 if (!_controller.isInitializingInstances)
                 {
                     // System.Windows.Forms.MessageBox.Show("ee");
-
+                    Debug.WriteLine("WM_DISPLAYCHANGE");
                     _controller.CheckFrameWindowsLive();
                     Thread.Sleep(200);
                     DummyWindow();
@@ -241,6 +241,7 @@ namespace DeskFrame
             {
                 if (!_controller.isInitializingInstances)
                 {
+                    Debug.WriteLine("WM_WININICHANGE");
 
                     reseted = false;
                     _controller.CheckFrameWindowsLive();

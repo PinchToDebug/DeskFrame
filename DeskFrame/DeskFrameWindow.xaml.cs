@@ -149,6 +149,7 @@ namespace DeskFrame
         private string _folderSize;
         private double _itemWidth;
         private double _windowsScalingFactor;
+        private double _PreviouswindowsScalingFactor;
 
         public enum SortBy
         {
@@ -525,9 +526,9 @@ namespace DeskFrame
                 _bringForwardForMove = false;
                 return -1;
             }
-            if (_isLeftButtonDown && msg == 0x0003) // WM_MOVING
+            if (!_isLeftButtonDown && msg == 0x0003) // WM_MOVING
             {
-                CheckAndReScaleSwindow();
+                //  CheckAndReScaleSwindow();
             }
 
             if (msg == 0x020A && (GetAsyncKeyState(0x11) & 0x8000) != 0) // WM_MOUSEWHEEL && control down
@@ -1210,7 +1211,7 @@ namespace DeskFrame
                 POINT pt = new POINT { X = newWindowLeft, Y = newWindowTop };
                 ScreenToClient(GetParent(hwnd), ref pt);
                 SetWindowPos(hwnd, IntPtr.Zero, pt.X, pt.Y, 0, 0,
-                             SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE);
+                SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE);
             }
 
         }
@@ -1307,13 +1308,14 @@ namespace DeskFrame
         }
         public async void AdjustPosition()
         {
+            Debug.WriteLine("Adjusting position");
             SetParent(hwnd, IntPtr.Zero);
             SetAsDesktopChild();
             if (Instance.Minimized)
             {
                 this.Height = titleBar.Height;
             }
-            CheckAndReScaleSwindow(true);
+            CheckAndReScaleSwindow(true, true);
 
         }
 
@@ -1435,6 +1437,8 @@ namespace DeskFrame
                     CornerRadius = new CornerRadius(0)
                 }
             );
+            _PreviouswindowsScalingFactor = GetScalingForWindow();
+
             KeepWindowBehind();
             SetAsDesktopChild();
             SetNoActivate();
@@ -1442,7 +1446,6 @@ namespace DeskFrame
             HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             source.AddHook(WndProc);
             MouseLeaveWindow(false);
-            _windowsScalingFactor = GetScalingForWindow();
             FileListView.ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
         }
         private void ItemContainerGenerator_StatusChanged(object sender, EventArgs e)
@@ -1686,7 +1689,7 @@ namespace DeskFrame
                 _isMinimized = true;
                 Instance.Minimized = true;
                 // Debug.WriteLine("minimize: " + Instance.Height);
-                AnimateWindowHeight(titleBar.Height, Instance.AnimationSpeed);
+                AnimateWindowHeight(titleBar.Height * GetScalingForWindow(), Instance.AnimationSpeed);
             }
             else
             {
@@ -2883,7 +2886,7 @@ namespace DeskFrame
         {
             if (_isMinimized)
             {
-                AnimateWindowHeight(titleBar.Height, Instance.AnimationSpeed);
+                AnimateWindowHeight(titleBar.Height * GetScalingForWindow(), Instance.AnimationSpeed);
             }
             if (!IsCursorWithinWindowBounds() && !_isDragging)
             {
@@ -3535,10 +3538,16 @@ namespace DeskFrame
         {
             if (_isLeftButtonDown)
             {
-                Instance.PosX = this.Left;
-                Instance.PosY = this.Top;
+                if (!_changingScaling)
+                {
+                    Instance.PosX = this.Left;
+                    Instance.PosY = this.Top;
+                }
+                if (_PreviouswindowsScalingFactor != 0)
+                {
+                    CheckAndReScaleSwindow(true,false);
+                }
             }
-            CheckAndReScaleSwindow(true);
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -3592,6 +3601,7 @@ namespace DeskFrame
             {
                 ParticleCanvas.Visibility = Visibility.Hidden;
             }
+            CheckAndReScaleSwindow(true, true);
         }
 
         private void UpdateParticle(object sender, EventArgs e)
@@ -4408,27 +4418,67 @@ namespace DeskFrame
                 InitializeFileWatchers();
             }
         }
-        private void CheckAndReScaleSwindow(bool force = false)
+        private bool _changingScaling = false;
+        private void CheckAndReScaleSwindow(bool draggingWindow = false, bool initLoading = false)
         {
-            double scale = GetScalingForWindow();
+            double monitorScale = GetScalingForWindow();
+            var currentWindowScale = WindowBackground.LayoutTransform as ScaleTransform;
+            double currentWindowScaleX = 1;
+            double currentWindowScaleY = 1;
             uint dpi = GetDpiForWindow(new WindowInteropHelper(this).Handle);
-            var scaleFactor = dpi / 96.0;
+            var inheretedScale = dpi / 96.0;
 
-            _windowsScalingFactor = scale;
-            WindowBackground.LayoutTransform = new ScaleTransform(_windowsScalingFactor / scaleFactor,
-                _windowsScalingFactor / scaleFactor);
-            WindowBackground.UpdateLayout();
-            WindowBackground.InvalidateMeasure();
-            WindowBackground.InvalidateArrange();
-            WindowBackground.UpdateLayout();
-            foreach (var item in FileItems)
+            if (monitorScale != _PreviouswindowsScalingFactor || initLoading)
             {
-                Task.Run(async () => item.Thumbnail = await GetThumbnailAsync(item.FullPath!));
+                if (initLoading)
+                {
+                    _PreviouswindowsScalingFactor = inheretedScale;
+                }
+                _changingScaling = true;
+                if (currentWindowScale != null)
+                {
+                    currentWindowScaleX = currentWindowScale.ScaleX;
+                    currentWindowScaleY = currentWindowScale.ScaleY;
+                }
+
+                double newScale = (monitorScale / _PreviouswindowsScalingFactor) *currentWindowScaleX;
+             
+
+
+                // TODO: when scaling on main monitor 1 is smaller the other monitor frames spawn bad and other issues
+                Debug.WriteLine("monScale: \t" + monitorScale);
+                Debug.WriteLine("prevScale: \t" + _PreviouswindowsScalingFactor);
+                Debug.WriteLine("currWinS: \t" + currentWindowScaleX);
+                Debug.WriteLine("newScale: \t" + newScale);
+                Debug.WriteLine("inhereted: " + inheretedScale);
+
+
+                WindowBackground.LayoutTransform = new ScaleTransform(newScale, newScale);
+                WindowBackground.UpdateLayout();
+                WindowBackground.InvalidateMeasure();
+                WindowBackground.InvalidateArrange();
+                WindowBackground.UpdateLayout();
+               
+                Debug.WriteLine($"bSizes: {this.Width}w, {this.Height}");
+
+                if (!_isLeftButtonDown )
+                {
+                    this.Left = Instance.PosX * newScale;
+                    this.Top = Instance.PosY * newScale;
+                }
+             
+                this.Width = Instance.Width * newScale;
+                this.Height = Instance.Height * newScale;
+                Debug.WriteLine($"bSizes: {this.Width}w, {this.Height}");
+                _PreviouswindowsScalingFactor = monitorScale;
+                _changingScaling = false;
+
             }
         }
         private double GetScalingForWindow()
         {
-            IntPtr hwnd = new WindowInteropHelper(this).Handle;
+            IntPtr hwnd = IntPtr.Zero;
+            Dispatcher.Invoke(() => { hwnd = new WindowInteropHelper(this).Handle; });
             GetWindowRect(hwnd, out RECT rect);
 
             int centerX = (rect.Left + rect.Right) / 2;
