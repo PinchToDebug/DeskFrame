@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FrameSettings.AutoExpandonCursor" xml:space="preserve">
+    <value>Espandi al passaggio del cursore</value>
+    <comment>CHK_TB: Open "frame" on cursor over (unroll)</comment>
+  </data>
+  <data name="FrameSettings.CheckFolderSize" xml:space="preserve">
+    <value>Mostra la dimensione della cartella nel menu</value>
+    <comment>CHK_TB: Show the folder size of the folder that is shown in the frame in the menu accessed with right-click on the titlebar</comment>
+  </data>
+  <data name="FrameSettings.ShowLastAccessedItem" xml:space="preserve">
+    <value>Mostra prima gli ultimi elementi a cui si è effettuato l'accesso</value>
+    <comment>CHK_TB: Show last accessed items in the first row</comment>
+  </data>
+  <data name="FrameSettings.ShowShortcutArrow" xml:space="preserve">
+    <value>Mostra la freccia di scelta rapida</value>
+    <comment>CHK_TB: Show the shortcut arrow on the bottom left of icons</comment>
+  </data>
+  <data name="FrameSettings.IdleOpacityLabel" xml:space="preserve">
+    <value>Opacità inattiva:</value>
+  </data>
+  <data name="FrameSettings.AnimationSpeed" xml:space="preserve">
+    <value>Velocità dell'animazione:</value>
+  </data>
+  <data name="FrameSettings.ShowOnVirtualDesktopLabel" xml:space="preserve">
+    <value>Visibile sul desktop virtuale:</value>
+    <comment>Label: Show the frame on the 1,2,3.. virtual desktop.</comment>
+  </data>
+  <data name="FrameSettings.ShowFileExtensionIcon" xml:space="preserve">
+    <value>Estensioni dei file</value>
+    <comment>CHK: Add show "file extensions" icon in the titlebar for quick toggling</comment>
+  </data>
+  <data name="FrameSettings.ShowHiddenFilesIcon" xml:space="preserve">
+    <value>File nascosti</value>
+    <comment>CHK: Add show "hidden files" icon in the titlebar for quick toggling</comment>
+  </data>
+  <data name="FrameSettings.ShowOnVirtualDesktopPlaceHolder" xml:space="preserve">
+    <value>Tutti (o ad es. 1,2,3)</value>
+    <comment>Placeholder text in textbox for choosing which virtual desktops the frame should appear on</comment>
+  </data>
+  <data name="FrameSettings.TitleBarIcons" xml:space="preserve">
+    <value>Icone della barra del titolo:</value>
+    <comment>Label: Icons appearing in the titlebar</comment>
+  </data>
+  <data name="FrameSettings.BorderColor" xml:space="preserve">
+    <value>Colore del bordo (esadecimale):</value>
+  </data>
+  <data name="FrameSettings.CategoryMiscellaneous" xml:space="preserve">
+    <value>Varie</value>
+    <comment>Label for the category</comment>
+  </data>
+  <data name="FrameSettings.CategoryTitleBar" xml:space="preserve">
+    <value>Barra del titolo</value>
+    <comment>Label for the category</comment>
+  </data>
+  <data name="FrameSettings.CategoryFileItems" xml:space="preserve">
+    <value>Elementi dell'archivio</value>
+    <comment>Label for the category</comment>
+  </data>
+  <data name="FrameSettings.BackgroundColor" xml:space="preserve">
+    <value>Colore di sfondo (esadecimale):</value>
+  </data>
+  <data name="FrameSettings.TextColor" xml:space="preserve">
+    <value>Colore del testo (esadecimale):</value>
+  </data>
+  <data name="FrameSettings.TextShadowColor" xml:space="preserve">
+    <value>Colore ombreggiatura del testo (esadecimale):</value>
+  </data>
+  <data name="FrameSettings.TitleBarTextText" xml:space="preserve">
+    <value>Testo della barra del titolo:</value>
+    <comment>Title of the window</comment>
+  </data>
+  <data name="FrameSettings.Font" xml:space="preserve">
+    <value>Font:</value>
+  </data>
+  <data name="FrameSettings.TextSize" xml:space="preserve">
+    <value>Dimensione del testo:</value>
+  </data>
+  <data name="FrameSettings.TextAlignment" xml:space="preserve">
+    <value>Allineamento del testo:</value>
+  </data>
+  <data name="FrameSettings.ShowFilesRegex" xml:space="preserve">
+    <value>Mostra file (regex):</value>
+  </data>
+  <data name="FrameSettings.HideFilesRegex" xml:space="preserve">
+    <value>Nascondi file (regex):</value>
+  </data>
+  <data name="FrameSettings.Searchdot" xml:space="preserve">
+    <value>Ricerca...</value>
+  </data>
+  <data name="FrameSettings.IconSize" xml:space="preserve">
+    <value>Dimensione dell'icona:</value>
+  </data>
+  <data name="FrameSettings.ShowIconText" xml:space="preserve">
+    <value>Mostra il testo dell'icona</value>
+  </data>
+  <data name="FrameSettings.RevertButton" xml:space="preserve">
+    <value>Ripristina</value>
+    <comment>Button: revert settings</comment>
+  </data>
+  <data name="FrameSettings.ChangeStyle" xml:space="preserve">
+    <value>Cambia stile</value>
+    <comment>Button</comment>
+  </data>
+  <data name="FrameSettings.ChangeFolder" xml:space="preserve">
+    <value>Cambia cartella</value>
+    <comment>Button</comment>
+  </data>
+  <data name="DeskFrameFrameSettings.TitleBarText" xml:space="preserve">
+    <value>Impostazioni di DeskFrame</value>
+    <comment>Title of the window</comment>
+  </data>
+  <data name="DeskFrameFrameSettings.DefaultFrameStyle" xml:space="preserve">
+    <value>Stile cornice predefinito</value>
+  </data>
+  <data name="DeskFrameFrameSettings.ResetDefaultStyle" xml:space="preserve">
+    <value>Ripristina lo stile predefinito</value>
+  </data>
+  <data name="DeskFrameFrameSettings.AutoUpdate" xml:space="preserve">
+    <value>Aggiornamento automatico. Controlla l'aggiornamento all'avvio e ogni 6 ore</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DoubleClickHide" xml:space="preserve">
+    <value>Fare doppio clic sul desktop per visualizzare/nasconder le cornici
+</value>
+  </data>
+  <data name="DeskFrameFrameSettings.MadewithSpace" xml:space="preserve">
+    <value>Fatto con</value>
+    <comment>Made with + a whitespace</comment>
+  </data>
+  <data name="DeskFrameFrameSettings.ExportSettings" xml:space="preserve">
+    <value>Impostazioni di esportazione</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby" xml:space="preserve">
+    <value>Ordina per</value>
+  </data>
+  <data name="TitleBarContextMenu.LockFrame" xml:space="preserve">
+    <value>Blocca cornice
+</value>
+  </data>
+  <data name="TitleBarContextMenu.Reload" xml:space="preserve">
+    <value>Ricaricare</value>
+  </data>
+  <data name="TitleBarContextMenu.OpenFolder" xml:space="preserve">
+    <value>Apri cartella</value>
+  </data>
+  <data name="TitleBarContextMenu.GridView" xml:space="preserve">
+    <value>Visualizzazione griglia</value>
+  </data>
+  <data name="TitleBarContextMenu.HiddenFiles" xml:space="preserve">
+    <value>File nascosti</value>
+    <comment>Toggle</comment>
+  </data>
+  <data name="TitleBarContextMenu.FileExtensions" xml:space="preserve">
+    <value>Estensioni dei file</value>
+    <comment>Toggle</comment>
+  </data>
+  <data name="TitleBarContextMenu.FrameSettings" xml:space="preserve">
+    <value>Impostazioni della cornice</value>
+  </data>
+  <data name="TitleBarContextMenu.Info.Files" xml:space="preserve">
+    <value>File:</value>
+    <comment>whitespace at the end</comment>
+  </data>
+  <data name="TitleBarContextMenu.Info.Folders" xml:space="preserve">
+    <value>Cartelle:</value>
+    <comment>whitespace at the end</comment>
+  </data>
+  <data name="TitleBarContextMenu.Info.HiddenFiles" xml:space="preserve">
+    <value>(nascosto)</value>
+    <comment>hidden files</comment>
+  </data>
+  <data name="TitleBarContextMenu.Info.LastUpdated" xml:space="preserve">
+    <value>Ultimo aggiornamento:</value>
+    <comment>whitespace at the end</comment>
+  </data>
+  <data name="TitleBarContextMenu.Remove" xml:space="preserve">
+    <value>Rimuovere</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.FolderOrder" xml:space="preserve">
+    <value>Ordine delle cartelle</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.DateModified" xml:space="preserve">
+    <value>Data modificata</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.DateCreated" xml:space="preserve">
+    <value>Data di creazione</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.FileType" xml:space="preserve">
+    <value>Tipo di file</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.FileSize" xml:space="preserve">
+    <value>Dimensioni del file</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.Ascending" xml:space="preserve">
+    <value>Ascendente</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.Descending" xml:space="preserve">
+    <value>Discendente</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.FolderIder.None" xml:space="preserve">
+    <value>Nessuno</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.FolderIder.First" xml:space="preserve">
+    <value>Primo</value>
+  </data>
+  <data name="TitleBarContextMenu.Sortby.FolderIder.Last" xml:space="preserve">
+    <value>Scorso</value>
+  </data>
+  <data name="TitleBarContextMenu.UnlockFrame" xml:space="preserve">
+    <value>Sblocca cornice</value>
+  </data>
+  <data name="TitleBarContextMenu.RemoveMessageBox.Title" xml:space="preserve">
+    <value>Confermare</value>
+  </data>
+  <data name="TitleBarContextMenu.RemoveMessageBox.Content" xml:space="preserve">
+    <value>Sei sicuro di volerlo rimuovere?</value>
+  </data>
+  <data name="TitleBarContextMenu.RemoveMessageBox.Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="TitleBarContextMenu.RemoveMessageBox.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="TitleBarContextMenu.Info.FolderSize" xml:space="preserve">
+    <value>Dimensione cartella:</value>
+    <comment>whitespace at the end</comment>
+  </data>
+  <data name="TitleBarContextMenu.ChangeView" xml:space="preserve">
+    <value>Cambia vista</value>
+  </data>
+  <data name="TitleBarContextMenu.DetailsView" xml:space="preserve">
+    <value>Visualizzazione dettagli</value>
+  </data>
+  <data name="TrayContextMenu.CheckUpdateButton" xml:space="preserve">
+    <value>Controlla gli aggiornamenti</value>
+  </data>
+  <data name="TrayContextMenu.VisitGithub" xml:space="preserve">
+    <value>Visita github</value>
+  </data>
+  <data name="TrayContextMenu.StartOnLogin" xml:space="preserve">
+    <value>Avvio automatico</value>
+  </data>
+  <data name="TrayContextMenu.Settings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="TrayContextMenu.AddFrame" xml:space="preserve">
+    <value>Aggiungi cornice</value>
+  </data>
+  <data name="TrayContextMenu.Exit" xml:space="preserve">
+    <value>Uscita</value>
+    <comment>Button to close the application</comment>
+  </data>
+  <data name="FrameGridView.DateModified" xml:space="preserve">
+    <value>Data modificata</value>
+  </data>
+  <data name="FrameGridView.Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="FrameGridView.Size" xml:space="preserve">
+    <value>Dimensione</value>
+  </data>
+  <data name="showFolderInGrid.DropFolder" xml:space="preserve">
+    <value>Trascina una cartella</value>
+  </data>
+  <data name="FrameSettings.TitleBarText" xml:space="preserve">
+    <value>Impostazioni della cornice</value>
+    <comment>Title of the window</comment>
+  </data>
+  <data name="FrameSettings.FolderOpenInsideFrame" xml:space="preserve">
+    <value>Apri la cartella all'interno della finestra</value>
+  </data>
+  <data name="FrameTypeFlyout.Description" xml:space="preserve">
+    <value>La prima cartella o file che trascini decide il tipo di cornice. Ne esistono di due tipi:</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FileTypeDescription" xml:space="preserve">
+    <value>Crea scorciatoie da qualsiasi luogo per accedere a file e cartelle. Quando trascini un altro file o cartella al suo interno, viene creato un collegamento all'elemento.</value>
+  </data>
+  <data name="FrameTypeFlyout.Description.FolderTypeDescription" xml:space="preserve">
+    <value>Mostra il contenuto di una cartella. Quando trascini un altro file o cartella al suo interno, l'elemento viene spostato all'interno di quella cartella.</value>
+  </data>
+  <data name="FrameTypeFlyout.Folder" xml:space="preserve">
+    <value>Cartella:</value>
+  </data>
+  <data name="FrameTypeFlyout.File" xml:space="preserve">
+    <value>File:</value>
+  </data>
+  <data name="FrameSettings.CategoryWindow" xml:space="preserve">
+    <value>Finestra</value>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth" xml:space="preserve">
+    <value>Ridimensiona la larghezza per adattarla alle dimensioni dell'icona</value>
+    <comment>TextBlock</comment>
+  </data>
+  <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
+    <value>Riserva spazio per la barra di scorrimento</value>
+    <comment>TextBlock</comment>
+  </data>
+  <data name="FrameSettings.PositionX" xml:space="preserve">
+    <value>Posizione X:</value>
+    <comment>TextBlock</comment>
+  </data>
+  <data name="FrameSettings.PositionY" xml:space="preserve">
+    <value>Posizione Y:</value>
+    <comment>TextBlock</comment>
+  </data>
+  <data name="DeskFrame.AlreadyRunning" xml:space="preserve">
+    <value>DeskFrame è già in esecuzione</value>
+  </data>
+  <data name="FrameSettings.ActiveColor" xml:space="preserve">
+    <value>Colore attivo (esadecimale)</value>
+  </data>
+  <data name="Deskframe.Update.DialogContent" xml:space="preserve">
+    <value>L'aggiornamento richiede privilegi di amministratore</value>
+    <comment>Content of dialog</comment>
+  </data>
+  <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
+    <value>Nascondi le icone nella finestra inattiva</value>
+  </data>
+  <data name="DeskFrameFrameSettings.Drag" xml:space="preserve">
+    <value>TRASCINA</value>
+    <comment>Drag button</comment>
+  </data>
+  <data name="DeskFrameFrameSettings.SnapDescription" xml:space="preserve">
+    <value>[Cornice] Accosta cornice con una distanza di 10 pixel</value>
+  </data>
+  <data name="DeskFrameFrameSettings.Scroll" xml:space="preserve">
+    <value>SCORRERE</value>
+    <comment>Button</comment>
+  </data>
+  <data name="DeskFrameFrameSettings.ChangeIconSizeDescription" xml:space="preserve">
+    <value>Cambia la dimensione dell'icona</value>
+    <comment>Button</comment>
+  </data>
+  <data name="FrameSettings.GrayscaleEnable" xml:space="preserve">
+    <value>Abilita la scala di grigi</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="FrameSettings.GrayScaleEnabledInactiveOnly" xml:space="preserve">
+    <value>Scala di grigi solo quando la cornice è inattiva</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
+    <value>Livello di grigio:</value>
+  </data>
+  <data name="TitleBarContextMenu.CustomItemOrder" xml:space="preserve">
+    <value>Personale</value>
+  </data>
+  <data name="TitleBarContextMenu.CustomItemOrder.DeleteOrder" xml:space="preserve">
+    <value>Eliminare</value>
+    <comment>Delete button</comment>
+  </data>
+  <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Enable" xml:space="preserve">
+    <value>Abilitato</value>
+    <comment>Enable/Disable ToggleSwitch</comment>
+  </data>
+  <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable" xml:space="preserve">
+    <value>Disabilitato</value>
+    <comment>Enable/Disable ToggleSwitch</comment>
+  </data>
+  <data name="DeskFrameFrameSettings.RenameFilesDescription" xml:space="preserve">
+    <value>Rinominare gli elementi, INVIO per confermare</value>
+  </data>
+  <data name="DeskFrameFrameSettings_ReorderDescription" xml:space="preserve">
+    <value>[File] Cambia l'ordine del file</value>
+  </data>
+  <data name="DeskFrameFrameSettings_SearchDescription" xml:space="preserve">
+    <value>Per effettuare la ricerca, sposta il cursore sulla cornice cui desideri effettuare la ricerca e inizia a digitare</value>
+  </data>
+  <data name="Deskframe.DropaFileOrFolder" xml:space="preserve">
+    <value>Rilascia un file o una cartella</value>
+    <comment>Text above the + sign when the frame folder isn't set</comment>
+  </data>
+</root>
