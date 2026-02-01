@@ -490,4 +490,7 @@
     <value>Rilascia un file o una cartella</value>
     <comment>Text above the + sign when the frame folder isn't set</comment>
   </data>
+  <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
+    <value>Ricarica tutte le cornici</value>
+  </data>
 </root>

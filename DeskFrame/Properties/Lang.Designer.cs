@@ -151,6 +151,15 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reload all frames.
+        /// </summary>
+        public static string DeskFrameFrameSettings_ReloadAllFramesButton {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.ReloadAllFramesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rename items, ENTER to confirm.
         /// </summary>
         public static string DeskFrameFrameSettings_RenameFilesDescription {

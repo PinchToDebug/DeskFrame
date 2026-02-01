@@ -488,4 +488,7 @@
     <value>Drop a file or folder</value>
     <comment>Text above the + sign when the frame folder isn't set</comment>
   </data>
+  <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
+    <value>Reload all frames</value>
+  </data>
 </root>

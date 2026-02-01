@@ -473,4 +473,7 @@
   <data name="Deskframe.DropaFileOrFolder" xml:space="preserve">
     <value>Przeciągnij plik/folder</value>
   </data>
+  <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
+    <value>Przeładuj wszystkie ramki</value>
+  </data>
 </root>

@@ -12,7 +12,7 @@
         Background="#66232323" 
         WindowStyle="None" 
         ResizeMode="NoResize"
-        Height="600" 
+        Height="630" 
                  Width="464"
                  Closing="FluentWindow_Closing">
     <Grid>
@@ -31,6 +31,10 @@
                     <ui:Button x:Name="DefaultFrameStyleButton" Content="{x:Static prop:Lang.DeskFrameFrameSettings_DefaultFrameStyle}"  Margin="10,20,0,0" Click="DefaultFrameStyleButton_Click"/>
                     <ui:Button x:Name="ResetDefaultFrameStyleButton" Content="{x:Static prop:Lang.DeskFrameFrameSettings_ResetDefaultStyle}" Icon="{ui:SymbolIcon ArrowReset24}" Margin="10,20,0,0" Click="ResetDefaultFrameStyleButton_Click" />
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <ui:Button x:Name="ReloadAllFramesButton" Content="{x:Static prop:Lang.DeskFrameFrameSettings_ReloadAllFramesButton}" Click="ReloadAllFramesButton_Click" Margin="10,20,0,0"/>
+                </StackPanel>
+
                 <ui:ToggleSwitch x:Name="AutoUpdateToggleSwitch" Content="{x:Static prop:Lang.DeskFrameFrameSettings_AutoUpdate}" Margin="10,20,0,0" Click="AutoUpdateToggleSwitch_Click"/>
                 <ui:ToggleSwitch x:Name="DoubleClickToHideSwitch" Content="{x:Static prop:Lang.DeskFrameFrameSettings_DoubleClickHide}" Margin="10,20,0,0" Click="DoubleClickToHideSwitch_Click"/>
 

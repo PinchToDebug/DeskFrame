@@ -219,16 +219,16 @@ public class InstanceController
             window.ChangeBackgroundOpacity(num);
         }
     }
-    public void CheckFrameWindowsLive()
+    public void CheckFrameWindowsLive(bool forceFullReload = false)
     {
         int closedCount = 0;
         foreach (var window in _subWindows)
         {
             if (new WindowInteropHelper(window).Handle == IntPtr.Zero) closedCount++;
         }
-        if (_subWindows.Count != 0 && !isInitializingInstances)
+        if (forceFullReload || (_subWindows.Count != 0 && !isInitializingInstances))
         {
-            if (closedCount == _subWindows.Count)
+            if (forceFullReload || closedCount == _subWindows.Count)
             {
                 foreach (var window in _subWindows)
                 {

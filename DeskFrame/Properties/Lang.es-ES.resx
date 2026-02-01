@@ -473,4 +473,7 @@
   <data name="Deskframe.DropaFileOrFolder" xml:space="preserve">
     <value>Arrastra archivo/carpeta</value>
   </data>
+  <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
+    <value>Recargar todos los marcos</value>
+  </data>
 </root>

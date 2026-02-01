@@ -148,5 +148,16 @@ namespace DeskFrame
             }
         }
 
+        private void ReloadAllFramesButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReloadAllFramesButton.IsEnabled = false;
+            _window.Dispatcher.Invoke(() =>
+            {
+                _window.TrayIcon.Register();
+                if (!_controller.isInitializingInstances)
+                    _controller.CheckFrameWindowsLive(true);
+            });
+            ReloadAllFramesButton.IsEnabled = true;
+        }
     }
 }
