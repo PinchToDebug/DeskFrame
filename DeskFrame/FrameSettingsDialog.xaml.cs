@@ -51,6 +51,9 @@ namespace DeskFrame
             _frame = frame;
             _instance = frame.Instance;
             DataContext = _instance;
+            GrayScaleEnabled_CheckBox.IsChecked = _instance.GrayScaleEnabled;
+            GrayScaleEnabled_InactiveOnly_CheckBox.IsChecked = _instance.GrayScaleEnabled_InactiveOnly;
+            MaxGrayScaleStrengthSlider.Value = _instance.MaxGrayScaleStrength * 10;
 
             if (_instance.Folder == "empty")
             {
@@ -69,9 +72,6 @@ namespace DeskFrame
             IdleOpacityLabel.Content = _instance.IdleOpacity * 100 + "%";
             IconSizeSlider.Value = _instance.IconSize / 4;
             IconSizeLabel.Content = _instance.IconSize;
-            GrayScaleEnabled_CheckBox.IsChecked = _instance.GrayScaleEnabled;
-            GrayScaleEnabled_InactiveOnly_CheckBox.IsChecked = _instance.GrayScaleEnabled_InactiveOnly;
-            MaxGrayScaleStrengthSlider.Value = _instance.MaxGrayScaleStrength * 10;
 
             frame.AnimateWindowOpacity(_instance.IdleOpacity, _instance.AnimationSpeed);
             if (!frame.VirtualDesktopSupported)
