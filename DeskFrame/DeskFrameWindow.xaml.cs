@@ -1998,7 +1998,7 @@ namespace DeskFrame
             }
             if (e.OldName!.Equals(Path.GetFileName(Instance.Folder), StringComparison.OrdinalIgnoreCase))
             {
-                
+
                 var lastInstanceName = Instance.Name;
                 Dispatcher.Invoke(() =>
                 {
@@ -3138,7 +3138,14 @@ namespace DeskFrame
                 int iconSize = (int)(Instance.IconSize * _windowsScalingFactor);
                 if (Path.GetExtension(path).ToLower() == ".svg")
                 {
-                    thumbnail = await LoadSvgThumbnailAsync(path, iconSize);
+                    try
+                    {
+                        thumbnail = await LoadSvgThumbnailAsync(path, iconSize);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                    }
                     return thumbnail;
                 }
                 string ext = Path.GetExtension(path).ToLowerInvariant();
@@ -3234,34 +3241,41 @@ namespace DeskFrame
                 }
                 else
                 {
-                    int attempt = 0;
-                    while (attempt < 3 && thumbnail == null)
+                    try
                     {
-                        ShellObject? shellObj = null;
-                        shellObj = Directory.Exists(path) ? ShellObject.FromParsingName(path) : ShellFile.FromFilePath(path);
-                        if (shellObj != null)
+                        int attempt = 0;
+                        while (attempt < 3 && thumbnail == null)
                         {
-                            try
+                            ShellObject? shellObj = null;
+                            shellObj = Directory.Exists(path) ? ShellObject.FromParsingName(path) : ShellFile.FromFilePath(path);
+                            if (shellObj != null)
                             {
-                                Application.Current.Dispatcher.Invoke(() =>
+                                try
                                 {
-                                    thumbnail = GetThumbnail(path, iconSize);
-                                });
-                                if (thumbnail != null)
+                                    Application.Current.Dispatcher.Invoke(() =>
+                                    {
+                                        thumbnail = GetThumbnail(path, iconSize);
+                                    });
+                                    if (thumbnail != null)
+                                    {
+                                        return thumbnail;
+                                    }
+                                }
+                                catch (Exception ex)
                                 {
-                                    return thumbnail;
+                                    Debug.WriteLine("Failed to fetch thumbnail:" + ex.Message);
+                                }
+                                finally
+                                {
+                                    shellObj?.Dispose();
                                 }
                             }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine("Failed to fetch thumbnail:" + ex.Message);
-                            }
-                            finally
-                            {
-                                shellObj?.Dispose();
-                            }
+                            attempt++;
                         }
-                        attempt++;
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
                     }
                 }
                 if (thumbnail != null)
