@@ -493,4 +493,7 @@
   <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
     <value>Ricarica tutte le cornici</value>
   </data>
+  <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
+    <value>Gestisci riquadro</value>
+  </data>
 </root>

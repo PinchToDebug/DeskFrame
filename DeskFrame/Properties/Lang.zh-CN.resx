@@ -475,4 +475,7 @@
   <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
     <value>重新加载所有框架</value>
   </data>
+  <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
+    <value>管理框架</value>
+  </data>
 </root>

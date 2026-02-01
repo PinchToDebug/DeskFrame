@@ -491,4 +491,7 @@
   <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
     <value>Reload all frames</value>
   </data>
+  <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
+    <value>Manage frame</value>
+  </data>
 </root>

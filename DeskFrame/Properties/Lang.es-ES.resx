@@ -476,4 +476,7 @@
   <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
     <value>Recargar todos los marcos</value>
   </data>
+  <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
+    <value>Administrar marco</value>
+  </data>
 </root>

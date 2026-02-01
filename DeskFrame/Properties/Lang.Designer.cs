@@ -151,6 +151,15 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage frame.
+        /// </summary>
+        public static string DeskFrameFrameSettings_ManageFrameButton {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.ManageFrameButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reload all frames.
         /// </summary>
         public static string DeskFrameFrameSettings_ReloadAllFramesButton {

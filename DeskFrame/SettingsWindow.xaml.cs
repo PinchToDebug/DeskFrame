@@ -1,8 +1,12 @@
-﻿using System.Diagnostics;
-using Wpf.Ui.Controls;
+﻿using Microsoft.Win32;
+using System.Diagnostics;
 using System.Windows;
-using System.Windows.Media.Imaging;
-using Microsoft.Win32;
+using System.Windows.Controls;
+using System.Windows.Media;
+using Wpf.Ui.Controls;
+using Brushes = System.Windows.Media.Brushes;
+using Color = System.Windows.Media.Color;
+using MenuItem = Wpf.Ui.Controls.MenuItem;
 namespace DeskFrame
 {
     public partial class SettingsWindow : FluentWindow
@@ -11,6 +15,7 @@ namespace DeskFrame
         DeskFrameWindow _dWindows;
         Instance _instance;
         MainWindow _window;
+        ContextMenu ManageFrameContextMenu;
         public SettingsWindow(InstanceController controller, MainWindow window)
         {
             InitializeComponent();
@@ -77,6 +82,52 @@ namespace DeskFrame
             _controller.reg.WriteToRegistryRoot("AutoUpdate", AutoUpdateToggleSwitch.IsChecked);
         }
 
+        private void ManageFrameButton_Click(object sender, RoutedEventArgs e)
+        {
+            ManageFrameContextMenu = new ContextMenu();
+            List<MenuItem> menuItems = new List<MenuItem>();
+            foreach (var frame in _controller._subWindows)
+            {
+                MenuItem menuItem = new MenuItem
+                {
+                    Header = frame.title.Text,
+                    Height = 34,
+                    Icon = new SymbolIcon(SymbolRegular.Window20)
+                };
+
+                string originalBorderColor = frame.Instance.BorderColor;
+                bool originalBorderState = frame.Instance.BorderEnabled;
+
+                menuItem.Click += (_, _) =>
+                {
+                    var dialog = new FrameSettingsDialog(frame);
+                    dialog.ShowDialog();
+                    if (dialog.DialogResult == true)
+                    {
+                        frame.LoadFiles(frame._currentFolderPath);
+                    }
+                };
+                menuItem.MouseEnter += (_, _) =>
+                {
+                    menuItem.Icon.Foreground = new SolidColorBrush((Color)System.Windows.Media.ColorConverter.ConvertFromString("#7CFF00"));
+                    frame.Instance.BorderEnabled = true;
+                    frame.Instance.BorderColor = "#7CFF00";
+                };
+                menuItem.MouseLeave += (_, _) =>
+                {
+                    menuItem.Icon.Foreground = Brushes.White;
+                    frame.Instance.BorderEnabled = originalBorderState;
+                    frame.Instance.BorderColor = originalBorderColor;
+                };
+                menuItems.Add(menuItem);
+            }
+            foreach (var item in menuItems)
+            {
+                ManageFrameContextMenu.Items.Add(item);
+            }
+            ManageFrameContextMenu.IsOpen = true;
+        }
+
         private void DefaultFrameStyleButton_Click(object sender, RoutedEventArgs e)
         {
             if (_dWindows != null) _dWindows.Close();
@@ -135,7 +186,7 @@ namespace DeskFrame
             _controller.reg.WriteToRegistryRoot("DoubleClickToHide", DoubleClickToHideSwitch.IsChecked!);
             _window.DoubleClickToHide = (bool)DoubleClickToHideSwitch.IsChecked!;
         }
-       
+
         private void KofiButtonImage_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try

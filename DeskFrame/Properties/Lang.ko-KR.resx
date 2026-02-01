@@ -476,4 +476,7 @@
   <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
     <value>모든 프레임 다시 불러오기</value>
   </data>
+  <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
+    <value>프레임 관리</value>
+  </data>
 </root>
