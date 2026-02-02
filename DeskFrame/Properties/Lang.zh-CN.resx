@@ -478,4 +478,25 @@
   <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
     <value>管理框架</value>
   </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.MainFeatures" xml:space="preserve">
+    <value>主要特征:</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature1" xml:space="preserve">
+    <value>• 右键拖动窗口</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature2" xml:space="preserve">
+    <value>• 从边缘和角落调整窗口大小</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature3" xml:space="preserve">
+    <value>• 用手势在虚拟桌面间滚动</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature4" xml:space="preserve">
+    <value>• 改变窗口透明度 (Alt + 鼠标滚轮)</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature5" xml:space="preserve">
+    <value>• 用鼠标滚轮浏览窗口</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.DoubleClickToGithub" xml:space="preserve">
+    <value>双击访问 GitHub 页面</value>
+  </data>
 </root>

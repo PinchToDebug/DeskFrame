@@ -133,6 +133,69 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Double-click to visit GitHub page.
+        /// </summary>
+        public static string DeskFrameFrameSettings_DragWinToolTip_DoubleClickToGithub {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.DragWinToolTip.DoubleClickToGithub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Move any window with right‑click drag.
+        /// </summary>
+        public static string DeskFrameFrameSettings_DragWinToolTip_Feature1 {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.DragWinToolTip.Feature1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Resize any window from edges and corners.
+        /// </summary>
+        public static string DeskFrameFrameSettings_DragWinToolTip_Feature2 {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.DragWinToolTip.Feature2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Scroll between virtual desktops with gestures.
+        /// </summary>
+        public static string DeskFrameFrameSettings_DragWinToolTip_Feature3 {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.DragWinToolTip.Feature3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Change window opacity (Alt + mouse wheel).
+        /// </summary>
+        public static string DeskFrameFrameSettings_DragWinToolTip_Feature4 {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.DragWinToolTip.Feature4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Scroll through windows with mouse wheel.
+        /// </summary>
+        public static string DeskFrameFrameSettings_DragWinToolTip_Feature5 {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.DragWinToolTip.Feature5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main features:.
+        /// </summary>
+        public static string DeskFrameFrameSettings_DragWinToolTip_MainFeatures {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.DragWinToolTip.MainFeatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export settings.
         /// </summary>
         public static string DeskFrameFrameSettings_ExportSettings {

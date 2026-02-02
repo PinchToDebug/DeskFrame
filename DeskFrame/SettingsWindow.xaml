@@ -13,8 +13,8 @@
         WindowStyle="None" 
         ResizeMode="NoResize"
         Height="630" 
-                 Width="464"
-                 Closing="FluentWindow_Closing">
+        Width="464"
+        Closing="FluentWindow_Closing">
     <Grid>
         <StackPanel>
             <ui:TitleBar Title="{x:Static prop:Lang.DeskFrameFrameSettings_TitleBarText}" Name="Titlebar" Padding="8,0,0,0" Height="30"  CanMaximize="False" ShowMinimize="False" ApplicationTheme="Dark" ShowMaximize="False" >
@@ -100,13 +100,68 @@
             </StackPanel>
         </StackPanel>
 
-        <ui:Image x:Name="KofiButtonImage" VerticalAlignment="Bottom"
-                     Source="/Icon/support_me_on_kofi_badge_dark.png" 
-                     RenderOptions.BitmapScalingMode="Fant" 
-                     Height="60"
-                     Margin="8"
-                     HorizontalAlignment="Left"
-                     Cursor="Hand" MouseUp="KofiButtonImage_MouseUp"/>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal">
+            <ui:Image x:Name="KofiButtonImage" 
+                      Source="/Icon/support_me_on_kofi_badge_dark.png" 
+                      RenderOptions.BitmapScalingMode="Fant" 
+                      Height="65"
+                      Margin="8,-5,0,5"
+                      UseLayoutRounding="True"
+                      SnapsToDevicePixels="True"
+                      HorizontalAlignment="Left"
+                      Cursor="Hand" MouseUp="KofiButtonImage_MouseUp"/>
+            <StackPanel>
+                <Border CornerRadius="5"
+                        Margin="10,10,0,8"
+                        Background="#0CFFFFFF"  
+                        BorderThickness="1"
+                        x:Name="DragWinBorder" 
+                        Cursor="Hand"
+                        MouseLeftButtonDown="DragWinBorder_MouseLeftButtonDown">
+                    <Border.ToolTip>
+                        <ToolTip MaxWidth="400">
+                            <StackPanel>
+                                <TextBlock Text="DragWin" FontSize="14" FontWeight="Bold" Foreground="#FFABB8FF"  Margin="0,0,0,8"/>
+
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_DragWinToolTip_MainFeatures}" Foreground="White" FontSize="12"  Margin="0,0,0,2"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_DragWinToolTip_Feature1}" Foreground="White" FontSize="12"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_DragWinToolTip_Feature2}" Foreground="White" FontSize="12"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_DragWinToolTip_Feature3}" Foreground="White" FontSize="12"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_DragWinToolTip_Feature4}" Foreground="White" FontSize="12"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_DragWinToolTip_Feature5}" Foreground="White" FontSize="12"/>
+
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_DragWinToolTip_DoubleClickToGithub}" Foreground="#FFD2DAFF" FontSize="12"  Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </ToolTip>
+                    </Border.ToolTip>
+                    <Grid>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <Image Margin="0,2,0,5" Source="/Icon/DragWin.ico"
+                                   SnapsToDevicePixels="True" 
+                                   UseLayoutRounding="True"
+                                   RenderOptions.BitmapScalingMode="Fant" 
+                                   Width="32"/>
+                            <Grid Margin="5,0,5,5">
+                                <Grid>
+                                    <TextBlock FontSize="12" Text="DragWin" Foreground="Black" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0" TextAlignment="Center" HorizontalAlignment="Center" >
+                                        <TextBlock.Effect>
+                                            <BlurEffect Radius="2" KernelType="Box"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                    <TextBlock FontSize="12" Text="DragWin" Foreground="Black" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0" TextAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock.Effect>
+                                            <BlurEffect Radius="2" KernelType="Box"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                    <TextBlock FontSize="12" Text="DragWin" Foreground="#F1F1F1" Padding="1.8,0,1.8,0" Margin="0,-3,0,0" TextAlignment="Center" HorizontalAlignment="Center" MaxHeight="90"/>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+
 
         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Margin="0,0,10,5" VerticalAlignment="Bottom">
             <Label Content="{x:Static prop:Lang.DeskFrameFrameSettings_MadewithSpace}" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DimGray"/>

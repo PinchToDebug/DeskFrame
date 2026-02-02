@@ -479,4 +479,25 @@
   <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
     <value>Administrar marco</value>
   </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.MainFeatures" xml:space="preserve">
+    <value>Características principales:</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature1" xml:space="preserve">
+    <value>• Arrastra cualquier ventana con el botón derecho</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature2" xml:space="preserve">
+    <value>• Redimensiona cualquier ventana desde bordes y esquinas</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature3" xml:space="preserve">
+    <value>• Desplázate entre escritorios virtuales con gestos</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature4" xml:space="preserve">
+    <value>• Cambia la opacidad de la ventana (Alt + rueda del ratón)</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature5" xml:space="preserve">
+    <value>• Desplázate entre ventanas con la rueda del ratón</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.DoubleClickToGithub" xml:space="preserve">
+    <value>Doble clic para visitar la página de GitHub</value>
+  </data>
 </root>

@@ -494,4 +494,25 @@
   <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
     <value>Manage frame</value>
   </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.MainFeatures" xml:space="preserve">
+    <value>Main features:</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature1" xml:space="preserve">
+    <value>• Move any window with right‑click drag</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature2" xml:space="preserve">
+    <value>• Resize any window from edges and corners</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature3" xml:space="preserve">
+    <value>• Scroll between virtual desktops with gestures</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature4" xml:space="preserve">
+    <value>• Change window opacity (Alt + mouse wheel)</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature5" xml:space="preserve">
+    <value>• Scroll through windows with mouse wheel</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.DoubleClickToGithub" xml:space="preserve">
+    <value>Double-click to visit GitHub page</value>
+  </data>
 </root>

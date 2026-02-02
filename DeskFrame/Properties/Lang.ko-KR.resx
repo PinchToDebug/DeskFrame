@@ -479,4 +479,25 @@
   <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
     <value>프레임 관리</value>
   </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.MainFeatures" xml:space="preserve">
+    <value>주요 특징:</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature1" xml:space="preserve">
+    <value>• 오른쪽 버튼으로 창 이동</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature2" xml:space="preserve">
+    <value>• 창의 가장자리와 모서리에서 크기 조절</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature3" xml:space="preserve">
+    <value>• 제스처로 가상 데스크톱 간 스크롤</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature4" xml:space="preserve">
+    <value>• 창 투명도 변경 (Alt + 마우스 휠)</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.Feature5" xml:space="preserve">
+    <value>• 마우스 휠로 창 스크롤</value>
+  </data>
+  <data name="DeskFrameFrameSettings.DragWinToolTip.DoubleClickToGithub" xml:space="preserve">
+    <value>GitHub 페이지 열기: 더블 클릭</value>
+  </data>
 </root>

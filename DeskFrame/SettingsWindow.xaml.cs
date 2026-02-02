@@ -19,6 +19,15 @@ namespace DeskFrame
         public SettingsWindow(InstanceController controller, MainWindow window)
         {
             InitializeComponent();
+            DragWinBorder.MouseEnter += (_, _) =>
+            {
+                DragWinBorder.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
+            };
+            DragWinBorder.MouseLeave += (_, _) =>
+            {
+                DragWinBorder.Background = new SolidColorBrush(Color.FromArgb(15, 255, 255, 255));
+            };
+
             this.LocationChanged += Window_LocationChanged;
             this.MinHeight = 0;
             this.MinWidth = 200;
@@ -209,6 +218,21 @@ namespace DeskFrame
                     _controller.CheckFrameWindowsLive(true);
             });
             ReloadAllFramesButton.IsEnabled = true;
+        }
+
+        private void DragWinBorder_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                try
+                {
+                    ProcessStartInfo sInfo = new ProcessStartInfo($"https://github.com/PinchToDebug/DragWin") { UseShellExecute = true };
+                    _ = Process.Start(sInfo);
+                }
+                catch
+                {
+                }
+            }
         }
     }
 }
