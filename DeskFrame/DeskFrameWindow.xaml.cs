@@ -2469,6 +2469,10 @@ namespace DeskFrame
         }
         private void MoveItemToPosition()
         {
+            if (_itemUnderCursor == null || _draggedItem == null)
+            {
+                return;
+            }
             _canChangeItemPosition = false;
             if (_draggedItem != _itemUnderCursor)
             {
