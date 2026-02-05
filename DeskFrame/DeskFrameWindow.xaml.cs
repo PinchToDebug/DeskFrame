@@ -1507,11 +1507,6 @@ namespace DeskFrame
             double scrollViewerMargin = titleBarHeight + 5;
             scrollViewer.Margin = new Thickness(0, scrollViewerMargin, 0, 0);
 
-            titleBar.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
-            title.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
-            frameTypeSymbol.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
-            titleStackPanel.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
-
             if ((int)instance.Height <= titleBar.Height) _isMinimized = true;
             if (instance.Minimized)
             {
@@ -1605,7 +1600,15 @@ namespace DeskFrame
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ButtonState == MouseButtonState.Pressed)
+            if (e.ClickCount == 2)
+            {
+                if (e.GetPosition(this).Y <= titleBar.Height)
+                {
+                    Minimize_MouseLeftButtonDown(null, null);
+                    return;
+                }
+            }
+            else if (e.ButtonState == MouseButtonState.Pressed)
             {
                 KeepWindowBehind();
                 if (!_isLocked)
@@ -3849,11 +3852,7 @@ namespace DeskFrame
                 //        CornerRadius = new CornerRadius(5)
                 //    }
                 //);
-
-                titleBar.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
-                title.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
-                frameTypeSymbol.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
-                titleStackPanel.Cursor = _isLocked ? System.Windows.Input.Cursors.Arrow : System.Windows.Input.Cursors.SizeAll;
+          
             };
 
             MenuItem exitItem = new MenuItem
