@@ -1807,6 +1807,13 @@ namespace DeskFrame
                     WindowBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00000000"));
                     WindowBorder.BorderThickness = new Thickness(1.3);
                 }
+
+                // rebind to unfreeze the brush so that the animation can be applied
+                WindowBorder.SetBinding(Border.BorderBrushProperty, new Binding("Instance.BorderColor")
+                {
+                    Source = this,
+                });
+
                 var backgroundColorAnimation = new ColorAnimation
                 {
                     From = _mouseIsOver ? !Instance.BorderEnabled
