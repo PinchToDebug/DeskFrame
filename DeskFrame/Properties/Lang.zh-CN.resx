@@ -505,4 +505,10 @@
   <data name="FrameSettings.FrameWidth" xml:space="preserve">
     <value>宽度：</value>
   </data>
+  <data name="DeskFrameFrameSettings.ScrollDownDescription" xml:space="preserve">
+    <value>标题栏上 [下]: 将窗口置于后端</value>
+  </data>
+  <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
+    <value>标题栏上 [上]: 将窗口置于前端</value>
+  </data>
 </root>

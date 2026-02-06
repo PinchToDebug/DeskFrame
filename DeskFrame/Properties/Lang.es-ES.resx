@@ -506,4 +506,10 @@
   <data name="FrameSettings.FrameWidth" xml:space="preserve">
     <value>Ancho:</value>
   </data>
+  <data name="DeskFrameFrameSettings.ScrollDownDescription" xml:space="preserve">
+    <value>[ABAJO] en la barra de título: enviar ventana al fondo</value>
+  </data>
+  <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
+    <value>[ARRIBA] en la barra de título: traer ventana al frente</value>
+  </data>
 </root>

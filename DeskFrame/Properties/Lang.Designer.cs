@@ -268,6 +268,24 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [DOWN] on title bar: send window back.
+        /// </summary>
+        public static string DeskFrameFrameSettings_ScrollDownDescription {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.ScrollDownDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [UP] on title bar: bring window forward.
+        /// </summary>
+        public static string DeskFrameFrameSettings_ScrollUpDescription {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings.ScrollUpDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To search move the cursor over the frame you want to search in and start typing.
         /// </summary>
         public static string DeskFrameFrameSettings_SearchDescription {

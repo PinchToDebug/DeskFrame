@@ -506,4 +506,10 @@
   <data name="FrameSettings.FrameWidth" xml:space="preserve">
     <value>너비:</value>
   </data>
+  <data name="DeskFrameFrameSettings.ScrollDownDescription" xml:space="preserve">
+    <value>제목 표시줄에서 [아래]: 창 뒤로 보내기</value>
+  </data>
+  <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
+    <value>제목 표시줄에서 [위]: 창 앞으로 가져오기</value>
+  </data>
 </root>

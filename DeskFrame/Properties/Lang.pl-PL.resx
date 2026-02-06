@@ -506,4 +506,10 @@
   <data name="FrameSettings.FrameWidth" xml:space="preserve">
     <value>Szerokość:</value>
   </data>
+  <data name="DeskFrameFrameSettings.ScrollDownDescription" xml:space="preserve">
+    <value>[DÓŁ] na pasku tytułu: wyślij okno na tył</value>
+  </data>
+  <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
+    <value>[GÓRA] na pasku tytułu: przenieś okno na przód</value>
+  </data>
 </root>

@@ -523,4 +523,10 @@
   <data name="FrameSettings.FrameWidth" xml:space="preserve">
     <value>Larghezza:</value>
   </data>
+  <data name="DeskFrameFrameSettings.ScrollDownDescription" xml:space="preserve">
+    <value>[GIÙ] sulla barra del titolo: invia la finestra in secondo piano</value>
+  </data>
+  <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
+    <value>[SU] sulla barra del titolo: porta la finestra in primo piano</value>
+  </data>
 </root>

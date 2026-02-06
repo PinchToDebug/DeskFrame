@@ -521,4 +521,10 @@
   <data name="FrameSettings.FrameWidth" xml:space="preserve">
     <value>Width:</value>
   </data>
+  <data name="DeskFrameFrameSettings.ScrollDownDescription" xml:space="preserve">
+    <value>[DOWN] on title bar: send window back</value>
+  </data>
+  <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
+    <value>[UP] on title bar: bring window forward</value>
+  </data>
 </root>

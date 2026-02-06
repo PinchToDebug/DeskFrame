@@ -13,7 +13,7 @@
         WindowStyle="None" 
         ResizeMode="NoResize"
         Height="630" 
-        Width="464"
+        Width="460"
         Closing="FluentWindow_Closing">
     <Grid>
         <StackPanel>
@@ -45,10 +45,10 @@
                 <StackPanel>
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="125"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right">
                             <Border HorizontalAlignment="Left" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4"  Margin="0,0,8,0">
                                 <TextBlock Text="ALT"  Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
@@ -65,10 +65,10 @@
 
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="125"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right">
                             <Border HorizontalAlignment="Left" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4"  Margin="0,0,8,0">
                                 <TextBlock Text="CTRL" Foreground="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
@@ -81,21 +81,32 @@
 
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="125"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Column="0">
-                            <Border HorizontalAlignment="Left" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4"  Margin="0,0,8,0">
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right">
+                            <Border HorizontalAlignment="Left" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4">
                                 <TextBlock Text="F2" Foreground="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                         </StackPanel>
                         <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_RenameFilesDescription}" TextWrapping="Wrap" Foreground="LightGray"  VerticalAlignment="Center" Margin="16,0,0,0"/>
                     </Grid>
 
-                    <StackPanel Margin="10">
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static prop:Lang.DeskFrameFrameSettings_SearchDescription}" Foreground="LightGray" />
-                    </StackPanel>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                            <Border HorizontalAlignment="Right" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4" >
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_Scroll}"  Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_ScrollUpDescription}" TextWrapping="Wrap" Foreground="LightGray" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                            <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_ScrollDownDescription}" TextWrapping="Wrap" Foreground="LightGray" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                        </StackPanel>
 
+                    </Grid>
+                    
                 </StackPanel>
             </StackPanel>
         </StackPanel>
