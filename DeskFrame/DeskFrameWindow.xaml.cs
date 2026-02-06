@@ -92,6 +92,7 @@ namespace DeskFrame
         string _dropIntoFolderPath;
         FrameworkElement _lastBorder;
         private bool _isRenaming = true;
+        private bool _isTopmost = false;
         private bool _isRenamingFromContextMenu = false;
         private bool _canChangeItemPosition = false;
         private bool _bringForwardForMove = false;
@@ -563,6 +564,37 @@ namespace DeskFrame
                 handled = true;
                 return 4;
             }
+
+
+            else if (msg == 0x020A && Mouse.GetPosition(this).Y <= titleBar.Height)
+            {
+
+                int delta = (short)((int)wParam >> 16);
+                if (delta > 0 && !_isTopmost)
+                {
+                    Debug.WriteLine("Bring frame above other windows");
+                    _isTopmost = true;
+                    SetParent(new WindowInteropHelper(this).Handle, IntPtr.Zero);
+                    BackgroundType(true);
+                    this.Activate();
+                    this.Show(); 
+                    this.Topmost = true;
+                }
+                else if (delta < 0 && _isTopmost)
+                {
+                    Debug.WriteLine("Push frame behind other windows");
+                    _isTopmost = false;
+                    this.Topmost = false;
+                    BackgroundType(false);
+                    SetAsDesktopChild();
+
+                    HandleWindowMove(true);
+                    // force redraw
+                    this.Width += 1;
+                    this.Width -= 1;
+                }
+            }
+
             if (msg == 0x0201) // WM_LBUTTONDOWN
             {
                 _isLeftButtonDown = true;
@@ -920,7 +952,10 @@ namespace DeskFrame
         }
         public void HandleWindowMove(bool initWindow)
         {
-
+            if (_isTopmost)
+            {
+                return;
+            }
             Interop.RECT windowRect;
             IntPtr hwnd = new WindowInteropHelper(this).Handle;
             Interop.GetWindowRect(hwnd, out windowRect);
@@ -1011,7 +1046,10 @@ namespace DeskFrame
             foreach (var otherWindow in MainWindow._controller._subWindows)
             {
                 if (otherWindow == this) continue;
-
+                if (otherWindow._isTopmost) // prevent unintentional dragging of neighboring window
+                {
+                    return;
+                }
                 IntPtr otherHwnd = new WindowInteropHelper(otherWindow).Handle;
                 Interop.RECT otherWindowRect;
                 Interop.GetWindowRect(otherHwnd, out otherWindowRect);
