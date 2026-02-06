@@ -1296,8 +1296,8 @@ namespace DeskFrame
 
                     SetWindowPos(hwnd, IntPtr.Zero,
                                  pt.X, pt.Y,
-                                 0, 0,
-                                 SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW);
+                                (int)Instance.Width, (int)Instance.Height,
+                                  SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW);
                 }, token);
             }
             catch { }
@@ -3852,7 +3852,7 @@ namespace DeskFrame
                 //        CornerRadius = new CornerRadius(5)
                 //    }
                 //);
-          
+
             };
 
             MenuItem exitItem = new MenuItem

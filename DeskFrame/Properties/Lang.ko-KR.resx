@@ -500,4 +500,10 @@
   <data name="DeskFrameFrameSettings.DragWinToolTip.DoubleClickToGithub" xml:space="preserve">
     <value>GitHub 페이지 열기: 더블 클릭</value>
   </data>
+  <data name="FrameSettings.FrameHeight" xml:space="preserve">
+    <value>높이:</value>
+  </data>
+  <data name="FrameSettings.FrameWidth" xml:space="preserve">
+    <value>너비:</value>
+  </data>
 </root>

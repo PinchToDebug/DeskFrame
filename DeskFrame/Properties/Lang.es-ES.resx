@@ -500,4 +500,10 @@
   <data name="DeskFrameFrameSettings.DragWinToolTip.DoubleClickToGithub" xml:space="preserve">
     <value>Doble clic para visitar la página de GitHub</value>
   </data>
+  <data name="FrameSettings.FrameHeight" xml:space="preserve">
+    <value>Altura:</value>
+  </data>
+  <data name="FrameSettings.FrameWidth" xml:space="preserve">
+    <value>Ancho:</value>
+  </data>
 </root>

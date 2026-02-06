@@ -448,6 +448,24 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Height:.
+        /// </summary>
+        public static string FrameSettings_FrameHeight {
+            get {
+                return ResourceManager.GetString("FrameSettings.FrameHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width:.
+        /// </summary>
+        public static string FrameSettings_FrameWidth {
+            get {
+                return ResourceManager.GetString("FrameSettings.FrameWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable grayscale.
         /// </summary>
         public static string FrameSettings_GrayscaleEnable {

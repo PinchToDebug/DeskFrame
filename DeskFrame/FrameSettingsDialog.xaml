@@ -651,21 +651,66 @@
                             <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
                         </Label.Foreground>
                     </Label>
-                    <Label Content="{x:Static prop:Lang.FrameSettings_PositionX}" Height="30"/>
 
-                    <ui:NumberBox x:Name="PositionX_NumberBox"                             
-                     SpinButtonPlacementMode="Inline"
-                     Value="{Binding PosX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Margin="0,0,0,20"
-                     ValueChanged="ChangePosition"/>
+                    <Border CornerRadius="8" BorderThickness="2" Padding="10,10,10,0" Margin="-10,-12,-10,10"  BorderBrush="#19C5C5C5">
+                       
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="1,0">
+                                <GradientStop Color="#05FFFFFF" Offset="0.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                       
+                        <StackPanel>
 
-                    <Label Content="{x:Static prop:Lang.FrameSettings_PositionY}" Height="30"/>
+                            <Label Content="{x:Static prop:Lang.FrameSettings_PositionX}" Height="30"/>
 
-                    <ui:NumberBox x:Name="PositionY_NumberBox"       
-                     SpinButtonPlacementMode="Inline"
-                     Value="{Binding PosY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     ValueChanged="ChangePosition"/>
+                            <ui:NumberBox x:Name="PositionX_NumberBox"                             
+                                          SpinButtonPlacementMode="Inline"
+                                          Value="{Binding PosX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Margin="0,0,0,20"
+                                          ValueChanged="ChangePosition"/>
 
+                            <Label Content="{x:Static prop:Lang.FrameSettings_PositionY}" Height="30"/>
+
+                            <ui:NumberBox x:Name="PositionY_NumberBox" 
+                                          Margin="0,0,0,20"   
+                                          SpinButtonPlacementMode="Inline"
+                                          Value="{Binding PosY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          ValueChanged="ChangePosition"/>
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border CornerRadius="8" BorderThickness="2"  Padding="10,10,10,0" Margin="-10,10,-10,10"   BorderBrush="#19C5C5C5">
+
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="1,0">
+                                <GradientStop Color="#05FFFFFF" Offset="0.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <StackPanel>
+
+                            <Label Content="{x:Static prop:Lang.FrameSettings_FrameHeight}" Height="30"/>
+
+                            <ui:NumberBox x:Name="FrameHeight_NumberBox" 
+                                          Margin="0,0,0,20"   
+                                          SpinButtonPlacementMode="Inline"
+                                          Value="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          ValueChanged="ChangePosition"/>
+                            
+                            <Label Content="{x:Static prop:Lang.FrameSettings_FrameWidth}" Height="30"/>
+
+                            <ui:NumberBox x:Name="FrameWidth_NumberBox"                             
+                                          SpinButtonPlacementMode="Inline"
+                                          Value="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Margin="0,0,0,20"
+                                          ValueChanged="ChangePosition"/>
+
+                        </StackPanel>
+                    </Border>
+
+                    
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{x:Static prop:Lang.FrameSettings_IdleOpacityLabel}" Height="30" Margin="0,20,0,0"/>
                         <Label x:Name="IdleOpacityLabel" Content="0%" Height="30" Margin="5,20,0,0" Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" FontWeight="Bold"/>
