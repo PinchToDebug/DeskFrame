@@ -394,7 +394,10 @@ namespace DeskFrame
                         FilterTextBox.Text = null;
                         //   FilterTextBox.Visibility = Visibility.Collapsed;
                     }
-                    this.SetNoActivate();
+                    if (!_isTopmost)
+                    {
+                        this.SetNoActivate();
+                    }
                     if (_didFixIsOnBottom) _fixIsOnBottomInit = false;
 
                     var timer = new DispatcherTimer
@@ -579,6 +582,7 @@ namespace DeskFrame
                     this.Activate();
                     this.Show(); 
                     this.Topmost = true;
+                    BringFrameToFront(new WindowInteropHelper(this).Handle, true);
                 }
                 else if (delta < 0 && _isTopmost)
                 {
@@ -1370,6 +1374,10 @@ namespace DeskFrame
         }
         public void SetNoActivate()
         {
+            if (_isTopmost)
+            {
+                return;
+            }
             IntPtr hwnd = new WindowInteropHelper(this).Handle;
             IntPtr style = Interop.GetWindowLong(hwnd, Interop.GWL_EXSTYLE);
             IntPtr newStyle = new IntPtr(style.ToInt64() | Interop.WS_EX_NOACTIVATE);
@@ -2142,6 +2150,10 @@ namespace DeskFrame
 
         private void KeepWindowBehind()
         {
+            if (_isTopmost)
+            {
+                return;
+            }
             IntPtr HWND_BOTTOM = new IntPtr(1);
             var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
             Interop.SetWindowPos(hwnd, HWND_BOTTOM, 0, 0, 0, 0, Interop.SWP_NOREDRAW | Interop.SWP_NOACTIVATE | Interop.SWP_NOMOVE | Interop.SWP_NOSIZE);
