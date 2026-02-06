@@ -33,7 +33,7 @@
 - Option to display per virtual desktop
 - Double click on desktop to hide frames
 - Grayscale
-- Supported languages: English, Spanish, Mandarin, Polish, Korean
+- Supported languages: English, Spanish, Italian, Mandarin, Polish, Korean
   
 ...and more!
 
