@@ -234,5 +234,12 @@ namespace DeskFrame
                 }
             }
         }
+
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new AboutWindow(this.Top,this.Left,this.Height,this.Width);
+            dialog.ShowDialog();
+        }
+
     }
 }

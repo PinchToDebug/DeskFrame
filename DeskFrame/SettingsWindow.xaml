@@ -21,6 +21,11 @@
                 <ui:TitleBar.Icon>
                     <ui:ImageIcon Source="/ico.png" Margin="0,0,6,0" />
                 </ui:TitleBar.Icon>
+                <ui:TitleBar.TrailingContent>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:Button x:Name="AboutButton"  Icon="{ui:SymbolIcon Symbol=Info24}" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="2" Margin="0,0,5,0" Height="30" Padding="10,0,10,0" Click="AboutButton_Click"/>
+                    </StackPanel>
+                </ui:TitleBar.TrailingContent>
             </ui:TitleBar>
             <StackPanel Orientation="Vertical" Margin="10,25,0,0" >
             </StackPanel>
@@ -97,16 +102,16 @@
                             <ColumnDefinition Width="125"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                            <Border HorizontalAlignment="Right" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4" >
-                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_Scroll}"  Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
+                        <Border HorizontalAlignment="Right" Height="25" Background="#FF333333" Padding="8,2" CornerRadius="4" >
+                            <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_Scroll}"  Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
                         <StackPanel Grid.Column="1">
                             <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_ScrollUpDescription}" TextWrapping="Wrap" Foreground="LightGray" VerticalAlignment="Center" Margin="16,0,0,0"/>
                             <TextBlock Grid.Column="1" Text="{x:Static prop:Lang.DeskFrameFrameSettings_ScrollDownDescription}" TextWrapping="Wrap" Foreground="LightGray" VerticalAlignment="Center" Margin="16,0,0,0"/>
                         </StackPanel>
 
                     </Grid>
-                    
+
                 </StackPanel>
             </StackPanel>
         </StackPanel>
@@ -178,6 +183,6 @@
             <Label Content="{x:Static prop:Lang.DeskFrameFrameSettings_MadewithSpace}" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DimGray"/>
             <ui:SymbolIcon Symbol="Heart20" Filled="True" Margin="0,-2,0,0" Foreground="DimGray"/>
         </StackPanel>
-
+       
     </Grid>
 </ui:FluentWindow>

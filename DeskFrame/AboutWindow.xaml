@@ -1,0 +1,54 @@
+﻿<ui:FluentWindow x:Class="DeskFrame.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:local="clr-namespace:DeskFrame"
+        mc:Ignorable="d"
+        ExtendsContentIntoTitleBar="True"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="About DeskFrame"
+        MinHeight="0"
+        MinWidth="0"
+        Height="265">
+
+    <Grid>
+
+        <StackPanel>
+
+            <ui:TitleBar Name="Titlebar" Padding="8,0,0,0" Height="30" CanMaximize="False"
+                         ShowMinimize="False" ApplicationTheme="Dark" ShowMaximize="False" />
+
+            <StackPanel HorizontalAlignment="Center">
+
+                <Image Source="/ico.png" Height="75" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="DeskFrame"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock x:Name="VersionTextBlock"
+                           Margin="0,4,0,0"
+                           FontSize="13"
+                           Opacity="0.75"
+                           HorizontalAlignment="Center"/>
+
+                <Separator Margin="0,8" Width="auto" />
+
+                <TextBlock Text="© 2026 PinchToDebug"
+                           HorizontalAlignment="Center"
+                           Opacity="0.75"/>
+
+                <TextBlock Text="Licensed under the MIT License"
+                           Margin="0,4,0,0"
+                           FontSize="12"
+                           Opacity="0.75"
+                           HorizontalAlignment="Center"/>
+
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</ui:FluentWindow>
