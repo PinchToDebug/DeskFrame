@@ -133,9 +133,10 @@
                         BorderThickness="1"
                         x:Name="DragWinBorder" 
                         Cursor="Hand"
+                        ToolTipService.InitialShowDelay="100" 
                         MouseLeftButtonDown="DragWinBorder_MouseLeftButtonDown">
                     <Border.ToolTip>
-                        <ToolTip MaxWidth="400">
+                        <ToolTip MaxWidth="400" Placement="Right" HorizontalOffset="5" >
                             <StackPanel>
                                 <TextBlock Text="DragWin" FontSize="14" FontWeight="Bold" Foreground="#FFABB8FF"  Margin="0,0,0,8"/>
 
