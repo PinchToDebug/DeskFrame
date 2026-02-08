@@ -575,14 +575,28 @@ namespace DeskFrame
                 int delta = (short)((int)wParam >> 16);
                 if (delta > 0 && !_isTopmost)
                 {
+                    // TODO: redo this when proper PDI scaling is merged
                     Debug.WriteLine("Bring frame above other windows");
                     _isTopmost = true;
+                    var dpi = VisualTreeHelper.GetDpi(this);
+
                     SetParent(new WindowInteropHelper(this).Handle, IntPtr.Zero);
+
+                    SetWindowPos(new WindowInteropHelper(this).Handle,
+                        IntPtr.Zero,
+                        (int)(Instance.PosX * dpi.DpiScaleX),
+                         (int)(Instance.PosY * dpi.DpiScaleY),
+                        0,
+                        0,
+                        SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+
+                    this.Height = Instance.Height;
+                    this.Width = Instance.Width;
+
                     BackgroundType(true);
                     this.Activate();
-                    this.Show(); 
+                    this.Show();
                     this.Topmost = true;
-                    BringFrameToFront(new WindowInteropHelper(this).Handle, true);
                 }
                 else if (delta < 0 && _isTopmost)
                 {
@@ -708,7 +722,7 @@ namespace DeskFrame
                     handled = true;
                     return (IntPtr)4;
                 }
-                else if (!_isMinimized && this.ActualHeight != titleBar.Height && _canAnimate)
+                else if (!_isMinimized && this.ActualHeight != titleBar.Height && _canAnimate && _isLeftButtonDown)
                 {
                     Instance.Height = this.ActualHeight;
                 }
