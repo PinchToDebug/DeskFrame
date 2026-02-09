@@ -695,7 +695,7 @@
 
                             <ui:NumberBox x:Name="FrameWidth_NumberBox"                             
                                           SpinButtonPlacementMode="Inline"
-                                          Value="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Value="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Margin="0,0,0,20"
                                           ValueChanged="ChangePosition"/>
                             
@@ -704,7 +704,7 @@
                             <ui:NumberBox x:Name="FrameHeight_NumberBox" 
                                           Margin="0,0,0,20"   
                                           SpinButtonPlacementMode="Inline"
-                                          Value="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Value="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           ValueChanged="ChangePosition"/>
 
                         </StackPanel>
