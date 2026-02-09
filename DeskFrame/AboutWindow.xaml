@@ -14,7 +14,8 @@
         Title="About DeskFrame"
         MinHeight="0"
         MinWidth="0"
-        Height="265">
+        Height="265"
+        Width="230">
 
     <Grid>
 
