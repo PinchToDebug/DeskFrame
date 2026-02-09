@@ -8,6 +8,8 @@
         mc:Ignorable="d"
         ExtendsContentIntoTitleBar="True"
         WindowStyle="None"
+        Background="#66232323" 
+        Foreground="White"
         ResizeMode="NoResize"
         Title="About DeskFrame"
         MinHeight="0"
@@ -38,10 +40,26 @@
 
                 <Separator Margin="0,8" Width="auto" />
 
-                <TextBlock Text="© 2026 PinchToDebug"
-                           HorizontalAlignment="Center"
-                           Opacity="0.75"/>
-
+             
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="© 2026 "
+                               HorizontalAlignment="Center"
+                               Opacity="0.75"/>
+                    <TextBlock x:Name="Profile_TextBlock" Text="PinchToDebug"
+                               HorizontalAlignment="Center" 
+                               Opacity="0.75"
+                               Cursor="Hand"
+                               MouseEnter="Profile_TextBlock_MouseEnter"
+                               MouseLeave="Profile_TextBlock_MouseLeave"
+                               MouseLeftButtonUp="Profile_TextBlock_MouseLeftButtonUp">
+                        <TextBlock.ToolTip>
+                            <ToolTip MaxWidth="400" Placement="Top" HorizontalAlignment="Center" >
+                                <TextBlock Text="https://github.com/PinchToDebug" Margin="0" Padding="0" />
+                            </ToolTip>
+                        </TextBlock.ToolTip>
+                    </TextBlock>
+                </StackPanel>
+                
                 <TextBlock Text="Licensed under the MIT License"
                            Margin="0,4,0,0"
                            FontSize="12"

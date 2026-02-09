@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Wpf.Ui.Controls;
+using Color = System.Windows.Media.Color;
+using ColorConverter = System.Windows.Media.ColorConverter;
+using TextBlock = System.Windows.Controls.TextBlock;
 
 namespace DeskFrame
 {
@@ -29,5 +20,28 @@ namespace DeskFrame
             var v = Assembly.GetExecutingAssembly().GetName().Version;
             VersionTextBlock.Text = $"Version {v.Major}.{v.Minor}.{v.Build}";
         }
+
+        private void Profile_TextBlock_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((TextBlock)sender).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFABB8FF"));
+        }
+
+        private void Profile_TextBlock_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((TextBlock)sender).Foreground = System.Windows.Media.Brushes.White;
+        }
+
+        private void Profile_TextBlock_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                ProcessStartInfo sInfo = new ProcessStartInfo($"https://github.com/PinchToDebug") { UseShellExecute = true };
+                _ = Process.Start(sInfo);
+            }
+            catch
+            {
+            }
+        }
+
     }
 }
