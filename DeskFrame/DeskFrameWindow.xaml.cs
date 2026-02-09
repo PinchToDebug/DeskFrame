@@ -722,7 +722,7 @@ namespace DeskFrame
                     handled = true;
                     return (IntPtr)4;
                 }
-                else if (!_isMinimized && this.ActualHeight != titleBar.Height && _canAnimate && _isLeftButtonDown)
+                else if (!_isMinimized && this.ActualHeight != titleBar.Height && _canAnimate)
                 {
                     Instance.Height = this.ActualHeight;
                 }
