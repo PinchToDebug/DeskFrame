@@ -84,6 +84,8 @@ namespace DeskFrame
                 }
             }
         }
+        bool _dragMovingWinddow = false;
+
 
         private List<FileItem> _selectedItems = new List<FileItem>();
         private FileItem _draggedItem;
@@ -523,6 +525,15 @@ namespace DeskFrame
         {
             if (!(HwndSource.FromHwnd(hWnd).RootVisual is Window rootVisual))
                 return IntPtr.Zero;
+          
+            if (msg == 0x0005) // WM_SIZE
+            {
+                if (_dragMovingWinddow)
+                {
+                    handled = true;
+                    return -1;
+                }
+            }
             if (_isLeftButtonDown && _bringForwardForMove && msg == 0x0003) // WM_MOVE
             {
                 BringFrameToFront(new WindowInteropHelper(this).Handle, true);
@@ -1673,10 +1684,15 @@ namespace DeskFrame
                 KeepWindowBehind();
                 if (!_isLocked)
                 {
+                    _dragMovingWinddow = true;
                     this.DragMove();
                 }
                 return;
             }
+        }
+        private void Window_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _dragMovingWinddow = false;
         }
         private void AnimateSymbolIcon(UIElement target, double widthTo, double opacityTo, double marginTo)
         {

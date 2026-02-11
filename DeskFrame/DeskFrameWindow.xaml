@@ -24,6 +24,7 @@
          DragEnter="Window_DragEnter" DragLeave="Window_DragLeave"
          FontSize="12"
          MinHeight="30" 
+         MouseLeftButtonUp="Window_MouseLeftButtonUp"
          MouseMove="Window_MouseMove" 
          LocationChanged="Window_LocationChanged"
          KeyDown="Window_KeyDown"
