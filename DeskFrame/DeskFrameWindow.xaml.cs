@@ -2257,7 +2257,9 @@ namespace DeskFrame
             loadFilesCancellationToken.Dispose();
             loadFilesCancellationToken = new CancellationTokenSource();
             CancellationToken loadFiles_cts = loadFilesCancellationToken.Token;
-            var fileFilterHideRegex = new Regex(Instance.FileFilterHideRegex);
+            var fileFilterHideRegex = string.IsNullOrEmpty(Instance.FileFilterHideRegex) 
+                ? null 
+                : new Regex(Instance.FileFilterHideRegex);
             try
             {
                 if (!Directory.Exists(path))
@@ -2365,8 +2367,7 @@ namespace DeskFrame
                         
                         if (!existingLookup.TryGetValue(entry.FullName, out var existingItem))
                         {
-                            if (!string.IsNullOrEmpty(Instance.FileFilterHideRegex) &&
-                                fileFilterHideRegex.IsMatch(entry.Name))
+                            if (fileFilterHideRegex?.IsMatch(entry.Name) == true)
                             {
                                 continue;
                             }
@@ -2406,8 +2407,7 @@ namespace DeskFrame
                     FileItems.Clear();
                     foreach (var fileItem in sortedList)
                     {
-                        if (Instance.FileFilterHideRegex != null && Instance.FileFilterHideRegex != ""
-                          && fileFilterHideRegex.IsMatch(fileItem.Name))
+                        if (fileFilterHideRegex?.IsMatch(fileItem.Name) == true)
                         {
                             continue;
                         }
