@@ -66,9 +66,9 @@
         <!-- DataTemplate to display each file item -->
         <DataTemplate x:Key="FileItemTemplate">
             <Border Background="{Binding Background}" Margin="4,0,0,5" CornerRadius="5"
-            MouseLeftButtonDown="FileItem_LeftMouseButtonDown"
-            MouseEnter="FileItem_MouseEnter" MouseLeave="FileItem_MouseLeave"
-            BorderThickness="1" MouseRightButtonDown="FileItem_RightClick">
+                    MouseLeftButtonDown="FileItem_LeftMouseButtonDown"
+                    MouseEnter="FileItem_MouseEnter" MouseLeave="FileItem_MouseLeave"
+                    BorderThickness="1" MouseRightButtonDown="FileItem_RightClick">
                 <Grid>
                     <Rectangle x:Name="MoveBar"
                                Visibility="{Binding IsMoveBarVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -77,88 +77,90 @@
                                HorizontalAlignment="Left" RadiusX="3" RadiusY="3"/>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                         <Image Margin="5" Source="{Binding Thumbnail}" 
-                           SnapsToDevicePixels="True"
-                           RenderOptions.BitmapScalingMode="NearestNeighbor"
-                           UseLayoutRounding="True"
-                           Width="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToHeightWidthConverter}}"
-                           Height="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToHeightWidthConverter}}"
-                           VerticalAlignment="Center" HorizontalAlignment="Center"
-                          />
+                               SnapsToDevicePixels="True"
+                               RenderOptions.BitmapScalingMode="NearestNeighbor"
+                               UseLayoutRounding="True"
+                               Width="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToHeightWidthConverter}}"
+                               Height="{Binding DataContext.Instance.IconSize, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconSizeToHeightWidthConverter}}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        
                         <Grid Margin="0,0,0,2" Visibility="{Binding DataContext.Instance.ShowDisplayName, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            
                             <Grid Visibility="{Binding IsNotRenaming, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
-                           TextWrapping="Wrap" TextAlignment="Center" 
-                                 FontFamily="{DynamicResource ItemFont}"
-                           TextTrimming="{Binding TextTrimming}" 
-                           HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
-                           Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
-                                    <TextBlock.Effect>
-                                        <BlurEffect Radius="2" KernelType="Box"/>
-                                    </TextBlock.Effect>
-                                </TextBlock>
-                                <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
-                                        FontFamily="{DynamicResource ItemFont}"
-                           TextWrapping="Wrap" TextAlignment="Center" 
-                           TextTrimming="{Binding TextTrimming}"  
-                             HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
-                             Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
-                                    <TextBlock.Effect>
-                                        <BlurEffect Radius="2" KernelType="Box"/>
-                                    </TextBlock.Effect>
-                                </TextBlock>
+                                
+                                <Grid>
+                                    <Grid.CacheMode>
+                                        <BitmapCache RenderAtScale="1" />
+                                    </Grid.CacheMode>
+                                    
+                                    <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
+                                                TextWrapping="Wrap" TextAlignment="Center" 
+                                                FontFamily="{DynamicResource ItemFont}"
+                                                TextTrimming="{Binding TextTrimming}" 
+                                                HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
+                                                Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
+                                        <TextBlock.Effect>
+                                            <BlurEffect Radius="2" KernelType="Box"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                    <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0"
+                                               FontFamily="{DynamicResource ItemFont}"
+                                               TextWrapping="Wrap" TextAlignment="Center" 
+                                               TextTrimming="{Binding TextTrimming}"  
+                                               HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}" 
+                                               Foreground="{Binding DataContext.Instance.ListViewFontShadowColor, RelativeSource={RelativeSource AncestorType=Window}}">
+                                        <TextBlock.Effect>
+                                            <BlurEffect Radius="2" KernelType="Box"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                </Grid>
+
                                 <TextBlock FontSize="12" Text="{Binding DisplayName}" Padding="1.8,0,1.8,0" Margin="0,-3,0,0"
-                           TextWrapping="Wrap" TextAlignment="Center" 
-                                        FontFamily="{DynamicResource ItemFont}"
-                           TextTrimming="{Binding TextTrimming}"  
-                           HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}"
-                           Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"
-                            />
+                                           TextWrapping="Wrap" TextAlignment="Center" 
+                                           FontFamily="{DynamicResource ItemFont}"
+                                           TextTrimming="{Binding TextTrimming}"  
+                                           HorizontalAlignment="Center" MaxHeight="{Binding MaxHeight}"
+                                           Foreground="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"
+                                />
                             </Grid>
+                            
                             <Border x:Name="RenameBorder"
                                     Visibility="{Binding IsRenaming, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     BorderThickness="0"
                                     CornerRadius="4"
                                     Background="#32FFFFFF"
                                     Padding="3,5,3,3" Margin="3,-5,3,3">
-                                <Grid>
-
-                                    <TextBox FontSize="12" 
-                                             Padding="1.8,0,1.8,0" 
-                                             Margin="0,-3,0,0"
-                                             TextWrapping="Wrap" 
-                                             TextAlignment="Center" 
-                                             FontFamily="{DynamicResource ItemFont}" 
-                                             x:Name="RenameTextBox"
-                                             KeyDown="RenameTextBox_KeyDown"
-                                             HorizontalAlignment="Center" 
-                                             MaxHeight="{Binding MaxHeight}">
-                                        <TextBox.Style>
-                                            <Style TargetType="TextBox">
-                                                <Setter Property="Background" Value="Transparent"/>
-                                                <Setter Property="Foreground" Value="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                                                <Setter Property="BorderBrush" Value="Black"/>
-                                                <Setter Property="BorderThickness" Value="0"/>
-                                                <Setter Property="FontSize" Value="10"/>
-                                                <Setter Property="Padding" Value="2"/>
-                                                <Setter Property="Margin" Value="0,-2.5,0,0"/>
-                                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                            </Style>
-                                        </TextBox.Style>
-                                    </TextBox>
-
-                                </Grid>
-
+                                <TextBox FontSize="12" 
+                                         Padding="1.8,0,1.8,0" 
+                                         Margin="0,-3,0,0"
+                                         TextWrapping="Wrap" 
+                                         TextAlignment="Center" 
+                                         FontFamily="{DynamicResource ItemFont}" 
+                                         x:Name="RenameTextBox"
+                                         KeyDown="RenameTextBox_KeyDown"
+                                         HorizontalAlignment="Center" 
+                                         MaxHeight="{Binding MaxHeight}">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="{Binding DataContext.Instance.ListViewFontColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                            <Setter Property="BorderBrush" Value="Black"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="FontSize" Value="10"/>
+                                            <Setter Property="Padding" Value="2"/>
+                                            <Setter Property="Margin" Value="0,-2.5,0,0"/>
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
                             </Border>
                         </Grid>
                     </StackPanel>
                 </Grid>
             </Border>
         </DataTemplate>
-
-
-
-
+        
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0,5,0,5"  CaptionHeight="0" ResizeBorderThickness="5" CornerRadius="0" />

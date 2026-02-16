@@ -2249,6 +2249,7 @@ namespace DeskFrame
             loadFilesCancellationToken.Dispose();
             loadFilesCancellationToken = new CancellationTokenSource();
             CancellationToken loadFiles_cts = loadFilesCancellationToken.Token;
+            var fileFilterHideRegex = new Regex(Instance.FileFilterHideRegex);
             try
             {
                 if (!Directory.Exists(path))
@@ -2268,7 +2269,7 @@ namespace DeskFrame
                     var files = dirInfo.GetFiles();
                     var directories = dirInfo.GetDirectories();
                     _folderCount = directories.Count();
-                    _fileCount = dirInfo.GetFiles().Count().ToString();
+                    _fileCount = files.Count().ToString();
                     _folderSize = !Instance.CheckFolderSize ? "" : Task.Run(() => BytesToStringAsync(dirInfo.EnumerateFiles("*", SearchOption.AllDirectories).Sum(file => file.Length))).Result; var filteredFiles = files.Cast<FileSystemInfo>()
                                 .Concat(directories)
                                 .OrderBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase)
@@ -2339,7 +2340,8 @@ namespace DeskFrame
                             return;
                         }
 
-                        var existingItem = FileItems.FirstOrDefault(item => item.FullPath == entry.FullName);
+                        var existingLookup = FileItems
+                            .ToDictionary(f => f.FullPath, f => f);
 
                         long size = 0;
                         if (entry is FileInfo fileInfo)
@@ -2354,10 +2356,11 @@ namespace DeskFrame
                         var thumbnail = await GetThumbnailAsync(entry.FullName);
                         bool isFile = entry is FileInfo;
                         string actualExt = isFile ? Path.GetExtension(entry.Name) : string.Empty;
-                        if (existingItem == null)
+                        
+                        if (!existingLookup.TryGetValue(entry.FullName, out var existingItem))
                         {
                             if (!string.IsNullOrEmpty(Instance.FileFilterHideRegex) &&
-                                new Regex(Instance.FileFilterHideRegex).IsMatch(entry.Name))
+                                fileFilterHideRegex.IsMatch(entry.Name))
                             {
                                 continue;
                             }
@@ -2398,7 +2401,7 @@ namespace DeskFrame
                     foreach (var fileItem in sortedList)
                     {
                         if (Instance.FileFilterHideRegex != null && Instance.FileFilterHideRegex != ""
-                          && new Regex(Instance.FileFilterHideRegex).IsMatch(fileItem.Name))
+                          && fileFilterHideRegex.IsMatch(fileItem.Name))
                         {
                             continue;
                         }
