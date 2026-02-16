@@ -1795,9 +1795,17 @@ namespace DeskFrame
 
                 HandleWindowMove(false);
 
-                var waitTime = (int)((0.2 / Math.Max(0.01, Instance.AnimationSpeed)) * 1000) + 50;
+
+
+                var waitTime = 50; 
         
+                if (Instance.AnimationSpeed > 0)
+                {
+                    waitTime += (int)((0.2 / Instance.AnimationSpeed) * 1000);
+                }
+
                 await Task.Delay(waitTime);
+                
             }
             finally 
             {
