@@ -104,6 +104,7 @@ namespace DeskFrame
         private bool _fixIsOnBottomInit = true;
         private bool _didFixIsOnBottom = false;
         private bool _isMinimized = false;
+        private bool _animLock = false;
         private bool _isIngrid = true;
         private bool _grabbedOnLeft;
         private int _snapDistance = 8;
@@ -1757,37 +1758,52 @@ namespace DeskFrame
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
         }
 
-        private void Minimize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void Minimize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
-            AnimateChevron(_isMinimized, false, Instance.AnimationSpeed);
+            if (_animLock) return;
+    
+            // Check if we even can minimize before locking
             if (showFolder.Visibility == Visibility.Hidden && showFolderInGrid.Visibility == Visibility.Hidden)
             {
                 return;
             }
-            if (!_isMinimized)
-            {
-                _originalHeight = this.ActualHeight;
-                _isMinimized = true;
-                Instance.Minimized = true;
-                // Debug.WriteLine("minimize: " + Instance.Height);
-                AnimateWindowHeight(titleBar.Height, Instance.AnimationSpeed);
-            }
-            else
-            {
-                WindowBackground.CornerRadius = new CornerRadius(
-                         topLeft: WindowBackground.CornerRadius.TopLeft,
-                         topRight: WindowBackground.CornerRadius.TopRight,
-                         bottomRight: 5.0,
-                         bottomLeft: 5.0
-                      );
-                _isMinimized = false;
-                Instance.Minimized = false;
 
-                // Debug.WriteLine("unminimize: " + Instance.Height);
-                AnimateWindowHeight(Instance.Height, Instance.AnimationSpeed);
+            _animLock = true;
+
+            try 
+            {
+                _isMinimized = !_isMinimized;
+                Instance.Minimized = _isMinimized;
+
+                AnimateChevron(_isMinimized, false, Instance.AnimationSpeed);
+
+                if (_isMinimized)
+                {
+                    _originalHeight = this.ActualHeight;
+                    AnimateWindowHeight(titleBar.Height, Instance.AnimationSpeed);
+                }
+                else
+                {
+                    WindowBackground.CornerRadius = new CornerRadius(
+                        topLeft: WindowBackground.CornerRadius.TopLeft,
+                        topRight: WindowBackground.CornerRadius.TopRight,
+                        bottomRight: 5.0,
+                        bottomLeft: 5.0
+                    );
+                    AnimateWindowHeight(Instance.Height, Instance.AnimationSpeed);
+                }
+
+                HandleWindowMove(false);
+
+                var waitTime = (int)((0.2 / Math.Max(0.01, Instance.AnimationSpeed)) * 1000) + 50;
+        
+                await Task.Delay(waitTime);
             }
-            HandleWindowMove(false);
+            finally 
+            {
+                // Always unlock, even if an error occurred
+                _animLock = false;
+            }
         }
 
         private void ToggleFileExtension_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
