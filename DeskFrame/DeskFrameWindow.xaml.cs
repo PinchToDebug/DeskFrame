@@ -2339,7 +2339,7 @@ namespace DeskFrame
                             FileItems.RemoveAt(i);
                         }
                     }
-
+                    var existingLookup = FileItems.ToDictionary(f => f.FullPath, f => f);
                     foreach (var entry in fileEntries)
                     {
                         if (loadFiles_cts.IsCancellationRequested)
@@ -2348,8 +2348,6 @@ namespace DeskFrame
                             return;
                         }
 
-                        var existingLookup = FileItems
-                            .ToDictionary(f => f.FullPath, f => f);
 
                         long size = 0;
                         if (entry is FileInfo fileInfo)
