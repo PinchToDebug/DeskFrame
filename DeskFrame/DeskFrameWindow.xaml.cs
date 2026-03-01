@@ -104,6 +104,7 @@ namespace DeskFrame
         private bool _fixIsOnBottomInit = true;
         private bool _didFixIsOnBottom = false;
         private bool _isMinimized = false;
+        private bool _animLock = false;
         private bool _isIngrid = true;
         private bool _grabbedOnLeft;
         private int _snapDistance = 8;
@@ -1757,37 +1758,60 @@ namespace DeskFrame
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
         }
 
-        private void Minimize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void Minimize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
-            AnimateChevron(_isMinimized, false, Instance.AnimationSpeed);
+            if (_animLock) return;
+    
+            // Check if we even can minimize before locking
             if (showFolder.Visibility == Visibility.Hidden && showFolderInGrid.Visibility == Visibility.Hidden)
             {
                 return;
             }
-            if (!_isMinimized)
-            {
-                _originalHeight = this.ActualHeight;
-                _isMinimized = true;
-                Instance.Minimized = true;
-                // Debug.WriteLine("minimize: " + Instance.Height);
-                AnimateWindowHeight(titleBar.Height, Instance.AnimationSpeed);
-            }
-            else
-            {
-                WindowBackground.CornerRadius = new CornerRadius(
-                         topLeft: WindowBackground.CornerRadius.TopLeft,
-                         topRight: WindowBackground.CornerRadius.TopRight,
-                         bottomRight: 5.0,
-                         bottomLeft: 5.0
-                      );
-                _isMinimized = false;
-                Instance.Minimized = false;
 
-                // Debug.WriteLine("unminimize: " + Instance.Height);
-                AnimateWindowHeight(Instance.Height, Instance.AnimationSpeed);
+            _animLock = true;
+
+            try 
+            {
+                _isMinimized = !_isMinimized;
+                Instance.Minimized = _isMinimized;
+
+                AnimateChevron(_isMinimized, false, Instance.AnimationSpeed);
+
+                if (_isMinimized)
+                {
+                    _originalHeight = this.ActualHeight;
+                    AnimateWindowHeight(titleBar.Height, Instance.AnimationSpeed);
+                }
+                else
+                {
+                    WindowBackground.CornerRadius = new CornerRadius(
+                        topLeft: WindowBackground.CornerRadius.TopLeft,
+                        topRight: WindowBackground.CornerRadius.TopRight,
+                        bottomRight: 5.0,
+                        bottomLeft: 5.0
+                    );
+                    AnimateWindowHeight(Instance.Height, Instance.AnimationSpeed);
+                }
+
+                HandleWindowMove(false);
+
+
+
+                var waitTime = 50; 
+        
+                if (Instance.AnimationSpeed > 0)
+                {
+                    waitTime += (int)((0.2 / Instance.AnimationSpeed) * 1000);
+                }
+
+                await Task.Delay(waitTime);
+                
             }
-            HandleWindowMove(false);
+            finally 
+            {
+                // Always unlock, even if an error occurred
+                _animLock = false;
+            }
         }
 
         private void ToggleFileExtension_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -2233,6 +2257,7 @@ namespace DeskFrame
             loadFilesCancellationToken.Dispose();
             loadFilesCancellationToken = new CancellationTokenSource();
             CancellationToken loadFiles_cts = loadFilesCancellationToken.Token;
+            var fileFilterHideRegex = new Regex(Instance.FileFilterHideRegex);
             try
             {
                 if (!Directory.Exists(path))
@@ -2252,7 +2277,7 @@ namespace DeskFrame
                     var files = dirInfo.GetFiles();
                     var directories = dirInfo.GetDirectories();
                     _folderCount = directories.Count();
-                    _fileCount = dirInfo.GetFiles().Count().ToString();
+                    _fileCount = files.Count().ToString();
                     _folderSize = !Instance.CheckFolderSize ? "" : Task.Run(() => BytesToStringAsync(dirInfo.EnumerateFiles("*", SearchOption.AllDirectories).Sum(file => file.Length))).Result; var filteredFiles = files.Cast<FileSystemInfo>()
                                 .Concat(directories)
                                 .OrderBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase)
@@ -2314,7 +2339,7 @@ namespace DeskFrame
                             FileItems.RemoveAt(i);
                         }
                     }
-
+                    var existingLookup = FileItems.ToDictionary(f => f.FullPath, f => f);
                     foreach (var entry in fileEntries)
                     {
                         if (loadFiles_cts.IsCancellationRequested)
@@ -2323,7 +2348,6 @@ namespace DeskFrame
                             return;
                         }
 
-                        var existingItem = FileItems.FirstOrDefault(item => item.FullPath == entry.FullName);
 
                         long size = 0;
                         if (entry is FileInfo fileInfo)
@@ -2338,10 +2362,11 @@ namespace DeskFrame
                         var thumbnail = await GetThumbnailAsync(entry.FullName);
                         bool isFile = entry is FileInfo;
                         string actualExt = isFile ? Path.GetExtension(entry.Name) : string.Empty;
-                        if (existingItem == null)
+                        
+                        if (!existingLookup.TryGetValue(entry.FullName, out var existingItem))
                         {
                             if (!string.IsNullOrEmpty(Instance.FileFilterHideRegex) &&
-                                new Regex(Instance.FileFilterHideRegex).IsMatch(entry.Name))
+                                fileFilterHideRegex.IsMatch(entry.Name))
                             {
                                 continue;
                             }
@@ -2382,7 +2407,7 @@ namespace DeskFrame
                     foreach (var fileItem in sortedList)
                     {
                         if (Instance.FileFilterHideRegex != null && Instance.FileFilterHideRegex != ""
-                          && new Regex(Instance.FileFilterHideRegex).IsMatch(fileItem.Name))
+                          && fileFilterHideRegex.IsMatch(fileItem.Name))
                         {
                             continue;
                         }
