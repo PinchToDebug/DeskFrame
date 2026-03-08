@@ -512,4 +512,13 @@
   <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
     <value>[ARRIBA] en la barra de título: traer ventana al frente</value>
   </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature1" xml:space="preserve">
+    <value>• Reemplaza la búsqueda de Windows con Everything Search</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature2" xml:space="preserve">
+    <value>• Vista previa de imágenes y videos</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature3" xml:space="preserve">
+    <value>• Calculadora en la barra de búsqueda</value>
+  </data>
 </root>

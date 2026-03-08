@@ -512,4 +512,13 @@
   <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
     <value>제목 표시줄에서 [위]: 창 앞으로 가져오기</value>
   </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature1" xml:space="preserve">
+    <value>• Windows 검색을 Everything Search로 대체합니다</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature2" xml:space="preserve">
+    <value>• 이미지와 동영상 미리보기</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature3" xml:space="preserve">
+    <value>• 검색창에서 계산기 사용</value>
+  </data>
 </root>

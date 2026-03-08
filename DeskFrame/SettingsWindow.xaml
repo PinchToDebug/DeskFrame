@@ -118,16 +118,19 @@
 
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal">
             <ui:Image x:Name="KofiButtonImage" 
+                      VerticalAlignment="Bottom"
                       Source="/Icon/support_me_on_kofi_badge_dark.png" 
                       RenderOptions.BitmapScalingMode="Fant" 
                       Height="65"
-                      Margin="8,-5,0,5"
+                      Margin="8,0,0,10"
                       UseLayoutRounding="True"
                       SnapsToDevicePixels="True"
                       HorizontalAlignment="Left"
                       Cursor="Hand" MouseUp="KofiButtonImage_MouseUp"/>
-            <StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
                 <Border CornerRadius="5"
+                        Height="62"
+                        VerticalAlignment="Bottom"
                         Margin="10,10,0,8"
                         Background="#0CFFFFFF"  
                         BorderThickness="1"
@@ -153,7 +156,7 @@
                     </Border.ToolTip>
                     <Grid>
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                            <Image Margin="0,2,0,5" Source="/Icon/DragWin.ico"
+                            <Image Margin="0,4,0,5" Source="/Icon/DragWin.ico"
                                    SnapsToDevicePixels="True" 
                                    UseLayoutRounding="True"
                                    RenderOptions.BitmapScalingMode="Fant" 
@@ -176,6 +179,52 @@
                         </StackPanel>
                     </Grid>
                 </Border>
+
+                <Border CornerRadius="5" Margin="10,10,0,8"
+                        Background="#0CFFFFFF"  
+                        BorderThickness="1"
+                        x:Name="EQSBorder" 
+                        Cursor="Hand"
+                        ToolTipService.InitialShowDelay="100" 
+                        MouseLeftButtonDown="EQSBorder_MouseLeftButtonDown">
+                    <Border.ToolTip>
+                        <ToolTip MaxWidth="400" Placement="Right" HorizontalOffset="5" >
+                            <StackPanel>
+                                <TextBlock Text="Everything Quick Search" FontSize="14" FontWeight="Bold" Foreground="#FFABB8FF"  Margin="0,0,0,8"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_DragWinToolTip_MainFeatures}" Foreground="White" FontSize="12"  Margin="0,0,0,2"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_EQSToolTip_Feature1}" Foreground="White" FontSize="12"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_EQSToolTip_Feature2}" Foreground="White" FontSize="12"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_EQSToolTip_Feature3}" Foreground="White" FontSize="12"/>
+                                <TextBlock Text="{x:Static prop:Lang.DeskFrameFrameSettings_DragWinToolTip_DoubleClickToGithub}" Foreground="#FFD2DAFF" FontSize="12"  Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </ToolTip>
+                    </Border.ToolTip>
+                    <Grid Width="90" >
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <Image Margin="0,5,0,5" Source="/Icon/EverythingQuickSearch.ico"
+                                   SnapsToDevicePixels="True" 
+                                   UseLayoutRounding="True"
+                                   RenderOptions.BitmapScalingMode="Fant" 
+                                   Width="32"/>
+                            <Grid Margin="5,0,5,5">
+                                <Grid>
+                                    <TextBlock FontSize="12" Text="Everything QS" TextWrapping="Wrap" Foreground="Black" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0" TextAlignment="Center" HorizontalAlignment="Center" >
+                                        <TextBlock.Effect>
+                                            <BlurEffect Radius="2" KernelType="Box"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                    <TextBlock FontSize="12" Text="Everything QS" TextWrapping="Wrap" Foreground="Black" Padding="1.8,0,1.8,0" Margin="0,-2.5,0,0" TextAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock.Effect>
+                                            <BlurEffect Radius="2" KernelType="Box"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                    <TextBlock FontSize="12" Text="Everything QS" TextWrapping="Wrap" Foreground="#F1F1F1" Padding="1.8,0,1.8,0" Margin="0,-3,0,0" TextAlignment="Center" HorizontalAlignment="Center" MaxHeight="90"/>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                
             </StackPanel>
         </StackPanel>
 

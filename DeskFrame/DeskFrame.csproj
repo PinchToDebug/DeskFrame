@@ -19,6 +19,7 @@
   <ItemGroup>
     <None Remove="ico.png" />
     <None Remove="Icon\DragWin.ico" />
+    <None Remove="Icon\EverythingQuickSearch.ico" />
     <None Remove="Icon\ico.png" />
     <None Remove="Icon\support_me_on_kofi_badge_dark.png" />
     <None Remove="Shaders\GrayscaleEffect.ps" />
@@ -59,6 +60,7 @@
   <ItemGroup>
     <Content Include="Icon\Ico.ico" />
     <Resource Include="Icon\DragWin.ico" />
+    <Resource Include="Icon\EverythingQuickSearch.ico" />
     <Resource Include="Icon\support_me_on_kofi_badge_dark.png" />
   </ItemGroup>
 
@@ -86,6 +88,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Properties\Lang.cs-CZ.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Lang.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Lang.Designer.cs</LastGenOutput>

@@ -19,14 +19,12 @@ namespace DeskFrame
         public SettingsWindow(InstanceController controller, MainWindow window)
         {
             InitializeComponent();
-            DragWinBorder.MouseEnter += (_, _) =>
-            {
-                DragWinBorder.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
-            };
-            DragWinBorder.MouseLeave += (_, _) =>
-            {
-                DragWinBorder.Background = new SolidColorBrush(Color.FromArgb(15, 255, 255, 255));
-            };
+
+            DragWinBorder.MouseEnter += (_, _) => DragWinBorder.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
+            DragWinBorder.MouseLeave += (_, _) => DragWinBorder.Background = new SolidColorBrush(Color.FromArgb(15, 255, 255, 255));
+
+            EQSBorder.MouseEnter += (_, _) => EQSBorder.Background = new SolidColorBrush(Color.FromArgb(30, 255, 255, 255));
+            EQSBorder.MouseLeave += (_, _) => EQSBorder.Background = new SolidColorBrush(Color.FromArgb(15, 255, 255, 255));
 
             this.LocationChanged += Window_LocationChanged;
             this.MinHeight = 0;
@@ -234,10 +232,23 @@ namespace DeskFrame
                 }
             }
         }
-
+        private void EQSBorder_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                try
+                {
+                    ProcessStartInfo sInfo = new ProcessStartInfo($"https://github.com/PinchToDebug/EverythingQuickSearch") { UseShellExecute = true };
+                    _ = Process.Start(sInfo);
+                }
+                catch
+                {
+                }
+            }
+        }
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new AboutWindow(this.Top,this.Left,this.Height,this.Width);
+            var dialog = new AboutWindow(this.Top, this.Left, this.Height, this.Width);
             dialog.ShowDialog();
         }
 

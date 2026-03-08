@@ -511,4 +511,13 @@
   <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
     <value>标题栏上 [上]: 将窗口置于前端</value>
   </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature1" xml:space="preserve">
+    <value>• 用 Everything Search 替换 Windows 搜索</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature2" xml:space="preserve">
+    <value>• 图片和视频预览</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature3" xml:space="preserve">
+    <value>• 搜索栏中的计算器</value>
+  </data>
 </root>

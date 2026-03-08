@@ -527,4 +527,13 @@
   <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
     <value>[UP] on title bar: bring window forward</value>
   </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature1" xml:space="preserve">
+    <value>Replaces Windows search with Everything search</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature2" xml:space="preserve">
+    <value>Preview images and videos</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature3" xml:space="preserve">
+    <value>Calculator in search bar</value>
+  </data>
 </root>

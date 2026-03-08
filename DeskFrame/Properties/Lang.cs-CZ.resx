@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,407 +118,422 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FrameSettings.AutoExpandonCursor" xml:space="preserve">
-    <value>Rozwiń po najechaniu kursorem</value>
+    <value>Rozbalit při najetí kurzorem</value>
     <comment>CHK_TB: Open "frame" on cursor over (unroll)</comment>
   </data>
   <data name="FrameSettings.CheckFolderSize" xml:space="preserve">
-    <value>Pokaż rozmiar folderu w menu</value>
+    <value>Zobrazit velikost složky v nabídce</value>
     <comment>CHK_TB: Show the folder size of the folder that is shown in the frame in the menu accessed with right-click on the titlebar</comment>
   </data>
   <data name="FrameSettings.ShowLastAccessedItem" xml:space="preserve">
-    <value>Pokaż ostatnio używane elementy jako pierwsze</value>
+    <value>Zobrazit naposledy použité položky jako první</value>
     <comment>CHK_TB: Show last accessed items in the first row</comment>
   </data>
   <data name="FrameSettings.ShowShortcutArrow" xml:space="preserve">
-    <value>Pokaż strzałkę skrótu</value>
+    <value>Zobrazit šipku zástupce</value>
     <comment>CHK_TB: Show the shortcut arrow on the bottom left of icons</comment>
   </data>
   <data name="FrameSettings.IdleOpacityLabel" xml:space="preserve">
-    <value>Przezroczystość w bezczynności:</value>
+    <value>Průhlednost při nečinnosti:</value>
   </data>
   <data name="FrameSettings.AnimationSpeed" xml:space="preserve">
-    <value>Szybkość animacji:</value>
+    <value>Rychlost animace:</value>
   </data>
   <data name="FrameSettings.ShowOnVirtualDesktopLabel" xml:space="preserve">
-    <value>Widoczny na wirtualnym pulpicie:</value>
+    <value>Viditelné na virtuální ploše:</value>
     <comment>Label: Show the frame on the 1,2,3.. virtual desktop.</comment>
   </data>
   <data name="FrameSettings.ShowFileExtensionIcon" xml:space="preserve">
-    <value>Rozszerzenia plików</value>
+    <value>Přípony souborů</value>
     <comment>CHK: Add show "file extensions" icon in the titlebar for quick toggling</comment>
   </data>
   <data name="FrameSettings.ShowHiddenFilesIcon" xml:space="preserve">
-    <value>Ukryte pliki</value>
+    <value>Skryté soubory</value>
     <comment>CHK: Add show "hidden files" icon in the titlebar for quick toggling</comment>
   </data>
   <data name="FrameSettings.ShowOnVirtualDesktopPlaceHolder" xml:space="preserve">
-    <value>Wszystkie (lub np. 1,2,3)</value>
+    <value>Vše (nebo např. 1,2,3)</value>
     <comment>Placeholder text in textbox for choosing which virtual desktops the frame should appear on</comment>
   </data>
   <data name="FrameSettings.TitleBarIcons" xml:space="preserve">
-    <value>Ikony na pasku tytułu:</value>
+    <value>Ikony v záhlaví okna:</value>
     <comment>Label: Icons appearing in the titlebar</comment>
   </data>
   <data name="FrameSettings.BorderColor" xml:space="preserve">
-    <value>Kolor obramowania (hex):</value>
+    <value>Barva okraje (hex):</value>
   </data>
   <data name="FrameSettings.CategoryMiscellaneous" xml:space="preserve">
-    <value>Różne</value>
+    <value>Různé</value>
     <comment>Label for the category</comment>
   </data>
   <data name="FrameSettings.CategoryTitleBar" xml:space="preserve">
-    <value>Pasek tytułu</value>
+    <value>Záhlaví okna</value>
     <comment>Label for the category</comment>
   </data>
   <data name="FrameSettings.CategoryFileItems" xml:space="preserve">
-    <value>Elementy plików</value>
+    <value>Položky souborů</value>
     <comment>Label for the category</comment>
   </data>
   <data name="FrameSettings.BackgroundColor" xml:space="preserve">
-    <value>Kolor tła (hex):</value>
+    <value>Barva pozadí (hex): </value>
   </data>
   <data name="FrameSettings.TextColor" xml:space="preserve">
-    <value>Kolor tekstu (hex):</value>
+    <value>Barva textu (hex):</value>
   </data>
   <data name="FrameSettings.TextShadowColor" xml:space="preserve">
-    <value>Kolor cienia tekstu (hex):</value>
+    <value>Barva stínu textu (hex):</value>
   </data>
   <data name="FrameSettings.TitleBarTextText" xml:space="preserve">
-    <value>Tekst paska tytułu:</value>
+    <value>Text záhlaví okna:</value>
     <comment>Title of the window</comment>
   </data>
   <data name="FrameSettings.Font" xml:space="preserve">
-    <value>Czcionka:</value>
+    <value>Písmo:</value>
   </data>
   <data name="FrameSettings.TextSize" xml:space="preserve">
-    <value>Rozmiar tekstu:</value>
+    <value>Velikost textu:</value>
   </data>
   <data name="FrameSettings.TextAlignment" xml:space="preserve">
-    <value>Wyrównanie tekstu:</value>
+    <value>Zarovnání textu:</value>
   </data>
   <data name="FrameSettings.ShowFilesRegex" xml:space="preserve">
-    <value>Pokaż pliki (regex):</value>
+    <value>Zobrazit soubory (regex):</value>
   </data>
   <data name="FrameSettings.HideFilesRegex" xml:space="preserve">
-    <value>Ukryj pliki (regex):</value>
+    <value>Skrýt soubory (regex):</value>
   </data>
   <data name="FrameSettings.Searchdot" xml:space="preserve">
-    <value>Szukaj...</value>
+    <value>Hledat...</value>
   </data>
   <data name="FrameSettings.IconSize" xml:space="preserve">
-    <value>Rozmiar ikony:</value>
+    <value>Velikost ikon:</value>
   </data>
   <data name="FrameSettings.ShowIconText" xml:space="preserve">
-    <value>Pokaż tekst ikony</value>
+    <value>Zobrazit text ikon</value>
   </data>
   <data name="FrameSettings.RevertButton" xml:space="preserve">
-    <value>Przywróć</value>
+    <value>Vrátit zpět</value>
     <comment>Button: revert settings</comment>
   </data>
   <data name="FrameSettings.ChangeStyle" xml:space="preserve">
-    <value>Zmień styl</value>
+    <value>Změnit styl</value>
     <comment>Button</comment>
   </data>
   <data name="FrameSettings.ChangeFolder" xml:space="preserve">
-    <value>Zmień folder</value>
+    <value>Změnit složku</value>
     <comment>Button</comment>
   </data>
   <data name="DeskFrameFrameSettings.TitleBarText" xml:space="preserve">
-    <value>Ustawienia DeskFrame</value>
+    <value>Nastavení DeskFrame</value>
     <comment>Title of the window</comment>
   </data>
   <data name="DeskFrameFrameSettings.DefaultFrameStyle" xml:space="preserve">
-    <value>Domyślny styl ramki</value>
+    <value>Výchozí styl rámu</value>
   </data>
   <data name="DeskFrameFrameSettings.ResetDefaultStyle" xml:space="preserve">
-    <value>Przywróć domyślny styl</value>
+    <value>Obnovit výchozí styl</value>
   </data>
   <data name="DeskFrameFrameSettings.AutoUpdate" xml:space="preserve">
-    <value>Automatyczna aktualizacja. Sprawdzaj aktualizacje przy starcie i co 6 godzin</value>
+    <value>Automatické aktualizace. Kontrola při spuštění a každých 6 hodin</value>
   </data>
   <data name="DeskFrameFrameSettings.DoubleClickHide" xml:space="preserve">
-    <value>Dwuklik na pulpicie w celu ukrycia wszystkich ramek</value>
+    <value>Dvojklik na plochu přepne skrytí všech rámů</value>
   </data>
   <data name="DeskFrameFrameSettings.MadewithSpace" xml:space="preserve">
-    <value>Wykonano z </value>
+    <value>Vytvořeno s </value>
     <comment>Made with + a whitespace</comment>
   </data>
   <data name="DeskFrameFrameSettings.ExportSettings" xml:space="preserve">
-    <value>Eksportuj ustawienia</value>
+    <value>Exportovat nastavení</value>
   </data>
   <data name="TitleBarContextMenu.Sortby" xml:space="preserve">
-    <value>Sortuj według</value>
+    <value>Seřadit podle</value>
   </data>
   <data name="TitleBarContextMenu.LockFrame" xml:space="preserve">
-    <value>Zablokuj ramkę</value>
+    <value>Zamknout rám</value>
   </data>
   <data name="TitleBarContextMenu.Reload" xml:space="preserve">
-    <value>Przeładuj</value>
+    <value>Načíst znovu</value>
   </data>
   <data name="TitleBarContextMenu.OpenFolder" xml:space="preserve">
-    <value>Otwórz folder</value>
+    <value>Otevřít složku</value>
   </data>
   <data name="TitleBarContextMenu.GridView" xml:space="preserve">
-    <value>Widok siatki</value>
+    <value>Mřížkové zobrazení</value>
   </data>
   <data name="TitleBarContextMenu.HiddenFiles" xml:space="preserve">
-    <value>Ukryte pliki</value>
+    <value>Skryté soubory</value>
     <comment>Toggle</comment>
   </data>
   <data name="TitleBarContextMenu.FileExtensions" xml:space="preserve">
-    <value>Rozszerzenia plików</value>
+    <value>Přípony souborů</value>
     <comment>Toggle</comment>
   </data>
   <data name="TitleBarContextMenu.FrameSettings" xml:space="preserve">
-    <value>Ustawienia ramki</value>
+    <value>Nastavení rámu</value>
   </data>
   <data name="TitleBarContextMenu.Info.Files" xml:space="preserve">
-    <value>Pliki: </value>
+    <value>Soubory: </value>
     <comment>whitespace at the end</comment>
   </data>
   <data name="TitleBarContextMenu.Info.Folders" xml:space="preserve">
-    <value>Foldery: </value>
+    <value>Složky: </value>
     <comment>whitespace at the end</comment>
   </data>
   <data name="TitleBarContextMenu.Info.HiddenFiles" xml:space="preserve">
-    <value>(ukryte)</value>
+    <value>(skryté)</value>
     <comment>hidden files</comment>
   </data>
   <data name="TitleBarContextMenu.Info.LastUpdated" xml:space="preserve">
-    <value>Ostatnia aktualizacja: </value>
+    <value>Naposledy aktualizováno: </value>
     <comment>whitespace at the end</comment>
   </data>
   <data name="TitleBarContextMenu.Remove" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Odstranit</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.FolderOrder" xml:space="preserve">
-    <value>Kolejność folderów</value>
+    <value>Pořadí složek</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.Name" xml:space="preserve">
-    <value>Nazwa</value>
+    <value>Název</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.DateModified" xml:space="preserve">
-    <value>Data modyfikacji</value>
+    <value>Datum změny</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.DateCreated" xml:space="preserve">
-    <value>Data utworzenia</value>
+    <value>Datum vytvoření</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.FileType" xml:space="preserve">
-    <value>Typ pliku</value>
+    <value>Typ souboru</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.FileSize" xml:space="preserve">
-    <value>Rozmiar pliku</value>
+    <value>Velikost souboru</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.Ascending" xml:space="preserve">
-    <value>Rosnąco</value>
+    <value>Vzestupně</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.Descending" xml:space="preserve">
-    <value>Malejąco</value>
+    <value>Sestupně</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.FolderIder.None" xml:space="preserve">
-    <value>Brak</value>
+    <value>Žádné</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.FolderIder.First" xml:space="preserve">
-    <value>Pierwszy</value>
+    <value>První</value>
   </data>
   <data name="TitleBarContextMenu.Sortby.FolderIder.Last" xml:space="preserve">
-    <value>Ostatni</value>
+    <value>Poslední</value>
   </data>
   <data name="TitleBarContextMenu.UnlockFrame" xml:space="preserve">
-    <value>Odblokuj ramkę</value>
+    <value>Odemknout rám</value>
   </data>
   <data name="TitleBarContextMenu.RemoveMessageBox.Title" xml:space="preserve">
-    <value>Potwierdź</value>
+    <value>Potvrzení</value>
   </data>
   <data name="TitleBarContextMenu.RemoveMessageBox.Content" xml:space="preserve">
-    <value>Czy na pewno chcesz usunąć?</value>
+    <value>Opravdu odstranit?</value>
   </data>
   <data name="TitleBarContextMenu.RemoveMessageBox.Yes" xml:space="preserve">
-    <value>Tak</value>
+    <value>Ano</value>
   </data>
   <data name="TitleBarContextMenu.RemoveMessageBox.No" xml:space="preserve">
-    <value>Nie</value>
+    <value>Ne</value>
   </data>
   <data name="TitleBarContextMenu.Info.FolderSize" xml:space="preserve">
-    <value>Rozmiar folderu: </value>
+    <value>Velikost složky: </value>
     <comment>whitespace at the end</comment>
   </data>
   <data name="TitleBarContextMenu.ChangeView" xml:space="preserve">
-    <value>Zmień widok</value>
+    <value>Změnit zobrazení</value>
   </data>
   <data name="TitleBarContextMenu.DetailsView" xml:space="preserve">
-    <value>Widok szczegółowy</value>
+    <value>Detailní zobrazení</value>
   </data>
   <data name="TrayContextMenu.CheckUpdateButton" xml:space="preserve">
-    <value>Sprawdź aktualizacje</value>
+    <value>Zkontrolovat aktualizace</value>
   </data>
   <data name="TrayContextMenu.VisitGithub" xml:space="preserve">
-    <value>Odwiedź Github</value>
+    <value>Navštívit GitHub</value>
   </data>
   <data name="TrayContextMenu.StartOnLogin" xml:space="preserve">
-    <value>Uruchamianie</value>
+    <value>Spustit při přihlášení</value>
   </data>
   <data name="TrayContextMenu.Settings" xml:space="preserve">
-    <value>Ustawienia</value>
+    <value>Nastavení</value>
   </data>
   <data name="TrayContextMenu.AddFrame" xml:space="preserve">
-    <value>Dodaj ramkę</value>
+    <value>Přidat rám</value>
   </data>
   <data name="TrayContextMenu.Exit" xml:space="preserve">
-    <value>Zakończ</value>
+    <value>Ukončit</value>
     <comment>Button to close the application</comment>
   </data>
   <data name="FrameGridView.DateModified" xml:space="preserve">
-    <value>Data modyfikacji</value>
+    <value>Datum změny</value>
   </data>
   <data name="FrameGridView.Name" xml:space="preserve">
-    <value>Nazwa</value>
+    <value>Název</value>
   </data>
   <data name="FrameGridView.Size" xml:space="preserve">
-    <value>Rozmiar</value>
+    <value>Velikost</value>
   </data>
   <data name="showFolderInGrid.DropFolder" xml:space="preserve">
-    <value>Upuść plik lub folder</value>
+    <value>Pusťte sem složku</value>
   </data>
   <data name="FrameSettings.TitleBarText" xml:space="preserve">
-    <value>Ustawienia Frame</value>
+    <value>Nastavení rámu</value>
+    <comment>Title of the window</comment>
   </data>
   <data name="FrameSettings.FolderOpenInsideFrame" xml:space="preserve">
-    <value>Otwórz folder w oknie</value>
+    <value>Otevřít složku uvnitř okna</value>
   </data>
   <data name="FrameTypeFlyout.Description" xml:space="preserve">
-    <value>Pierwszy folder lub plik, który przeciągniesz, określa typ ramki. Są dwa typy:</value>
+    <value>První složka nebo soubor, který sem přetáhnete, určí typ rámu. Jsou dva typy:</value>
   </data>
   <data name="FrameTypeFlyout.Description.FileTypeDescription" xml:space="preserve">
-    <value>Tworzy skróty z dowolnego miejsca, aby uzyskać dostęp do plików i folderów. Gdy przeciągniesz inny plik lub folder, zostanie utworzony skrót tego elementu.</value>
+    <value>Vytváří zástupce odkudkoli pro přístup k souborům a složkám. Když do něj přetáhnete další soubor nebo složku, vytvoří zástupce dané položky.</value>
   </data>
   <data name="FrameTypeFlyout.Description.FolderTypeDescription" xml:space="preserve">
-    <value>Wyświetla zawartość folderu. Gdy przeciągniesz inny plik lub folder, element zostanie przeniesiony do tego folderu.</value>
+    <value>Zobrazuje obsah složky. Když do něj přetáhnete další soubor nebo složku, přesune položku do této složky.</value>
   </data>
   <data name="FrameTypeFlyout.Folder" xml:space="preserve">
-    <value>Folder:</value>
+    <value>Složka:</value>
   </data>
   <data name="FrameTypeFlyout.File" xml:space="preserve">
-    <value>Plik:</value>
+    <value>Soubor:</value>
   </data>
   <data name="FrameSettings.CategoryWindow" xml:space="preserve">
     <value>Okno</value>
   </data>
   <data name="FrameSettings.SnapWidthToIconWidth" xml:space="preserve">
-    <value>Dopasuj szerokość do ikony</value>
+    <value>Přizpůsobit šířku velikosti ikon</value>
+    <comment>TextBlock</comment>
   </data>
   <data name="FrameSettings.SnapWidthToIconWidth_PlusScrollbarWidth" xml:space="preserve">
-    <value>Zarezerwuj miejsce dla paska</value>
+    <value>Rezervovat místo pro posuvník</value>
+    <comment>TextBlock</comment>
   </data>
   <data name="FrameSettings.PositionX" xml:space="preserve">
-    <value>Pozycja X:</value>
+    <value>Pozice X:</value>
+    <comment>TextBlock</comment>
   </data>
   <data name="FrameSettings.PositionY" xml:space="preserve">
-    <value>Pozycja Y:</value>
+    <value>Pozice Y: </value>
+    <comment>TextBlock</comment>
   </data>
   <data name="DeskFrame.AlreadyRunning" xml:space="preserve">
-    <value>DeskFrame już jest uruchomiony</value>
+    <value>DeskFrame už běží</value>
   </data>
   <data name="FrameSettings.ActiveColor" xml:space="preserve">
-    <value>Aktywny kolor (hex):</value>
+    <value>Aktivní barva (hex)</value>
   </data>
   <data name="Deskframe.Update.DialogContent" xml:space="preserve">
-    <value>Aktualizacja wymaga uprawnień administratora</value>
+    <value>Aktualizace vyžaduje oprávnění správce</value>
+    <comment>Content of dialog</comment>
   </data>
   <data name="FrameSettings.HideTitleBarIconsWhenInactive" xml:space="preserve">
-    <value>Ukryj ikony w nieaktywnej oknie</value>
+    <value>Skrýt ikony na neaktivním okně</value>
   </data>
   <data name="DeskFrameFrameSettings.Drag" xml:space="preserve">
-    <value>DRAGOWAĆ</value>
+    <value>TAH</value>
+    <comment>Drag button</comment>
   </data>
   <data name="DeskFrameFrameSettings.SnapDescription" xml:space="preserve">
-    <value>[Ramka] Przyciągnij okno na 10 pikseli</value>
+    <value>[Rám] Přichytit rám při vzdálenosti 10 px</value>
   </data>
   <data name="DeskFrameFrameSettings.Scroll" xml:space="preserve">
-    <value>PRZEWIJ</value>
+    <value>POSUN</value>
+    <comment>Button</comment>
   </data>
   <data name="DeskFrameFrameSettings.ChangeIconSizeDescription" xml:space="preserve">
-    <value>Zmień rozmiar ikony</value>
+    <value>Změnit velikost ikon</value>
+    <comment>Button</comment>
   </data>
   <data name="FrameSettings.GrayscaleEnable" xml:space="preserve">
-    <value>Aktywuj skalę szarości</value>
+    <value>Povolit odstíny šedi</value>
+    <comment>CheckBox</comment>
   </data>
   <data name="FrameSettings.GrayScaleEnabledInactiveOnly" xml:space="preserve">
-    <value>Skala szarości tylko gdy ramka jest nieaktywna</value>
+    <value>Odstíny šedi jen když je rám neaktivní</value>
+    <comment>CheckBox</comment>
   </data>
   <data name="FrameSettings.GrayScaleMaxLevel" xml:space="preserve">
-    <value>Poziom szarości:</value>
+    <value>Úroveň šedi:</value>
   </data>
   <data name="TitleBarContextMenu.CustomItemOrder" xml:space="preserve">
-    <value>Własne</value>
+    <value>Vlastní</value>
   </data>
   <data name="TitleBarContextMenu.CustomItemOrder.DeleteOrder" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Smazat</value>
+    <comment>Delete button</comment>
   </data>
   <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Enable" xml:space="preserve">
-    <value>Wł</value>
+    <value>Povoleno</value>
+    <comment>Enable/Disable ToggleSwitch</comment>
   </data>
   <data name="TitleBarContextMenu_CustomItemOrder_ToggleSwitch_Disable" xml:space="preserve">
-    <value>Wył</value>
+    <value>Zakázáno</value>
+    <comment>Enable/Disable ToggleSwitch</comment>
   </data>
   <data name="DeskFrameFrameSettings.RenameFilesDescription" xml:space="preserve">
-    <value>Zmień nazwy plików, naciśnij ENTER, aby potwierdzić</value>
+    <value>Přejmenovat položky, ENTER pro potvrzení</value>
   </data>
   <data name="DeskFrameFrameSettings_ReorderDescription" xml:space="preserve">
-    <value>[Plik] Zmień kolejność pliku</value>
+    <value>[Soubor] Změnit pořadí souboru</value>
   </data>
   <data name="DeskFrameFrameSettings_SearchDescription" xml:space="preserve">
-    <value>Aby wyszukać, przesuń kursor nad ramkę, w której chcesz wyszukiwać, i zacznij pisać</value>
+    <value>Pro hledání najeďte kurzorem na rám, ve kterém chcete hledat, a začněte psát</value>
   </data>
   <data name="Deskframe.DropaFileOrFolder" xml:space="preserve">
-    <value>Przeciągnij plik/folder</value>
+    <value>P5esuňte sem soubor nebo složku</value>
+    <comment>Text above the + sign when the frame folder isn't set</comment>
   </data>
   <data name="DeskFrameFrameSettings.ReloadAllFramesButton" xml:space="preserve">
-    <value>Przeładuj wszystkie ramki</value>
+    <value>Znovu načíst všechny rámy</value>
   </data>
   <data name="DeskFrameFrameSettings.ManageFrameButton" xml:space="preserve">
-    <value>Zarządzaj ramką</value>
+    <value>Spravovat rám</value>
   </data>
   <data name="DeskFrameFrameSettings.DragWinToolTip.MainFeatures" xml:space="preserve">
-    <value>Główne cechy:</value>
+    <value>Hlavní funkce:</value>
   </data>
   <data name="DeskFrameFrameSettings.DragWinToolTip.Feature1" xml:space="preserve">
-    <value>• Przeciągnij okno prawym przyciskiem</value>
+    <value>• Přesunout libovolné okno tažením pravým tlačítkem</value>
   </data>
   <data name="DeskFrameFrameSettings.DragWinToolTip.Feature2" xml:space="preserve">
-    <value>• Zmieniaj rozmiar dowolnego okna od krawędzi i narożników</value>
+    <value>• Změnit velikost libovolného okna z hran a rohů</value>
   </data>
   <data name="DeskFrameFrameSettings.DragWinToolTip.Feature3" xml:space="preserve">
-    <value>• Przewijaj między wirtualnymi pulpitami gestami</value>
+    <value>• Přepínat virtuální plochy gesty</value>
   </data>
   <data name="DeskFrameFrameSettings.DragWinToolTip.Feature4" xml:space="preserve">
-    <value>• Zmień przezroczystość okna (Alt + kółko myszy)</value>
+    <value>• Měnit průhlednost okna (Alt + kolečko myši)</value>
   </data>
   <data name="DeskFrameFrameSettings.DragWinToolTip.Feature5" xml:space="preserve">
-    <value>• Przewijaj okna kółkiem myszy</value>
+    <value>• Procházet okna kolečkem myši</value>
   </data>
   <data name="DeskFrameFrameSettings.DragWinToolTip.DoubleClickToGithub" xml:space="preserve">
-    <value>Kliknij dwukrotnie, aby odwiedzić stronę GitHub</value>
+    <value>Dvojklikem otevřete stránku GitHubu</value>
   </data>
   <data name="FrameSettings.FrameHeight" xml:space="preserve">
-    <value>Wysokość:</value>
+    <value>Výška:</value>
   </data>
   <data name="FrameSettings.FrameWidth" xml:space="preserve">
-    <value>Szerokość:</value>
+    <value>Šířka:</value>
   </data>
   <data name="DeskFrameFrameSettings.ScrollDownDescription" xml:space="preserve">
-    <value>[DÓŁ] na pasku tytułu: wyślij okno na tył</value>
+    <value>[DOLŮ] na titulkové liště: poslat okno dozadu</value>
   </data>
   <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
-    <value>[GÓRA] na pasku tytułu: przenieś okno na przód</value>
+    <value>[NAHORU] na titulkové liště: přenést okno dopředu</value>
   </data>
   <data name="DeskFrameFrameSettings_EQSToolTip_Feature1" xml:space="preserve">
-    <value>• Zastępuje wyszukiwanie Windows przez Everything Search</value>
+    <value>• Nahrazuje vyhledávání Windows pomocí Everything Search</value>
   </data>
   <data name="DeskFrameFrameSettings_EQSToolTip_Feature2" xml:space="preserve">
-    <value>• Podgląd obrazów i wideo</value>
+    <value>• Náhled obrázků a videí</value>
   </data>
   <data name="DeskFrameFrameSettings_EQSToolTip_Feature3" xml:space="preserve">
-    <value>• Kalkulator w pasku wyszukiwania</value>
+    <value>• Kalkulačka ve vyhledávacím panelu</value>
   </data>
 </root>

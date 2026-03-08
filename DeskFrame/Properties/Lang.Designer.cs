@@ -196,6 +196,33 @@ namespace DeskFrame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replaces Windows search with Everything search.
+        /// </summary>
+        public static string DeskFrameFrameSettings_EQSToolTip_Feature1 {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings_EQSToolTip_Feature1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview images and videos.
+        /// </summary>
+        public static string DeskFrameFrameSettings_EQSToolTip_Feature2 {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings_EQSToolTip_Feature2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculator in search bar.
+        /// </summary>
+        public static string DeskFrameFrameSettings_EQSToolTip_Feature3 {
+            get {
+                return ResourceManager.GetString("DeskFrameFrameSettings_EQSToolTip_Feature3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export settings.
         /// </summary>
         public static string DeskFrameFrameSettings_ExportSettings {

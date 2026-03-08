@@ -529,4 +529,13 @@
   <data name="DeskFrameFrameSettings.ScrollUpDescription" xml:space="preserve">
     <value>[SU] sulla barra del titolo: porta la finestra in primo piano</value>
   </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature1" xml:space="preserve">
+    <value>• Sostituisce la ricerca di Windows con Everything Search</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature2" xml:space="preserve">
+    <value>• Anteprima di immagini e video</value>
+  </data>
+  <data name="DeskFrameFrameSettings_EQSToolTip_Feature3" xml:space="preserve">
+    <value>• Calcolatrice nella barra di ricerca</value>
+  </data>
 </root>
