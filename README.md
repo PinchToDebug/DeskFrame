@@ -26,6 +26,7 @@
 - Sticky + lockable frames (hold `ALT` to stick with gap)
 - Open/close frame toggle
 - `CTRL`+`SCROLL` resize icons
+- Bring to front with `SCROLL` on the title bar
 - Lightweight and fast (~75MB RAM usage)
 - Sorting options (by name, date, type, etc.)
 - First row for last accessed items
