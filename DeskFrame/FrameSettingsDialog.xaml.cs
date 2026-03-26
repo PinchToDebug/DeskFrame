@@ -243,7 +243,7 @@ namespace DeskFrame
             if (_isReverting) return;
             _instance.AnimationSpeed = AnimationSpeedSlider.Value * 0.25;
             AnimationSpeedLabel.Content = _instance.AnimationSpeed == 0 ? "OFF" : "x" + _instance.AnimationSpeed;
-            _instance.IdleOpacity = IdleOpacitySlider.Value / 10;
+            _instance.IdleOpacity = IdleOpacitySlider.Value == 0 ? 0.002 :(IdleOpacitySlider.Value / 10);
             IdleOpacityLabel.Content = _instance.IdleOpacity * 100 + "%";
             _instance.IconSize = (int)(IconSizeSlider.Value * 4);
             IconSizeLabel.Content = _instance.IconSize;

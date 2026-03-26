@@ -715,7 +715,7 @@
                         <Label Content="{x:Static prop:Lang.FrameSettings_IdleOpacityLabel}" Height="30" Margin="0,20,0,0"/>
                         <Label x:Name="IdleOpacityLabel" Content="0%" Height="30" Margin="5,20,0,0" Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" FontWeight="Bold"/>
                     </StackPanel>
-                    <Slider x:Name="IdleOpacitySlider" Width="200" TickPlacement="TopLeft" TickFrequency="1" Minimum="1" Maximum="10" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
+                    <Slider x:Name="IdleOpacitySlider" Width="200" TickPlacement="TopLeft" TickFrequency="1" Minimum="0" Maximum="10" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True"/>
 
                     <CheckBox x:Name="AutoExpandonCursorCheckBox" Margin="-11,15,0,0" Checked="AutoExpandonCursorCheckBox_Checked" Unchecked="AutoExpandonCursorCheckBox_Unchecked">
                         <TextBlock Text="{x:Static prop:Lang.FrameSettings_AutoExpandonCursor}" TextWrapping="Wrap"/>
