@@ -148,10 +148,9 @@ namespace DeskFrame
             _dWindows.showFolder.Visibility = Visibility.Visible;
             _dWindows.title.Visibility = Visibility.Visible;
             _dWindows.WindowBorder.Visibility = Visibility.Visible;
+            _dWindows.Show();
             _dWindows.Left = this.Width + this.Left + 10;
             _dWindows.Top = this.Top;
-            _dWindows.Show();
-
         }
         private void Window_LocationChanged(object sender, EventArgs e)
         {

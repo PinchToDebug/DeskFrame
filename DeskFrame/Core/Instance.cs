@@ -921,15 +921,9 @@ public class Instance : INotifyPropertyChanged
         string[] notGlobalProperties = {
             "PosX",
             "PosY",
-            "Width",
-            "Height",
-            "IconSize",
             "Name",
             "Folder",
-            "Minimized",
-            "ShowInGrid",
             "IsLocked",
-            "CheckFolderSize",
             "TitleText",
             "ShowOnVirtualDesktops",
             "SettingDefault"
